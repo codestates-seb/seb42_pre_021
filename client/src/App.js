@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import AnswerEdit from 'pages/AnswerEdit';
+import Login from 'pages/Login';
+import MyPage from 'pages/MyPage';
+import MyPageEdit from 'pages/MyPageEdit';
+import QuestionAdd from 'pages/QuestionAdd';
+import QuestionDetail from 'pages/QuestionDetail';
+import QuestionEdit from 'pages/QuestionEdit';
+import Questions from 'pages/Questions';
+import SignUp from 'pages/SignUp';
+import { Route } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
+import styled from 'styled-components';
+import Header from './containers/Header';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <MainContainer>
+        <Routes>
+          <Route path="/" element={<Questions />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/:question-id" element={<QuestionDetail />} />
+          <Route path="/:question-id/edit" element={<QuestionEdit />} />
+          <Route path="/add" element={<QuestionAdd />} />
+          <Route path="/:answer-id/edit" element={<AnswerEdit />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage/edit" element={<MyPageEdit />} />
+        </Routes>
+      </MainContainer>
     </div>
   );
-}
+};
+
+const MainContainer = styled.main`
+  width: 100%;
+  height: 200%;
+  padding-top: 3rem;
+`;
 
 export default App;
