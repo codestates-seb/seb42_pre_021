@@ -1,3 +1,7 @@
+// eslint-disable-next-line
+import { Route } from 'react-router-dom';
+// eslint-disable-next-line
+import { Routes } from 'react-router-dom';
 import AnswerEdit from 'pages/AnswerEdit';
 import Login from 'pages/Login';
 import MyPage from 'pages/MyPage';
@@ -7,10 +11,8 @@ import QuestionDetail from 'pages/QuestionDetail';
 import QuestionEdit from 'pages/QuestionEdit';
 import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
-import { Route } from 'react-router-dom';
-import { Routes } from 'react-router-dom';
 import styled from 'styled-components';
-import Header from './containers/Header';
+import Header from 'containers/Header';
 
 const App = () => {
   return (
@@ -35,7 +37,7 @@ const App = () => {
 
 const MainContainer = styled.main`
   width: 100%;
-  height: 200%;
+  height: 100%;
   padding-top: 3rem;
 `;
 
