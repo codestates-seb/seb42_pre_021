@@ -1,9 +1,11 @@
 package com.roseknife.stackoverflow.member.entity;
 
+import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Member {
+public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -31,7 +33,7 @@ public class Member {
     private String profile;
 
     @Column(nullable = false)
-    private LocalDateTime lastLoginAt;
+    private LocalDateTime lastLoginAt = LocalDateTime.now();
 
     @Embedded
     private Introduce introduce;
