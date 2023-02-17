@@ -3,6 +3,7 @@ package com.roseknife.stackoverflow.question.dto;
 import com.roseknife.stackoverflow.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -27,6 +28,10 @@ public class QuestionDto {
     @Getter
     @AllArgsConstructor
     public static class Patch {
+        @Positive
+        @Setter
+        private Long questionId;
+
 
         private String title;
 

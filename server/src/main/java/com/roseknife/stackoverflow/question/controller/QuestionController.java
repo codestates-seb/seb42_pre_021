@@ -9,12 +9,10 @@ import com.roseknife.stackoverflow.utils.UriCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.net.URI;
 
 @RestController
@@ -41,5 +39,15 @@ public class QuestionController {
 //        return new ResponseEntity<>(
 //                new SingleResponseDto<>(questionMapper.questionToQuestionResponse(question))
 //                        , HttpStatus.OK);
+    }
+
+    @PatchMapping("/{question-id}")
+    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive Long questionId,
+                                        @Valid @RequestBody QuestionDto.Patch requestBody) {
+        requestBody.setQuestionId(questionId);
+
+        Question question = questionService.updateQuestion(questionMapper.questionPatchToQuestion(requestBody));
+
+
     }
 }
