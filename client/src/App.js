@@ -1,11 +1,5 @@
-import Navigation from './containers/Navigation';
-
 function App() {
-  return (
-    <div className="App">
-      <Navigation />
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;
