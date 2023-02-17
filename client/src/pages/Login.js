@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 import GoogleLogin from 'components/GoogleLogin';
+import GithubLogin from 'components/GithubLogin';
+import { ReactComponent as StackOverFlowLogo } from 'assets/stackoverflow.svg';
 
 const Login = () => {
   return (
     <Wrapper>
       {/*Navigation 위치예정*/}
       <LoginContainer>
+        <StackOverFlowLogo width={40} height={40} />
         <GoogleLogin />
+        <GithubLogin />
       </LoginContainer>
       <SideArea />
     </Wrapper>

@@ -1,0 +1,39 @@
+import styled from 'styled-components';
+import { ReactComponent as GithubIcon } from 'assets/githubLogo.svg';
+
+const HandleClickGithubLoginButton = () => {};
+
+const GithubLogin = () => {
+  return (
+    <GithubLoginButton onClick={HandleClickGithubLoginButton}>
+      <GithubIcon width={20} height={20} />
+      <span>Login with GitHub</span>
+    </GithubLoginButton>
+  );
+};
+
+const GithubLoginButton = styled.button`
+  width: 20rem;
+  height: 2.5rem;
+  border-radius: 0.4rem;
+  background-color: #2f3337;
+  color: white;
+  display: inline-block;
+  padding: 0.625rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: none;
+  border: 1px solid #d5d9dc;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  > span {
+    padding: 0.3rem;
+  }
+  &:hover {
+    background-color: black;
+    border: 1px solid hsl(210, 8%, 75%);
+  }
+`;
+
+export default GithubLogin;
