@@ -3,6 +3,7 @@ package com.roseknife.stackoverflow.member.dto;
 import lombok.Getter;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public class MemberDto {
@@ -10,11 +11,13 @@ public class MemberDto {
     public static class Post {
         @Email
         private String email;
+
+        @NotBlank
         private String nickname;
+
         @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$",
         message = "Passwords must contain at least eight characters, including at least 1 letter and 1 number.")
         private String password;
-
     }
 
     @Getter
