@@ -45,7 +45,7 @@ const SideArea = styled.div`
   height: 100%;
   flex-grow: 1;
   align-items: center;
-  background-color: white;
+  background-color: #f1f2f3;
 `;
 
 const SignUpTextContainer = styled.div`
@@ -55,7 +55,7 @@ const SignUpTextContainer = styled.div`
   width: 20rem;
 `;
 
-export const SignupLink = styled(Link)`
+const SignupLink = styled(Link)`
   color: #3b95ff;
   font-size: 0.9rem;
   text-decoration: none;
