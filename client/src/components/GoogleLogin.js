@@ -30,8 +30,8 @@ const GoogleLoginButton = styled.button`
     padding: 0.3rem;
   }
   &:hover {
-    background-color: hsl(210, 8%, 85%);
-    border: 1px solid hsl(210, 8%, 75%);
+    background-color: #d6d9dc;
+    border: 1px solid #babfc4;
   }
 `;
 

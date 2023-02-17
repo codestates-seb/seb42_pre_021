@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import GoogleLogin from 'components/GoogleLogin';
 import GithubLogin from 'components/GithubLogin';
+import LoginInputForm from 'components/LoginInputForm';
+import { Link } from 'react-router-dom';
 import { ReactComponent as StackOverFlowLogo } from 'assets/stackoverflow.svg';
 
 const Login = () => {
@@ -11,6 +13,10 @@ const Login = () => {
         <StackOverFlowLogo width={40} height={40} />
         <GoogleLogin />
         <GithubLogin />
+        <LoginInputForm />
+        <SignUpTextContainer>
+          Don’t have an account? <SignupLink to="/signup"> Sign up</SignupLink>
+        </SignUpTextContainer>
       </LoginContainer>
       <SideArea />
     </Wrapper>
@@ -42,4 +48,20 @@ const SideArea = styled.div`
   background-color: white;
 `;
 
+const SignUpTextContainer = styled.div`
+  margin-top: 2.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 20rem;
+`;
+
+export const SignupLink = styled(Link)`
+  color: #3b95ff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    color: #80bbff;
+  }
+`;
 export default Login;
