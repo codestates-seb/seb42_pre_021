@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import axios from 'axios';
 
 const LoginInputForm = () => {
   const [values, setValues] = useState({
@@ -13,10 +14,29 @@ const LoginInputForm = () => {
       [event.target.name]: event.target.value,
     });
   };
+  axios.defaults.withCredentials = true;
 
-  const handleSubmit = event => {
-    event.preventDefault();
-  };
+  // const handleSubmit = event => {
+  //   event.preventDefault();
+  //   axios
+  //     .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { withCredentials: true })
+  //     .then(res => {
+  //       localStorage.setItem('accessToken', res.data)
+  //     })
+  //     .get(`${process.env.REACT_APP_API_URL}/members/`, {
+  //       withCredentials: true,
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  //       },
+  //     })
+  //     .then((res)=>{
+  //       setIsLogin(true)
+  //       navigate('/questions')
+  //     })
+  //     .catch(error => {
+  //       alert(error);
+  //     });
+  // };
 
   return (
     <InputContainer>
@@ -24,7 +44,8 @@ const LoginInputForm = () => {
       <Input type={'email'} name="email" value={values.email} onChange={handleChange} />
       <Label>Password</Label>
       <Input type={'password'} name="password" value={values.password} onChange={handleChange} />
-      <LoginButton onSubmit={handleSubmit}>Log in</LoginButton>
+      {/* <LoginButton onSubmit={handleSubmit}>Log in</LoginButton> */}
+      <LoginButton>Log in</LoginButton>
     </InputContainer>
   );
 };

@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 // eslint-disable-next-line
-import { Route } from 'react-router-dom';
+import { Route, useNavigate } from 'react-router-dom';
 // eslint-disable-next-line
 import { Routes } from 'react-router-dom';
 import AnswerEdit from 'pages/AnswerEdit';
@@ -13,11 +14,37 @@ import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
 import styled from 'styled-components';
 import Header from 'containers/Header';
+import axios from 'axios';
 
 const App = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const navigate = useNavigate();
+
+  const authStatusHandler = () => {
+    return axios
+      .get(`https://localhost:3000/members/{member-id}`, {
+        // 유저의 정보를 어떻게 확인하지?
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then(response => {
+        setIsLogin(response.data.memberStatus);
+        setUserInfo(response.data);
+        navigate('/questions');
+      })
+      .catch(err => console.log(err));
+  };
+
+  useEffect(() => {
+    authStatusHandler();
+  }, []);
+
   return (
     <div className="App">
-      <Header />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} />
       <MainContainer>
         <Routes>
           <Route path="/" element={<Questions />} />
@@ -27,8 +54,8 @@ const App = () => {
           <Route path="/:question-id/edit" element={<QuestionEdit />} />
           <Route path="/add" element={<QuestionAdd />} />
           <Route path="/:answer-id/edit" element={<AnswerEdit />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mypage/edit" element={<MyPageEdit />} />
+          <Route path="/mypage" element={<MyPage userInfo={userInfo} />} />
+          <Route path="/mypage/edit" element={<MyPageEdit userInfo={userInfo} />} />
         </Routes>
       </MainContainer>
     </div>
