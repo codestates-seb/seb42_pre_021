@@ -32,7 +32,6 @@ public class QuestionDto {
         @Setter
         private Long questionId;
 
-
         private String title;
 
         private String content;

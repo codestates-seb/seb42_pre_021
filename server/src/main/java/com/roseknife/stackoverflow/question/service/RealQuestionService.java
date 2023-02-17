@@ -5,6 +5,7 @@ import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.repository.QuestionRepository;
+import com.roseknife.stackoverflow.utils.CustomBeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +15,11 @@ import java.util.Optional;
 public class RealQuestionService implements QuestionService{
     private final QuestionRepository questionRepository;
 
-    public RealQuestionService(QuestionRepository questionRepository) {
+    private final CustomBeanUtils<Question> beanUtils;
+
+    public RealQuestionService(QuestionRepository questionRepository, CustomBeanUtils beanUtils) {
         this.questionRepository = questionRepository;
+        this.beanUtils = beanUtils;
     }
 
     public Question createQuestion(Question question) {
