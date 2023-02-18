@@ -8,7 +8,6 @@ import { ReactComponent as StackOverFlowLogo } from 'assets/stackoverflow.svg';
 const Login = () => {
   return (
     <Wrapper>
-      {/*Navigation 위치예정*/}
       <LoginContainer>
         <StackOverFlowLogo width={40} height={40} />
         <GoogleLogin />
@@ -18,7 +17,6 @@ const Login = () => {
           Don’t have an account? <SignupLink to="/signup"> Sign up</SignupLink>
         </SignUpTextContainer>
       </LoginContainer>
-      <SideArea />
     </Wrapper>
   );
 };
@@ -40,13 +38,13 @@ const LoginContainer = styled.div`
   align-items: center;
   background-color: #f1f2f3;
 `;
-const SideArea = styled.div`
-  width: 100%;
-  height: 100%;
-  flex-grow: 1;
-  align-items: center;
-  background-color: #f1f2f3;
-`;
+// const SideArea = styled.div`
+//   width: 100%;
+//   height: 100%;
+//   flex-grow: 1;
+//   align-items: center;
+//   background-color: #f1f2f3;
+// `;
 
 const SignUpTextContainer = styled.div`
   margin-top: 2.5rem;
