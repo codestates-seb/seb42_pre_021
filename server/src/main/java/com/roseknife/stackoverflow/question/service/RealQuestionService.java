@@ -43,4 +43,9 @@ public class RealQuestionService implements QuestionService{
 
         return findQuestion;
     }
+
+    public Question findQuestion(Long questionId) {
+        return findVerifiedQuestion(questionId);
+    }
+
 }

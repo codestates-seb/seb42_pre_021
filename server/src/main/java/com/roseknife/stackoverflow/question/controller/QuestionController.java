@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.question.controller;
 
+import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.dto.SingleResponseDto;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/questions")
@@ -53,6 +55,15 @@ public class QuestionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/{question-id}")
+    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId) {
 
+        Question question = questionService.findQuestion(questionId);
+
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(questionMapper.questionToQuestionResponse(question))
+                , HttpStatus.OK);
+    }
 
 }
