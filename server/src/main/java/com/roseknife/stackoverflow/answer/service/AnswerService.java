@@ -28,9 +28,9 @@ public class AnswerService {
 		return answerRepository.save(findAnswer);
 	}
 
-//	public void deleteAnswer() {
-//
-//	}
+	public void deleteAnswer(Long answerId) {
+		answerRepository.deleteById(answerId);
+	}
 
 	private Answer findVerifiedAnswer(Long answerId) {
 		Optional<Answer> optionalAnswer = answerRepository.findById(answerId);

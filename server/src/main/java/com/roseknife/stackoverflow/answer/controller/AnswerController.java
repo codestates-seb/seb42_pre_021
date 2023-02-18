@@ -43,8 +43,10 @@ public class AnswerController {
 		return ResponseEntity.ok(new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)));
 	}
 
-//	@DeleteMapping("/{answer-id}")
-//	public ResponseEntity deleteAnswer() {
-//
-//	}
+	@DeleteMapping("/{answer-id}")
+	public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive Long answerId) {
+		answerService.deleteAnswer(answerId);
+
+		return ResponseEntity.noContent().build();
+	}
 }

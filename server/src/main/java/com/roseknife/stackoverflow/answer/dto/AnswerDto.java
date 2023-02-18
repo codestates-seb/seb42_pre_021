@@ -30,11 +30,6 @@ public class AnswerDto {
 		private String content;
 	}
 
-//	@Getter
-//	public static class Delete {
-//
-//	}
-
 	@Getter
 	public static class Response {
 		private Long answerId;
