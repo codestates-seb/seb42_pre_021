@@ -12,4 +12,8 @@ public interface AnswerMapper {
 	@Mapping(source = "questionId", target = "question.questionId")
 	Answer answerPostDtoToAnswer(AnswerDto.Post answerPostDto);
 
+	Answer answerPatchDtoToAnswer(AnswerDto.Patch answerPatchDto);
+
+	@Mapping(source = "member.memberId", target = "memberId")
+	AnswerDto.Response answerToAnswerResponseDto(Answer answer);
 }

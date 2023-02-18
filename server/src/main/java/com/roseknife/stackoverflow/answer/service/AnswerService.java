@@ -5,27 +5,37 @@ import com.roseknife.stackoverflow.answer.repository.AnswerRepository;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AnswerService {
 	private final AnswerRepository answerRepository;
 	private final MemberService memberService;
 
-	// TODO: 답변 등록
 	public Answer createAnswer(Answer answer) {
-
 		return answerRepository.save(answer);
 	}
 
 
-//	// TODO: 답변 수정
-//	public Answer updateAnswer() {
-//
-//	}
-//
-//	// TODO: 답변 삭제
+	public Answer updateAnswer(Answer answer) {
+		Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+		Optional.ofNullable(answer.getContent()).ifPresent(findAnswer::setContent);
+
+		return answerRepository.save(findAnswer);
+	}
+
 //	public void deleteAnswer() {
 //
 //	}
+
+	private Answer findVerifiedAnswer(Long answerId) {
+		Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+		Answer findAnswer = optionalAnswer.orElseThrow();
+
+		return findAnswer;
+	}
 }
