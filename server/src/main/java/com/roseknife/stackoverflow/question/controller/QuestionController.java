@@ -82,4 +82,21 @@ public class QuestionController {
                         pageQuestions),
                 HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity getSearchQuestions(@RequestParam("keyword") String keyword,
+                                            @Positive @RequestParam("page") int page,
+                                            @Positive @RequestParam("size") int size,
+                                            @RequestParam("sortDir") String sortDir,
+                                            @RequestParam("sortBy") String sortBy
+    ) {
+        Page<Question> pageQuestions = questionService.searchQuestions(page - 1, size, sortDir, sortBy, keyword);
+
+        List<Question> questions = pageQuestions.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponses(questions),
+                        pageQuestions),
+                HttpStatus.OK);
+    }
 }

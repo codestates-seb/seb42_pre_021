@@ -7,11 +7,13 @@ import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.repository.QuestionRepository;
 import com.roseknife.stackoverflow.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,13 +57,15 @@ public class RealQuestionService implements QuestionService{
         //리팩토링 여부?
         PageRequest request;
 
-        if (sortDir.equals("DESC")) {
-            request = PageRequest.of(page, size, Sort.Direction.DESC, sortBy);
-        } else if (sortDir.equals("ASC")) {
-            request = PageRequest.of(page, size, Sort.Direction.ASC, sortBy);
-        } else {
-            throw new BusinessLogicException(ExceptionCode.QUESTION_SORT_ERROR);
-        }
+        request = PageRequest.of(page, size, Sort.Direction.valueOf(sortDir), sortBy);
+
         return questionRepository.findAll(request);
+    }
+
+    public Page<Question> searchQuestions(int page, int size, String sortDir, String sortBy, String keyword) {
+        PageRequest request;
+
+        request = PageRequest.of(page, size, Sort.Direction.valueOf(sortDir), sortBy);
+        return questionRepository.findByTitleContainsOrContentContains(keyword,keyword,request);
     }
 }
