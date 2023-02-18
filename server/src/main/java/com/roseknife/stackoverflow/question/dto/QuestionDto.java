@@ -49,6 +49,7 @@ public class QuestionDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private Integer viewCount;
+        private Integer answerCount;
         //        private Member member;
         //Question-MemberDto
         private QuestionDto.QuestionMember questionMember;
@@ -66,6 +67,21 @@ public class QuestionDto {
         private String profile;
     }
 
+    @AllArgsConstructor
+    @Getter
+    public static class ResponseAll {
+        private Long questionId;
+        private String title;
+        private String content;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
+        private Integer viewCount;
+        private Integer answerCount;
+        private QuestionDto.QuestionMember questionMember;
+
+        //        private List<Tag> Tags;
+
+    }
 //    @AllArgsConstructor
 //    @Getter
 //    public static class QuestionAnswer {

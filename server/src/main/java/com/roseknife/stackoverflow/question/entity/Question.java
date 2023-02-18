@@ -27,7 +27,7 @@ public class Question extends Auditable {
     private String content;
 
     private Integer viewCount=0;
-
+    private Integer AnswerCount=0;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

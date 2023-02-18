@@ -81,6 +81,5 @@ public class QuestionController {
                 new MultiResponseDto<>(questionMapper.questionsToQuestionResponses(questions),
                         pageQuestions),
                 HttpStatus.OK);
-        );
     }
 }
