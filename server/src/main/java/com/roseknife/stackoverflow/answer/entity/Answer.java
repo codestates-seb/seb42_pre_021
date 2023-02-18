@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.answer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.entity.Question;
@@ -25,7 +26,9 @@ public class Answer extends Auditable {
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "QUESTION_ID")
 	private Question question;
+
 }
