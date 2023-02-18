@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { Route } from 'react-router-dom';
 // eslint-disable-next-line
-import { Routes } from 'react-router-dom';
+import { Routes, useNavigate } from 'react-router-dom';
 import AnswerEdit from 'pages/AnswerEdit';
 import Login from 'pages/Login';
 import MyPage from 'pages/MyPage';
@@ -13,6 +13,7 @@ import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
 import styled from 'styled-components';
 import Header from 'containers/Header';
+import axios from 'axios';
 
 const App = () => {
   return (
