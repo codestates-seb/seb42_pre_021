@@ -22,6 +22,17 @@ public class MemberService {
         return savedMember;
     }
 
+    public Member findMember(Long memberId) {
+        return findVerifiedMember(memberId);
+    }
+
+    private Member findVerifiedMember(Long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Member findMember = optionalMember
+            .orElseThrow(() -> new RuntimeException("Member is not exist."));
+        return findMember;
+    }
+
     private void verifyExistsMember(Member member) {
         verifyExistsEmail(member.getEmail());
         verifyExistsNickname(member.getNickname());
@@ -30,14 +41,14 @@ public class MemberService {
     private void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) {
-            throw new RuntimeException("Member is already exist.");
+            throw new RuntimeException("Email is already exist.");
         }
     }
 
     private void verifyExistsNickname(String nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname);
         if (member.isPresent()) {
-            throw new RuntimeException("Member is already exist.");
+            throw new RuntimeException("Nickname is already exist.");
         }
     }
 }
