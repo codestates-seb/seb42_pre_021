@@ -6,6 +6,9 @@ import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.repository.QuestionRepository;
 import com.roseknife.stackoverflow.utils.CustomBeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,4 +51,17 @@ public class RealQuestionService implements QuestionService{
         return findVerifiedQuestion(questionId);
     }
 
+    public Page<Question> findQuestions(int page, int size, String sortDir, String sortBy) {
+        //리팩토링 여부?
+        PageRequest request;
+
+        if (sortDir.equals("DESC")) {
+            request = PageRequest.of(page, size, Sort.Direction.DESC, sortBy);
+        } else if (sortDir.equals("ASC")) {
+            request = PageRequest.of(page, size, Sort.Direction.ASC, sortBy);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.QUESTION_SORT_ERROR);
+        }
+        return questionRepository.findAll(request);
+    }
 }

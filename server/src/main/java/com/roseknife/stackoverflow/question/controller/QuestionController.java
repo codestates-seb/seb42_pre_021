@@ -1,12 +1,14 @@
 package com.roseknife.stackoverflow.question.controller;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
+import com.roseknife.stackoverflow.dto.MultiResponseDto;
 import com.roseknife.stackoverflow.dto.SingleResponseDto;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.mapper.QuestionMapper;
 import com.roseknife.stackoverflow.question.service.RealQuestionService;
 import com.roseknife.stackoverflow.utils.UriCreator;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -66,4 +68,19 @@ public class QuestionController {
                 , HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity getQuestions(@Positive @RequestParam("page") int page,
+                                       @Positive @RequestParam("size") int size,
+                                       @RequestParam("sortDir") String sortDir,
+                                       @RequestParam("sortBy") String sortBy) {
+        Page<Question> pageQuestions = questionService.findQuestions(page-1, size, sortDir, sortBy);
+
+        List<Question> questions = pageQuestions.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponses(questions),
+                        pageQuestions),
+                HttpStatus.OK);
+        );
+    }
 }
