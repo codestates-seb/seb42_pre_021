@@ -5,7 +5,7 @@ import AddButton from './AddButton';
 import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 
-const QustionList = () => {
+const QuestionList = () => {
   const SORT_BY = ['Newest', 'Answers', 'Views'];
 
   const [questionList, setQuestionList] = useState([]);
@@ -67,4 +67,4 @@ const QuestionWrapper = styled.div`
   padding-right: 2rem;
 `;
 
-export default QustionList;
+export default QuestionList;
