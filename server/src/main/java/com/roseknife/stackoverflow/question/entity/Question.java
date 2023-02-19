@@ -1,5 +1,7 @@
 package com.roseknife.stackoverflow.question.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.member.entity.Member;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -24,13 +27,15 @@ public class Question extends Auditable {
     private String content;
 
     private Integer viewCount=0;
-
+    private Integer AnswerCount=0;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-//    @OneToMany(mappedBy = "question")
-//    private List<Answer> answers;
+    @JsonIgnore
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionImage> questionImages;

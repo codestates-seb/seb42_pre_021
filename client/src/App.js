@@ -13,11 +13,39 @@ import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
 import styled from 'styled-components';
 import Header from 'containers/Header';
-// import axios from 'axios';
+import axios from 'axios';
+// import { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 
 const App = () => {
+  // const [isLogin, setIsLogin] = useState(false);
+  // const [userInfo, setUserInfo] = useState(null);
+  // const navigate = useNavigate();
+
+  // const authStatusHandler = () => {
+  //   return axios
+  //     .get(`https://localhost:3000/members/{member-id}`, {
+  //       // 유저의 정보를 어떻게 확인하지?
+  //       withCredentials: true,
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  //       },
+  //     })
+  //     .then(response => {
+  //       setIsLogin(response.data.memberStatus);
+  //       setUserInfo(response.data);
+  //       navigate('/questions');
+  //     })
+  //     .catch(err => console.log(err));
+  // };
+
+  // useEffect(() => {
+  //   authStatusHandler();
+  // }, []);
+
   return (
     <div className="App">
+      {/* <Header isLogin={isLogin} setIsLogin={setIsLogin} /> */}
       <Header />
       <MainContainer>
         <Routes>
@@ -28,7 +56,9 @@ const App = () => {
           <Route path="/:question-id/edit" element={<QuestionEdit />} />
           <Route path="/add" element={<QuestionAdd />} />
           <Route path="/:answer-id/edit" element={<AnswerEdit />} />
+          {/* <Route path="/mypage" element={<MyPage userInfo={userInfo} />} /> */}
           <Route path="/mypage" element={<MyPage />} />
+          {/* <Route path="/mypage/edit" element={<MyPageEdit userInfo={userInfo} />} /> */}
           <Route path="/mypage/edit" element={<MyPageEdit />} />
         </Routes>
       </MainContainer>
