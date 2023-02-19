@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const Questions = () => {
   return (
     <>
-      <TestNav>네비게이션 공간 테스트용</TestNav>
       <Container>
         <QuesionSection>
           <QuestionList />
@@ -17,15 +16,6 @@ const Questions = () => {
     </>
   );
 };
-
-const TestNav = styled.nav`
-  border: 2px solid blue;
-  width: 15rem;
-  height: 100%;
-  position: fixed;
-  top: 3rem;
-  left: 5%;
-`;
 
 const Container = styled.div`
   width: 100%;
