@@ -13,10 +13,9 @@ import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
 import styled from 'styled-components';
 import Header from 'containers/Header';
-
+import axios from 'axios';
 // import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const App = () => {
   // const [isLogin, setIsLogin] = useState(false);
@@ -71,6 +70,9 @@ const MainContainer = styled.main`
   width: 100%;
   height: 100%;
   padding-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default App;
