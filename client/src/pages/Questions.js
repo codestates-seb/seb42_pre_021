@@ -1,5 +1,40 @@
+import Notices from 'components/Notices';
+import QuestionList from 'components/QuestionList';
+import styled from 'styled-components';
+
 const Questions = () => {
-  return <div></div>;
+  return (
+    <>
+      <Container>
+        <QuesionSection>
+          <QuestionList />
+        </QuesionSection>
+        <SideContent>
+          <Notices />
+        </SideContent>
+      </Container>
+    </>
+  );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding-top: 2rem;
+  padding-left: calc(5% + 15rem);
+`;
+
+const QuesionSection = styled.section`
+  /* border: 2px solid red; */
+  width: 48rem;
+  height: fit-content;
+`;
+
+const SideContent = styled.aside`
+  /* border: 2px solid greenyellow; */
+  width: 19rem;
+  height: 100%;
+`;
 
 export default Questions;
