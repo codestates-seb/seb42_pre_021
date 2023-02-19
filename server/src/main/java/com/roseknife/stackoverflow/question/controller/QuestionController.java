@@ -96,4 +96,11 @@ public class QuestionController {
                         pageQuestions),
                 HttpStatus.OK);
     }
+
+    @DeleteMapping("/{question-id}")
+    public ResponseEntity getQuestions(@PathVariable("question-id") @Positive Long questionId) {
+        questionService.deleteQuestion(questionId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
