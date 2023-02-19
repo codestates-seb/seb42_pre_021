@@ -13,6 +13,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionDto {
@@ -40,7 +41,20 @@ public class QuestionDto {
 
         private String content;
     }
+    @Getter
+    public static class QuestionAnswer {
+        private String createdAt;
+        private String modifiedAt;
+        private String content;
+        private QuestionDto.QuestionMember questionMember;
 
+        public QuestionAnswer(LocalDateTime createdAt, LocalDateTime modifiedAt, String content, QuestionMember questionMember) {
+            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.content = content;
+            this.questionMember = questionMember;
+        }
+    }
     @Getter
     public static class Response {
         private Long questionId;
@@ -54,9 +68,10 @@ public class QuestionDto {
         //Question-MemberDto
         private QuestionDto.QuestionMember questionMember;
 
-        private List<Answer> answers;
+        //        private List<Answer> answers;
+        private List<QuestionDto.QuestionAnswer> questionAnswers=new ArrayList<>();
 
-        public Response(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount, Integer answerCount, QuestionMember questionMember, List<Answer> answers) {
+        public Response(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount, Integer answerCount, QuestionMember questionMember, List<Answer> answers, List<QuestionDto.QuestionAnswer> questionAnswers) {
             this.questionId = questionId;
             this.title = title;
             this.content = content;
@@ -65,7 +80,8 @@ public class QuestionDto {
             this.viewCount = viewCount;
             this.answerCount = answerCount;
             this.questionMember = questionMember;
-            this.answers = answers;
+            this.questionAnswers = questionAnswers;
+//            this.answers = answers;
         }
 
         //Question-AnswerDto
@@ -102,6 +118,7 @@ public class QuestionDto {
             this.answerCount = answerCount;
             this.questionMember = questionMember;
         }
+
 
         //        private List<Tag> Tags;
 

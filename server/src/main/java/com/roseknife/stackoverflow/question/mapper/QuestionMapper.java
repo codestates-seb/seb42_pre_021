@@ -18,9 +18,15 @@ public interface QuestionMapper {
     //01.
     @Mapping(source = "member.nickname",target = "questionMember.nickname")
     @Mapping(source = "member.profile",target = "questionMember.profile")
+    @Mapping(source = "answers",target = "questionAnswers")
+//    @Mapping(source = "answers.content",target = "questionAnswers.content")
+//    @Mapping(source = "answers.member.nickname",target = "questionAnswers.questionMember.nickname")
+//    @Mapping(source = "answers.member.profile",target = "questionAnswers.questionMember.profile")
     QuestionDto.Response questionToQuestionResponse(Question requestBody);
 
-
+    @Mapping(source = "member.nickname",target = "questionMember.nickname")
+    @Mapping(source = "member.profile",target = "questionMember.profile")
+    QuestionDto.QuestionAnswer answerToQuestionAnswer(Answer requestBody);
 
     Question questionPatchToQuestion(QuestionDto.Patch requestBody);
 
