@@ -1,5 +1,5 @@
 import Notices from 'components/Notices';
-import QustionList from 'components/QustionList';
+import QuestionList from 'components/QuestionList';
 import styled from 'styled-components';
 
 const Questions = () => {
@@ -8,7 +8,7 @@ const Questions = () => {
       <TestNav>네비게이션 공간 테스트용</TestNav>
       <Container>
         <QuesionSection>
-          <QustionList />
+          <QuestionList />
         </QuesionSection>
         <SideContent>
           <Notices />
