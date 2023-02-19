@@ -6,6 +6,7 @@ import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.repository.QuestionRepository;
 import com.roseknife.stackoverflow.utils.CustomBeanUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -17,15 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RealQuestionService implements QuestionService{
     private final QuestionRepository questionRepository;
-
     private final CustomBeanUtils<Question> beanUtils;
 
-    public RealQuestionService(QuestionRepository questionRepository, CustomBeanUtils beanUtils) {
-        this.questionRepository = questionRepository;
-        this.beanUtils = beanUtils;
-    }
 
     public Question createQuestion(Question question) {
         Question savedQuestion = questionRepository.save(question);
@@ -45,6 +42,9 @@ public class RealQuestionService implements QuestionService{
 
         Question findQuestion =
                 optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+
+        findQuestion.setViewCount(findQuestion.getViewCount()+1);   //단건 조회시 조회수 증가
+        questionRepository.save(findQuestion);                      //업데이트
 
         return findQuestion;
     }

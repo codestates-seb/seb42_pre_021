@@ -55,8 +55,8 @@ public class Member extends Auditable {
     }
 
 
-    @OneToMany(mappedBy = "member")
-    private List<Question> questions = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Question> questions = new ArrayList<>();
 
 
 }

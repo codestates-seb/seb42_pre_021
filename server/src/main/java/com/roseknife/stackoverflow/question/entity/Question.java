@@ -26,16 +26,19 @@ public class Question extends Auditable {
 
     private String content;
 
-    private Integer viewCount=0;
-    private Integer AnswerCount=0;
-    @JsonIgnore
+    private Integer viewCount=0;    //초기화 = 0
+    private Integer AnswerCount=0;  //초기화 = 0
+
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "question")
+    @JsonIgnore //목록으로 가져오는 쪽 에서만 적용해도 가능
+    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)    //
     private List<Answer> answers = new ArrayList<>();
+
+
 
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionImage> questionImages;

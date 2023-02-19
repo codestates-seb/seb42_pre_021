@@ -8,6 +8,7 @@ import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.mapper.QuestionMapper;
 import com.roseknife.stackoverflow.question.service.RealQuestionService;
 import com.roseknife.stackoverflow.utils.UriCreator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +23,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 @Validated
+@RequiredArgsConstructor
 public class QuestionController {
     private final static String QUESTION_DEFAULT_URL = "/questions";
     private final RealQuestionService questionService;
     private final QuestionMapper questionMapper;
-
-    public QuestionController(RealQuestionService questionService, QuestionMapper questionMapper) {
-        this.questionService = questionService;
-        this.questionMapper = questionMapper;
-    }
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {

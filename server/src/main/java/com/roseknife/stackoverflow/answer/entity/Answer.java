@@ -26,7 +26,6 @@ public class Answer extends Auditable {
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "QUESTION_ID")
 	private Question question;

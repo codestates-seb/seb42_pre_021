@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class QuestionDto {
@@ -40,14 +41,13 @@ public class QuestionDto {
         private String content;
     }
 
-    @AllArgsConstructor
     @Getter
     public static class Response {
         private Long questionId;
         private String title;
         private String content;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private String createdAt;
+        private String modifiedAt;
         private Integer viewCount;
         private Integer answerCount;
         //        private Member member;
@@ -55,6 +55,18 @@ public class QuestionDto {
         private QuestionDto.QuestionMember questionMember;
 
         private List<Answer> answers;
+
+        public Response(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount, Integer answerCount, QuestionMember questionMember, List<Answer> answers) {
+            this.questionId = questionId;
+            this.title = title;
+            this.content = content;
+            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.viewCount = viewCount;
+            this.answerCount = answerCount;
+            this.questionMember = questionMember;
+            this.answers = answers;
+        }
 
         //Question-AnswerDto
 //        private
@@ -68,17 +80,28 @@ public class QuestionDto {
         private String profile;
     }
 
-    @AllArgsConstructor
+
     @Getter
     public static class ResponseAll {
         private Long questionId;
         private String title;
         private String content;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private String createdAt;
+        private String modifiedAt;
         private Integer viewCount;
         private Integer answerCount;
         private QuestionDto.QuestionMember questionMember;
+
+        public ResponseAll(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount, Integer answerCount, QuestionMember questionMember) {
+            this.questionId = questionId;
+            this.title = title;
+            this.content = content;
+            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.viewCount = viewCount;
+            this.answerCount = answerCount;
+            this.questionMember = questionMember;
+        }
 
         //        private List<Tag> Tags;
 
