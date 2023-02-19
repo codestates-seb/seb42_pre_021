@@ -13,7 +13,7 @@ import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
 import styled from 'styled-components';
 import Header from 'containers/Header';
-import axios from 'axios';
+// import axios from 'axios';
 
 const App = () => {
   return (
