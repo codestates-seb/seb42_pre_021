@@ -52,6 +52,17 @@ const NavContainer = styled.nav`
   padding-left: 0.5rem;
   border-right: 1px solid #bbc0c4;
   flex-direction: column;
+  position: fixed;
+  left: calc(100% - 1280px - (100% - 1280px) / 2);
+  top: 3.2rem;
+  background-color: white;
+
+  z-index: 1;
+  @media screen and (max-width: 1279px) {
+    position: fixed;
+    left: 0;
+    top: 3.2rem;
+  }
   @media screen and (max-width: 640px) {
     display: none;
   }
