@@ -42,4 +42,11 @@ public class AnswerCommentController {
 
 		return ResponseEntity.ok(new SingleResponseDto<>(mapper.answerCommentToAnswerCommentResponseDto(answerComment)));
 	}
+
+	@DeleteMapping("/{answer-comment-id}")
+	public ResponseEntity deleteAnswerComment(@PathVariable("answer-comment-id") @Positive Long answerCommentId) {
+		answerCommentService.deleteAnswerComment(answerCommentId);
+
+		return ResponseEntity.noContent().build();
+	}
 }

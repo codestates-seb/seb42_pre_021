@@ -25,6 +25,10 @@ public class AnswerCommentService {
 		return answerCommentRepository.save(findAnswerComment);
 	}
 
+	public void deleteAnswerComment(Long answerCommentId) {
+		answerCommentRepository.deleteById(answerCommentId);
+	}
+
 	private AnswerComment findVerifiedAnswerComment(Long answerCommentId) {
 		Optional<AnswerComment> optionalAnswerComment = answerCommentRepository.findById(answerCommentId);
 		AnswerComment answerComment = optionalAnswerComment.orElseThrow();
