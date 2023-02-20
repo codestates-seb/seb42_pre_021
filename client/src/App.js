@@ -52,10 +52,10 @@ const App = () => {
           <Route path="/" element={<Questions />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/:question-id" element={<QuestionDetail />} />
-          <Route path="/:question-id/edit" element={<QuestionEdit />} />
+          <Route path="/:id" element={<QuestionDetail />} />
+          <Route path="/:id/edit" element={<QuestionEdit />} />
           <Route path="/add" element={<QuestionAdd />} />
-          <Route path="/:answer-id/edit" element={<AnswerEdit />} />
+          <Route path="/:id/answer-edit" element={<AnswerEdit />} />
           {/* <Route path="/mypage" element={<MyPage userInfo={userInfo} />} /> */}
           <Route path="/mypage" element={<MyPage />} />
           {/* <Route path="/mypage/edit" element={<MyPageEdit userInfo={userInfo} />} /> */}
