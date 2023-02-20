@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.question.service;
 
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
@@ -28,6 +29,7 @@ public class RealQuestionService implements QuestionService{
     }
 
     public Question createQuestion(Question question) {
+        question.setQuestionBookmark(new QuestionBookmark());
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion;
     }

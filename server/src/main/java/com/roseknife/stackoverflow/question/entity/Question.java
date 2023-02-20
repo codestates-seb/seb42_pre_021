@@ -3,6 +3,7 @@ package com.roseknife.stackoverflow.question.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.audit.Auditable;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -48,4 +50,14 @@ public class Question extends Auditable {
 
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionVote> questionVotes;
+
+    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
+    private QuestionBookmark questionBookmark;
+
+    public void setQuestionBookmark(QuestionBookmark questionBookmark) {
+        this.questionBookmark = questionBookmark;
+        if (questionBookmark.getQuestion() != this) {
+            questionBookmark.setQuestion(this);
+        }
+    }
 }
