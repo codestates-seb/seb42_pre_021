@@ -1,6 +1,8 @@
 package com.roseknife.stackoverflow.question.mapper;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
+import com.roseknife.stackoverflow.comment.entity.AnswerComment;
+import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.dto.PageInfo;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
@@ -30,6 +32,13 @@ public interface QuestionMapper {
     @IterableMapping(qualifiedByName = "Q2R2")
     List<QuestionDto.QuestionAnswer> answersToQuestionAnswers(List<Answer> requestBody);
 
+    @Named("Q2R3")
+    @Mapping(source = "member.nickname",target = "questionMember.nickname")
+    @Mapping(source = "member.profile",target = "questionMember.profile")
+    QuestionDto.QuestionCommentResponse commentToQuestionCommentResponse(QuestionComment requestBody);
+    @IterableMapping(qualifiedByName = "Q2R3")
+    List<QuestionDto.QuestionCommentResponse> commentsToQuestionCommentResponses(List<QuestionComment> requestBody);
+
     Question questionPatchToQuestion(QuestionDto.Patch requestBody);
 
     @Named("Q2R")
@@ -45,6 +54,7 @@ public interface QuestionMapper {
         }
 
         QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(question.getMember().getNickname(),question.getMember().getProfile());
+        List<QuestionDto.QuestionCommentResponse> questionComments = null;
         List<QuestionDto.QuestionAnswer> questionAnswers = null;
         Long questionId = null;
         String title = null;
@@ -54,10 +64,13 @@ public interface QuestionMapper {
         Integer viewCount = null;
         Integer answerCount = null;
         List<Answer> answers = pageAnswers.getContent();
+        List<QuestionComment> comments = question.getQuestionComments();
+
         PageInfo pageInfo = new PageInfo(pageAnswers.getNumber() + 1,
                 pageAnswers.getSize(), pageAnswers.getTotalElements(), pageAnswers.getTotalPages());
 
         questionAnswers = answersToQuestionAnswers(answers);
+        questionComments = commentsToQuestionCommentResponses(comments);
 
         questionId = question.getQuestionId();
         title = question.getTitle();
@@ -67,7 +80,8 @@ public interface QuestionMapper {
         viewCount = question.getViewCount();
         answerCount = question.getAnswerCount();
 
-        QuestionDto.Response response = new QuestionDto.Response(questionId, title, content, createdAt, modifiedAt, viewCount, answerCount, questionMember, questionAnswers, pageInfo);
+        QuestionDto.Response response = new QuestionDto.Response(questionId, title, content, createdAt, modifiedAt, viewCount,
+                answerCount, questionMember, questionAnswers, pageInfo, questionComments);
 
         return response;
     }

@@ -17,4 +17,6 @@ public interface AnswerMapper {
 	@Mapping(source = "member.nickname", target = "nickname")
 	@Mapping(source = "member.profile", target = "profile")
 	AnswerDto.Response answerToAnswerResponseDto(Answer answer);
+
+
 }

@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.question.dto;
 
+import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import com.roseknife.stackoverflow.dto.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,7 +45,22 @@ public class QuestionDto {
         private String content;
         private QuestionDto.QuestionMember questionMember;
 
+        private List<AnswerComment> answerComments;
         public QuestionAnswer(LocalDateTime createdAt, LocalDateTime modifiedAt, String content, QuestionMember questionMember) {
+            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.content = content;
+            this.questionMember = questionMember;
+        }
+    }
+    @Getter
+    public static class QuestionCommentResponse {
+        private String createdAt;
+        private String modifiedAt;
+        private String content;
+        private QuestionDto.QuestionMember questionMember;
+
+        public QuestionCommentResponse(LocalDateTime createdAt, LocalDateTime modifiedAt, String content, QuestionMember questionMember) {
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.content = content;
@@ -65,13 +81,14 @@ public class QuestionDto {
         //Question-MemberDto
         private QuestionDto.QuestionMember questionMember;
         //        private List<Answer> answers;
-        private List<QuestionDto.QuestionAnswer> questionAnswers = new ArrayList<>();
+        private List<QuestionDto.QuestionAnswer> questionAnswers;
         private PageInfo answerPageInfo;
 //        private Page<Answer> pageAnwser;
+        private List<QuestionDto.QuestionCommentResponse> questionComments;
 
         public Response(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount,
                         Integer answerCount, QuestionMember questionMember,
-                        List<QuestionDto.QuestionAnswer> questionAnswers,PageInfo answerPageInfo) {
+                        List<QuestionDto.QuestionAnswer> questionAnswers,PageInfo answerPageInfo,List<QuestionDto.QuestionCommentResponse> questionComments) {
             this.questionId = questionId;
             this.title = title;
             this.content = content;
@@ -82,7 +99,7 @@ public class QuestionDto {
             this.questionMember = questionMember;
             this.questionAnswers = questionAnswers;
             this.answerPageInfo = answerPageInfo;
-//            this.answers = answers;
+            this.questionComments = questionComments;
         }
 
         //Question-AnswerDto
@@ -124,9 +141,4 @@ public class QuestionDto {
         //        private List<Tag> Tags;
 
     }
-//    @AllArgsConstructor
-//    @Getter
-//    public static class QuestionAnswer {
-//
-//    }
 }

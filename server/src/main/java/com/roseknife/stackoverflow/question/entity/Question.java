@@ -3,6 +3,7 @@ package com.roseknife.stackoverflow.question.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.audit.Auditable;
+import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,9 +39,9 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)    //
     private List<Answer> answers = new ArrayList<>();
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "question")
-//    private List<QuestionComment> questionComments;
+    @JsonIgnore
+    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
+    private List<QuestionComment> questionComments = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionImage> questionImages;
@@ -48,8 +49,6 @@ public class Question extends Auditable {
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionTag> questionTags;
 //
-
-
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionVote> questionVotes;
 }

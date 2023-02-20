@@ -47,7 +47,6 @@ public class RealQuestionService implements QuestionService{
 
         return questionRepository.save(updateQuestion);
     }
-    @Transactional(readOnly = true)
     public Question findVerifiedQuestion(Long questionId, FindStatus option) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
 
@@ -57,15 +56,12 @@ public class RealQuestionService implements QuestionService{
         switch(option){
             case FIND:
                 findQuestion.setViewCount(findQuestion.getViewCount()+1);   //단건 조회시 조회수 증가
-                questionRepository.save(findQuestion);  //업데이트
                 break;
             case ANSWER:
                 findQuestion.setAnswerCount(findQuestion.getAnswerCount()+1);
-                questionRepository.save(findQuestion);  //업데이트
                 break;
             case ANSWER_DEL:
                 findQuestion.setAnswerCount(findQuestion.getAnswerCount()-1);
-                questionRepository.save(findQuestion);  //업데이트
                 break;
         }
 
