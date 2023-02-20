@@ -30,16 +30,17 @@ public class QuestionVoteService {
 	public QuestionVote updateQuestionVote(QuestionVote questionVote) {
 		QuestionVote findQuestionVote = findVerifiedQuestionVote(questionVote.getQuestionVoteId());
 
-		if (!findQuestionVote.getQuestionVoteFlag().equals(questionVote.getQuestionVoteFlag())
+		if (findQuestionVote.isQuestionVoteFlag() != (questionVote.isQuestionVoteFlag())
 				&& Objects.equals(findQuestionVote.getMember().getMemberId(), questionVote.getMember().getMemberId())) {
-			findQuestionVote.setQuestionVoteFlag(questionVote.getQuestionVoteFlag());
+			findQuestionVote.setQuestionVoteFlag(questionVote.isQuestionVoteFlag());
 		}
 		return findQuestionVote;
 	}
 
 	private void verifyExistQuestionVote(QuestionVote questionVote) {
-		Optional<QuestionVote> optionalQuestionVote = questionVoteRepository.findByQuestionQuestionIdAndMemberMemberId(
-				questionVote.getQuestion().getQuestionId(), questionVote.getMember().getMemberId());
+		Optional<QuestionVote> optionalQuestionVote
+				= questionVoteRepository.findByQuestionQuestionIdAndMemberMemberId(
+						questionVote.getQuestion().getQuestionId(), questionVote.getMember().getMemberId());
 		if (optionalQuestionVote.isPresent()) {
 			throw new RuntimeException("QuestionVote Is Already Exist.");
 		}
@@ -51,5 +52,4 @@ public class QuestionVoteService {
 
 		return questionVote;
 	}
-
 }
