@@ -1,6 +1,5 @@
 package com.roseknife.stackoverflow.member.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.Email;

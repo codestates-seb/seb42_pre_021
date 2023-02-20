@@ -1,17 +1,21 @@
 package com.roseknife.stackoverflow.member.controller;
 
+import com.roseknife.stackoverflow.dto.MultiResponseDto;
 import com.roseknife.stackoverflow.member.dto.MemberDto;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.member.mapper.MemberMapper;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Validated
@@ -37,5 +41,18 @@ public class MemberController {
         Member member = memberService.findMember(memberId);
 
         return ResponseEntity.ok(mapper.membertoMemberResponse(member));
+    }
+
+    @GetMapping
+    public ResponseEntity getMembers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size,
+                                     @RequestParam String sortBy,
+                                     @RequestParam String sortDir) {
+        Page<Member> pageMembers = memberService.findMembers(page - 1, size, sortBy, sortDir);
+        List<Member> members = pageMembers.getContent();
+
+        return ResponseEntity.ok(
+            new MultiResponseDto<>(mapper.membersToMemberResponses(members), pageMembers)
+        );
     }
 }
