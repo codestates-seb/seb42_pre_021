@@ -9,7 +9,7 @@ const Login = () => {
   return (
     <Wrapper>
       <LoginContainer>
-        <StackOverFlowLogo width={40} height={40} />
+        <StackOverFlowLogo />
         <GoogleLogin />
         <GithubLogin />
         <LoginInputForm />
