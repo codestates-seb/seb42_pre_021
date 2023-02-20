@@ -39,13 +39,8 @@ const Header = () => {
         <div className="searchContainer">
           {isDeskOrMobi === true ? (
             <div>
-              <button>
-                <Search
-                  width={16}
-                  height={16}
-                  className="smallSearchIcon"
-                  onClick={handleInputClick}
-                />
+              <button onClick={handleInputClick}>
+                <Search width={16} height={16} className="smallSearchIcon" />
               </button>
             </div>
           ) : (
