@@ -80,6 +80,7 @@ const BenefitList = styled.div`
   width: 100%;
   height: 1.2rem;
   margin: 1.2rem 0 0.5rem 1rem;
+  font-size: 0.95rem;
   display: flex;
   align-items: center;
   padding-bottom: 1.5rem;
@@ -93,7 +94,7 @@ const BenefitList = styled.div`
 `;
 
 const SubText = styled.span`
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin-left: 1rem;
   margin-top: 0.3rem;
   color: #404040;
