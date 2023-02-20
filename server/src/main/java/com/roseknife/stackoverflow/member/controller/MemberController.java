@@ -37,7 +37,7 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") Long memberId) {
+    public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
         Member member = memberService.findMember(memberId);
 
         return ResponseEntity.ok(mapper.membertoMemberResponse(member));
@@ -54,6 +54,17 @@ public class MemberController {
         return ResponseEntity.ok(
             new MultiResponseDto<>(mapper.membersToMemberResponses(members), pageMembers)
         );
+    }
+
+    @PatchMapping("/{member-id}")
+    public ResponseEntity patchMember(@PathVariable("member-id") long memberId,
+            @RequestBody MemberDto.Patch requestBody) {
+        requestBody.setMemberId(memberId);
+        Member member = mapper.memberPatchToMember(requestBody);
+
+        Member updatedMember = memberService.updateMember(member);
+
+        return ResponseEntity.ok(mapper.membertoMemberResponse(updatedMember));
     }
 
     @DeleteMapping("/{member-id}")

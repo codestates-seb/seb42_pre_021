@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final CustomBeanUtils<Member> beanUtils;
 
-    @Transactional
     public Member createMember(Member member) {
         verifyExistsMember(member);
 
@@ -26,13 +26,22 @@ public class MemberService {
         return savedMember;
     }
 
+    @Transactional(readOnly = true)
     public Member findMember(Long memberId) {
         return findVerifiedMember(memberId);
     }
 
+    @Transactional(readOnly = true)
     public Page<Member> findMembers(int page, int size, String sortBy, String sortDir) {
         return memberRepository.findAll(PageRequest.of(page, size,
             Sort.Direction.valueOf(sortDir), sortBy));
+    }
+
+    public Member updateMember(Member member) {
+        Member findMember = findVerifiedMember(member.getMemberId());
+        Member updatedMember = beanUtils.copyNonNullProperties(member, findMember);
+
+        return updatedMember;
     }
 
     @Transactional
