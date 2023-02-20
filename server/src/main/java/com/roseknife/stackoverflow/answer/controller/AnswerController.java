@@ -4,16 +4,15 @@ import com.roseknife.stackoverflow.answer.dto.AnswerDto;
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.answer.mapper.AnswerMapper;
 import com.roseknife.stackoverflow.answer.service.AnswerService;
+import com.roseknife.stackoverflow.dto.SingleResponseDto;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.net.URI;
 
 
@@ -22,7 +21,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 @Validated
 public class AnswerController {
-	private final static String ANSWER_DEFAULT_URL = "/answers";
+	private static final String ANSWER_DEFAULT_URL = "/answers";
 	private final AnswerService answerService;
 	private final AnswerMapper mapper;
 
@@ -35,13 +34,19 @@ public class AnswerController {
 		return ResponseEntity.created(location).build();
 	}
 
-//	@PatchMapping("/{answer-id}")
-//	public ResponseEntity patchAnswer() {
-//
-//	}
-//
-//	@DeleteMapping("/{answer-id}")
-//	public ResponseEntity deleteAnswer() {
-//
-//	}
+	@PatchMapping("/{answer-id}")
+	public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive Long answerId,
+	                                  @Valid @RequestBody AnswerDto.Patch answerPatchDto) {
+		answerPatchDto.setAnswerId(answerId);
+		Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
+
+		return ResponseEntity.ok(new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)));
+	}
+
+	@DeleteMapping("/{answer-id}")
+	public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive Long answerId) {
+		answerService.deleteAnswer(answerId);
+
+		return ResponseEntity.noContent().build();
+	}
 }
