@@ -1,0 +1,70 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import AddButton from './AddButton';
+import ListSort from './ListSort';
+import QuestionArticle from './QuestionArticle';
+
+const QuestionList = () => {
+  const SORT_BY = ['Newest', 'Answers', 'Views'];
+
+  const [questionList, setQuestionList] = useState([]);
+  const [currentSortBy, setCurrentSortBy] = useState(0);
+
+  // ! redux로 상태 정리 완성되면 코드 변경하기
+  useEffect(() => {
+    axios.get('http://localhost:3001/questions').then(response => setQuestionList(response.data));
+  }, []);
+
+  return (
+    <>
+      <TitleWrapper>
+        <div>
+          <h1>All Questions</h1>
+          <AddButton />
+        </div>
+        <div>
+          <h2>{questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions</h2>
+          <ListSort
+            sortby={SORT_BY}
+            currentSortBy={currentSortBy}
+            setCurrentSortBy={setCurrentSortBy}
+          />
+        </div>
+      </TitleWrapper>
+      <QuestionWrapper>
+        {questionList.map(question => {
+          return <QuestionArticle key={question['question-id']} question={question} />;
+        })}
+      </QuestionWrapper>
+    </>
+  );
+};
+
+const TitleWrapper = styled.div`
+  background-color: #fff;
+  width: 100%;
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #222;
+  }
+`;
+
+const QuestionWrapper = styled.div`
+  width: 100%;
+  padding-right: 2rem;
+`;
+
+export default QuestionList;
