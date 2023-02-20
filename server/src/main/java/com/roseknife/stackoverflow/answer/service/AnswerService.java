@@ -17,6 +17,7 @@ public class AnswerService {
 	private final AnswerRepository answerRepository;
 
 	public Answer createAnswer(Answer answer) {
+		// modified 21
 		answer.setAnswerBookmark(new AnswerBookmark());
 		return answerRepository.save(answer);
 	}

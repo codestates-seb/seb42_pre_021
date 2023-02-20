@@ -32,7 +32,7 @@ public class Answer extends Auditable {
 	@JoinColumn(name = "QUESTION_ID")
 	private Question question;
 
-
+	// modified 36-44
 	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
 	private AnswerBookmark answerBookmark;
 

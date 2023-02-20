@@ -51,6 +51,7 @@ public class Question extends Auditable {
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionVote> questionVotes;
 
+    // modified 55-63
     @OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
     private QuestionBookmark questionBookmark;
 
