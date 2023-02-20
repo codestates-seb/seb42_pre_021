@@ -10,4 +10,9 @@ public interface AnswerVoteMapper {
 	@Mapping(source = "memberId", target = "member.memberId")
 	@Mapping(source = "answerId", target = "answer.answerId")
 	AnswerVote answerVotePostDtoToAnswerVote(AnswerVoteDto.Post answerVotePostDto);
+
+	@Mapping(source = "memberId", target = "member.memberId")
+	AnswerVote answerVotePatchDtoToAnswerVote(AnswerVoteDto.Patch answerVotePatchDto);
+
+	AnswerVoteDto.Response answerVoteToAnswerVoteResponseDto(AnswerVote answerVote);
 }

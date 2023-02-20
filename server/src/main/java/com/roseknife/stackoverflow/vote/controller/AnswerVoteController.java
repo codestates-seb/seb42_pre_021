@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.vote.controller;
 
+import com.roseknife.stackoverflow.dto.SingleResponseDto;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import com.roseknife.stackoverflow.vote.dto.AnswerVoteDto;
 import com.roseknife.stackoverflow.vote.entity.AnswerVote;
@@ -8,12 +9,10 @@ import com.roseknife.stackoverflow.vote.service.AnswerVoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.net.URI;
 
 @RestController
@@ -34,4 +33,13 @@ public class AnswerVoteController {
 		return ResponseEntity.created(location).build();
 	}
 
+	@PatchMapping("/{answer-vote-id}")
+	public ResponseEntity patchAnswerVote(@PathVariable("answer-vote-id") @Positive Long answerVoteId,
+	                                      @Valid @RequestBody AnswerVoteDto.Patch answerVotePatchDto) {
+		answerVotePatchDto.setAnswerVoteId(answerVoteId);
+		AnswerVote answerVote
+				= answerVoteService.updateAnswerVote(mapper.answerVotePatchDtoToAnswerVote(answerVotePatchDto));
+
+		return ResponseEntity.ok(new SingleResponseDto<>(mapper.answerVoteToAnswerVoteResponseDto(answerVote)));
+	}
 }

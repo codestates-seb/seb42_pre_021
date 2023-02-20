@@ -17,7 +17,7 @@ public class AnswerVote {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long answerVoteId;
 
-	private Boolean answerVoteFlag;
+	private boolean answerVoteFlag;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")

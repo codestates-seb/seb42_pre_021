@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -22,14 +23,33 @@ public class AnswerVoteService {
 		// find question 필요 -> 국선님 answer.find() 구현하셨는지 여쭤보기
 		memberService.findMember(answerVote.getMember().getMemberId());
 		verifyExistAnswerVote(answerVote);
+
 		return answerVoteRepository.save(answerVote);
 	}
 
+	public AnswerVote updateAnswerVote(AnswerVote answerVote) {
+		AnswerVote findAnswerVote = findVerifiedAnswerVote(answerVote.getAnswerVoteId());
+
+		if (findAnswerVote.isAnswerVoteFlag() != answerVote.isAnswerVoteFlag()
+				&& Objects.equals(findAnswerVote.getMember().getMemberId(), answerVote.getMember().getMemberId())) {
+			findAnswerVote.setAnswerVoteFlag(answerVote.isAnswerVoteFlag());
+		}
+		return findAnswerVote;
+	}
+
 	private void verifyExistAnswerVote(AnswerVote answerVote) {
-		Optional<AnswerVote> optionalAnswerVote = answerVoteRepository.findByAnswerAnswerIdAndMemberMemberId(
-				answerVote.getAnswer().getAnswerId(), answerVote.getMember().getMemberId());
+		Optional<AnswerVote> optionalAnswerVote
+				= answerVoteRepository.findByAnswerAnswerIdAndMemberMemberId(
+						answerVote.getAnswer().getAnswerId(), answerVote.getMember().getMemberId());
 		if (optionalAnswerVote.isPresent()) {
 			throw new RuntimeException("AnswerVote Is Already Exist.");
 		}
+	}
+
+	private AnswerVote findVerifiedAnswerVote(Long answerVoteId) {
+		Optional<AnswerVote> optionalAnswerVote = answerVoteRepository.findById(answerVoteId);
+		AnswerVote answerVote = optionalAnswerVote.orElseThrow();
+
+		return answerVote;
 	}
 }
