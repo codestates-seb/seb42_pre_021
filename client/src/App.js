@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { Route } from 'react-router-dom';
 // eslint-disable-next-line
-import { Routes, useNavigate } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 import AnswerEdit from 'pages/AnswerEdit';
 import Login from 'pages/Login';
 import MyPage from 'pages/MyPage';

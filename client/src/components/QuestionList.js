@@ -60,11 +60,17 @@ const TitleWrapper = styled.div`
     font-weight: 500;
     color: #222;
   }
+  @media screen and (max-width: 1280px) {
+    padding-right: 1rem;
+  }
 `;
 
 const QuestionWrapper = styled.div`
   width: 100%;
   padding-right: 2rem;
+  @media screen and (max-width: 1280px) {
+    padding-right: 1rem;
+  }
 `;
 
 export default QuestionList;
