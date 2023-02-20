@@ -52,7 +52,6 @@ const Question = styled.article`
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-
         h1 {
           color: #0074cc;
           font-size: 1rem;

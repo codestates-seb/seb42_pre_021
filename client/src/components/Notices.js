@@ -27,6 +27,7 @@ const Notices = () => {
 };
 
 const NoticeWrapper = styled.section`
+  margin-top: 1rem;
   width: 100%;
   height: fit-content;
   background-color: #fdf7e3;
@@ -34,9 +35,11 @@ const NoticeWrapper = styled.section`
   color: #525960;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   ul {
     list-style: none;
     p {
+      font-size: 0.9rem;
       font-weight: 800;
       padding: 0.7rem 1rem;
       background-color: #fbf3d5;
@@ -46,6 +49,7 @@ const NoticeWrapper = styled.section`
       margin-bottom: 0.2rem;
     }
     li {
+      font-size: 0.8rem;
       padding: 0.5rem 1rem;
       :last-of-type {
         margin-bottom: 0.2rem;
