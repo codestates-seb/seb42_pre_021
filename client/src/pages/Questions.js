@@ -1,3 +1,4 @@
+import Colletives from 'components/Colletives';
 import Notices from 'components/Notices';
 import QuestionList from 'components/QuestionList';
 import Navigation from 'containers/Navigation';
@@ -15,6 +16,7 @@ const Questions = () => {
         </QuesionSection>
         <SideContent>
           <Notices />
+          <Colletives />
         </SideContent>
       </Container>
     </>
@@ -26,7 +28,7 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   padding: 0 1rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
   justify-content: space-between;
   position: relative;
   padding-left: 11rem;
@@ -35,7 +37,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 7fr 3fr;
   }
-  @media screen and (max-width: 949px) {
+  @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -47,7 +49,6 @@ const NavSection = styled.section`
   left: calc(100% - 1280px - (100% - 1280px) / 2);
   top: 3.2rem;
   background-color: white;
-  box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
   @media screen and (max-width: 1279px) {
     position: fixed;
     left: 0;
