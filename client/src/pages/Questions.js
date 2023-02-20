@@ -31,6 +31,7 @@ const Container = styled.div`
   position: relative;
   padding-left: 11rem;
   @media screen and (max-width: 1279px) {
+    width: 100%;
     display: grid;
     grid-template-columns: 7fr 3fr;
   }
@@ -42,12 +43,11 @@ const Container = styled.div`
 const NavSection = styled.section`
   width: fit-content;
   height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0.2rem;
+  position: fixed;
+  left: calc(100% - 1280px - (100% - 1280px) / 2);
+  top: 3.2rem;
   background-color: white;
-  box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.1);
-  /* background-color: red; */
+  box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
   @media screen and (max-width: 1279px) {
     position: fixed;
     left: 0;
@@ -55,20 +55,19 @@ const NavSection = styled.section`
   }
 `;
 
-const QuesionSection = styled.section`
-  /* border: 2px solid red; */
+const QuesionSection = styled.div`
   width: 48rem;
-  height: fit-content;
   @media screen and (max-width: 1280px) {
     width: 100%;
   }
 `;
 
 const SideContent = styled.aside`
-  /* border: 2px solid greenyellow; */
   width: 19rem;
-  height: 100%;
+  height: fit-content;
   @media screen and (max-width: 1280px) {
+    padding-left: 2rem;
+    padding-right: 1rem;
     width: 100%;
   }
 `;
