@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const QuestionArticle = ({ question }) => {
@@ -8,7 +9,9 @@ const QuestionArticle = ({ question }) => {
           <li>{question.view_count} views</li>
         </ul>
         <div>
-          <h1>{question.title}</h1>
+          <h1>
+            <Link to={`/${question['question-id']}`}>{question.title}</Link>
+          </h1>
           <p>{question.content}</p>
           <Tags>
             {question.tag.map((tag, idx) => {
@@ -53,8 +56,12 @@ const Question = styled.article`
         flex-direction: column;
         gap: 0.5rem;
         h1 {
-          color: #0074cc;
-          font-size: 1rem;
+          cursor: pointer;
+          a {
+            color: #0074cc;
+            font-size: 1rem;
+            text-decoration: none;
+          }
         }
         p {
           width: 100%;
