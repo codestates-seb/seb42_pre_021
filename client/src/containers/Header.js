@@ -2,45 +2,98 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as StackoverflowLogo } from 'assets/stackoverflowLogo.svg';
 import { ReactComponent as Search } from 'assets/search.svg';
+import { ReactComponent as Stackoverflow } from 'assets/stackoverflow.svg';
+import { useMediaQuery } from 'react-responsive';
+import { FaBars } from 'react-icons/fa';
+import { useState } from 'react';
+
+// nav가 바로 렌더링되는가 or 메뉴아이콘이 있고 눌러야 렌더링 되는가
 
 const Header = () => {
+  const isDeskOrMobi = useMediaQuery({ maxWidth: 640 });
+  const [inputClicked, setInputClickd] = useState(false);
+
+  const handleInputClick = () => {
+    setInputClickd(!inputClicked);
+  };
+
   return (
     <HeaderContainer>
       <HeaderMenus>
-        <button className="logoContainer">
-          <Link to="/">
-            <StackoverflowLogo width={140} height={40} />
-          </Link>
-        </button>
-        <form role="search" action="/search" className="searchContainer">
-          <label className="searchIconContainer" htmlFor="search">
-            <Search width={16} height={16} className="searchIcon" />
-          </label>
-          <input className="searchInput" id="search" type="text" placeholder="Search…" />
-        </form>
+        <div className="logoContainer">
+          {isDeskOrMobi === true ? (
+            <MobileLogoBox>
+              <button className="menuBar">
+                <FaBars className="menu" />
+              </button>
+              <Link to="/" className="menuBar">
+                <Stackoverflow height={30} className="smallLogo" />
+              </Link>
+            </MobileLogoBox>
+          ) : (
+            <Link to="/">
+              <StackoverflowLogo width={140} height={40} className="largeLogo" />
+            </Link>
+          )}
+        </div>
+        <div className="searchContainer">
+          {isDeskOrMobi === true ? (
+            <div>
+              <button>
+                <Search
+                  width={16}
+                  height={16}
+                  className="smallSearchIcon"
+                  onClick={handleInputClick}
+                />
+              </button>
+            </div>
+          ) : (
+            <SearchFrom role="search" action="/search" className="searchFrom">
+              <label className="searchIconContainer" htmlFor="search">
+                <Search width={16} height={16} className="searchIcon" />
+              </label>
+              <input
+                className="searchInput"
+                id="search"
+                type="text"
+                placeholder="Search…"
+                autoComplete="off"
+              />
+            </SearchFrom>
+          )}
+        </div>
         <ButtonContainer>
-          <button className="loginButton">
-            <Link to="/login" className="loginLink">
-              Log in
-            </Link>
-          </button>
-          <button className="signupButton">
-            <Link to="/signup" className="signupLink">
-              Sign up
-            </Link>
-          </button>
-          {/* <button className="mypageButton">
-            <Link to="/mypage" className="mypageLink">
-              <Search width={25} height={25} />
-            </Link>
-          </button>
-          <button className="logoutButton">
-            <Link to="/logout" className="logoutLink">
-              Log out
-            </Link>
-          </button> */}
+          <Link to="/login" className="loginLink">
+            Log in
+          </Link>
+          <Link to="/signup" className="signupLink">
+            Sign up
+          </Link>
+          {/* <Link to="/mypage" className="mypageLink">
+            <Search width={25} height={25} />
+          </Link>
+          <Link to="/logout" className="logoutLink">
+            Log out
+          </Link> */}
         </ButtonContainer>
       </HeaderMenus>
+      {inputClicked && isDeskOrMobi ? (
+        <InputDrop>
+          <SearchFrom role="search" action="/search">
+            <label className="searchIconContainer" htmlFor="search">
+              <Search width={16} height={16} className="searchIcon" />
+            </label>
+            <input
+              className="searchInput"
+              id="search"
+              type="text"
+              placeholder="Search…"
+              autoComplete="off"
+            />
+          </SearchFrom>
+        </InputDrop>
+      ) : null}
     </HeaderContainer>
   );
 };
@@ -50,11 +103,11 @@ const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgb(248, 249, 249);
   height: 3.1rem;
   width: 100%;
   border-top: 0.18rem solid rgb(244, 130, 37);
   box-shadow: 0.1rem 0.1rem 0.1rem rgb(232, 232, 232);
+  background-color: rgb(248, 249, 249);
   z-index: 2;
 `;
 
@@ -63,37 +116,104 @@ const HeaderMenus = styled.div`
   align-items: center;
   width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem 0 0.7rem;
-
   > .logoContainer {
     display: flex;
+    height: 100%;
+    margin-left: 0.5rem;
     background-color: transparent;
     border: none;
     flex-grow: 1;
   }
-  > .searchContainer {
-    display: flex;
-    align-items: center;
-    border: 1px solid rgb(204, 208, 211);
-    border-radius: 0.2rem;
-    flex-grow: 6;
 
-    > .searchIconContainer {
-      > .searchIcon {
-        margin: 0.4rem 0.4rem 0.2rem;
+  > .searchContainer {
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 6;
+    height: 100%;
+    > div {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: end;
+      > button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        width: 2.5rem;
+        height: 100%;
+        background-color: transparent;
         &:hover {
-          cursor: text;
+          cursor: pointer;
+          background-color: #dddddd;
+          border-radius: 2px;
         }
       }
     }
-    > .searchInput {
-      display: flex;
-      width: 100%;
-      border: none;
-      background-color: transparent;
-      :focus {
-        outline: none;
+
+    > .smallSearchIcon {
+      &:hover {
+        cursor: pointer;
+        background-color: #dddddd;
       }
+    }
+  }
+`;
+
+const SearchFrom = styled.form`
+  display: flex;
+  width: 100%;
+  border-radius: 0.2rem;
+  border: 1px solid rgb(204, 208, 211);
+  background-color: #fff;
+  &:focus-within {
+    border: 1px solid RGB(10, 149, 255);
+    box-shadow: 0px 0px 0px 5px RGB(225, 236, 244);
+  }
+
+  > .searchIconContainer {
+    > .searchIcon {
+      margin: 0.4rem 0.4rem 0.2rem;
+      &:hover {
+        cursor: text;
+      }
+    }
+  }
+
+  > .searchInput {
+    display: flex;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+`;
+
+const MobileLogoBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 5rem;
+  > .menuBar {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    &:hover {
+      cursor: pointer;
+      background-color: #dddddd;
+    }
+
+    > .menu {
+      font-size: 1rem;
+      color: #525960;
+    }
+
+    > .smallLogo {
+      margin-top: 0.5rem;
     }
   }
 `;
@@ -103,56 +223,62 @@ const ButtonContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 9rem;
-  margin: 0.2rem;
-
-  > .loginButton {
+  > .loginLink {
+    padding: 0.4rem;
+    text-decoration-line: none;
+    font-size: 0.8rem;
+    border-radius: 0.2rem;
     border: 1px solid rgb(137, 177, 205);
+    color: rgb(61, 118, 182);
     background-color: rgb(225, 236, 244);
-    border-radius: 0.2rem;
-    height: 2rem;
-    padding: 2px;
-
-    > .loginLink {
-      color: rgb(61, 118, 182);
-      text-decoration-line: none;
-      font-size: 0.8rem;
-      padding: 0.5rem;
+    box-shadow: inset 0px 1px white;
+    :hover {
+      filter: brightness(0.9);
     }
   }
-  > .signupButton {
+
+  > .signupLink {
+    padding: 0.4rem;
+    text-decoration-line: none;
+    font-size: 0.8rem;
+    border-radius: 0.2rem;
     border: 1px solid rgb(82, 179, 253);
+    color: rgb(220, 240, 255);
     background-color: rgb(10, 149, 255);
-    border-radius: 0.2rem;
-    height: 2rem;
-    padding: 2px;
-
-    > .signupLink {
-      color: rgb(220, 240, 255);
-      text-decoration-line: none;
-      font-size: 0.8rem;
-      padding: 0.5rem;
+    box-shadow: inset 0px 1px #95d1ff;
+    :hover {
+      filter: brightness(0.9);
     }
   }
-  > .mypageButton {
+
+  > .mypageLink {
     background-color: blue;
     border-radius: 50%;
     border: none;
   }
 
-  > .logoutButton {
-    border: 1px solid rgb(82, 179, 253);
-    background-color: rgb(10, 149, 255);
+  > .logoutLink {
+    padding: 0.4rem;
+    text-decoration-line: none;
+    font-size: 0.8rem;
     border-radius: 0.2rem;
-    height: 2rem;
-    padding: 2px;
-
-    > .logoutLink {
-      color: rgb(220, 240, 255);
-      text-decoration-line: none;
-      font-size: 0.8rem;
-      padding: 0.5rem;
+    border: 1px solid rgb(82, 179, 253);
+    color: rgb(220, 240, 255);
+    background-color: rgb(10, 149, 255);
+    box-shadow: inset 0px 1px #95d1ff;
+    :hover {
+      filter: brightness(0.9);
     }
   }
+`;
+
+const InputDrop = styled.div`
+  position: fixed;
+  width: 100%;
+  top: 3.1rem;
+  left: 0;
+  padding: 0.5rem;
+  background-color: rgb(227, 230, 232);
 `;
 
 export default Header;
