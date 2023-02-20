@@ -4,16 +4,15 @@ import com.roseknife.stackoverflow.comment.dto.QuestionCommentDto;
 import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.comment.mapper.QuestionCommentMapper;
 import com.roseknife.stackoverflow.comment.service.QuestionCommentService;
+import com.roseknife.stackoverflow.dto.SingleResponseDto;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.net.URI;
 
 @RestController
@@ -32,5 +31,15 @@ public class QuestionCommentController {
 		URI location = UriCreator.createUri(QUESTION_COMMENT_DEFAULT_URL, questionComment.getQuestionCommentId());
 
 		return ResponseEntity.created(location).build();
+	}
+
+	@PatchMapping("/{question-comment-id}")
+	public ResponseEntity patchQuestionComment(@PathVariable("question-comment-id") @Positive Long questionCommentId,
+	                                           @Valid @RequestBody QuestionCommentDto.Patch questionCommentPatchDto) {
+		questionCommentPatchDto.setQuestionCommentId(questionCommentId);
+		QuestionComment questionComment
+				= questionCommentService.updateQuestionComment(mapper.questionCommentPatchDtoToQuestionComment(questionCommentPatchDto));
+
+		return ResponseEntity.ok(new SingleResponseDto<>(mapper.questionCommentToQuestionCommentResponseDto(questionComment)));
 	}
 }

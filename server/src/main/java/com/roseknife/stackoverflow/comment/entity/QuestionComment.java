@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.comment.entity;
 
+import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class QuestionComment {
+public class QuestionComment extends Auditable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long questionCommentId;
