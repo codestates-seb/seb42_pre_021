@@ -69,6 +69,8 @@ const SideContent = styled.aside`
   width: 19rem;
   height: 100%;
   @media screen and (max-width: 1280px) {
+    padding-left: 2rem;
+    padding-right: 1rem;
     width: 100%;
   }
 `;
