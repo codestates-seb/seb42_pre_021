@@ -6,7 +6,7 @@ const QuestionArticle = ({ question }) => {
     <Question>
       <section>
         <ul>
-          <li>{question.view_count} views</li>
+          <li>{question.viewCount} views</li>
         </ul>
         <div>
           <h1>

@@ -72,7 +72,9 @@ const MainContainer = styled.main`
   padding-top: 3rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
 `;
 
 export default App;
