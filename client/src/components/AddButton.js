@@ -12,12 +12,13 @@ const AddButton = () => {
 
 const StyledButton = styled.button`
   border: none;
-  width: 7.2rem;
-  height: 2.5rem;
+  width: 6.7rem;
+  height: 2.3rem;
   background-color: #0b95ff;
   color: #fff;
   border-radius: 3px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: bold;
   box-shadow: inset 0px 1px #95d1ff;
   border: 1px solid #0b95ff;
   cursor: pointer;

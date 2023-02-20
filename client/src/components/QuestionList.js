@@ -54,17 +54,28 @@ const TitleWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+  }
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
   }
   h2 {
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #222;
+  }
+  @media screen and (max-width: 1280px) {
+    padding-right: 1rem;
   }
 `;
 
 const QuestionWrapper = styled.div`
   width: 100%;
   padding-right: 2rem;
+  @media screen and (max-width: 1280px) {
+    padding-right: 1rem;
+  }
 `;
 
 export default QuestionList;

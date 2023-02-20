@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { Route } from 'react-router-dom';
 // eslint-disable-next-line
-import { Routes, useNavigate } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 import AnswerEdit from 'pages/AnswerEdit';
 import Login from 'pages/Login';
 import MyPage from 'pages/MyPage';
@@ -13,7 +13,6 @@ import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
 import styled from 'styled-components';
 import Header from 'containers/Header';
-import Navigation from 'containers/Navigation';
 // import axios from 'axios';
 // import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
@@ -48,16 +47,15 @@ const App = () => {
     <div className="App">
       {/* <Header isLogin={isLogin} setIsLogin={setIsLogin} /> */}
       <Header />
-      <Navigation />
       <MainContainer>
         <Routes>
           <Route path="/" element={<Questions />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/:question-id" element={<QuestionDetail />} />
-          <Route path="/:question-id/edit" element={<QuestionEdit />} />
+          <Route path="/:id" element={<QuestionDetail />} />
+          <Route path="/:id/edit" element={<QuestionEdit />} />
           <Route path="/add" element={<QuestionAdd />} />
-          <Route path="/:answer-id/edit" element={<AnswerEdit />} />
+          <Route path="/:id/answer-edit" element={<AnswerEdit />} />
           {/* <Route path="/mypage" element={<MyPage userInfo={userInfo} />} /> */}
           <Route path="/mypage" element={<MyPage />} />
           {/* <Route path="/mypage/edit" element={<MyPageEdit userInfo={userInfo} />} /> */}

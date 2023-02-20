@@ -55,6 +55,7 @@ const HeaderContainer = styled.header`
   width: 100%;
   border-top: 0.18rem solid rgb(244, 130, 37);
   box-shadow: 0.1rem 0.1rem 0.1rem rgb(232, 232, 232);
+  z-index: 2;
 `;
 
 const HeaderMenus = styled.div`
