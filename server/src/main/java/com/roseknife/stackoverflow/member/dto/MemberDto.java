@@ -1,7 +1,7 @@
 package com.roseknife.stackoverflow.member.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -25,11 +25,21 @@ public class MemberDto {
 
     @Getter
     public static class Patch {
-        private String password;
+        @Setter
+        private Long memberId;
+        private String profile;
         private String company;
         private String title;
         private String content;
     }
+
+    @Getter
+    public static class Login {
+        @Email
+        private String email;
+        private String password;
+    }
+
 
     @Getter
     public static class Response {
