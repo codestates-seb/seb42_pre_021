@@ -44,9 +44,6 @@ const Navigation = () => {
 
 const NavContainer = styled.nav`
   display: flex;
-  position: fixed;
-  top: 3.1rem;
-  left: 3%;
   height: 100%;
   width: 11rem;
   padding-top: 1rem;
