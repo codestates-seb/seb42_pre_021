@@ -53,7 +53,7 @@ const SignupInputForm = () => {
 
 const InputContainer = styled.div`
   width: 20rem;
-  height: 30%;
+  height: 100%;
   border-radius: 0.5rem;
   background-color: #ffff;
   display: flex;

@@ -6,6 +6,7 @@ import Navigation from 'containers/Navigation';
 import { NavSection } from 'components/NavSection';
 import SideContent from 'components/SideContent';
 import AddButton from 'components/AddButton';
+import Footer from 'containers/Footer';
 
 // const USER = '김코딩';
 
@@ -21,35 +22,38 @@ const QuestionDetail = () => {
   }, []);
 
   return (
-    <Container>
-      <NavSection>
-        <Navigation />
-      </NavSection>
-      <TitleSection>
-        <div>
-          <h1>{question.title}</h1>
-          <AddButton />
-        </div>
-        <ul>
-          <p>Asked</p>
-          <li>{new Date(question.createdAt).toLocaleString()}</li>
-          <p>Modefied</p>
-          <li>{new Date(question.modifiedAt).toLocaleString()}</li>
-          <p>Viewed</p>
-          <li>{question.viewCount}</li>
-        </ul>
-      </TitleSection>
-      <ContentSection>
-        <Content>sfsdsgsdg</Content>
-        <SideContent />
-      </ContentSection>
-    </Container>
+    <>
+      <Container>
+        <NavSection>
+          <Navigation />
+        </NavSection>
+        <TitleSection>
+          <div>
+            <h1>{question.title}</h1>
+            <AddButton />
+          </div>
+          <ul>
+            <p>Asked</p>
+            <li>{new Date(question.createdAt).toLocaleString()}</li>
+            <p>Modefied</p>
+            <li>{new Date(question.modifiedAt).toLocaleString()}</li>
+            <p>Viewed</p>
+            <li>{question.viewCount}</li>
+          </ul>
+        </TitleSection>
+        <ContentSection>
+          <Content>sfsdsgsdg</Content>
+          <SideContent />
+        </ContentSection>
+      </Container>
+      <Footer />
+    </>
   );
 };
 
 const Container = styled.div`
   width: 1280px;
-  height: 100%;
+  height: fit-content;
   padding-left: 11rem;
 `;
 
