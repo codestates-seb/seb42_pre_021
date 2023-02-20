@@ -1,7 +1,7 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
-const Editor = ({ editorRef, editorPlaceholder, editorHeight }) => {
+const TextEditor = ({ editorRef, editorPlaceholder, editorHeight }) => {
   return (
     <Editor
       ref={editorRef} // DOM 선택용 useRef
@@ -14,4 +14,4 @@ const Editor = ({ editorRef, editorPlaceholder, editorHeight }) => {
   );
 };
 
-export default Editor;
+export default TextEditor;
