@@ -49,6 +49,7 @@ const NavContainer = styled.nav`
   padding-top: 1rem;
   border-right: 1px solid #bbc0c4;
   flex-direction: column;
+  z-index: 1;
 `;
 
 const NavUl = styled.ul`
