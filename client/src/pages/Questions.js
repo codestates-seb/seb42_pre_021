@@ -48,7 +48,6 @@ const NavSection = styled.section`
   top: 3.2rem;
   background-color: white;
   box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
-  /* background-color: red; */
   @media screen and (max-width: 1279px) {
     position: fixed;
     left: 0;
@@ -57,7 +56,6 @@ const NavSection = styled.section`
 `;
 
 const QuesionSection = styled.div`
-  /* border: 2px solid red; */
   width: 48rem;
   @media screen and (max-width: 1280px) {
     width: 100%;
@@ -65,9 +63,8 @@ const QuesionSection = styled.div`
 `;
 
 const SideContent = styled.aside`
-  /* border: 2px solid greenyellow; */
   width: 19rem;
-  height: 100%;
+  height: fit-content;
   @media screen and (max-width: 1280px) {
     padding-left: 2rem;
     padding-right: 1rem;
