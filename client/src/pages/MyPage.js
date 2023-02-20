@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { ReactComponent as Search } from 'assets/search.svg';
-import { NavSection } from 'components/NavSection';
 import Navigation from 'containers/Navigation';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
@@ -9,9 +8,7 @@ import { FaRegCalendarAlt, FaMapMarkerAlt, FaPen, FaTrashAlt } from 'react-icons
 const MyPage = () => {
   return (
     <>
-      <NavSection>
-        <Navigation />
-      </NavSection>
+      <Navigation />
       <Container>
         <InfoContainer>
           <h3>Public information</h3>
