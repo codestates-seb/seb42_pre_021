@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -26,12 +27,29 @@ public class QuestionVoteService {
 		return questionVoteRepository.save(questionVote);
 	}
 
+	public QuestionVote updateQuestionVote(QuestionVote questionVote) {
+		QuestionVote findQuestionVote = findVerifiedQuestionVote(questionVote.getQuestionVoteId());
+
+		if (!findQuestionVote.getQuestionVoteFlag().equals(questionVote.getQuestionVoteFlag())
+				&& Objects.equals(findQuestionVote.getMember().getMemberId(), questionVote.getMember().getMemberId())) {
+			findQuestionVote.setQuestionVoteFlag(questionVote.getQuestionVoteFlag());
+		}
+		return findQuestionVote;
+	}
+
 	private void verifyExistQuestionVote(QuestionVote questionVote) {
 		Optional<QuestionVote> optionalQuestionVote = questionVoteRepository.findByQuestionQuestionIdAndMemberMemberId(
 				questionVote.getQuestion().getQuestionId(), questionVote.getMember().getMemberId());
 		if (optionalQuestionVote.isPresent()) {
 			throw new RuntimeException("QuestionVote Is Already Exist.");
 		}
+	}
+
+	private QuestionVote findVerifiedQuestionVote(Long questionVoteId) {
+		Optional<QuestionVote> optionalQuestionVote = questionVoteRepository.findById(questionVoteId);
+		QuestionVote questionVote = optionalQuestionVote.orElseThrow();
+
+		return questionVote;
 	}
 
 }
