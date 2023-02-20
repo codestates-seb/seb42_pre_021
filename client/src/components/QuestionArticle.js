@@ -10,7 +10,7 @@ const QuestionArticle = ({ question }) => {
         </ul>
         <div>
           <h1>
-            <Link to={`/${question['question-id']}`}>{question.title}</Link>
+            <Link to={`/${question.questionId}`}>{question.title}</Link>
           </h1>
           <p>{question.content}</p>
           <Tags>
@@ -21,8 +21,9 @@ const QuestionArticle = ({ question }) => {
         </div>
       </section>
       <section>
-        <p>{question['member-id']}</p>
-        <p>{new Date(question.created_at).toLocaleString()}</p>
+        <img src={question.questionMember.profile} alt="profileImg" />
+        <p>{question.questionMember.nickname}</p>
+        <p>{new Date(question.createdAt).toLocaleString()}</p>
       </section>
     </Question>
   );
@@ -77,10 +78,15 @@ const Question = styled.article`
       }
     }
     :last-of-type {
-      align-items: flex-end;
+      align-items: center;
       justify-content: flex-end;
       position: absolute;
       bottom: 0.2rem;
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
+      }
       p {
         font-size: 0.9rem;
         :first-of-type {
