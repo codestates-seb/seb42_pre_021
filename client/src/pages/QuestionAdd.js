@@ -14,25 +14,26 @@ const QuestionAdd = () => {
   return (
     <Container>
       <Wrapper>
-        <TipWrapper>
-          <BackgroundWrapper>
-            <h1>Ask a public qeustion</h1>
-          </BackgroundWrapper>
-        </TipWrapper>
-        <NoticeContainer>
-          <h2>Writing a good question</h2>
-          <p>
-            You’re ready to <Linkto>ask</Linkto> a <Linkto>programming-related question</Linkto> and
-            this form will help guide you through the process.
-            <br />
-            Looking to ask a non-programming question? See <Linkto>the topics here</Linkto> to find
-            a relevant site.
-          </p>
-          <h5>Steps</h5>
-          {stepList.map((step, idx) => {
-            return <li key={idx}>{step}</li>;
-          })}
-        </NoticeContainer>
+        <HeaderBackgroundgWrapper>
+          <h1>Ask a public qeustion</h1>
+        </HeaderBackgroundgWrapper>
+        <NoticeWrapper>
+          <NoticeContainer>
+            <h2>Writing a good question</h2>
+            <p>
+              You’re ready to <Linkto>ask</Linkto> a <Linkto>programming-related question</Linkto>{' '}
+              and this form will help guide you through the process.
+              <br />
+              Looking to ask a non-programming question? See <Linkto>the topics here</Linkto> to
+              find a relevant site.
+            </p>
+            <h5>Steps</h5>
+            {stepList.map((step, idx) => {
+              return <li key={idx}>{step}</li>;
+            })}
+          </NoticeContainer>
+        </NoticeWrapper>
+
         <TextEditor />
       </Wrapper>
     </Container>
@@ -43,9 +44,7 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
   background-color: #f1f2f3;
 `;
 
@@ -53,35 +52,62 @@ const Wrapper = styled.div`
   width: 80%;
   height: 100%;
   display: flex;
+  border: 1px solid red;
   flex-direction: column;
   justify-content: center;
-  background-color: #f1f2f3;
-`;
+  align-items: center;
+  padding: 0 3%;
+  width: 1310px;
 
-const TipWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  margin-bottom: 2rem;
-  padding: 1rem;
-
-  h1 {
-    height: 130px;
-    flex-grow: 1;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 767px) {
+    width: 100%;
   }
 `;
 
-const BackgroundWrapper = styled.div`
+const HeaderBackgroundgWrapper = styled.div`
+  background-image: url('https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368');
+  height: 130px;
+  display: flex;
+  align-items: center;
+
   @media screen and (min-width: 1050px) {
-    background-image: url('https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368');
     height: 130px;
-    background-position: right bottom;
+    width: 100%;
+    background-position: right;
     background-repeat: no-repeat;
-    flex-grow: 1;
+  }
+
+  @media screen and (max-width: 1023px) {
+    background-image: none;
+    height: 80px;
+    font-size: 0.8rem;
+  }
+`;
+
+const NoticeWrapper = styled.div`
+  width: 1024px;
+  margin-top: 3.125rem;
+  margin-bottom: 3.125rem;
+  padding: 0.8rem;
+  min-width: fit-content;
+  border: 1px solid #ffff;
+
+  @media screen and (min-width: 1023px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1022px) {
+    width: 70%;
+    word-wrap: break-word;
+    min-width: fit-content;
   }
 `;
 
 const NoticeContainer = styled.div`
-  width: 100%;
+  min-width: fit-content;
   background-color: #ebf4fb;
   border: 1px solid #a6ceed;
   border-radius: 0.2rem;
@@ -98,6 +124,15 @@ const NoticeContainer = styled.div`
 
   li {
     font-size: 0.8rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 50%;
+    word-wrap: break-word;
+  }
+  @media screen and (max-width: 767px) {
+    width: 70%;
+    word-wrap: break-word;
   }
 `;
 
