@@ -74,6 +74,9 @@ const LeftTextContainer = styled.div`
   > h2 {
     margin-bottom: 1rem;
   }
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const BenefitList = styled.div`

@@ -22,3 +22,7 @@ logging:
         type:
           descriptor:
             sql: TRACE
+jwt:
+  key: roseKnife23022088123647712893741234123412341234
+  access-token-expiration-minutes: 10
+  refresh-token-expiration-minutes: 300

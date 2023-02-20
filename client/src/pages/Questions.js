@@ -1,73 +1,49 @@
-import Notices from 'components/Notices';
+import { NavSection } from 'components/NavSection';
 import QuestionList from 'components/QuestionList';
+import SideContent from 'components/SideContent';
+import Footer from 'containers/Footer';
 import Navigation from 'containers/Navigation';
 import styled from 'styled-components';
 
 const Questions = () => {
   return (
     <>
+      <NavSection>
+        <Navigation />
+      </NavSection>
       <Container>
-        <NavSection>
-          <Navigation />
-        </NavSection>
-        <QuesionSection>
+        <QuestionSection>
           <QuestionList />
-        </QuesionSection>
-        <SideContent>
-          <Notices />
-        </SideContent>
+        </QuestionSection>
+        <SideContent />
       </Container>
+      <Footer />
     </>
   );
 };
 
 const Container = styled.div`
   width: 1280px;
-  height: 100%;
+  height: fit-content;
   display: flex;
   padding: 0 1rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
   justify-content: space-between;
-  position: relative;
   padding-left: 11rem;
   @media screen and (max-width: 1279px) {
     width: 100%;
     display: grid;
-    grid-template-columns: 7fr 3fr;
+    grid-template-columns: calc(100% - 21rem) 21rem;
   }
-  @media screen and (max-width: 949px) {
+
+  @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const NavSection = styled.section`
-  width: fit-content;
-  height: 100%;
-  position: fixed;
-  left: calc(100% - 1280px - (100% - 1280px) / 2);
-  top: 3.2rem;
-  background-color: white;
-  box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
-  @media screen and (max-width: 1279px) {
-    position: fixed;
-    left: 0;
-    top: 3.2rem;
-  }
-`;
-
-const QuesionSection = styled.div`
-  width: 48rem;
+const QuestionSection = styled.div`
+  width: 49rem;
   @media screen and (max-width: 1280px) {
-    width: 100%;
-  }
-`;
-
-const SideContent = styled.aside`
-  width: 19rem;
-  height: fit-content;
-  @media screen and (max-width: 1280px) {
-    padding-left: 2rem;
-    padding-right: 1rem;
     width: 100%;
   }
 `;
