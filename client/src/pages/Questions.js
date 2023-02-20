@@ -1,43 +1,47 @@
-import Colletives from 'components/Colletives';
-import { Container } from 'components/Container';
 import { NavSection } from 'components/NavSection';
-import Notices from 'components/Notices';
 import QuestionList from 'components/QuestionList';
+import SideContent from 'components/SideContent';
 import Navigation from 'containers/Navigation';
 import styled from 'styled-components';
 
 const Questions = () => {
   return (
     <>
+      <NavSection>
+        <Navigation />
+      </NavSection>
       <Container>
-        <NavSection>
-          <Navigation />
-        </NavSection>
-        <QuesionSection>
+        <QuestionSection>
           <QuestionList />
-        </QuesionSection>
-        <SideContent>
-          <Notices />
-          <Colletives />
-        </SideContent>
+        </QuestionSection>
+        <SideContent />
       </Container>
     </>
   );
 };
 
-const QuesionSection = styled.div`
-  width: 48rem;
-  @media screen and (max-width: 1280px) {
+const Container = styled.div`
+  width: 1280px;
+  height: 100%;
+  display: flex;
+  padding: 0 1rem;
+  padding-top: 1rem;
+  justify-content: space-between;
+  padding-left: 11rem;
+  @media screen and (max-width: 1279px) {
     width: 100%;
+    display: grid;
+    grid-template-columns: calc(100% - 21rem) 21rem;
+  }
+
+  @media screen and (max-width: 979px) {
+    grid-template-columns: 1fr;
   }
 `;
 
-const SideContent = styled.aside`
-  width: 19rem;
-  height: fit-content;
+const QuestionSection = styled.div`
+  width: 49rem;
   @media screen and (max-width: 1280px) {
-    padding-left: 2rem;
-    padding-right: 1rem;
     width: 100%;
   }
 `;
