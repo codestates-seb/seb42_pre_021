@@ -54,7 +54,6 @@ public interface QuestionMapper {
         Integer viewCount = null;
         Integer answerCount = null;
         List<Answer> answers = pageAnswers.getContent();
-//        Page<Answer> pageAnwser = pageAnswers;
         PageInfo pageInfo = new PageInfo(pageAnswers.getNumber() + 1,
                 pageAnswers.getSize(), pageAnswers.getTotalElements(), pageAnswers.getTotalPages());
 

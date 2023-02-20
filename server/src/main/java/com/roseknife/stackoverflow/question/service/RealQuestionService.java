@@ -63,6 +63,10 @@ public class RealQuestionService implements QuestionService{
                 findQuestion.setAnswerCount(findQuestion.getAnswerCount()+1);
                 questionRepository.save(findQuestion);  //업데이트
                 break;
+            case ANSWER_DEL:
+                findQuestion.setAnswerCount(findQuestion.getAnswerCount()-1);
+                questionRepository.save(findQuestion);  //업데이트
+                break;
         }
 
 

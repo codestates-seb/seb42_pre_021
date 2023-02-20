@@ -29,7 +29,7 @@ public class AnswerService {
 	// TODO: 답변 등록
 	public Answer createAnswer(Answer answer) {
 
-		//답변 갯수 증가 추후 리팩토링 예정.
+		//Answer count 증가 추가
 		questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId(), FindStatus.ANSWER);
 
 		return answerRepository.save(answer);
@@ -44,12 +44,17 @@ public class AnswerService {
 	}
 
 	public void deleteAnswer(Long answerId) {
+		//Answer count 감소 추가
+		Answer answer = findVerifiedAnswer(answerId);
+		questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId(), FindStatus.ANSWER_DEL);
 		answerRepository.deleteById(answerId);
 	}
 
 	private Answer findVerifiedAnswer(Long answerId) {
 		Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-		Answer findAnswer = optionalAnswer.orElseThrow();
+		//에러로 인해 ExceptionCode 추가
+		Answer findAnswer = optionalAnswer.orElseThrow(() ->
+				new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
 
 		return findAnswer;
 	}
