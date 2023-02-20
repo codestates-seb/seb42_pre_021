@@ -21,7 +21,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 @Validated
 public class AnswerController {
-	private final static String ANSWER_DEFAULT_URL = "/answers";
+	private static final String ANSWER_DEFAULT_URL = "/answers";
 	private final AnswerService answerService;
 	private final AnswerMapper mapper;
 

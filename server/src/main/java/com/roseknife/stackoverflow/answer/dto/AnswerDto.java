@@ -36,16 +36,19 @@ public class AnswerDto {
 
 		private String content;
 
-		private Long memberId;
+		private String nickname;
+
+		private String profile;
 
 		private String createdAt;
 
 		private String modifiedAt;
 
-		public Response(Long answerId, String content, Long memberId, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+		public Response(Long answerId, String content, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt) {
 			this.answerId = answerId;
 			this.content = content;
-			this.memberId = memberId;
+			this.nickname = nickname;
+			this.profile = profile;
 			this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 			this.modifiedAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 		}
