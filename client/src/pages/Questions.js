@@ -30,7 +30,6 @@ const Container = styled.div`
   padding: 0 1rem;
   padding-top: 1rem;
   justify-content: space-between;
-  position: relative;
   padding-left: 11rem;
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -42,7 +41,7 @@ const Container = styled.div`
   }
 `;
 
-const NavSection = styled.section`
+export const NavSection = styled.section`
   width: fit-content;
   height: 100%;
   position: fixed;
