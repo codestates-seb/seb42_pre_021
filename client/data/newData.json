@@ -4,8 +4,8 @@
       "questionId": 1,
       "title": "test_title1",
       "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-      "createdAt": "2023-02-18T20:55:33.137589",
-      "modifiedAt": "2023-02-18T20:55:33.137589",
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 42,
       "answerCount": 0,
       "tag": ["React", "javaScript"],
@@ -15,8 +15,8 @@
       },
       "questionAnswers": [
         {
-          "createdAt": "2023-02-20",
-          "modifiedAt": "2023-02-20",
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "content": "answer3",
           "questionMember": {
             "nickname": "김코딩2",
@@ -24,8 +24,8 @@
           }
         },
         {
-          "createdAt": "2023-02-20",
-          "modifiedAt": "2023-02-20",
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "content": "answer3",
           "questionMember": {
             "nickname": "김코딩3",
@@ -38,8 +38,8 @@
       "questionId": 2,
       "title": "test_title2",
       "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-      "createdAt": "2023-02-18T20:55:30.042741",
-      "modifiedAt": "2023-02-18T20:55:30.042741",
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 30,
       "answerCount": 0,
       "tag": ["React", "javaScript"],
@@ -49,8 +49,8 @@
       },
       "questionAnswers": [
         {
-          "createdAt": "2023-02-20",
-          "modifiedAt": "2023-02-20",
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "content": "answer3",
           "questionMember": {
             "nickname": "김코딩2",
@@ -75,8 +75,8 @@
       },
       "questionAnswers": [
         {
-          "createdAt": "2023-02-20",
-          "modifiedAt": "2023-02-20",
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "content": "answer3",
           "questionMember": {
             "nickname": "김코딩2",
@@ -84,8 +84,8 @@
           }
         },
         {
-          "createdAt": "2023-02-20",
-          "modifiedAt": "2023-02-20",
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "content": "answer3",
           "questionMember": {
             "nickname": "김코딩3",
@@ -98,8 +98,8 @@
       "questionId": 4,
       "title": "test_title4",
       "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-      "createdAt": "2023-02-18T20:55:30.042741",
-      "modifiedAt": "2023-02-18T20:55:30.042741",
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 132,
       "answerCount": 0,
       "tag": ["React", "javaScript"],
@@ -110,8 +110,8 @@
       },
       "questionAnswers": [
         {
-          "createdAt": "2023-02-20",
-          "modifiedAt": "2023-02-20",
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "content": "answer3",
           "questionMember": {
             "nickname": "김코딩2",
@@ -119,8 +119,8 @@
           }
         },
         {
-          "createdAt": "2023-02-20",
-          "modifiedAt": "2023-02-20",
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "content": "answer3",
           "questionMember": {
             "nickname": "김코딩3",
@@ -133,8 +133,8 @@
       "questionId": 5,
       "title": "test_title5",
       "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-      "createdAt": "2023-02-18T20:55:30.042741",
-      "modifiedAt": "2023-02-18T20:55:30.042741",
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 60,
       "answerCount": 0,
       "tag": [],
