@@ -2,6 +2,7 @@ package com.roseknife.stackoverflow.answer.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.audit.Auditable;
+import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.entity.Question;
@@ -25,7 +26,7 @@ public class Answer extends Auditable {
 	@Column(nullable = false)
 	private String content;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
@@ -33,10 +34,20 @@ public class Answer extends Auditable {
 	@ManyToOne
 	@JoinColumn(name = "QUESTION_ID")
 	private Question question;
-	
+
 	//답변-댓글 맵핑 추가
 	@JsonIgnore //목록으로 가져오는 쪽 에서만 적용해도 가능
 	@OneToMany(mappedBy = "answer",cascade = CascadeType.REMOVE)    //
 	private List<AnswerComment> answerComments = new ArrayList<>();
 
+	// modified 36-44
+	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+	private AnswerBookmark answerBookmark;
+
+	public void setAnswerBookmark(AnswerBookmark answerBookmark) {
+		this.answerBookmark = answerBookmark;
+		if (answerBookmark.getAnswer() != this) {
+			answerBookmark.setAnswer(this);
+		}
+	}
 }

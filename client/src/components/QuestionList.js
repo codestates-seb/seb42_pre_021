@@ -34,7 +34,7 @@ const QuestionList = () => {
       </TitleWrapper>
       <QuestionWrapper>
         {questionList.map(question => {
-          return <QuestionArticle key={question['question-id']} question={question} />;
+          return <QuestionArticle key={question.questionId} question={question} />;
         })}
       </QuestionWrapper>
     </>

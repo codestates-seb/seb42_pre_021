@@ -2,6 +2,7 @@ package com.roseknife.stackoverflow.question.service;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.answer.repository.AnswerRepository;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
@@ -34,8 +35,14 @@ public class RealQuestionService implements QuestionService{
 
     private final CustomBeanUtils<Question> beanUtils;
 
+    public RealQuestionService(QuestionRepository questionRepository, CustomBeanUtils beanUtils) {
+        this.questionRepository = questionRepository;
+        this.beanUtils = beanUtils;
+    }
 
     public Question createQuestion(Question question) {
+        // modified 32
+        question.setQuestionBookmark(new QuestionBookmark());
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion;
     }

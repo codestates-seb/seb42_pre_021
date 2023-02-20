@@ -32,9 +32,10 @@ public class AnswerService {
 		//Answer count 증가 추가
 		questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId(), FindStatus.ANSWER);
 
+		// modified 21
+		answer.setAnswerBookmark(new AnswerBookmark());
 		return answerRepository.save(answer);
 	}
-
 
 	public Answer updateAnswer(Answer answer) {
 		Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
