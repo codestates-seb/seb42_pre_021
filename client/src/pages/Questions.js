@@ -1,6 +1,7 @@
 import { NavSection } from 'components/NavSection';
 import QuestionList from 'components/QuestionList';
 import SideContent from 'components/SideContent';
+import Footer from 'containers/Footer';
 import Navigation from 'containers/Navigation';
 import styled from 'styled-components';
 
@@ -16,13 +17,14 @@ const Questions = () => {
         </QuestionSection>
         <SideContent />
       </Container>
+      <Footer />
     </>
   );
 };
 
 const Container = styled.div`
   width: 1280px;
-  height: 100%;
+  height: fit-content;
   display: flex;
   padding: 0 1rem;
   padding-top: 1rem;
