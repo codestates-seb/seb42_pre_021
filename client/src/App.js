@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { Route } from 'react-router-dom';
 // eslint-disable-next-line
-import { Routes, useNavigate } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 import AnswerEdit from 'pages/AnswerEdit';
 import Login from 'pages/Login';
 import MyPage from 'pages/MyPage';
@@ -13,7 +13,6 @@ import Questions from 'pages/Questions';
 import SignUp from 'pages/SignUp';
 import styled from 'styled-components';
 import Header from 'containers/Header';
-import Navigation from 'containers/Navigation';
 // import axios from 'axios';
 // import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
@@ -48,7 +47,6 @@ const App = () => {
     <div className="App">
       {/* <Header isLogin={isLogin} setIsLogin={setIsLogin} /> */}
       <Header />
-      <Navigation />
       <MainContainer>
         <Routes>
           <Route path="/" element={<Questions />} />
