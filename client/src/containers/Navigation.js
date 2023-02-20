@@ -49,6 +49,9 @@ const NavContainer = styled.nav`
   padding-top: 1rem;
   border-right: 1px solid #bbc0c4;
   flex-direction: column;
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const NavUl = styled.ul`
