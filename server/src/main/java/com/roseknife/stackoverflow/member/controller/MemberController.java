@@ -90,9 +90,10 @@ public class MemberController {
             response.setHeader("Authorization", "Bearer "+tokens.get(0));
             response.setHeader("Refresh", tokens.get(1));
             Member findMember = memberService.findMember(member.getEmail());
+            return ResponseEntity.ok(
+                new SingleResponseDto<>(mapper.membertoMemberResponse(findMember)));
         }
 
-        return ResponseEntity.ok(
-            new SingleResponseDto<>(mapper.membertoMemberResponse(member)));
+        return ResponseEntity.ok().build();
     }
 }
