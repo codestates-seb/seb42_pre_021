@@ -2,6 +2,7 @@ package com.roseknife.stackoverflow.answer.service;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.answer.repository.AnswerRepository;
+import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,11 @@ import java.util.Optional;
 @Transactional
 public class AnswerService {
 	private final AnswerRepository answerRepository;
-	private final MemberService memberService;
 
 	public Answer createAnswer(Answer answer) {
+		answer.setAnswerBookmark(new AnswerBookmark());
 		return answerRepository.save(answer);
 	}
-
 
 	public Answer updateAnswer(Answer answer) {
 		Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());

@@ -2,6 +2,7 @@ package com.roseknife.stackoverflow.answer.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.audit.Auditable;
+import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.Getter;
@@ -31,4 +32,14 @@ public class Answer extends Auditable {
 	@JoinColumn(name = "QUESTION_ID")
 	private Question question;
 
+
+	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+	private AnswerBookmark answerBookmark;
+
+	public void setAnswerBookmark(AnswerBookmark answerBookmark) {
+		this.answerBookmark = answerBookmark;
+		if (answerBookmark.getAnswer() != this) {
+			answerBookmark.setAnswer(this);
+		}
+	}
 }
