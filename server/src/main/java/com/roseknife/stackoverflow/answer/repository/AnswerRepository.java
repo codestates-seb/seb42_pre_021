@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-//    Page<Answer> findByQuestionId(Long QuestionId, Pageable pageable);
+    //답변 내용 가져오기 (페이지네이션)
     Page<Answer> findByQuestionQuestionId(Long QuestionId, Pageable pageable);
 }
