@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Google Cloud",
+    "desc": "Google Cloud provides organizations with leading infrastructure, platform capabilities and industry solutions to help them solve their most critical business problems.",
+    "link": "https://stackoverflow.com/collectives/google-cloud",
+    "logo": "https://logowik.com/content/uploads/images/google-cloud.jpg",
+    "members": "37k"
+  },
+  {
+    "name": "Twilio",
+    "desc": "Twilio has democratized channels like voice, text, chat, video, and email by virtualizing the world’s communications infrastructure through APIs that are simple enough for any developer, yet robust enough to power the world’s most demanding applications.",
+    "link": "https://stackoverflow.com/collectives/twilio",
+    "logo": "https://logowik.com/content/uploads/images/twilio2236.jpg",
+    "members": "7k"
+  },
+  {
+    "name": "AWS",
+    "desc": "Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services from data centers globally. The AWS Collective is a community-driven site with resources for developers.",
+    "link": "https://stackoverflow.com/collectives/aws",
+    "logo": "https://logowik.com/content/uploads/images/aws-amazon-web-services.jpg",
+    "members": "7k"
+  },
+  {
+    "name": "WSO2",
+    "desc": "WSO2 solutions give enterprises the flexibility to deploy applications and services on-premises, on private or public clouds, or in hybrid environments. Our collective aims to enable developers to build value-added services and get to market faster.",
+    "link": "https://stackoverflow.com/collectives/wso2",
+    "logo": "https://pbs.twimg.com/profile_images/1293800404615155712/c24g2bOv_400x400.png",
+    "members": "4k"
+  },
+  {
+    "name": "Microsoft Azure",
+    "desc": "On-premises, hybrid, multicloud, or at the edge—build on your terms with best-in-class tools, your favorite open-source frameworks and languages, and a platform that supports continuous collaboration and delivery with Azure.",
+    "link": "https://stackoverflow.com/collectives/azure",
+    "logo": "https://logowik.com/content/uploads/images/microsoft-icon3284.logowik.com.webp",
+    "members": "3k"
+  }
+]

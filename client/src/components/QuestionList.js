@@ -54,9 +54,14 @@ const TitleWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+  }
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
   }
   h2 {
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #222;
   }
