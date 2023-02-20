@@ -10,6 +10,9 @@ import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.repository.QuestionRepository;
 import com.roseknife.stackoverflow.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,4 +53,5 @@ public class AnswerService {
 
 		return findAnswer;
 	}
+
 }

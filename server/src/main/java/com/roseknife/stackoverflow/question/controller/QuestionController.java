@@ -55,15 +55,34 @@ public class QuestionController {
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId) {
+    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId,
+                                      @Positive @RequestParam("page") int page,
+                                      @Positive @RequestParam("size") int size,
+                                      @RequestParam("sortDir") String sortDir,
+                                      @RequestParam("sortBy") String sortBy) {
 
         Question question = questionService.findQuestion(questionId);
+        Page<Answer> pageAnswers = questionService.findQuestionAnswers(questionId,page-1,size,sortDir,sortBy);
+        QuestionDto.Response responseQuestions = questionMapper.questionsToQuestionAnswer(question,pageAnswers);
 
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionResponse(question))
+                new SingleResponseDto<>(responseQuestions)
                 , HttpStatus.OK);
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(pageAnswers.getContent())
+//                , HttpStatus.OK);
     }
+//    @GetMapping("/{question-id}")
+//    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId) {
+//
+//        Question question = questionService.findQuestion(questionId);
+//
+//
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(questionMapper.questionToQuestionResponse(question))
+//                , HttpStatus.OK);
+//    }
 
     @GetMapping
     public ResponseEntity getQuestions(@Positive @RequestParam("page") int page,

@@ -1,15 +1,11 @@
 package com.roseknife.stackoverflow.question.dto;
 
-import com.roseknife.stackoverflow.answer.entity.Answer;
-import com.roseknife.stackoverflow.member.dto.MemberDto;
-import com.roseknife.stackoverflow.member.entity.Member;
+import com.roseknife.stackoverflow.dto.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,6 +51,7 @@ public class QuestionDto {
             this.questionMember = questionMember;
         }
     }
+    @AllArgsConstructor
     @Getter
     public static class Response {
         private Long questionId;
@@ -67,11 +64,14 @@ public class QuestionDto {
         //        private Member member;
         //Question-MemberDto
         private QuestionDto.QuestionMember questionMember;
-
         //        private List<Answer> answers;
-        private List<QuestionDto.QuestionAnswer> questionAnswers=new ArrayList<>();
+        private List<QuestionDto.QuestionAnswer> questionAnswers = new ArrayList<>();
+        private PageInfo answerPageInfo;
+//        private Page<Answer> pageAnwser;
 
-        public Response(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount, Integer answerCount, QuestionMember questionMember, List<Answer> answers, List<QuestionDto.QuestionAnswer> questionAnswers) {
+        public Response(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount,
+                        Integer answerCount, QuestionMember questionMember,
+                        List<QuestionDto.QuestionAnswer> questionAnswers,PageInfo answerPageInfo) {
             this.questionId = questionId;
             this.title = title;
             this.content = content;
@@ -81,6 +81,7 @@ public class QuestionDto {
             this.answerCount = answerCount;
             this.questionMember = questionMember;
             this.questionAnswers = questionAnswers;
+            this.answerPageInfo = answerPageInfo;
 //            this.answers = answers;
         }
 

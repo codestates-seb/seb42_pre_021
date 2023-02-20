@@ -38,7 +38,9 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)    //
     private List<Answer> answers = new ArrayList<>();
 
-
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "question")
+//    private List<QuestionComment> questionComments;
 
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionImage> questionImages;
@@ -46,8 +48,7 @@ public class Question extends Auditable {
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionTag> questionTags;
 //
-//    @OneToMany(mappedBy = "question")
-//    private List<QuestionComment> questionComments;
+
 
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionVote> questionVotes;

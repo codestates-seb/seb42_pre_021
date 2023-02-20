@@ -14,4 +14,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 //    List<Question> searchQuestionsByKeyword(@Param("keyword") String keyword);
 
     Page<Question> findByTitleContainsOrContentContains(String titleKeyword,String contentKeyword,Pageable pageable);
+
+
 }
