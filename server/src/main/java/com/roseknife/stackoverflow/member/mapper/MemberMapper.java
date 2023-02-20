@@ -22,4 +22,6 @@ public interface MemberMapper {
     MemberDto.Response membertoMemberResponse(Member member);
 
     List<MemberDto.Response> membersToMemberResponses(List<Member> members);
+
+    Member memberLonginToMember(MemberDto.Login requestBody);
 }

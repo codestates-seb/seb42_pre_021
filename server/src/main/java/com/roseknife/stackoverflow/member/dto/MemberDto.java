@@ -34,6 +34,14 @@ public class MemberDto {
     }
 
     @Getter
+    public static class Login {
+        @Email
+        private String email;
+        private String password;
+    }
+
+
+    @Getter
     public static class Response {
         private Long memberId;
         private String email;

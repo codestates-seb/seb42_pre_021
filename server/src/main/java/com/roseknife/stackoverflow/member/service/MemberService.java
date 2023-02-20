@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.member.service;
 
+import com.roseknife.stackoverflow.auth.JwtTokenizer;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.member.repository.MemberRepository;
 import com.roseknife.stackoverflow.utils.CustomBeanUtils;
@@ -10,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final CustomBeanUtils<Member> beanUtils;
+    private final JwtTokenizer tokenizer;
 
     public Member createMember(Member member) {
         verifyExistsMember(member);
@@ -28,7 +30,11 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public Member findMember(Long memberId) {
-        return findVerifiedMember(memberId);
+        return findVerifiedMemberById(memberId);
+    }
+    @Transactional(readOnly = true)
+    public Member findMember(String email) {
+        return findVerifiedMemberByEmail(email);
     }
 
     @Transactional(readOnly = true)
@@ -38,19 +44,25 @@ public class MemberService {
     }
 
     public Member updateMember(Member member) {
-        Member findMember = findVerifiedMember(member.getMemberId());
+        Member findMember = findVerifiedMemberById(member.getMemberId());
         Member updatedMember = beanUtils.copyNonNullProperties(member, findMember);
 
         return updatedMember;
     }
 
-    @Transactional
     public void deleteMember(long memberId) {
-        Member member = findVerifiedMember(memberId);
+        Member member = findVerifiedMemberById(memberId);
         memberRepository.delete(member);
     }
 
-    private Member findVerifiedMember(Long memberId) {
+    private Member findVerifiedMemberByEmail(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        Member findMember = optionalMember
+            .orElseThrow(() -> new RuntimeException("Member is not exist."));
+        return findMember;
+    }
+
+    private Member findVerifiedMemberById(Long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         Member findMember = optionalMember
             .orElseThrow(() -> new RuntimeException("Member is not exist."));

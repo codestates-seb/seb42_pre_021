@@ -1,9 +1,12 @@
 package com.roseknife.stackoverflow.member.controller;
 
+import com.roseknife.stackoverflow.auth.JwtTokenizer;
 import com.roseknife.stackoverflow.dto.MultiResponseDto;
+import com.roseknife.stackoverflow.dto.SingleResponseDto;
 import com.roseknife.stackoverflow.member.dto.MemberDto;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.member.mapper.MemberMapper;
+import com.roseknife.stackoverflow.member.service.LoginService;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
@@ -24,6 +29,7 @@ import java.util.List;
 public class MemberController {
     private final static String MEMBER_DEFAULT_RUL = "/members";
     private final MemberService memberService;
+    private final LoginService loginService;
     private final MemberMapper mapper;
 
     @PostMapping
@@ -40,7 +46,8 @@ public class MemberController {
     public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
         Member member = memberService.findMember(memberId);
 
-        return ResponseEntity.ok(mapper.membertoMemberResponse(member));
+        return ResponseEntity.ok(
+            new SingleResponseDto<>(mapper.membertoMemberResponse(member)));
     }
 
     @GetMapping
@@ -64,12 +71,28 @@ public class MemberController {
 
         Member updatedMember = memberService.updateMember(member);
 
-        return ResponseEntity.ok(mapper.membertoMemberResponse(updatedMember));
+        return ResponseEntity.ok(
+            new SingleResponseDto<>(mapper.membertoMemberResponse(updatedMember)));
     }
 
     @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") long memberId) {
         memberService.deleteMember(memberId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity loginMember(@RequestBody MemberDto.Login requestBody,
+                                      HttpServletResponse response) {
+        Member member = mapper.memberLonginToMember(requestBody);
+        List<String> tokens = loginService.loginMember(member);
+        if (!tokens.isEmpty()) {
+            response.setHeader("Authorization", "Bearer "+tokens.get(0));
+            response.setHeader("Refresh", tokens.get(1));
+            Member findMember = memberService.findMember(member.getEmail());
+        }
+
+        return ResponseEntity.ok(
+            new SingleResponseDto<>(mapper.membertoMemberResponse(member)));
     }
 }
