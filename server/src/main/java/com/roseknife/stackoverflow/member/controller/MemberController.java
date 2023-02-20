@@ -55,4 +55,10 @@ public class MemberController {
             new MultiResponseDto<>(mapper.membersToMemberResponses(members), pageMembers)
         );
     }
+
+    @DeleteMapping("/{member-id}")
+    public ResponseEntity deleteMember(@PathVariable("member-id") long memberId) {
+        memberService.deleteMember(memberId);
+        return ResponseEntity.noContent().build();
+    }
 }
