@@ -35,7 +35,7 @@ const Container = styled.div`
   @media screen and (max-width: 1279px) {
     width: 100%;
     display: grid;
-    grid-template-columns: 7fr 3fr;
+    grid-template-columns: calc(100% - 21rem) 21rem;
   }
   @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
