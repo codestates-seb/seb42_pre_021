@@ -32,9 +32,11 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: calc(100% - 21rem) 21rem;
   }
-
   @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
+  }
+  @media screen and (max-width: 640px) {
+    padding-left: 1rem;
   }
 `;
 
