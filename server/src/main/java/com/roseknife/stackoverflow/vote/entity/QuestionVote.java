@@ -3,6 +3,7 @@ package com.roseknife.stackoverflow.vote.entity;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class QuestionVote {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
