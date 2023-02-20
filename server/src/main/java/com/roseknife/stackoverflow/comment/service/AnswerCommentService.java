@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -14,5 +16,18 @@ public class AnswerCommentService {
 
 	public AnswerComment createAnswerComment(AnswerComment answerComment) {
 		return answerCommentRepository.save(answerComment);
+	}
+
+	public AnswerComment updateAnswerComment(AnswerComment answerComment) {
+		AnswerComment findAnswerComment = findVerifiedAnswerComment(answerComment.getAnswerCommentId());
+		Optional.ofNullable(answerComment.getContent()).ifPresent(findAnswerComment::setContent);
+
+		return answerCommentRepository.save(findAnswerComment);
+	}
+
+	private AnswerComment findVerifiedAnswerComment(Long answerCommentId) {
+		Optional<AnswerComment> optionalAnswerComment = answerCommentRepository.findById(answerCommentId);
+		AnswerComment answerComment = optionalAnswerComment.orElseThrow();
+		return answerComment;
 	}
 }
