@@ -1,17 +1,20 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Navigation from 'containers/Navigation';
-import TextEditor from 'components/Editor';
 import AddButton from 'components/AddButton';
+import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
 
 const MyPageEdit = () => {
+  const isEdit = true;
+
   return (
     <>
       <Navigation />
       <Container>
         <InfoContainer>
           <h3>Public information</h3>
-          <div className="infoBox">
+          <div className="infoForm">
             <InfoHeader>
               <span>Profile image</span>
               <div>
@@ -20,33 +23,20 @@ const MyPageEdit = () => {
                 </ImageBox>
               </div>
             </InfoHeader>
-            <InfoMain>
-              <ul>
-                <li>
-                  Display name
-                  <span>username</span>
-                </li>
-                <li>
-                  Location
-                  <span>Seoul</span>
-                </li>
-                <li>
-                  Title
-                  <span>제목입니다</span>
-                </li>
-                <li>
-                  About me
-                  <span className="aboutMe">
-                    <TextEditor editorValue={'yes'} editorHeight={'15rem'} />
-                  </span>
-                </li>
-              </ul>
-            </InfoMain>
+            <MyProfileList
+              username={'username'}
+              location={'Seoul'}
+              title={'Title'}
+              aboutme={'Hello'}
+              isEdit={isEdit}
+            />
           </div>
         </InfoContainer>
         <ButtonBox>
           <AddButton buttonText={'Save profile'}></AddButton>
-          <button className="cancleButton">Cancel</button>
+          <Link to="/mypage" className="cancleButton">
+            Cancel
+          </Link>
         </ButtonBox>
       </Container>
     </>
@@ -97,30 +87,6 @@ const ImageBox = styled.div`
   }
 `;
 
-const InfoMain = styled.main`
-  > ul {
-    > li {
-      display: flex;
-      flex-direction: column;
-      list-style: none;
-      white-space: nowrap;
-      margin: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: bold;
-      > span {
-        display: flex;
-        align-items: center;
-        padding-left: 1rem;
-        margin: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: lighter;
-        white-space: normal;
-        color: #777;
-      }
-    }
-  }
-`;
-
 const ButtonBox = styled.aside`
   display: flex;
   flex-direction: row;
@@ -132,6 +98,7 @@ const ButtonBox = styled.aside`
     margin-left: 1rem;
     border: none;
     white-space: nowrap;
+    text-decoration: none;
     font-size: 0.8rem;
     font-weight: bold;
     color: #0b95ff;

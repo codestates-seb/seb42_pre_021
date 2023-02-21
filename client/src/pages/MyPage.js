@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Navigation from 'containers/Navigation';
+import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
-import { FaRegCalendarAlt, FaMapMarkerAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
+import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
 
 const MyPage = () => {
   return (
@@ -36,33 +37,12 @@ const MyPage = () => {
                 </ul>
               </ProfileContainer>
             </InfoHeader>
-            <InfoMain>
-              <ul>
-                <li>
-                  Display name
-                  <span>username</span>
-                </li>
-                <li>
-                  Location
-                  <span>
-                    <FaMapMarkerAlt />
-                    Seoul
-                  </span>
-                </li>
-                <li>
-                  Title
-                  <span>제목입니다</span>
-                </li>
-                <li>
-                  About me
-                  <AboutMe>
-                    Id reprehenderit eu dolore ex nostrud aute non proident.Id reprehenderit eu
-                    dolore ex nostrud aute non proident.Id reprehenderit eu dolore ex nostrud aute
-                    non proident.Id reprehenderit eu dolore ex nostrud aute non proident.
-                  </AboutMe>
-                </li>
-              </ul>
-            </InfoMain>
+            <MyProfileList
+              username={'username'}
+              location={'Seoul'}
+              title={'Title'}
+              aboutme={'Hello'}
+            />
           </div>
         </InfoContainer>
         <ButtonBox>
@@ -147,32 +127,6 @@ const ImageBox = styled.div`
     background-color: gray;
   }
 `;
-
-const InfoMain = styled.main`
-  > ul {
-    > li {
-      display: flex;
-      flex-direction: column;
-      list-style: none;
-      white-space: nowrap;
-      margin: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: bold;
-      > span {
-        display: flex;
-        align-items: center;
-        padding-left: 1rem;
-        margin: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: lighter;
-        white-space: normal;
-        color: #777;
-      }
-    }
-  }
-`;
-
-const AboutMe = styled.span``;
 
 const ButtonBox = styled.aside`
   display: flex;
