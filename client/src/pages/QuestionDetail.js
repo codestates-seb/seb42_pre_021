@@ -9,6 +9,7 @@ import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
 import Answers from 'components/Answers';
 import MarkdownContent from 'components/MarkdownContent';
+import YourAnswer from 'components/YourAnswer';
 
 // const USER = '김코딩';
 
@@ -41,6 +42,7 @@ const QuestionDetail = () => {
                 {question.questionAnswers.length ? (
                   <Answers answers={question.questionAnswers} />
                 ) : null}
+                <YourAnswer />
               </Wrapper>
               <SideContent />
             </ContentSection>
@@ -75,12 +77,13 @@ const ContentSection = styled.section`
 
 const Wrapper = styled.div`
   width: 51rem;
+  height: fit-content;
   padding: 1rem;
   padding-left: 1.5rem;
   padding-right: 2rem;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow: hidden;
   .question_content {
     position: relative;
     width: 100%;

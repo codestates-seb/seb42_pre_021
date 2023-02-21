@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
 import Vote from './Vote';
-import YourAnswer from './YourAnswer';
 
 const Answers = ({ answers }) => {
   const [answerSortBy, setAnswerSortBy] = useState('created_newest');
@@ -24,7 +23,6 @@ const Answers = ({ answers }) => {
           </div>
         ))}
       </AnswerList>
-      <YourAnswer />
     </AnswerWrapper>
   );
 };

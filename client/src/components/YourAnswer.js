@@ -19,10 +19,14 @@ const YourAnswerWrapper = styled.div`
   width: 100%;
   height: 18rem;
   margin-top: 2rem;
-  h1 {
+  margin-bottom: 6rem;
+  > h1 {
     font-size: 1.1rem;
     margin-bottom: 1rem;
     font-weight: 500;
+  }
+  > button {
+    margin: 1.5rem 0 3rem 0;
   }
 `;
 
