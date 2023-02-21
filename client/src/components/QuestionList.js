@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import AddButton from './AddButton';
 import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
+import { useNavigate } from 'react-router-dom';
 
 const QuestionList = () => {
+  const navigate = useNavigate();
   const SORT_BY = ['Newest', 'Answers', 'Views'];
-
   const [questionList, setQuestionList] = useState([]);
   const [currentSortBy, setCurrentSortBy] = useState(0);
 
@@ -15,13 +16,16 @@ const QuestionList = () => {
   useEffect(() => {
     axios.get('http://localhost:3001/questions').then(response => setQuestionList(response.data));
   }, []);
+  const handleAskButtonClick = () => {
+    navigate('/add');
+  };
 
   return (
     <>
       <TitleWrapper>
         <div>
           <h1>All Questions</h1>
-          <AddButton />
+          <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
         </div>
         <div>
           <h2>{questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions</h2>
@@ -72,9 +76,13 @@ const TitleWrapper = styled.div`
 
 const QuestionWrapper = styled.div`
   width: 100%;
-  padding-right: 2rem;
+  padding-right: 0.5rem;
+
   @media screen and (max-width: 1280px) {
     padding-right: 1rem;
+  }
+  @media screen and (max-width: 979px) {
+    padding-right: 0;
   }
 `;
 

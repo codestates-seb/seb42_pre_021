@@ -28,18 +28,6 @@
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
           }
-        },
-        {
-          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": {
-            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
-            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
-          },
-          "questionMember": {
-            "nickname": "김코딩3",
-            "profile": "https://source.boringavatars.com/beam/33"
-          }
         }
       ]
     },
@@ -66,6 +54,18 @@
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
+          "questionMember": {
+            "nickname": "김코딩2",
+            "profile": "https://source.boringavatars.com/beam/8"
+          }
+        },
+        {
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "content": {
+            "html": "<p>A <code data-backticks=\"1\">Uri</code> is not a file. There is no requirement for the user to choose a file on the device, let alone a file whose filesystem path is available to an arbitrary other app.</p><p><br></p><p>Replace that with:</p><div data-language=\"java\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"java\">String str_address=getArguments().getString(\"Path\");\n        Uri uri = Uri.parse(str_address);\n\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent(Intent.ACTION_VIEW, uri);\n                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);\n                startActivity(intent);\n            }\n        });</code></pre></div>",
+            "markdown": "A `Uri` is not a file. There is no requirement for the user to choose a file on the device, let alone a file whose filesystem path is available to an arbitrary other app.\n\nReplace that with:\n```java\nString str_address=getArguments().getString(\"Path\");\n        Uri uri = Uri.parse(str_address);\n\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent(Intent.ACTION_VIEW, uri);\n                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);\n                startActivity(intent);\n            }\n        });\n```\n\n"
           },
           "questionMember": {
             "nickname": "김코딩2",
