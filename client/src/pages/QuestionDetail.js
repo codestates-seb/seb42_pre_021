@@ -7,8 +7,8 @@ import SideContent from 'components/SideContent';
 import Footer from 'containers/Footer';
 import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
-import QuestionContent from 'components/QuestionContent';
 import Answers from 'components/Answers';
+import MarkdownContent from 'components/MarkdownContent';
 
 // const USER = '김코딩';
 
@@ -16,30 +16,38 @@ const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
 
-  useEffect(() => {
-    axios
+  const getData = async () => {
+    await axios
       .get(`http://localhost:3001/questions?questionId=${id}`)
       .then(response => setQuestion(response.data[0]));
-    console.log(question);
+  };
+  useEffect(() => {
+    getData();
   }, []);
 
   return (
     <>
-      <Container>
-        <Navigation />
-        <DetailTitle question={question} />
-        <ContentSection>
-          <Wrapper>
-            <div className="question_content">
-              <Vote />
-              <QuestionContent question={question} />
-            </div>
-            <Answers />
-          </Wrapper>
-          <SideContent />
-        </ContentSection>
-      </Container>
-      <Footer />
+      {question.questionId && (
+        <>
+          <Container>
+            <Navigation />
+            <DetailTitle question={question} />
+            <ContentSection>
+              <Wrapper>
+                <div className="question_content">
+                  <Vote />
+                  <MarkdownContent data={question} />
+                </div>
+                {question.questionAnswers.length ? (
+                  <Answers answers={question.questionAnswers} />
+                ) : null}
+              </Wrapper>
+              <SideContent />
+            </ContentSection>
+          </Container>
+          <Footer />
+        </>
+      )}
     </>
   );
 };
