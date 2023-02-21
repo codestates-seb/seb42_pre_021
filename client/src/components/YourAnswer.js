@@ -5,12 +5,16 @@ import TextEditor from './Editor';
 
 const YourAnswer = () => {
   const answerRef = useRef('');
-
+  // ! 버튼 핸들러 함수 구현 필요
+  const handlePostButton = () => {
+    console.log('html', answerRef.current?.getInstance().getHTML());
+    console.log('markdown', answerRef.current?.getInstance().getMarkdown());
+  };
   return (
     <YourAnswerWrapper>
       <h1>Your Answer</h1>
       <TextEditor editorRef={answerRef} editorValue={' '} editorHeight="16rem" />
-      <AddButton buttonText="Post Your Answer" handleButtonClick={() => {}} />
+      <AddButton buttonText="Post Your Answer" handleButtonClick={handlePostButton} />
     </YourAnswerWrapper>
   );
 };
