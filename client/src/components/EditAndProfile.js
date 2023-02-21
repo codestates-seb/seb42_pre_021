@@ -77,6 +77,9 @@ const Profile = styled.div`
       }
     }
   }
+  @media screen and (max-width: 640px) {
+    align-self: flex-end;
+  }
 `;
 
 export default EditAndProfile;
