@@ -1,19 +1,13 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 
-const AddButton = () => {
-  const navigate = useNavigate();
-  const handleAskButtonClick = () => {
-    navigate('/add');
-  };
-
-  return <StyledButton onClick={handleAskButtonClick}>Ask Question</StyledButton>;
+const AddButton = ({ buttonText, handleButtonClick }) => {
+  return <StyledButton onClick={handleButtonClick}>{buttonText}</StyledButton>;
 };
 
 const StyledButton = styled.button`
   border: none;
-  width: 6.7rem;
-  height: 2.3rem;
+  width: fit-content;
+  height: 2.5rem;
   background-color: #0b95ff;
   color: #fff;
   border-radius: 3px;
@@ -21,6 +15,7 @@ const StyledButton = styled.button`
   font-weight: bold;
   box-shadow: inset 0px 1px #95d1ff;
   border: 1px solid #0b95ff;
+  padding: 0 0.5rem;
   cursor: pointer;
   :hover {
     filter: brightness(0.9);

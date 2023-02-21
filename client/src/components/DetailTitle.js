@@ -1,12 +1,17 @@
 import AddButton from 'components/AddButton';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DetailTitle = ({ question }) => {
+  const navigate = useNavigate();
+  const handleAskButtonClick = () => {
+    navigate('/add');
+  };
   return (
     <TitleSection>
       <div>
         <h1>{question.title}</h1>
-        <AddButton />
+        <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
       </div>
       <ul>
         <p>Asked</p>
