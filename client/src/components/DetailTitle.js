@@ -1,12 +1,17 @@
 import AddButton from 'components/AddButton';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DetailTitle = ({ question }) => {
+  const navigate = useNavigate();
+  const handleAskButtonClick = () => {
+    navigate('/add');
+  };
   return (
     <TitleSection>
       <div>
         <h1>{question.title}</h1>
-        <AddButton />
+        <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
       </div>
       <ul>
         <p>Asked</p>
@@ -21,9 +26,10 @@ const DetailTitle = ({ question }) => {
 };
 
 const TitleSection = styled.section`
-  width: calc(100% - 1.5rem);
+  width: calc(100% - 2.5rem);
   margin-left: 1.5rem;
-  padding: 1.5rem 1rem 1rem 0;
+  padding: 1.5rem 0 1rem 0;
+  margin-right: 1.5rem;
   border-bottom: 1px solid #ddd;
   display: flex;
   flex-direction: column;
