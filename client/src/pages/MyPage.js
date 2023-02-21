@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { ReactComponent as Search } from 'assets/search.svg';
+import { Link } from 'react-router-dom';
 import Navigation from 'containers/Navigation';
+import { ReactComponent as Search } from 'assets/search.svg';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaMapMarkerAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
@@ -54,22 +55,22 @@ const MyPage = () => {
                 </li>
                 <li>
                   About me
-                  <span className="aboutMe">
+                  <AboutMe>
                     Est in do anim Lorem consectetur est occaecat nostrud veniam consectetur
                     dolor.Est in do anim Lorem consectetur est occaecat nostrud veniam consectetur
                     dolor.
-                  </span>
+                  </AboutMe>
                 </li>
               </ul>
             </InfoMain>
           </div>
         </InfoContainer>
         <ButtonBox>
-          <button>
+          <Link to="/mypage/edit" className="mypageButton">
             <FaPen />
             Edit profile
-          </button>
-          <button>
+          </Link>
+          <button className="mypageButton">
             <FaTrashAlt />
             Delete Profile
           </button>
@@ -169,11 +170,13 @@ const InfoMain = styled.main`
   }
 `;
 
+const AboutMe = styled.span``;
+
 const ButtonBox = styled.aside`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  > button {
+  > .mypageButton {
     display: flex;
     align-items: center;
     padding: 0.4rem;
@@ -181,6 +184,7 @@ const ButtonBox = styled.aside`
     border: 1px solid #bbc0c4;
     border-radius: 0.2rem;
     white-space: nowrap;
+    text-decoration: none;
     font-size: 0.8rem;
     color: #666;
     background-color: #ffffff;
