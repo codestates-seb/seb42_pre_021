@@ -4,6 +4,7 @@ import com.roseknife.stackoverflow.answer.dto.AnswerDto;
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {

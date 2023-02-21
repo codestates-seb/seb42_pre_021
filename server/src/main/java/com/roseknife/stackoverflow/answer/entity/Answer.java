@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.comment.entity.AnswerComment;
+import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.Getter;

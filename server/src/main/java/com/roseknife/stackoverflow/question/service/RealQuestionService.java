@@ -32,13 +32,7 @@ import java.util.Optional;
 public class RealQuestionService implements QuestionService{
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
-
     private final CustomBeanUtils<Question> beanUtils;
-
-    public RealQuestionService(QuestionRepository questionRepository, CustomBeanUtils beanUtils) {
-        this.questionRepository = questionRepository;
-        this.beanUtils = beanUtils;
-    }
 
     public Question createQuestion(Question question) {
         // modified 32
@@ -102,13 +96,10 @@ public class RealQuestionService implements QuestionService{
     }
 
     public Page<Answer> findQuestionAnswers(Long questionId,int page, int size, String sortDir, String sortBy) {
-        //리팩토링 여부?
         PageRequest request;
 
         request = PageRequest.of(page, size, Sort.Direction.valueOf(sortDir), sortBy);
 
         return answerRepository.findByQuestionQuestionId(questionId,request);
     }
-
-
 }

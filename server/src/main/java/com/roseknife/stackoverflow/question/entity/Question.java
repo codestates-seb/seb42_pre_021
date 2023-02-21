@@ -52,13 +52,11 @@ public class Question extends Auditable {
 //    private List<QuestionTag> questionTags;
 //
 //    @OneToMany(mappedBy = "question")
-//    private List<QuestionComment> questionComments;
-
-//    @OneToMany(mappedBy = "question")
 //    private List<QuestionVote> questionVotes;
 
     // modified 55-63
-    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
+    @JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
+    @OneToOne(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private QuestionBookmark questionBookmark;
 
     public void setQuestionBookmark(QuestionBookmark questionBookmark) {
