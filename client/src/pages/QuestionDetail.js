@@ -84,9 +84,6 @@ const Wrapper = styled.div`
   .question_content {
     position: relative;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
   }
   @media screen and (max-width: 1279px) {
     width: 100%;
