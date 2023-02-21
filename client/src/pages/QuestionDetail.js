@@ -7,6 +7,7 @@ import SideContent from 'components/SideContent';
 import Footer from 'containers/Footer';
 import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
+import QuestionContent from 'components/QuestionContent';
 
 // const USER = '김코딩';
 
@@ -28,7 +29,10 @@ const QuestionDetail = () => {
         <DetailTitle question={question} />
         <ContentSection>
           <Wrapper>
-            <Vote />
+            <div className="question_content">
+              <Vote />
+              <QuestionContent content={question.content} />
+            </div>
           </Wrapper>
           <SideContent />
         </ContentSection>
@@ -64,6 +68,13 @@ const Wrapper = styled.div`
   margin-right: 1rem;
   padding: 1rem;
   padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  .question_content {
+    border: 2px solid green;
+    width: 100%;
+    display: flex;
+  }
   @media screen and (max-width: 1279px) {
     width: 100%;
     margin-right: 0;
