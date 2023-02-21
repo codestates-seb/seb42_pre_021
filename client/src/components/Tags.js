@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const Tags = ({ question }) => {
+const Tags = ({ data }) => {
   return (
     <TagWrapper>
-      {question.tag.map((tag, idx) => {
+      {data.tag.map((tag, idx) => {
         return <li key={idx}>{tag}</li>;
       })}
     </TagWrapper>
