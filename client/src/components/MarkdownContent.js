@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import EditAndProfile from './EditAndProfile';
 import Tags from './Tags';
 
-const MarkdownContent = ({ data }) => {
+const MarkdownContent = ({ data, isAnswer }) => {
   const handleHTML = str => {
     if (str.content !== undefined) {
       const { html } = str.content;
@@ -13,8 +13,8 @@ const MarkdownContent = ({ data }) => {
 
   return (
     <>
-      {data.questionId && (
-        <MarkdownDesign>
+      {data.createdAt && (
+        <MarkdownDesign className={isAnswer ? 'answer_markdown' : null}>
           <div className="content" dangerouslySetInnerHTML={handleHTML(data)}></div>
           {data.tag && <Tags data={data} />}
           <EditAndProfile member={data.questionMember} asked={data.createdAt} />
@@ -29,9 +29,7 @@ const MarkdownDesign = styled.div`
   width: 100%;
   min-height: 10rem;
   height: fit-content;
-  padding-top: 0.5rem;
-  margin-bottom: 3rem;
-  padding-left: 4rem;
+  padding: 0.5rem 0 2rem 4rem;
   .content {
     width: 100%;
     margin-bottom: 2rem;
