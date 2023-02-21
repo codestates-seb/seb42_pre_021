@@ -10,8 +10,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
+
 //    @Query(value = "select * from question where (title || content) like %:keyword%",nativeQuery = true)
 //    List<Question> searchQuestionsByKeyword(@Param("keyword") String keyword);
-
     Page<Question> findByTitleContainsOrContentContains(String titleKeyword,String contentKeyword,Pageable pageable);
+
+
 }

@@ -1,4 +1,3 @@
-import { NavSection } from 'components/NavSection';
 import QuestionList from 'components/QuestionList';
 import SideContent from 'components/SideContent';
 import Footer from 'containers/Footer';
@@ -8,9 +7,7 @@ import styled from 'styled-components';
 const Questions = () => {
   return (
     <>
-      <NavSection>
-        <Navigation />
-      </NavSection>
+      <Navigation />
       <Container>
         <QuestionSection>
           <QuestionList />
@@ -35,9 +32,11 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: calc(100% - 21rem) 21rem;
   }
-
   @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
+  }
+  @media screen and (max-width: 640px) {
+    padding-left: 1rem;
   }
 `;
 

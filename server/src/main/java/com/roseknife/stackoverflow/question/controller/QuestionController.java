@@ -8,6 +8,7 @@ import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.mapper.QuestionMapper;
 import com.roseknife.stackoverflow.question.service.RealQuestionService;
 import com.roseknife.stackoverflow.utils.UriCreator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +23,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 @Validated
+@RequiredArgsConstructor
 public class QuestionController {
     private final static String QUESTION_DEFAULT_URL = "/questions";
     private final RealQuestionService questionService;
     private final QuestionMapper questionMapper;
-
-    public QuestionController(RealQuestionService questionService, QuestionMapper questionMapper) {
-        this.questionService = questionService;
-        this.questionMapper = questionMapper;
-    }
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
@@ -58,13 +55,20 @@ public class QuestionController {
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId) {
+    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId,
+                                      @Positive @RequestParam("page") int page,
+                                      @Positive @RequestParam("size") int size,
+                                      @RequestParam("sortDir") String sortDir,
+                                      @RequestParam("sortBy") String sortBy) {
 
         Question question = questionService.findQuestion(questionId);
+        Page<Answer> pageAnswers = questionService.findQuestionAnswers(questionId,page-1,size,sortDir,sortBy);
+        QuestionDto.Response responseQuestions = questionMapper.questionsToQuestionAnswer(question,pageAnswers);
+
 
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionResponse(question))
+                new SingleResponseDto<>(responseQuestions)
                 , HttpStatus.OK);
     }
 
@@ -98,5 +102,12 @@ public class QuestionController {
                 new MultiResponseDto<>(questionMapper.questionsToQuestionResponses(questions),
                         pageQuestions),
                 HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{question-id}")
+    public ResponseEntity getQuestions(@PathVariable("question-id") @Positive Long questionId) {
+        questionService.deleteQuestion(questionId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

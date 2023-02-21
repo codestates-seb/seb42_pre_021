@@ -23,7 +23,7 @@ public class AnswerBookmark {
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANSWER_ID")
 	private Answer answer;
 }

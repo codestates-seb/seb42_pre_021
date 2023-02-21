@@ -46,7 +46,7 @@ const Colletives = () => {
 };
 
 const ContentWrapper = styled.div`
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
   width: 100%;
   height: fit-content;
   background-color: #fff;

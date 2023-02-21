@@ -5,7 +5,7 @@ import com.roseknife.stackoverflow.question.entity.Question;
 
 import javax.annotation.PostConstruct;
 
-public class StubQuestionService implements QuestionService{
+public class StubQuestionService {
     private Question question1;
 
     @PostConstruct
@@ -15,11 +15,5 @@ public class StubQuestionService implements QuestionService{
         question1.setTitle("test_quest_title");
         question1.setContent("test_quest_Content");
         question1.setMember(new Member());
-    }
-    @Override
-    public Question createQuestion(Question question) {
-
-
-        return null;
     }
 }
