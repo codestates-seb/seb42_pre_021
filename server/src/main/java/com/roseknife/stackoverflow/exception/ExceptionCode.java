@@ -9,7 +9,6 @@ public enum ExceptionCode {
 
     QUESTION_NOT_FOUND(404, "Question Not Found"),
     QUESTION_SORT_ERROR(500,"Question Sort Error"),
-
     ANSWER_NOT_FOUND(404, "Answer Not Found"),
 
     QUESTION_COMMENT_NOT_FOUND(404, "Question Comment Not Found"),

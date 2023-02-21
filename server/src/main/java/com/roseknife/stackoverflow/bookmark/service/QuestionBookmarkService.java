@@ -2,6 +2,8 @@ package com.roseknife.stackoverflow.bookmark.service;
 
 import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.bookmark.repository.QuestionBookmarkRepository;
+import com.roseknife.stackoverflow.exception.BusinessLogicException;
+import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,8 @@ public class QuestionBookmarkService {
 	private QuestionBookmark findVerifiedQuestionBookmark(Long questionBookmarkId) {
 		Optional<QuestionBookmark> optionalQuestionBookmark = questionBookmarkRepository.findById(questionBookmarkId);
 
-		QuestionBookmark questionBookmark = optionalQuestionBookmark.orElseThrow();
+		QuestionBookmark questionBookmark
+			= optionalQuestionBookmark.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_BOOKMARK_NOT_FOUND));
 		return questionBookmark;
 	}
 }
