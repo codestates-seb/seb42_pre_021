@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
 import Vote from './Vote';
+import YourAnswer from './YourAnswer';
 
 const Answers = ({ answers }) => {
   const [answerSortBy, setAnswerSortBy] = useState('created_newest');
@@ -16,15 +17,14 @@ const Answers = ({ answers }) => {
         <AnswerSort answerSortBy={answerSortBy} setAnswerSortBy={setAnswerSortBy} />
       </AnswerHead>
       <AnswerList>
-        <div className="answer_content">
-          {answers.map((answer, i) => (
-            <>
-              <Vote />
-              <MarkdownContent key={i} data={answer} isAnswer={true} />
-            </>
-          ))}
-        </div>
+        {answers.map((answer, i) => (
+          <div className="answer_content" key={i}>
+            <Vote />
+            <MarkdownContent data={answer} isAnswer={true} />
+          </div>
+        ))}
       </AnswerList>
+      <YourAnswer />
     </AnswerWrapper>
   );
 };
@@ -50,6 +50,7 @@ const AnswerHead = styled.div`
   margin-bottom: 1.5rem;
   > h1 {
     font-size: 1.1rem;
+    font-weight: 500;
   }
 `;
 
