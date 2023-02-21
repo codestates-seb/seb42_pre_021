@@ -19,7 +19,7 @@ const QuestionAdd = () => {
   const [contentValue, setContentValue] = useState('');
   const [contentValid, setContentValid] = useState(false);
   const [tagsInput, setTagsInput] = useState('');
-  const [tagsArr, setTagsArr] = useState(['']);
+  const [tagsArr, setTagsArr] = useState([]);
   const [tagsValid, setTagsValid] = useState(false);
 
   const editorRef = useRef();
@@ -223,6 +223,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  padding: 1rem 0 2rem 0;
   width: 80%;
   height: 100%;
   display: flex;
@@ -399,9 +400,10 @@ const TagDeleteButton = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  width: 10%;
-  height: 2rem;
+  width: 20%;
+  height: 200px;
   margin-top: 1rem;
+  margin-bottom: 500px;
   color: #ffff;
   cursor: pointer;
   background-color: #39739d;
