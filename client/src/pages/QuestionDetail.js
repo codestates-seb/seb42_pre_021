@@ -31,7 +31,7 @@ const QuestionDetail = () => {
           <Wrapper>
             <div className="question_content">
               <Vote />
-              <QuestionContent content={question.content} />
+              <QuestionContent question={question} />
             </div>
           </Wrapper>
           <SideContent />
@@ -56,7 +56,7 @@ const ContentSection = styled.section`
   display: flex;
   @media screen and (max-width: 1279px) {
     display: grid;
-    grid-template-columns: calc(100% - 21rem) 21rem;
+    grid-template-columns: calc(100% - 17rem) 17rem;
   }
   @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
@@ -64,13 +64,13 @@ const ContentSection = styled.section`
 `;
 
 const Wrapper = styled.div`
-  width: 48rem;
-  margin-right: 1rem;
+  width: 51rem;
   padding: 1rem;
   padding-left: 1.5rem;
+  padding-right: 2rem;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: auto;
   .question_content {
     position: relative;
     width: 100%;
@@ -78,10 +78,8 @@ const Wrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
   }
-
   @media screen and (max-width: 1279px) {
     width: 100%;
-    margin-right: 0;
   }
   @media screen and (max-width: 979px) {
   }

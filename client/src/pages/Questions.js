@@ -23,14 +23,13 @@ const Container = styled.div`
   width: 1280px;
   height: fit-content;
   display: flex;
-  padding: 0 1rem;
   padding-top: 1rem;
   justify-content: space-between;
   padding-left: 11rem;
   @media screen and (max-width: 1279px) {
     width: 100%;
     display: grid;
-    grid-template-columns: calc(100% - 21rem) 21rem;
+    grid-template-columns: calc(100% - 17rem) 17rem;
   }
   @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
@@ -41,7 +40,7 @@ const Container = styled.div`
 `;
 
 const QuestionSection = styled.div`
-  width: 49rem;
+  width: 51rem;
   @media screen and (max-width: 1280px) {
     width: 100%;
   }
