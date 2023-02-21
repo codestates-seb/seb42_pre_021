@@ -10,6 +10,8 @@ const QuestionArticle = ({ question }) => {
     <Question>
       <section>
         <ul>
+          <li>0 votes</li>
+          <li>{question.answerCount} answers</li>
           <li>{question.viewCount} views</li>
         </ul>
         <div>
@@ -43,18 +45,23 @@ const Question = styled.article`
     flex-direction: row;
     padding: 1rem;
     :first-of-type {
-      ul {
-        flex: 1;
+      > ul {
+        width: 7rem;
         text-align: right;
         list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
         li {
           font-size: 0.8rem;
+          :nth-last-of-type(-n + 2) {
+            color: #555;
+          }
         }
       }
-      div {
-        width: 100%;
+      > div {
+        width: calc(100% - 7rem);
         padding-left: 1rem;
-        flex: 5;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -104,14 +111,17 @@ const Question = styled.article`
     border-bottom: 1px solid #ddd;
     margin-bottom: 2rem;
   }
-  @media screen and (max-width: 1279px) {
-  }
   @media screen and (max-width: 979px) {
     section {
       :first-of-type {
         flex-direction: column;
         align-items: flex-start;
-        div {
+        > ul {
+          text-align: left;
+          flex-direction: row;
+          width: 100%;
+        }
+        > div {
           padding-top: 0.5rem;
           padding-left: 0;
         }
