@@ -4,6 +4,8 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     QUESTION_NOT_FOUND(404, "Question not found"),
+    ANSWER_NOT_FOUND(404, "Answer not found"),
+
     QUESTION_SORT_ERROR(500,"Question sort error");
 
     @Getter

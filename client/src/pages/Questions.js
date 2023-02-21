@@ -1,4 +1,3 @@
-import { NavSection } from 'components/NavSection';
 import QuestionList from 'components/QuestionList';
 import SideContent from 'components/SideContent';
 import Footer from 'containers/Footer';
@@ -8,9 +7,7 @@ import styled from 'styled-components';
 const Questions = () => {
   return (
     <>
-      <NavSection>
-        <Navigation />
-      </NavSection>
+      <Navigation />
       <Container>
         <QuestionSection>
           <QuestionList />
