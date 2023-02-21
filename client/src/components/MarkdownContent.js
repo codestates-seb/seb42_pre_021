@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import EditAndProfile from './EditAndProfile';
 import Tags from './Tags';
 
-const QuestionContent = ({ question }) => {
+const MarkdownContent = ({ data }) => {
   const handleHTML = str => {
     if (str.content !== undefined) {
       const { html } = str.content;
@@ -12,15 +12,19 @@ const QuestionContent = ({ question }) => {
   };
 
   return (
-    <ContentDesign>
-      <div className="content" dangerouslySetInnerHTML={handleHTML(question)}></div>
-      <Tags question={question} />
-      <EditAndProfile member={question.questionMember} asked={question.createdAt} />
-    </ContentDesign>
+    <>
+      {data.questionId && (
+        <MarkdownDesign>
+          <div className="content" dangerouslySetInnerHTML={handleHTML(data)}></div>
+          {data.tag && <Tags data={data} />}
+          <EditAndProfile member={data.questionMember} asked={data.createdAt} />
+        </MarkdownDesign>
+      )}
+    </>
   );
 };
 
-const ContentDesign = styled.div`
+const MarkdownDesign = styled.div`
   font-size: 0.9rem;
   width: 100%;
   min-height: 10rem;
@@ -55,4 +59,4 @@ const ContentDesign = styled.div`
   }
 `;
 
-export default QuestionContent;
+export default MarkdownContent;
