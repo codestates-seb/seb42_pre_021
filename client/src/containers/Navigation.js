@@ -4,41 +4,43 @@ import { ReactComponent as Earth } from 'assets/earthvector.svg';
 
 const Navigation = () => {
   return (
-    <NavContainer>
-      <NavUl>
-        <li>
-          <Link to="/" className="homeLink">
-            <NavSpan>Home</NavSpan>
-          </Link>
-        </li>
-      </NavUl>
-      <NavUl>
-        <NavSpan>PUBLIC</NavSpan>
+    <>
+      <NavContainer>
         <NavUl>
           <li>
-            <StyleLink to="/">
-              <Earth className="earth" />
-              <PublicSpan>Questions</PublicSpan>
-            </StyleLink>
-          </li>
-          <li>
-            <StyleLink to="/Tags">
-              <PublicSpan>Tags</PublicSpan>
-            </StyleLink>
-          </li>
-          <li>
-            <StyleLink to="/Users">
-              <PublicSpan>Users</PublicSpan>
-            </StyleLink>
-          </li>
-          <li>
-            <StyleLink to="/Companies">
-              <PublicSpan>Companies</PublicSpan>
-            </StyleLink>
+            <Link to="/" className="homeLink">
+              <NavSpan>Home</NavSpan>
+            </Link>
           </li>
         </NavUl>
-      </NavUl>
-    </NavContainer>
+        <NavUl>
+          <NavSpan>PUBLIC</NavSpan>
+          <NavUl>
+            <li>
+              <StyleLink to="/">
+                <Earth className="earth" />
+                <PublicSpan>Questions</PublicSpan>
+              </StyleLink>
+            </li>
+            <li>
+              <StyleLink to="/Tags">
+                <PublicSpan>Tags</PublicSpan>
+              </StyleLink>
+            </li>
+            <li>
+              <StyleLink to="/Users">
+                <PublicSpan>Users</PublicSpan>
+              </StyleLink>
+            </li>
+            <li>
+              <StyleLink to="/Companies">
+                <PublicSpan>Companies</PublicSpan>
+              </StyleLink>
+            </li>
+          </NavUl>
+        </NavUl>
+      </NavContainer>
+    </>
   );
 };
 
@@ -47,9 +49,23 @@ const NavContainer = styled.nav`
   height: 100%;
   width: 11rem;
   padding-top: 1rem;
+  padding-left: 0.5rem;
   border-right: 1px solid #bbc0c4;
   flex-direction: column;
+  position: fixed;
+  left: calc(100% - 1280px - (100% - 1280px) / 2);
+  top: 3.2rem;
+  background-color: white;
+
   z-index: 1;
+  @media screen and (max-width: 1279px) {
+    position: fixed;
+    left: 0;
+    top: 3.2rem;
+  }
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const NavUl = styled.ul`

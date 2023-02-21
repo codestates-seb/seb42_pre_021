@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
-import { NavSection } from 'components/NavSection';
 import SideContent from 'components/SideContent';
 import AddButton from 'components/AddButton';
 import Footer from 'containers/Footer';
@@ -24,9 +23,7 @@ const QuestionDetail = () => {
   return (
     <>
       <Container>
-        <NavSection>
-          <Navigation />
-        </NavSection>
+        <Navigation />
         <TitleSection>
           <div>
             <h1>{question.title}</h1>
