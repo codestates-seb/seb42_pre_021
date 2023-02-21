@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring")
 public interface QuestionMapper {
     //기본 질문 Mapper
     @Mapping(source = "memberId",target = "member.memberId")
@@ -96,4 +96,6 @@ public interface QuestionMapper {
 
         return response;
     }
+
+
 }

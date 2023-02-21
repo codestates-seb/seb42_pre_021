@@ -124,6 +124,7 @@ public class QuestionDto {
 
     @AllArgsConstructor
     @Getter
+    @Builder
     public static class ResponseAll {
         private Long questionId;
         private String title;
