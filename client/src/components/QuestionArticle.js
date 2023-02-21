@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const QuestionArticle = ({ question }) => {
+  const handleHTMLToText = text => {
+    return text.replace(/(<([^>]+)>)/gi, ' ');
+  };
   return (
     <Question>
       <section>
@@ -12,7 +15,7 @@ const QuestionArticle = ({ question }) => {
           <h1>
             <Link to={`/${question.questionId}`}>{question.title}</Link>
           </h1>
-          <p>{question.content}</p>
+          <p>{handleHTMLToText(question.content.html)}</p>
           <Tags>
             {question.tag.map((tag, idx) => {
               return <li key={idx}>{tag}</li>;
