@@ -72,9 +72,13 @@ const TitleWrapper = styled.div`
 
 const QuestionWrapper = styled.div`
   width: 100%;
-  padding-right: 2rem;
+  padding-right: 0.5rem;
+
   @media screen and (max-width: 1280px) {
     padding-right: 1rem;
+  }
+  @media screen and (max-width: 979px) {
+    padding-right: 0;
   }
 `;
 
