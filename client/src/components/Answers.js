@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
+import Vote from './Vote';
 
 const Answers = ({ answers }) => {
   const [answerSortBy, setAnswerSortBy] = useState('created_newest');
@@ -15,20 +16,28 @@ const Answers = ({ answers }) => {
         <AnswerSort answerSortBy={answerSortBy} setAnswerSortBy={setAnswerSortBy} />
       </AnswerHead>
       <AnswerList>
-        {answers.map((answer, i) => (
-          <MarkdownContent key={i} data={answer} isAnswer={true} />
-        ))}
+        <div className="answer_content">
+          {answers.map((answer, i) => (
+            <>
+              <Vote />
+              <MarkdownContent key={i} data={answer} isAnswer={true} />
+            </>
+          ))}
+        </div>
       </AnswerList>
     </AnswerWrapper>
   );
 };
 
 const AnswerWrapper = styled.div`
-  border: 3px dotted red;
   width: 100%;
   height: fit-content;
   .answer_markdown {
     border-bottom: 1px solid #ddd;
+  }
+  .answer_content {
+    position: relative;
+    width: 100%;
   }
 `;
 
@@ -38,6 +47,7 @@ const AnswerHead = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 3rem;
+  margin-bottom: 1.5rem;
   > h1 {
     font-size: 1.1rem;
   }

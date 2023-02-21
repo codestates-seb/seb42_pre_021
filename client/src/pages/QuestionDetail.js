@@ -89,6 +89,7 @@ const Wrapper = styled.div`
     width: 100%;
   }
   @media screen and (max-width: 979px) {
+    padding-right: 1.5rem;
   }
 `;
 
