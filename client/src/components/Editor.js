@@ -13,7 +13,7 @@ const TextEditor = ({ editorRef, editorValue, editorHeight }) => {
       toolbarItems={[
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
-        ['ul', 'ol', 'task'],
+        ['ul', 'ol'],
         ['table', 'link'],
         ['code', 'codeblock'],
       ]}

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Tags from './Tags';
 
 const QuestionArticle = ({ question }) => {
   const handleHTMLToText = text => {
@@ -16,11 +17,7 @@ const QuestionArticle = ({ question }) => {
             <Link to={`/${question.questionId}`}>{question.title}</Link>
           </h1>
           <p>{handleHTMLToText(question.content.html)}</p>
-          <Tags>
-            {question.tag.map((tag, idx) => {
-              return <li key={idx}>{tag}</li>;
-            })}
-          </Tags>
+          <Tags question={question} />
         </div>
       </section>
       <section>
@@ -34,6 +31,7 @@ const QuestionArticle = ({ question }) => {
 
 const Question = styled.article`
   width: 100%;
+  height: fit-content;
   border-top: 1px solid #ddd;
   display: flex;
   flex-direction: column;
@@ -54,6 +52,7 @@ const Question = styled.article`
         }
       }
       div {
+        width: 100%;
         padding-left: 1rem;
         flex: 5;
         display: flex;
@@ -83,8 +82,6 @@ const Question = styled.article`
     :last-of-type {
       align-items: center;
       justify-content: flex-end;
-      position: absolute;
-      bottom: 0.2rem;
       img {
         width: 1.5rem;
         height: 1.5rem;
@@ -119,26 +116,6 @@ const Question = styled.article`
           padding-left: 0;
         }
       }
-    }
-  }
-`;
-
-const Tags = styled.ul`
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 1.5rem;
-  li {
-    margin-right: 0.5rem;
-    background-color: #e1ecf4;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.2rem;
-    font-size: 0.9rem;
-    color: #6391b3;
-    cursor: pointer;
-    :hover {
-      background-color: #d0e3f1;
-      color: #2c5877;
     }
   }
 `;

@@ -2,6 +2,8 @@ package com.roseknife.stackoverflow.bookmark.service;
 
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.bookmark.repository.AnswerBookmarkRepository;
+import com.roseknife.stackoverflow.exception.BusinessLogicException;
+import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,8 @@ public class AnswerBookmarkService {
 	private AnswerBookmark findVerifiedAnswerBookmark(Long answerBookmarkId) {
 		Optional<AnswerBookmark> optionalAnswerBookmark = answerBookmarkRepository.findById(answerBookmarkId);
 
-		AnswerBookmark answerBookmark = optionalAnswerBookmark.orElseThrow();
+		AnswerBookmark answerBookmark
+			= optionalAnswerBookmark.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_BOOKMARK_NOT_FOUND));
 		return answerBookmark;
 	}
 }

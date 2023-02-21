@@ -1,6 +1,7 @@
 package com.roseknife.stackoverflow.member.service;
 
-import com.roseknife.stackoverflow.auth.JwtTokenizer;
+import com.roseknife.stackoverflow.exception.BusinessLogicException;
+import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.member.repository.MemberRepository;
 import com.roseknife.stackoverflow.utils.CustomBeanUtils;
@@ -19,7 +20,6 @@ import java.util.*;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final CustomBeanUtils<Member> beanUtils;
-    private final JwtTokenizer tokenizer;
 
     public Member createMember(Member member) {
         verifyExistsMember(member);
@@ -58,14 +58,14 @@ public class MemberService {
     private Member findVerifiedMemberByEmail(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
         Member findMember = optionalMember
-            .orElseThrow(() -> new RuntimeException("Member is not exist."));
+            .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 
     private Member findVerifiedMemberById(Long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         Member findMember = optionalMember
-            .orElseThrow(() -> new RuntimeException("Member is not exist."));
+            .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 
@@ -77,14 +77,14 @@ public class MemberService {
     private void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) {
-            throw new RuntimeException("Email is already exist.");
+            throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
         }
     }
 
     private void verifyExistsNickname(String nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname);
         if (member.isPresent()) {
-            throw new RuntimeException("Nickname is already exist.");
+            throw new BusinessLogicException(ExceptionCode.NICKNAME_EXIST);
         }
     }
 }

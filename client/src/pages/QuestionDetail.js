@@ -70,11 +70,15 @@ const Wrapper = styled.div`
   padding-left: 1.5rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   .question_content {
-    border: 2px solid green;
+    position: relative;
     width: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
+
   @media screen and (max-width: 1279px) {
     width: 100%;
     margin-right: 0;
