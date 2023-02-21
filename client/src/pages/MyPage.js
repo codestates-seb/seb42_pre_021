@@ -56,9 +56,9 @@ const MyPage = () => {
                 <li>
                   About me
                   <AboutMe>
-                    Est in do anim Lorem consectetur est occaecat nostrud veniam consectetur
-                    dolor.Est in do anim Lorem consectetur est occaecat nostrud veniam consectetur
-                    dolor.
+                    Id reprehenderit eu dolore ex nostrud aute non proident.Id reprehenderit eu
+                    dolore ex nostrud aute non proident.Id reprehenderit eu dolore ex nostrud aute
+                    non proident.Id reprehenderit eu dolore ex nostrud aute non proident.
                   </AboutMe>
                 </li>
               </ul>
@@ -90,11 +90,13 @@ const Container = styled.div`
 const InfoContainer = styled.section`
   display: flex;
   flex-direction: column;
-  max-width: 100%;
+  width: 100%;
   margin-left: 15%;
   margin-top: 3rem;
 
   > div {
+    max-width: 100%;
+    width: 100%;
     padding: 1rem;
     border-radius: 4px;
     border: 1px solid #bbc0c4;
