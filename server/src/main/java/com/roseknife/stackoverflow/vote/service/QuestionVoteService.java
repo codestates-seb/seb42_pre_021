@@ -1,5 +1,7 @@
 package com.roseknife.stackoverflow.vote.service;
 
+import com.roseknife.stackoverflow.exception.BusinessLogicException;
+import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import com.roseknife.stackoverflow.question.service.RealQuestionService;
 import com.roseknife.stackoverflow.vote.entity.QuestionVote;
@@ -42,13 +44,14 @@ public class QuestionVoteService {
 				= questionVoteRepository.findByQuestionQuestionIdAndMemberMemberId(
 						questionVote.getQuestion().getQuestionId(), questionVote.getMember().getMemberId());
 		if (optionalQuestionVote.isPresent()) {
-			throw new RuntimeException("QuestionVote Is Already Exist.");
+			throw new BusinessLogicException(ExceptionCode.QUESTION_VOTE_EXISTS);
 		}
 	}
 
 	private QuestionVote findVerifiedQuestionVoteById(Long questionVoteId) {
 		Optional<QuestionVote> optionalQuestionVote = questionVoteRepository.findById(questionVoteId);
-		QuestionVote questionVote = optionalQuestionVote.orElseThrow();
+		QuestionVote questionVote
+			= optionalQuestionVote.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_VOTE_NOT_FOUND));
 
 		return questionVote;
 	}

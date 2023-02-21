@@ -2,6 +2,8 @@ package com.roseknife.stackoverflow.comment.service;
 
 import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import com.roseknife.stackoverflow.comment.repository.AnswerCommentRepository;
+import com.roseknife.stackoverflow.exception.BusinessLogicException;
+import com.roseknife.stackoverflow.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +33,8 @@ public class AnswerCommentService {
 
 	private AnswerComment findVerifiedAnswerComment(Long answerCommentId) {
 		Optional<AnswerComment> optionalAnswerComment = answerCommentRepository.findById(answerCommentId);
-		AnswerComment answerComment = optionalAnswerComment.orElseThrow();
+		AnswerComment answerComment
+			= optionalAnswerComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_COMMENT_NOT_FOUND));
 		return answerComment;
 	}
 }
