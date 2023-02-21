@@ -24,14 +24,6 @@ const QuestionAdd = () => {
 
   const editorRef = useRef();
   // const navigate = useNavigate();
-
-  // const handleSubmitButton = () => {
-  //   // 에디터 내용 HTML 태그 형태로 취득
-  //   console.log(editorRef.current?.getInstance().getHTML());
-  //   // 에디터 내용 MarkDown 형태로 취득
-  //   console.log(editorRef.current?.getInstance().getMarkdown());
-  // };
-
   // useEffect(() => {
   //   if (!isLogin) {
   //     navigate('/login');
@@ -44,7 +36,7 @@ const QuestionAdd = () => {
     } else {
       setTagsValid(false);
     }
-  }, [tagsArr]);
+  }, [tagsArr, title]);
 
   const handleTitleChange = event => {
     setTitle(event.target.value);
@@ -52,22 +44,6 @@ const QuestionAdd = () => {
       setTitleValid(true);
     } else {
       setTitleValid(false);
-    }
-    console.log(title);
-  };
-
-  const handleChageEditorContent = () => {
-    if (editorRef.current) {
-      const htmlText = editorRef.current?.getInstance().getHTML();
-      // const markDownText = editorRef.current?.getInstance().getMarkdown();
-      setContentValue(htmlText);
-      console.log(contentValue);
-
-      if (htmlText.length >= 30) {
-        setContentValid(true);
-      } else {
-        setContentValid(false);
-      }
     }
   };
 
@@ -100,19 +76,29 @@ const QuestionAdd = () => {
   };
 
   const handleSubmitButton = () => {
-    if (!titleValid || !contentValid) {
-      alert('제목 10자이상, 본문 30자이상인지 확인해주세요');
+    const html = editorRef.current?.getInstance().getHTML();
+    const markdown = editorRef.current?.getInstance().getMarkdown();
+    const editorContent = { html, markdown };
+
+    setContentValue(editorContent);
+
+    if (markdown.length >= 30) {
+      setContentValid(true);
+    } else {
+      setContentValid(false);
     }
 
-    console.log(contentValue);
+    if (!titleValid || !contentValid || !tagsValid) {
+      return alert('제목 10자이상, 본문 30자이상, 태그 1개이상인지 확인해주세요');
+    }
 
     const data = {
-      id: 'abcde11',
+      id: 'tempid_123', //로그인정보(유저아이디)필요_현재 임시값
       title,
       content: contentValue,
       tag: [...tagsArr],
     };
-    axios.post(`http://localhost:3001/questions`, data);
+    return axios.post(`http://localhost:3001/questions`, data);
     //   const accessToken = sessionStorage.getItem('accesstoken');
     //   axios.defaults.withCredentials = true;
 
@@ -136,9 +122,13 @@ const QuestionAdd = () => {
   return (
     <Container>
       <Wrapper>
-        <HeaderBackgroundgWrapper>
-          <h1>Ask a public qeustion</h1>
-        </HeaderBackgroundgWrapper>
+        <HeaderWrapper>
+          <HeaderTitleContainer>
+            <h1>Ask a public qeustion</h1>
+          </HeaderTitleContainer>
+          <HeaderBackground />
+        </HeaderWrapper>
+
         <NoticeContainer>
           <h2>Writing a good question</h2>
           <p>
@@ -169,12 +159,7 @@ const QuestionAdd = () => {
           <span>
             Introduce the problem and expand on what you put in the title. Minimum 20 characters.
           </span>
-          <TextEditor
-            editorRef={editorRef}
-            editorValue={' '}
-            editorHeight={`500px`}
-            onChange={handleChageEditorContent}
-          />
+          <TextEditor editorRef={editorRef} editorValue={' '} editorHeight={`500px`} />
         </EditorContainer>
         <TagsWrapper>
           <Label>Tags</Label>
@@ -201,12 +186,9 @@ const QuestionAdd = () => {
             <TagsInput value={tagsInput} onChange={handleChangeTag} onKeyUp={handleTagKeyUp} />
           </TagsInputContainer>
         </TagsWrapper>
-        <SubmitButton
-          isValid={titleValid && contentValid && tagsValid}
-          onClick={handleSubmitButton}
-        >
-          Submit
-        </SubmitButton>
+        <ButtonContainer>
+          <SubmitButton onClick={handleSubmitButton}>Submit</SubmitButton>
+        </ButtonContainer>
       </Wrapper>
     </Container>
   );
@@ -238,18 +220,36 @@ const Wrapper = styled.div`
   }
 `;
 
-const HeaderBackgroundgWrapper = styled.div`
-  background-image: url('https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368');
+const HeaderWrapper = styled.div`
+  width: 100%;
+  height: 130px;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+const HeaderTitleContainer = styled.div`
+  min-width: fit-content;
   height: 130px;
   display: flex;
   align-items: center;
-  width: 1024px;
+`;
+const HeaderBackground = styled.div`
+  background-image: url('https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368');
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 130px;
   margin-bottom: 1rem;
+  background-repeat: no-repeat;
 
   @media screen and (min-width: 1050px) {
-    height: 130px;
+    position: relative;
+
+    width: 500px;
     background-position: right;
-    background-repeat: no-repeat;
   }
 
   @media screen and (max-width: 1023px) {
@@ -399,16 +399,29 @@ const TagDeleteButton = styled.div`
   }
 `;
 
+const ButtonContainer = styled(TagsInputContainer)`
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  border: none;
+  padding-bottom: 5rem;
+`;
+
 const SubmitButton = styled.button`
   width: 20%;
-  height: 200px;
+  height: 3.125rem;
   margin-top: 1rem;
-  margin-bottom: 500px;
+  margin-bottom: 3rem;
   color: #ffff;
   cursor: pointer;
   background-color: #39739d;
   border: none;
   border-radius: 3px;
+
+  &:hover {
+    background-color: #85b5d7;
+    cursor: pointer;
+  }
 `;
 
 export default QuestionAdd;
