@@ -11,29 +11,40 @@ const QuestionContent = ({ content }) => {
   };
 
   return (
-    <ContentWrapper>
+    <MarkdownDesign>
       <div className="content" dangerouslySetInnerHTML={handleHTML(content)}></div>
-    </ContentWrapper>
+    </MarkdownDesign>
   );
 };
 
-const ContentWrapper = styled.div`
+const MarkdownDesign = styled.div`
   width: 100%;
   min-height: 10rem;
   height: fit-content;
   padding-top: 0.5rem;
-  p > code {
-    background-color: #eee;
-    border-radius: 0.2rem;
-    padding: 0.1rem 0.2rem;
-  }
-  pre > code {
-    background-color: #eee;
-    border-radius: 0.3rem;
-    display: block;
-    margin: 0.5rem auto;
-    padding: 0.5rem;
-    overflow: auto;
+  padding-left: 5rem;
+  max-width: 100%;
+  .content {
+    width: 100%;
+    .toastui-editor-ww-code-block {
+      width: 100%;
+      pre {
+        width: 100%;
+      }
+      pre > code {
+        display: inline-block;
+        overflow: auto;
+        width: 100%;
+        background-color: #f6f6f6;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 0.5rem 0;
+      }
+    }
+    p > code {
+      padding: 1px 2px;
+      border-radius: 2px;
+    }
   }
 `;
 
