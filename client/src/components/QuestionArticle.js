@@ -17,7 +17,7 @@ const QuestionArticle = ({ question }) => {
             <Link to={`/${question.questionId}`}>{question.title}</Link>
           </h1>
           <p>{handleHTMLToText(question.content.html)}</p>
-          <Tags question={question} />
+          {question.tag.length ? <Tags data={question} /> : null}
         </div>
       </section>
       <section>

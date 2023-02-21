@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 
-const EditAndProfile = ({ member, asked }) => {
+const EditAndProfile = ({ member, asked, isAnswer }) => {
   return (
     <ProfileWrapper>
       <EditAndDelete>
         <li>Edit</li>
         <li>Delete</li>
       </EditAndDelete>
-      <Profile>
+      <Profile className={isAnswer ? 'answer_profile' : null}>
         <img src={member.profile} alt={`${member.nickname} profile`} />
-
         <div>
           <p>{member.nickname}</p>
-          <p>asked {new Date(asked).toLocaleDateString()}</p>
+          <p>
+            {isAnswer ? 'answered' : 'asked'} {new Date(asked).toLocaleDateString()}
+          </p>
         </div>
       </Profile>
     </ProfileWrapper>
@@ -24,6 +25,13 @@ const ProfileWrapper = styled.div`
   margin-top: 3rem;
   display: flex;
   justify-content: space-between;
+  .answer_profile {
+    background-color: #fff;
+  }
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 const EditAndDelete = styled.ul`
@@ -42,7 +50,7 @@ const EditAndDelete = styled.ul`
 `;
 
 const Profile = styled.div`
-  width: 12rem;
+  width: 13rem;
   height: 4.3rem;
   background-color: #d0e2f0;
   padding: 0.3rem 0.5rem;
@@ -68,6 +76,9 @@ const Profile = styled.div`
         font-size: 0.8rem;
       }
     }
+  }
+  @media screen and (max-width: 640px) {
+    align-self: flex-end;
   }
 `;
 
