@@ -77,7 +77,10 @@ const QuestionAdd = () => {
   };
 
   const handleTagKeyUp = event => {
-    if ((event.key === ',' || event.keyCode === 32) && tagsInput.length > 0) {
+    if (
+      (event.key === ',' || event.keyCode === 32 || event.keyCode === 13) &&
+      tagsInput.length > 0
+    ) {
       setTagsArr([...tagsArr, tagsInput.slice(0, tagsInput.length)]);
       setTagsInput('');
     }
@@ -189,7 +192,7 @@ const QuestionAdd = () => {
                       handleDeleteTag(index);
                     }}
                   >
-                    <BsXLg size={30} />
+                    <BsXLg />
                   </TagDeleteButton>
                 </Tag>
               );
@@ -369,8 +372,9 @@ const Tag = styled.div`
   align-items: center;
   height: 25px;
   width: max-content;
-  padding: 5px 8px;
-  margin: 4px;
+  white-space: nowrap;
+  padding: 2px 8px;
+  margin: 5px;
   background-color: #e1ecf4;
   border-radius: 5px;
   border: 1px #e1ecf4;
@@ -386,7 +390,7 @@ const TagDeleteButton = styled.div`
   color: #39739d;
   height: 20px;
   padding: 5px;
-  margin-left: 5px;
+  margin-left: 2px;
   width: 20px;
   &:hover {
     background-color: #85b5d7;
