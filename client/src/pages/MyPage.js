@@ -89,7 +89,7 @@ const Container = styled.div`
 const InfoContainer = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   margin-left: 15%;
   margin-top: 3rem;
 
