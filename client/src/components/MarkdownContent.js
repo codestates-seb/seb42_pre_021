@@ -36,6 +36,7 @@ const MarkdownDesign = styled.div`
     width: 100%;
     margin-bottom: 2rem;
     p > code {
+      // * 인라인 코드
       background-color: #e4e5e7;
       padding: 1px 2px;
       border-radius: 2px;
@@ -47,6 +48,7 @@ const MarkdownDesign = styled.div`
         width: 100%;
       }
       pre > code {
+        // * 코드 블럭
         display: inline-block;
         overflow: auto;
         width: 100%;
