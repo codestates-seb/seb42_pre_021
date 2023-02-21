@@ -1,38 +1,43 @@
 import styled from 'styled-components';
+import EditAndProfile from './EditAndProfile';
+import Tags from './Tags';
 
-const QuestionContent = ({ content }) => {
+const QuestionContent = ({ question }) => {
   const handleHTML = str => {
-    if (str !== undefined) {
-      console.log(str);
-      const { html } = str;
+    if (str.content !== undefined) {
+      const { html } = str.content;
       return { __html: html };
     }
     return { __html: '' };
   };
 
   return (
-    <MarkdownDesign>
-      <div className="content" dangerouslySetInnerHTML={handleHTML(content)}></div>
-    </MarkdownDesign>
+    <ContentDesign>
+      <div className="content" dangerouslySetInnerHTML={handleHTML(question)}></div>
+      <Tags question={question} />
+      <EditAndProfile member={question.questionMember} asked={question.createdAt} />
+    </ContentDesign>
   );
 };
 
-const MarkdownDesign = styled.div`
+const ContentDesign = styled.div`
   font-size: 0.9rem;
   width: 100%;
   min-height: 10rem;
   height: fit-content;
   padding-top: 0.5rem;
+  margin-bottom: 3rem;
   padding-left: 4rem;
-  max-width: 100%;
   .content {
     width: 100%;
+    margin-bottom: 2rem;
     p > code {
       background-color: #e4e5e7;
       padding: 1px 2px;
       border-radius: 2px;
     }
     .toastui-editor-ww-code-block {
+      max-width: 100%;
       width: 100%;
       pre {
         width: 100%;
