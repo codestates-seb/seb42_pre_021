@@ -78,6 +78,7 @@ const Wrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
   }
+
   @media screen and (max-width: 1279px) {
     width: 100%;
     margin-right: 0;

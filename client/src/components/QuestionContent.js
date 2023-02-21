@@ -18,14 +18,20 @@ const QuestionContent = ({ content }) => {
 };
 
 const MarkdownDesign = styled.div`
+  font-size: 0.9rem;
   width: 100%;
   min-height: 10rem;
   height: fit-content;
   padding-top: 0.5rem;
-  padding-left: 5rem;
+  padding-left: 4rem;
   max-width: 100%;
   .content {
     width: 100%;
+    p > code {
+      background-color: #e4e5e7;
+      padding: 1px 2px;
+      border-radius: 2px;
+    }
     .toastui-editor-ww-code-block {
       width: 100%;
       pre {
@@ -40,10 +46,6 @@ const MarkdownDesign = styled.div`
         border-radius: 0.5rem;
         margin: 0.5rem 0;
       }
-    }
-    p > code {
-      padding: 1px 2px;
-      border-radius: 2px;
     }
   }
 `;
