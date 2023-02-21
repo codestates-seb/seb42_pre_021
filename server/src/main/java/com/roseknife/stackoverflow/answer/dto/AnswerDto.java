@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.answer.dto;
 
+import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnswerDto {
 	@Getter
@@ -44,13 +47,16 @@ public class AnswerDto {
 
 		private String modifiedAt;
 
-		public Response(Long answerId, String content, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+		private List<AnswerComment> answerComments;
+
+		public Response(Long answerId, String content, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, List<AnswerComment> answerComments) {
 			this.answerId = answerId;
 			this.content = content;
 			this.nickname = nickname;
 			this.profile = profile;
 			this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 			this.modifiedAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+			this.answerComments = answerComments;
 		}
 	}
 }

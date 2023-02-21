@@ -3,10 +3,16 @@ package com.roseknife.stackoverflow.answer.controller;
 import com.roseknife.stackoverflow.answer.dto.AnswerDto;
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.answer.mapper.AnswerMapper;
+import com.roseknife.stackoverflow.answer.repository.AnswerRepository;
 import com.roseknife.stackoverflow.answer.service.AnswerService;
+import com.roseknife.stackoverflow.dto.MultiResponseDto;
 import com.roseknife.stackoverflow.dto.SingleResponseDto;
+import com.roseknife.stackoverflow.member.entity.Member;
+import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.List;
 
 
 @RestController
@@ -24,6 +31,7 @@ public class AnswerController {
 	private static final String ANSWER_DEFAULT_URL = "/answers";
 	private final AnswerService answerService;
 	private final AnswerMapper mapper;
+	private final AnswerRepository answerRepository;
 
 	@PostMapping
 	public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post answerPostDto) {
@@ -49,4 +57,14 @@ public class AnswerController {
 
 		return ResponseEntity.noContent().build();
 	}
+
+	//테스트용 (엔티티 직접 리스폰시 List 적용안되는것 - 추후 시간날때 확인)
+//	@GetMapping("/{answer-id}")
+//	public ResponseEntity getAnswer(@PathVariable("answer-id") Long answerId) {
+//		Answer answer = answerService.findAnswer(answerId);
+//
+//		return ResponseEntity.ok(
+//				new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer))
+//		);
+//	}
 }

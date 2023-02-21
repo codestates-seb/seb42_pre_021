@@ -19,11 +19,17 @@ public class QuestionBookmark {
 
 	private boolean questionBookmarkFlag = false;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "QUESTION_ID")
 	private Question question;
+	public void setQuestion(Question question) {
+		this.question = question;
+		if (question.getQuestionBookmark() != this) {
+			question.setQuestionBookmark(this);
+		}
+	}
 }
