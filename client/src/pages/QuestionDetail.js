@@ -8,6 +8,7 @@ import Footer from 'containers/Footer';
 import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
 import QuestionContent from 'components/QuestionContent';
+import Answers from 'components/Answers';
 
 // const USER = '김코딩';
 
@@ -33,6 +34,7 @@ const QuestionDetail = () => {
               <Vote />
               <QuestionContent question={question} />
             </div>
+            <Answers />
           </Wrapper>
           <SideContent />
         </ContentSection>
