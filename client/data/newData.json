@@ -3,7 +3,10 @@
     {
       "questionId": 1,
       "title": "test_title1",
-      "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
       "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 42,
@@ -17,7 +20,10 @@
         {
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": "answer3",
+          "content": {
+            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
           "questionMember": {
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
@@ -26,7 +32,10 @@
         {
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": "answer3",
+          "content": {
+            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
           "questionMember": {
             "nickname": "김코딩3",
             "profile": "https://source.boringavatars.com/beam/33"
@@ -37,7 +46,10 @@
     {
       "questionId": 2,
       "title": "test_title2",
-      "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
       "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 30,
@@ -51,7 +63,10 @@
         {
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": "answer3",
+          "content": {
+            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
           "questionMember": {
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/8"
@@ -62,7 +77,10 @@
     {
       "questionId": 3,
       "title": "test_title3",
-      "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
       "createdAt": "2023-02-18T20:55:30.042741",
       "modifiedAt": "2023-02-18T20:55:30.042741",
       "viewCount": 2,
@@ -77,7 +95,10 @@
         {
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": "answer3",
+          "content": {
+            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
           "questionMember": {
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
@@ -86,7 +107,10 @@
         {
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": "answer3",
+          "content": {
+            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
           "questionMember": {
             "nickname": "김코딩3",
             "profile": "https://source.boringavatars.com/beam/4"
@@ -97,7 +121,10 @@
     {
       "questionId": 4,
       "title": "test_title4",
-      "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
       "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 132,
@@ -112,7 +139,10 @@
         {
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": "answer3",
+          "content": {
+            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
           "questionMember": {
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
@@ -121,7 +151,10 @@
         {
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": "answer3",
+          "content": {
+            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
           "questionMember": {
             "nickname": "김코딩3",
             "profile": "https://source.boringavatars.com/beam/2"
@@ -132,7 +165,10 @@
     {
       "questionId": 5,
       "title": "test_title5",
-      "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
       "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 60,
