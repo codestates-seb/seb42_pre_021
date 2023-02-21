@@ -5,16 +5,10 @@ import com.roseknife.stackoverflow.answer.repository.AnswerRepository;
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
-import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import com.roseknife.stackoverflow.question.entity.FindStatus;
-import com.roseknife.stackoverflow.question.entity.Question;
-import com.roseknife.stackoverflow.question.repository.QuestionRepository;
 import com.roseknife.stackoverflow.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,20 +34,24 @@ public class AnswerService {
 	}
 
 	public Answer updateAnswer(Answer answer) {
-		Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+		Answer findAnswer = findVerifiedAnswerById(answer.getAnswerId());
 		Optional.ofNullable(answer.getContent()).ifPresent(findAnswer::setContent);
 
 		return answerRepository.save(findAnswer);
 	}
 
+	public Answer findAnswer(Long answerId) {
+			return findVerifiedAnswerById(answerId);
+	}
+
 	public void deleteAnswer(Long answerId) {
 		//Answer count 감소 추가
-		Answer answer = findVerifiedAnswer(answerId);
+		Answer answer = findVerifiedAnswerById(answerId);
 		questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId(), FindStatus.ANSWER_DEL);
 		answerRepository.deleteById(answerId);
 	}
 
-	private Answer findVerifiedAnswer(Long answerId) {
+	private Answer findVerifiedAnswerById(Long answerId) {
 		Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
 		//에러로 인해 ExceptionCode 추가
 		Answer findAnswer = optionalAnswer.orElseThrow(() ->
@@ -61,16 +59,4 @@ public class AnswerService {
 
 		return findAnswer;
 	}
-
-	//테스트용
-//	public Answer findAnswer(Long answerId) {
-//			return findVerifiedAnswerById(answerId);
-//	}
-//
-//	private Answer findVerifiedAnswerById(Long answerId) {
-//		Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-//		Answer findAnswer = optionalAnswer
-//				.orElseThrow(() -> new RuntimeException("Answer is not exist."));
-//		return findAnswer;
-//	}
 }

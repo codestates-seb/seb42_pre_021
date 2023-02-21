@@ -28,7 +28,7 @@ public class QuestionVoteService {
 	}
 
 	public QuestionVote updateQuestionVote(QuestionVote questionVote) {
-		QuestionVote findQuestionVote = findVerifiedQuestionVote(questionVote.getQuestionVoteId());
+		QuestionVote findQuestionVote = findVerifiedQuestionVoteById(questionVote.getQuestionVoteId());
 
 		if (findQuestionVote.isQuestionVoteFlag() != (questionVote.isQuestionVoteFlag())
 				&& Objects.equals(findQuestionVote.getMember().getMemberId(), questionVote.getMember().getMemberId())) {
@@ -46,7 +46,7 @@ public class QuestionVoteService {
 		}
 	}
 
-	private QuestionVote findVerifiedQuestionVote(Long questionVoteId) {
+	private QuestionVote findVerifiedQuestionVoteById(Long questionVoteId) {
 		Optional<QuestionVote> optionalQuestionVote = questionVoteRepository.findById(questionVoteId);
 		QuestionVote questionVote = optionalQuestionVote.orElseThrow();
 
