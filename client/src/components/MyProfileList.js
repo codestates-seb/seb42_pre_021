@@ -7,7 +7,9 @@ const MyProfileList = ({ username, location, title, aboutme, isEdit }) => {
     <InfoMain>
       <ul>
         <li>
-          <label htmlFor="name">Display name</label>
+          <label htmlFor="name" className="inputTitle">
+            Display name
+          </label>
           {isEdit ? (
             <div className="inputBox">
               <input id="name" type="text" autoComplete="off" />
@@ -17,7 +19,9 @@ const MyProfileList = ({ username, location, title, aboutme, isEdit }) => {
           )}
         </li>
         <li>
-          <label htmlFor="location">Location</label>
+          <label htmlFor="location" className="inputTitle">
+            Location
+          </label>
           {isEdit ? (
             <div className="inputBox">
               <input id="location" type="text" autoComplete="off" />
@@ -30,7 +34,9 @@ const MyProfileList = ({ username, location, title, aboutme, isEdit }) => {
           )}
         </li>
         <li>
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title" className="inputTitle">
+            Title
+          </label>
           {isEdit ? (
             <div className="inputBox">
               <input
@@ -45,8 +51,12 @@ const MyProfileList = ({ username, location, title, aboutme, isEdit }) => {
           )}
         </li>
         <li>
-          About me
-          {isEdit ? <TextEditor /> : <AboutMe>{aboutme}</AboutMe>}
+          <div className="inputTitle">About me</div>
+          {isEdit ? (
+            <TextEditor editorValue={' '} editorHeight={'10rem'} />
+          ) : (
+            <AboutMe>{aboutme}</AboutMe>
+          )}
         </li>
       </ul>
     </InfoMain>
@@ -63,6 +73,9 @@ const InfoMain = styled.main`
       margin: 0.5rem;
       font-size: 0.9rem;
       font-weight: bold;
+      > .inputTitle {
+        margin-bottom: 0.2rem;
+      }
       > span {
         display: flex;
         align-items: center;
@@ -77,7 +90,6 @@ const InfoMain = styled.main`
       > .inputBox {
         display: flex;
         width: 50%;
-        margin-top: 0.2rem;
         padding: 0.3rem;
         border-radius: 4px;
         border: 1px solid #bbc0c4;

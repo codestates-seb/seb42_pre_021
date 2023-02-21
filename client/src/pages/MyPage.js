@@ -12,14 +12,24 @@ const MyPage = () => {
     <>
       <Navigation />
       <Container>
+        <ButtonBox>
+          <Link to="/mypage/edit" className="mypageButton">
+            <FaPen />
+            Edit profile
+          </Link>
+          <button className="mypageButton">
+            <FaTrashAlt />
+            Delete Profile
+          </button>
+        </ButtonBox>
         <InfoContainer>
           <h3>Public information</h3>
-          <div className="infoBox">
+          <div>
             <InfoHeader>
               <span>Profile image</span>
               <ProfileContainer>
                 <ImageBox>
-                  <Search width={120} className="profileImage" />
+                  <Search className="profileImage" />
                 </ImageBox>
                 <ul>
                   <li>
@@ -45,16 +55,6 @@ const MyPage = () => {
             />
           </div>
         </InfoContainer>
-        <ButtonBox>
-          <Link to="/mypage/edit" className="mypageButton">
-            <FaPen />
-            Edit profile
-          </Link>
-          <button className="mypageButton">
-            <FaTrashAlt />
-            Delete Profile
-          </button>
-        </ButtonBox>
       </Container>
     </>
   );
@@ -62,21 +62,25 @@ const MyPage = () => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   width: 1280px;
   height: 100vh;
-  padding: 2rem 3rem 0 11rem;
+  margin-left: 10%;
+  margin-top: 3rem;
 `;
 
 const InfoContainer = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin-left: 15%;
-  margin-top: 3rem;
+  padding-left: 11rem;
+  @media screen and (max-width: 640px) {
+    padding: 0 5%;
+    justify-content: center;
+  }
 
   > div {
-    max-width: 100%;
-    width: 100%;
+    width: calc(10rem + 55%);
+    justify-content: center;
     padding: 1rem;
     border-radius: 4px;
     border: 1px solid #bbc0c4;
@@ -102,7 +106,8 @@ const ProfileContainer = styled.div`
   display: flex;
   > ul {
     display: flex;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
+    padding-right: 0.2rem;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
@@ -123,15 +128,20 @@ const ProfileContainer = styled.div`
 
 const ImageBox = styled.div`
   > .profileImage {
+    width: 9rem;
     border-radius: 0.8rem;
     background-color: gray;
+    @media screen and (max-width: 640px) {
+      width: 6rem;
+    }
   }
 `;
 
 const ButtonBox = styled.aside`
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  align-items: start;
+  justify-content: end;
+  margin-right: 4rem;
   > .mypageButton {
     display: flex;
     align-items: center;

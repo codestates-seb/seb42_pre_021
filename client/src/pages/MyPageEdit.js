@@ -19,7 +19,7 @@ const MyPageEdit = () => {
               <span>Profile image</span>
               <div>
                 <ImageBox>
-                  <Search width={120} className="profileImage" />
+                  <Search className="profileImage" />
                 </ImageBox>
               </div>
             </InfoHeader>
@@ -48,17 +48,20 @@ const Container = styled.div`
   flex-direction: column;
   width: 1280px;
   height: 100vh;
-  padding: 2rem 3rem 0 11rem;
-  margin-left: 15%;
+  margin-left: 10%;
+  margin-top: 3rem;
 `;
 
 const InfoContainer = styled.section`
   display: flex;
   flex-direction: column;
-  max-width: 80%;
-  margin-top: 3rem;
-
+  padding: 0 0 0 11rem;
+  @media screen and (max-width: 640px) {
+    padding: 0 10% 0 0;
+    justify-content: center;
+  }
   > div {
+    width: calc(10rem + 55%);
     padding: 1rem;
     border-radius: 4px;
     border: 1px solid #bbc0c4;
@@ -82,17 +85,23 @@ const InfoHeader = styled.header`
 
 const ImageBox = styled.div`
   > .profileImage {
+    width: 9rem;
     border-radius: 0.8rem;
     background-color: gray;
+    @media screen and (max-width: 640px) {
+      width: 6rem;
+    }
   }
 `;
 
 const ButtonBox = styled.aside`
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: start;
+  margin-left: 11rem;
   margin-top: 2rem;
+  @media screen and (max-width: 640px) {
+    margin-left: calc(5% + 5rem);
+  }
   > .cancleButton {
     display: flex;
     margin-left: 1rem;
