@@ -20,7 +20,7 @@ public class AnswerVoteService {
 	private final MemberService memberService;
 
 	public AnswerVote createAnswerVote(AnswerVote answerVote) {
-		// find question 필요 -> 국선님 answer.find() 구현하셨는지 여쭤보기
+		answerService.findAnswer(answerVote.getAnswer().getAnswerId());
 		memberService.findMember(answerVote.getMember().getMemberId());
 		verifyExistAnswerVote(answerVote);
 
@@ -28,7 +28,7 @@ public class AnswerVoteService {
 	}
 
 	public AnswerVote updateAnswerVote(AnswerVote answerVote) {
-		AnswerVote findAnswerVote = findVerifiedAnswerVote(answerVote.getAnswerVoteId());
+		AnswerVote findAnswerVote = findVerifiedAnswerVoteById(answerVote.getAnswerVoteId());
 
 		if (findAnswerVote.isAnswerVoteFlag() != answerVote.isAnswerVoteFlag()
 				&& Objects.equals(findAnswerVote.getMember().getMemberId(), answerVote.getMember().getMemberId())) {
@@ -46,7 +46,7 @@ public class AnswerVoteService {
 		}
 	}
 
-	private AnswerVote findVerifiedAnswerVote(Long answerVoteId) {
+	private AnswerVote findVerifiedAnswerVoteById(Long answerVoteId) {
 		Optional<AnswerVote> optionalAnswerVote = answerVoteRepository.findById(answerVoteId);
 		AnswerVote answerVote = optionalAnswerVote.orElseThrow();
 
