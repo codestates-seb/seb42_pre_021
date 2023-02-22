@@ -44,6 +44,7 @@ public class MemberDto {
     @Getter
     public static class Response {
         private Long memberId;
+        private String nickname;
         private String email;
         private String profile;
         private String createdAt;
@@ -54,8 +55,9 @@ public class MemberDto {
         private String content;
         private String memberStatus;
 
-        public Response(Long memberId, String email, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, LocalDateTime lastLoginAt, String company, String title, String content, String memberStatus) {
+        public Response(Long memberId, String nickname, String email, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, LocalDateTime lastLoginAt, String company, String title, String content, String memberStatus) {
             this.memberId = memberId;
+            this.nickname = nickname;
             this.email = email;
             this.profile = profile;
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
@@ -64,6 +66,23 @@ public class MemberDto {
             this.company = company;
             this.title = title;
             this.content = content;
+            this.memberStatus = memberStatus;
+        }
+    }
+
+    @Getter
+    public static class ResponseLogin {
+        private Long memberId;
+        private String nickname;
+        private String email;
+        private String profile;
+        private String memberStatus;
+
+        public ResponseLogin(Long memberId, String nickname, String email, String profile, String memberStatus) {
+            this.memberId = memberId;
+            this.nickname = nickname;
+            this.email = email;
+            this.profile = profile;
             this.memberStatus = memberStatus;
         }
     }
