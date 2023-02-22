@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { getTime } from 'utils/getTime';
 import Tags from './Tags';
 
 const QuestionArticle = ({ question }) => {
@@ -24,7 +25,7 @@ const QuestionArticle = ({ question }) => {
             <MemberInfo>
               <img src={question.questionMember.profile} alt="profileImg" />
               <p>{question.questionMember.nickname}</p>
-              <p>{new Date(question.createdAt).toLocaleString()}</p>
+              <p>{getTime(question.createdAt)}</p>
             </MemberInfo>
           </div>
         </div>
