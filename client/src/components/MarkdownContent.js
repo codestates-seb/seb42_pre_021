@@ -17,7 +17,12 @@ const MarkdownContent = ({ data, isAnswer }) => {
         <MarkdownDesign className={isAnswer ? 'answer_markdown' : null}>
           <div className="content" dangerouslySetInnerHTML={handleHTML(data)}></div>
           {data.tag && <Tags data={data} />}
-          <EditAndProfile member={data.questionMember} date={data.createdAt} isAnswer={isAnswer} />
+          <EditAndProfile
+            member={data.questionMember}
+            date={data.createdAt}
+            isAnswer={isAnswer}
+            content={data.content}
+          />
         </MarkdownDesign>
       )}
     </>
