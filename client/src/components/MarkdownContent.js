@@ -51,7 +51,7 @@ const MarkdownDesign = styled.div`
           display: block;
           width: 100%;
           height: fit-content;
-          overflow-x: scroll;
+          overflow-x: auto;
           background-color: #f6f6f6;
           padding: 1rem;
           border-radius: 0.5rem;
