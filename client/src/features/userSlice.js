@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
+
+const initialState = {
+  memberId: '',
+  nickname: '',
+  email: '',
+  islogin: false,
+};
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: null, //초기값 유저로그인 안함
-  },
+  initialState,
   reducers: {
     login: (state, action) => {
       state.user = action.payload;
@@ -13,6 +19,9 @@ export const userSlice = createSlice({
       state.user = null;
     },
   },
+  extraReducers: builder => {
+    builder.addCase(PURGE, () => initialState);
+  },
 });
 
 export const { login, logout } = userSlice.actions;
@@ -20,4 +29,4 @@ export const { login, logout } = userSlice.actions;
 export const selectUser = state => state.user.user;
 //전역상태 export
 export default userSlice.reducer;
-//저장에담긴 reducer를 export하기위한  export
+//reducer export

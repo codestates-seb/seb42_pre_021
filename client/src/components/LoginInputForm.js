@@ -39,7 +39,7 @@ const LoginInputForm = () => {
     if (passwordRegex.test(event.target.value)) {
       setPasswordValid(true);
     } else {
-      alert('패스워드를 형식에 맞게 입력해 주세요');
+      alert('패스워드를 확인해주세요');
     }
   };
 
