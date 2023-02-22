@@ -1,6 +1,5 @@
 import QuestionList from 'components/QuestionList';
 import SideContent from 'components/SideContent';
-import Footer from 'containers/Footer';
 import Navigation from 'containers/Navigation';
 import styled from 'styled-components';
 
@@ -14,7 +13,6 @@ const Questions = () => {
         </QuestionSection>
         <SideContent />
       </Container>
-      <Footer />
     </>
   );
 };

@@ -10,6 +10,7 @@ import Vote from 'components/Vote';
 import Answers from 'components/Answers';
 import MarkdownContent from 'components/MarkdownContent';
 import YourAnswer from 'components/YourAnswer';
+import { Container } from 'containers/Container';
 
 // const USER = '김코딩';
 
@@ -57,15 +58,6 @@ const QuestionDetail = () => {
   );
 };
 
-const Container = styled.div`
-  width: 1280px;
-  height: 100%;
-  padding-left: 11rem;
-  @media screen and (max-width: 640px) {
-    padding-left: 0;
-  }
-`;
-
 const ContentSection = styled.section`
   width: 100%;
   display: flex;
@@ -80,7 +72,7 @@ const ContentSection = styled.section`
 
 const Wrapper = styled.div`
   width: 51rem;
-  height: calc(100% + 30rem);
+  height: fit-content;
   padding: 1rem;
   padding-left: 1.5rem;
   padding-right: 2rem;
