@@ -99,6 +99,7 @@ const ButtonBox = styled.aside`
   align-items: center;
   margin-left: 11rem;
   margin-top: 2rem;
+  padding-bottom: 2rem;
   @media screen and (max-width: 640px) {
     margin-left: calc(5% + 5rem);
   }
