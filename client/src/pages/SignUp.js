@@ -48,18 +48,22 @@ const SignUp = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 3rem);
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f1f2f3;
+  overflow-x: hidden;
+  overflow-y: scroll;
 `;
 const Container = styled.div`
   width: 48rem;
-  height: 80%;
+  height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
+  overflow-y: visible;
 `;
 
 const LeftTextContainer = styled.div`
@@ -112,7 +116,7 @@ const SignUpContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #f1f2f3;
-  overflow: auto;
+  overflow-y: visible;
 `;
 
 const LoginTextContainer = styled.div`

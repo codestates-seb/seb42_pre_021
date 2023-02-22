@@ -12,7 +12,6 @@ const QuestionList = () => {
   const [questionList, setQuestionList] = useState([]);
   const [currentSortBy, setCurrentSortBy] = useState(0);
 
-  // ! redux로 상태 정리 완성되면 코드 변경하기
   useEffect(() => {
     axios.get('http://localhost:3001/questions').then(response => setQuestionList(response.data));
   }, []);
