@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "memberId": 1,
+      "email": "kimcoding@naver.com",
+      "nickname": "coding",
+      "profile": "d",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "Seoul",
+      "title": "title",
+      "content": "dfssafasdf",
+      "memberStatus": "Yes"
+    }
+  ]
+}
