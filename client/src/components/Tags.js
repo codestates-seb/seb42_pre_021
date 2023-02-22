@@ -14,9 +14,9 @@ const TagWrapper = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: row;
-  /* margin-bottom: 1.5rem; */
+  flex-wrap: wrap;
+  gap: 0.5rem;
   li {
-    margin-right: 0.5rem;
     background-color: #e1ecf4;
     padding: 0.2rem 0.5rem;
     border-radius: 0.2rem;
