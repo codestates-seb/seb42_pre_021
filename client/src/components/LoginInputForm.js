@@ -1,19 +1,36 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
+// import { loginAction } from '/actions';
+// import { useDispatch } from 'react-redux';
 
 const LoginInputForm = () => {
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
 
-  const handleChange = event => {
+  const handleChangeInput = event => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
   };
+
+  // 인풋값입력후 포커스 잃은 후 유효성검사
+  const CheckEmail = event => {
+    const emailRegex =
+      '/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i';
+    emailRegex.test(event.target.value) ? setEmailValid(true) : setEmailValid(false);
+  };
+
+  const checkPassword = event => {
+    const passwordRegex = '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$';
+    passwordRegex.test(event.target.value) ? setPasswordValid(true) : setPasswordValid(false);
+  };
+
   axios.defaults.withCredentials = true;
 
   // const handleSubmit = event => {
@@ -41,9 +58,21 @@ const LoginInputForm = () => {
   return (
     <InputContainer>
       <Label>Email</Label>
-      <Input type={'email'} name="email" value={values.email} onChange={handleChange} />
+      <Input
+        type={'email'}
+        name="email"
+        value={values.email}
+        onChange={handleChangeInput}
+        onBlur={CheckEmail}
+      />
       <Label>Password</Label>
-      <Input type={'password'} name="password" value={values.password} onChange={handleChange} />
+      <Input
+        type={'password'}
+        name="password"
+        value={values.password}
+        onChange={handleChangeInput}
+        onBlur={checkPassword}
+      />
       {/* <LoginButton onSubmit={handleSubmit}>Log in</LoginButton> */}
       <LoginButton>Log in</LoginButton>
     </InputContainer>
