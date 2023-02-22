@@ -63,6 +63,8 @@ public class QuestionDto {
         private String createdAt;
         private String modifiedAt;
         private String content;
+
+        private String memberId;
         private String nickname;
         private String profile;
 
@@ -117,6 +119,7 @@ public class QuestionDto {
     @AllArgsConstructor
     @Getter
     public static class QuestionMember {
+        private Long memberId;
         private String nickname;
         private String profile;
     }

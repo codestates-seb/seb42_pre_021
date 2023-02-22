@@ -41,8 +41,8 @@ public class AnswerCommentDto {
 
 		private String content;
 
+		private String memberId;
 		private String nickname;
-
 		private String profile;
 
 		private String createdAt;
