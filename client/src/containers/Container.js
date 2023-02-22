@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  border: 2px solid red;
   width: 1280px;
   height: fit-content;
   min-height: calc(100vh - 3rem);

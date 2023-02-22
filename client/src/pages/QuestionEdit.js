@@ -42,6 +42,9 @@ const QuestionEdit = () => {
           <BodyEdit onClick={() => handleSectionClick('format')}>
             <InputTitle>Body</InputTitle>
           </BodyEdit>
+          <TagEdit onClick={() => handleSectionClick('tag')}>
+            <InputTitle>Tags</InputTitle>
+          </TagEdit>
         </EditSection>
         <SideNotice>
           {currentForm === 'edit' ? (
@@ -70,8 +73,6 @@ const Wrapper = styled.div`
     grid-template-columns: 100%;
     padding: 1.7rem 1rem;
   }
-  @media screen and (max-width: 640px) {
-  }
 `;
 
 const EditSection = styled.section`
@@ -82,8 +83,6 @@ const EditSection = styled.section`
   }
   @media screen and (max-width: 979px) {
     padding: 0;
-  }
-  @media screen and (max-width: 640px) {
   }
 `;
 
@@ -135,8 +134,6 @@ const SideNotice = styled.aside`
     position: relative;
     top: auto;
   }
-  @media screen and (max-width: 640px) {
-  }
 `;
 
 const InputTitle = styled.h1`
@@ -157,6 +154,10 @@ const TitleEdit = styled.div`
 `;
 
 const BodyEdit = styled.div`
+  width: 100%;
+`;
+
+const TagEdit = styled.div`
   width: 100%;
 `;
 
