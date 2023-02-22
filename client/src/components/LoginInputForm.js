@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useNavigate } from 'react';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 // import { loginAction } from '/actions';
 // import { useDispatch } from 'react-redux';
 
@@ -12,6 +14,8 @@ const LoginInputForm = () => {
     password: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChangeInput = event => {
     setValues({
       ...values,
@@ -19,7 +23,7 @@ const LoginInputForm = () => {
     });
   };
 
-  // 인풋값입력후 포커스 잃은 후 유효성검사
+  // 인풋값입력후 포커스 잃은 후(onBlur) 유효성검사
   const CheckEmail = event => {
     const emailRegex =
       '/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i';
@@ -31,29 +35,40 @@ const LoginInputForm = () => {
     passwordRegex.test(event.target.value) ? setPasswordValid(true) : setPasswordValid(false);
   };
 
-  axios.defaults.withCredentials = true;
+  const handleSubmit = event => {
+    event.preventDefault();
 
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   axios
-  //     .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { withCredentials: true })
-  //     .then(res => {
-  //       localStorage.setItem('accessToken', res.data)
-  //     })
-  //     .get(`${process.env.REACT_APP_API_URL}/members/`, {
-  //       withCredentials: true,
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //       },
-  //     })
-  //     .then((res)=>{
-  //       setIsLogin(true)
-  //       navigate('/questions')
-  //     })
-  //     .catch(error => {
-  //       alert(error);
-  //     });
-  // };
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    };
+
+    if (!emailValid || !passwordValid) {
+      return alert('이메일과 비밀번호를 올바르게 입력하여 주십시오');
+    }
+
+    if (emailValid && passwordValid) {
+      return axios
+        .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { headers })
+        .then(response => {
+          const { accessToken } = response.data;
+          localStorage.setItem('accessToken', accessToken);
+        })
+        .get(`${process.env.REACT_APP_API_URL}/members/`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then(() => {
+          // setIsLogin(true);
+          navigate('/questions');
+        })
+        .catch(error => {
+          alert(error);
+        });
+    }
+  };
 
   return (
     <InputContainer>
@@ -73,8 +88,7 @@ const LoginInputForm = () => {
         onChange={handleChangeInput}
         onBlur={checkPassword}
       />
-      {/* <LoginButton onSubmit={handleSubmit}>Log in</LoginButton> */}
-      <LoginButton>Log in</LoginButton>
+      <LoginButton onSubmit={handleSubmit}>Log in</LoginButton>
     </InputContainer>
   );
 };
