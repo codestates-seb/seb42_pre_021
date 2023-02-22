@@ -112,6 +112,7 @@ const SignUpContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #f1f2f3;
+  overflow: auto;
 `;
 
 const LoginTextContainer = styled.div`

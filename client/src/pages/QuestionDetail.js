@@ -7,7 +7,9 @@ import SideContent from 'components/SideContent';
 import Footer from 'containers/Footer';
 import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
-import QuestionContent from 'components/QuestionContent';
+import Answers from 'components/Answers';
+import MarkdownContent from 'components/MarkdownContent';
+import YourAnswer from 'components/YourAnswer';
 
 // const USER = '김코딩';
 
@@ -15,29 +17,39 @@ const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
 
-  useEffect(() => {
-    axios
+  const getData = async () => {
+    await axios
       .get(`http://localhost:3001/questions?questionId=${id}`)
       .then(response => setQuestion(response.data[0]));
-    console.log(question);
+  };
+  useEffect(() => {
+    getData();
   }, []);
 
   return (
     <>
-      <Container>
-        <Navigation />
-        <DetailTitle question={question} />
-        <ContentSection>
-          <Wrapper>
-            <div className="question_content">
-              <Vote />
-              <QuestionContent content={question.content} />
-            </div>
-          </Wrapper>
-          <SideContent />
-        </ContentSection>
-      </Container>
-      <Footer />
+      {question.questionId && (
+        <>
+          <Container>
+            <Navigation />
+            <DetailTitle question={question} />
+            <ContentSection>
+              <Wrapper>
+                <div className="question_content">
+                  <Vote />
+                  <MarkdownContent data={question} />
+                </div>
+                {question.questionAnswers.length ? (
+                  <Answers answers={question.questionAnswers} />
+                ) : null}
+                <YourAnswer />
+              </Wrapper>
+              <SideContent />
+            </ContentSection>
+          </Container>
+          <Footer />
+        </>
+      )}
     </>
   );
 };
@@ -56,7 +68,7 @@ const ContentSection = styled.section`
   display: flex;
   @media screen and (max-width: 1279px) {
     display: grid;
-    grid-template-columns: calc(100% - 21rem) 21rem;
+    grid-template-columns: calc(100% - 17rem) 17rem;
   }
   @media screen and (max-width: 979px) {
     grid-template-columns: 1fr;
@@ -64,22 +76,23 @@ const ContentSection = styled.section`
 `;
 
 const Wrapper = styled.div`
-  width: 48rem;
-  margin-right: 1rem;
+  width: 51rem;
+  height: fit-content;
   padding: 1rem;
   padding-left: 1.5rem;
+  padding-right: 2rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   .question_content {
-    border: 2px solid green;
+    position: relative;
     width: 100%;
-    display: flex;
   }
   @media screen and (max-width: 1279px) {
     width: 100%;
-    margin-right: 0;
   }
   @media screen and (max-width: 979px) {
+    padding-right: 1.5rem;
   }
 `;
 

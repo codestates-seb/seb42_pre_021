@@ -11,7 +11,7 @@
       "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 42,
       "answerCount": 0,
-      "tag": ["React", "javaScript"],
+      "tag": ["React", "javaScript", "dsffasasfa", "asdgasgsdag"],
       "questionMember": {
         "nickname": "dfgjgfhd",
         "profile": "https://source.boringavatars.com/beam/32"
@@ -28,18 +28,6 @@
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
           }
-        },
-        {
-          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
-          "content": {
-            "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
-            "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
-          },
-          "questionMember": {
-            "nickname": "김코딩3",
-            "profile": "https://source.boringavatars.com/beam/33"
-          }
         }
       ]
     },
@@ -47,8 +35,8 @@
       "questionId": 2,
       "title": "test_title2",
       "content": {
-        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
-        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+        "html": "<p>The brand new error.</p><p><br></p><p>I have an image Uri and have permission to open it.</p><p><br></p><p>Now i try to open it in native android image viewer.</p><p><br></p><p>I already tested few solutions which not worked.</p><p><br></p><p>There is a code:</p><div data-language=\"java\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"java\">String str_address=getArguments().getString(\"Path\");\n        FILE_ADRESS= Uri.parse(str_address);\n        String path = FILE_ADRESS.getPath();\n        Uri uri = Uri.parse(str_address);\n        //Uri uri = data.getData();\n        File file = new File(uri.getPath());//create path from uri\n        final String[] split = file.getPath().split(\":\");//split the path.\n        String filePath = split[1];//assign it to a string(your choice).\n\n        String file_type= getActivity().getContentResolver().getType(uri);\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent();\n                intent.setAction(Intent.ACTION_VIEW);\n                intent.setDataAndType(Uri.parse(\"file://\"+filePath+file_type.replaceFirst(\"/\",\".\")), \"image/*\");\n                startActivity(intent);\n\n            }\n        });</code></pre></div><p>What i've tryied - different versions of data to pass in setDataAndType -</p><p><br></p><p>variant with <code data-backticks=\"1\">\"file\"</code> &lt;-- crushes app</p><p><br></p><p>variant with <code data-backticks=\"1\">\"content://\"</code> &lt;-- black screen</p><p><br></p><p>variant with direct <code data-backticks=\"1\">uri</code> &lt;-- black screen</p><p><br></p><p>Currently out of ideas where to fk around to find out.</p><p><br></p><p>I've catched bug and know that there is something really wrong with the file path, but how to find proper file path for my Uri, possible with file extensions - i don't really know and the solution i've found on internet does not worked :&lt;</p>",
+        "markdown": "The brand new error.\n\nI have an image Uri and have permission to open it.\n\nNow i try to open it in native android image viewer.\n\nI already tested few solutions which not worked.\n\nThere is a code:\n```java\nString str_address=getArguments().getString(\"Path\");\n        FILE_ADRESS= Uri.parse(str_address);\n        String path = FILE_ADRESS.getPath();\n        Uri uri = Uri.parse(str_address);\n        //Uri uri = data.getData();\n        File file = new File(uri.getPath());//create path from uri\n        final String[] split = file.getPath().split(\":\");//split the path.\n        String filePath = split[1];//assign it to a string(your choice).\n\n        String file_type= getActivity().getContentResolver().getType(uri);\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent();\n                intent.setAction(Intent.ACTION_VIEW);\n                intent.setDataAndType(Uri.parse(\"file://\"+filePath+file_type.replaceFirst(\"/\",\".\")), \"image/*\");\n                startActivity(intent);\n\n            }\n        });\n```\n\nWhat i've tryied - different versions of data to pass in setDataAndType -\n\nvariant with `\"file\"` <-- crushes app\n\nvariant with `\"content://\"` <-- black screen\n\nvariant with direct `uri` <-- black screen\n\nCurrently out of ideas where to fk around to find out.\n\nI've catched bug and know that there is something really wrong with the file path, but how to find proper file path for my Uri, possible with file extensions - i don't really know and the solution i've found on internet does not worked :<\n"
       },
       "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
@@ -66,6 +54,18 @@
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+          },
+          "questionMember": {
+            "nickname": "김코딩2",
+            "profile": "https://source.boringavatars.com/beam/8"
+          }
+        },
+        {
+          "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "content": {
+            "html": "<p>A <code data-backticks=\"1\">Uri</code> is not a file. There is no requirement for the user to choose a file on the device, let alone a file whose filesystem path is available to an arbitrary other app.</p><p><br></p><p>Replace that with:</p><div data-language=\"java\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"java\">String str_address=getArguments().getString(\"Path\");\n        Uri uri = Uri.parse(str_address);\n\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent(Intent.ACTION_VIEW, uri);\n                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);\n                startActivity(intent);\n            }\n        });</code></pre></div>",
+            "markdown": "A `Uri` is not a file. There is no requirement for the user to choose a file on the device, let alone a file whose filesystem path is available to an arbitrary other app.\n\nReplace that with:\n```java\nString str_address=getArguments().getString(\"Path\");\n        Uri uri = Uri.parse(str_address);\n\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent(Intent.ACTION_VIEW, uri);\n                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);\n                startActivity(intent);\n            }\n        });\n```\n\n"
           },
           "questionMember": {
             "nickname": "김코딩2",

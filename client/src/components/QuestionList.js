@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import AddButton from './AddButton';
 import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
+import { useNavigate } from 'react-router-dom';
 
 const QuestionList = () => {
-  const SORT_BY = ['Newest', 'Answers', 'Views'];
-
+  const navigate = useNavigate();
+  const SORT_BY = ['Newest', 'Oldest', 'Answers', 'Views'];
   const [questionList, setQuestionList] = useState([]);
   const [currentSortBy, setCurrentSortBy] = useState(0);
 
@@ -15,13 +16,16 @@ const QuestionList = () => {
   useEffect(() => {
     axios.get('http://localhost:3001/questions').then(response => setQuestionList(response.data));
   }, []);
+  const handleAskButtonClick = () => {
+    navigate('/add');
+  };
 
   return (
     <>
       <TitleWrapper>
         <div>
           <h1>All Questions</h1>
-          <AddButton />
+          <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
         </div>
         <div>
           <h2>{questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions</h2>
@@ -44,10 +48,9 @@ const QuestionList = () => {
 const TitleWrapper = styled.div`
   background-color: #fff;
   width: 100%;
-  height: 8rem;
+  height: max-content;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 1rem 2rem;
   div {
     width: 100%;
@@ -55,6 +58,9 @@ const TitleWrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    :last-of-type {
+      margin-top: 1.5rem;
+    }
   }
   h1 {
     font-size: 1.5rem;
@@ -68,13 +74,26 @@ const TitleWrapper = styled.div`
   @media screen and (max-width: 1280px) {
     padding-right: 1rem;
   }
+  @media screen and (max-width: 640px) {
+    div {
+      :last-of-type {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+    }
+  }
 `;
 
 const QuestionWrapper = styled.div`
   width: 100%;
-  padding-right: 2rem;
+  padding-right: 0.5rem;
+
   @media screen and (max-width: 1280px) {
     padding-right: 1rem;
+  }
+  @media screen and (max-width: 979px) {
+    padding-right: 0;
   }
 `;
 

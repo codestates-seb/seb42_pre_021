@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 1rem;
+  position: absolute;
   .updown {
     cursor: pointer;
     color: #babfc3;

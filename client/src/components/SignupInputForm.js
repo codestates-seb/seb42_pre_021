@@ -53,20 +53,25 @@ const SignupInputForm = () => {
 
 const InputContainer = styled.div`
   width: 20rem;
-  height: 100%;
+  height: 50%;
   border-radius: 0.5rem;
   background-color: #ffff;
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
+  justify-content: center;
   align-items: center;
   padding: 0.8rem;
   margin-top: 1rem;
+  overflow: auto;
 
   > span {
     margin: 0.8rem 0 0.8rem 0.8rem;
     font-size: 0.75rem;
     color: #6b6b6b;
+  }
+
+  @media screen and (max-height: 1024px) {
+    height: 70%;
   }
 `;
 
@@ -80,10 +85,11 @@ const Label = styled.label`
 const SignUpInput = styled.input`
   width: 90%;
   height: 2rem;
-  align-self: center;
+  position: relative;
   border-style: none;
   border-radius: 0.2rem;
   border: 1px solid #999fa3;
+  padding-bottom: 1rem;
 
   &:focus {
     border: 1px solid #3278ae;
@@ -94,6 +100,7 @@ const SignUpInput = styled.input`
 const SignUpButton = styled.button`
   width: 90%;
   height: 2.5rem;
+  position: relative;
   align-self: center;
   border-radius: 0.4rem;
   background-color: #3b95ff;

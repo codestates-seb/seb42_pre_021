@@ -12,12 +12,14 @@ const SideContent = () => {
 };
 
 const SideContentWrapper = styled.aside`
-  width: 19rem;
+  width: 17rem;
   height: fit-content;
   @media screen and (max-width: 1280px) {
-    padding-left: 1rem;
     padding-right: 1rem;
     width: 100%;
+  }
+  @media screen and (max-width: 979px) {
+    padding-left: 1rem;
   }
 `;
 export default SideContent;
