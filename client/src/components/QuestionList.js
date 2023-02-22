@@ -48,10 +48,9 @@ const QuestionList = () => {
 const TitleWrapper = styled.div`
   background-color: #fff;
   width: 100%;
-  height: 8rem;
+  height: max-content;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 1rem 2rem;
   div {
     width: 100%;
@@ -59,6 +58,9 @@ const TitleWrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    :last-of-type {
+      margin-top: 1.5rem;
+    }
   }
   h1 {
     font-size: 1.5rem;
@@ -71,6 +73,15 @@ const TitleWrapper = styled.div`
   }
   @media screen and (max-width: 1280px) {
     padding-right: 1rem;
+  }
+  @media screen and (max-width: 640px) {
+    div {
+      :last-of-type {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+    }
   }
 `;
 

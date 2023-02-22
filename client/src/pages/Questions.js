@@ -32,7 +32,7 @@ const Container = styled.div`
     grid-template-columns: calc(100% - 17rem) 17rem;
   }
   @media screen and (max-width: 979px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
   }
   @media screen and (max-width: 640px) {
     padding-left: 0;
