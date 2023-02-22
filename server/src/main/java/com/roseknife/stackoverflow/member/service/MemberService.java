@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.member.service;
 
+import com.roseknife.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.member.entity.Member;
@@ -27,6 +28,12 @@ public class MemberService {
 
     public Member createMember(Member member) {
         verifyExistsMember(member);
+
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
 
         Member savedMember = memberRepository.save(member);
         return savedMember;

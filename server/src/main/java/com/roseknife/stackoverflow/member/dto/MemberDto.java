@@ -69,4 +69,21 @@ public class MemberDto {
             this.memberStatus = memberStatus;
         }
     }
+
+    @Getter
+    public static class ResponseLogin {
+        private Long memberId;
+        private String nickname;
+        private String email;
+        private String profile;
+        private String memberStatus;
+
+        public ResponseLogin(Long memberId, String nickname, String email, String profile, String memberStatus) {
+            this.memberId = memberId;
+            this.nickname = nickname;
+            this.email = email;
+            this.profile = profile;
+            this.memberStatus = memberStatus;
+        }
+    }
 }
