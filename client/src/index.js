@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 //persistGate : persist store가 redux에 저장될 때까지 앱 UI 렌더링이 지연됨.
+import ScrollToTop from 'utils/ScrollTop';
 
 const persistor = persistStore(store);
 
@@ -19,6 +20,7 @@ root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
+          <ScrollToTop />
           <App />
         </BrowserRouter>
       </PersistGate>

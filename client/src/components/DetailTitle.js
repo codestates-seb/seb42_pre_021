@@ -1,6 +1,7 @@
 import AddButton from 'components/AddButton';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getTime } from 'utils/getTime';
 
 const DetailTitle = ({ question }) => {
   const navigate = useNavigate();
@@ -15,9 +16,9 @@ const DetailTitle = ({ question }) => {
       </div>
       <ul>
         <p>Asked</p>
-        <li>{new Date(question.createdAt).toLocaleString()}</li>
+        <li>{getTime(question.createdAt)}</li>
         <p>Modefied</p>
-        <li>{new Date(question.modifiedAt).toLocaleString()}</li>
+        <li>{getTime(question.modifiedAt)}</li>
         <p>Viewed</p>
         <li>{question.viewCount}</li>
       </ul>
@@ -45,8 +46,26 @@ const TitleSection = styled.section`
     display: flex;
     gap: 0.5rem;
     font-size: 0.8rem;
+    > p {
+      color: #666;
+    }
     > li {
-      margin-right: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    > div {
+      flex-direction: column-reverse;
+      button {
+        align-self: flex-end;
+        margin-bottom: 1rem;
+      }
+    }
+    > ul {
+      font-size: 0.7rem;
+      > li {
+        margin-right: 0.3rem;
+      }
     }
   }
 `;

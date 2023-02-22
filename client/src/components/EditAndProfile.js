@@ -1,10 +1,27 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getTime } from 'utils/getTime';
 
-const EditAndProfile = ({ member, asked, isAnswer }) => {
+const EditAndProfile = ({ member, date, isAnswer, content }) => {
+  const navigate = useNavigate();
+  const handdleEditClick = isAnswer => {
+    if (isAnswer) {
+      navigate('/');
+    } else {
+      navigate('./edit', {
+        state: {
+          content,
+        },
+      });
+    }
+  };
   return (
     <ProfileWrapper>
       <EditAndDelete>
-        <li>Edit</li>
+        <li>Share</li>
+        <li role="presentation" onClick={() => handdleEditClick(isAnswer)}>
+          Edit
+        </li>
         <li>Delete</li>
       </EditAndDelete>
       <Profile className={isAnswer ? 'answer_profile' : null}>
@@ -12,7 +29,7 @@ const EditAndProfile = ({ member, asked, isAnswer }) => {
         <div>
           <p>{member.nickname}</p>
           <p>
-            {isAnswer ? 'answered' : 'asked'} {new Date(asked).toLocaleDateString()}
+            {isAnswer ? 'answered' : 'asked'} {getTime(date)}
           </p>
         </div>
       </Profile>
@@ -38,7 +55,7 @@ const EditAndDelete = styled.ul`
   list-style: none;
   display: flex;
   gap: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #888;
   font-weight: 600;
   cursor: pointer;
@@ -53,11 +70,10 @@ const Profile = styled.div`
   width: 13rem;
   height: 4.3rem;
   background-color: #d0e2f0;
-  padding: 0.3rem 0.5rem;
+  padding: 0 0.7rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   > img {
     width: 2.5rem;
     margin-right: 1rem;

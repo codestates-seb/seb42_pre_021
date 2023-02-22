@@ -17,7 +17,12 @@ const MarkdownContent = ({ data, isAnswer }) => {
         <MarkdownDesign className={isAnswer ? 'answer_markdown' : null}>
           <div className="content" dangerouslySetInnerHTML={handleHTML(data)}></div>
           {data.tag && <Tags data={data} />}
-          <EditAndProfile member={data.questionMember} asked={data.createdAt} isAnswer={isAnswer} />
+          <EditAndProfile
+            member={data.questionMember}
+            date={data.createdAt}
+            isAnswer={isAnswer}
+            content={data.content}
+          />
         </MarkdownDesign>
       )}
     </>
@@ -30,6 +35,9 @@ const MarkdownDesign = styled.div`
   min-height: 10rem;
   height: fit-content;
   padding: 0.5rem 0 2rem 4rem;
+  code {
+    font-family: 'Fira Code', monospace;
+  }
   .content {
     width: 100%;
     margin-bottom: 2rem;
@@ -40,20 +48,20 @@ const MarkdownDesign = styled.div`
       border-radius: 2px;
     }
     .toastui-editor-ww-code-block {
-      max-width: 100%;
       width: 100%;
       pre {
         width: 100%;
-      }
-      pre > code {
-        // * 코드 블럭
-        display: inline-block;
-        overflow: auto;
-        width: 100%;
-        background-color: #f6f6f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin: 0.5rem 0;
+        > code {
+          // * 코드 블럭
+          display: block;
+          width: 100%;
+          height: fit-content;
+          overflow-x: auto;
+          background-color: #f6f6f6;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          margin: 0.5rem 0;
+        }
       }
     }
   }

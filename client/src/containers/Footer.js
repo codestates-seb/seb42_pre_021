@@ -32,6 +32,7 @@ const Footer = () => {
 };
 
 const FooterContainer = styled.footer`
+  position: absolute;
   z-index: 2;
   background-color: #232629;
   width: 100%;
@@ -40,6 +41,9 @@ const FooterContainer = styled.footer`
   justify-content: center;
   align-items: center;
   padding: 1.5rem 1rem;
+  @media screen and (max-width: 979px) {
+    height: 23rem;
+  }
 `;
 
 const Logo = styled.div`
@@ -47,6 +51,9 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   height: 100%;
+  @media screen and (max-width: 979px) {
+    margin-right: 1rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -55,10 +62,15 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   padding: 1rem 0;
+  @media screen and (max-width: 979px) {
+    flex-direction: column;
+  }
 `;
 
 const Categories = styled.ul`
   list-style: none;
+  display: flex;
+  flex-direction: column;
   > p {
     text-transform: uppercase;
     font-weight: bold;
@@ -70,6 +82,26 @@ const Categories = styled.ul`
     color: #999;
     font-size: 0.8rem;
     margin-bottom: 0.3rem;
+  }
+  @media screen and (max-width: 979px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    > p {
+      width: 100%;
+      margin-bottom: 0.5rem;
+      margin-top: 0.8rem;
+    }
+    > li {
+      margin-right: 0.5rem;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    > p {
+      font-size: 0.7rem;
+    }
+    > li {
+      font-size: 0.6rem;
+    }
   }
 `;
 
@@ -89,6 +121,14 @@ const Social = styled.div`
     color: #bcbbbb;
     width: 17rem;
     font-size: 0.7rem;
+  }
+  @media screen and (max-width: 979px) {
+    margin-top: 1rem;
+    justify-content: space-around;
+    margin-left: -3rem;
+    > p {
+      width: 100%;
+    }
   }
 `;
 

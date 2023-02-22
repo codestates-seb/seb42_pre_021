@@ -4,12 +4,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import SideContent from 'components/SideContent';
-import Footer from 'containers/Footer';
+// import Footer from 'containers/Footer';
 import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
 import Answers from 'components/Answers';
 import MarkdownContent from 'components/MarkdownContent';
 import YourAnswer from 'components/YourAnswer';
+import { Container } from 'containers/Container';
 
 // const USER = '김코딩';
 
@@ -18,13 +19,17 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
 
   const getData = async () => {
-    await axios
-      .get(`http://localhost:3001/questions?questionId=${id}`)
-      .then(response => setQuestion(response.data[0]));
+    await axios.get(`http://localhost:3001/questions?questionId=${id}`).then(response => {
+      setQuestion(response.data[0]);
+    });
   };
+
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     getData();
-  }, []);
+  }, [window.scrollY]);
 
   return (
     <>
@@ -47,21 +52,11 @@ const QuestionDetail = () => {
               <SideContent />
             </ContentSection>
           </Container>
-          <Footer />
         </>
       )}
     </>
   );
 };
-
-const Container = styled.div`
-  width: 1280px;
-  height: fit-content;
-  padding-left: 11rem;
-  @media screen and (max-width: 640px) {
-    padding-left: 0;
-  }
-`;
 
 const ContentSection = styled.section`
   width: 100%;
