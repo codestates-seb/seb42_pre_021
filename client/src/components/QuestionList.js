@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const QuestionList = () => {
   const navigate = useNavigate();
-  const SORT_BY = ['Newest', 'Answers', 'Views'];
+  const SORT_BY = ['Newest', 'Oldest', 'Answers', 'Views'];
   const [questionList, setQuestionList] = useState([]);
   const [currentSortBy, setCurrentSortBy] = useState(0);
 
