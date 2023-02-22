@@ -1,5 +1,7 @@
-package com.roseknife.stackoverflow.auth;
+package com.roseknife.stackoverflow.auth.jwt;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
@@ -60,20 +62,22 @@ public class JwtTokenizer {
             .compact();
     }
 
+    public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+        Jws<Claims> claims = Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(jws);
+        return claims;
+    }
+
     public void verifySignature(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
         Jwts.parserBuilder()
             .setSigningKey(key)
             .build()
             .parseClaimsJws(jws);
-    }
-
-    public Date getTokenExpiration(int expirationMinutes) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, expirationMinutes);
-        Date expiration = calendar.getTime();
-
-        return expiration;
     }
 
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
