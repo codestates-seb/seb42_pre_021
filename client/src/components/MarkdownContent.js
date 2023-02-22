@@ -30,6 +30,9 @@ const MarkdownDesign = styled.div`
   min-height: 10rem;
   height: fit-content;
   padding: 0.5rem 0 2rem 4rem;
+  code {
+    font-family: 'Fira Code', monospace;
+  }
   .content {
     width: 100%;
     margin-bottom: 2rem;
@@ -48,7 +51,7 @@ const MarkdownDesign = styled.div`
       pre > code {
         // * 코드 블럭
         display: inline-block;
-        overflow: auto;
+        overflow-x: scroll;
         width: 100%;
         background-color: #f6f6f6;
         padding: 1rem;
