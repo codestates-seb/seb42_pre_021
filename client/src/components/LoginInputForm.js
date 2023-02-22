@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { useState, useNavigate } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from 'features/userSlice';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-
-// import { loginAction } from '/actions';
-// import { useDispatch } from 'react-redux';
 
 const LoginInputForm = () => {
   const [emailValid, setEmailValid] = useState(false);
@@ -14,8 +13,9 @@ const LoginInputForm = () => {
     password: '',
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
+  const dispatch = useDispatch();
   const handleChangeInput = event => {
     setValues({
       ...values,
@@ -25,50 +25,62 @@ const LoginInputForm = () => {
 
   // 인풋값입력후 포커스 잃은 후(onBlur) 유효성검사
   const CheckEmail = event => {
-    const emailRegex =
-      '/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i';
-    emailRegex.test(event.target.value) ? setEmailValid(true) : setEmailValid(false);
+    const emailRegex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if (emailRegex.test(event.target.value)) {
+      setEmailValid(true);
+    } else {
+      alert('이메일을 형식에 맞게 입력해 주세요');
+    }
   };
 
   const checkPassword = event => {
-    const passwordRegex = '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$';
-    passwordRegex.test(event.target.value) ? setPasswordValid(true) : setPasswordValid(false);
+    const passwordRegex = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$/;
+    //8자이상, 하나이상의 문자(대소문자 구별안함), 하나이상의 숫자
+    if (passwordRegex.test(event.target.value)) {
+      setPasswordValid(true);
+    } else {
+      alert('패스워드를 형식에 맞게 입력해 주세요');
+    }
   };
 
   const handleSubmit = event => {
-    event.preventDefault();
-
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    };
-
-    if (!emailValid || !passwordValid) {
-      return alert('이메일과 비밀번호를 올바르게 입력하여 주십시오');
-    }
-
     if (emailValid && passwordValid) {
-      return axios
-        .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { headers })
-        .then(response => {
-          const { accessToken } = response.data;
-          localStorage.setItem('accessToken', accessToken);
+      event.preventDefault();
+      dispatch(
+        login({
+          email: values.email,
+          password: values.password,
+          isLogin: true,
         })
-        .get(`${process.env.REACT_APP_API_URL}/members/`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then(() => {
-          // setIsLogin(true);
-          navigate('/questions');
-        })
-        .catch(error => {
-          alert(error);
-        });
+      );
     }
   };
+
+  //   const headers = {
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Content-Type': 'application/json',
+  //   };
+
+  //     return axios
+  //       .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { headers })
+  //       .then(response => {
+  //         const { accessToken } = response.data;
+  //         localStorage.setItem('accessToken', accessToken);
+  //       })
+  //       .get(`${process.env.REACT_APP_API_URL}/members/`, {
+  //         withCredentials: true,
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  //         },
+  //       })
+  //       .then(() => {
+  //         // setIsLogin(true);
+  //         navigate('/questions');
+  //       })
+  //       .catch(error => {
+  //         alert(error);
+  //       });
+  // };
 
   return (
     <InputContainer>
@@ -88,7 +100,7 @@ const LoginInputForm = () => {
         onChange={handleChangeInput}
         onBlur={checkPassword}
       />
-      <LoginButton onSubmit={handleSubmit}>Log in</LoginButton>
+      <LoginButton onClick={handleSubmit}>Log in</LoginButton>
     </InputContainer>
   );
 };
