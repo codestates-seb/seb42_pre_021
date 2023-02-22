@@ -20,8 +20,8 @@ const TagWrapper = styled.ul`
     background-color: #e1ecf4;
     padding: 0.2rem 0.5rem;
     border-radius: 0.2rem;
-    font-size: 0.9rem;
-    color: #6391b3;
+    font-size: 0.8rem;
+    color: #0074cc;
     cursor: pointer;
     :hover {
       background-color: #d0e3f1;
