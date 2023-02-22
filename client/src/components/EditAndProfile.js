@@ -1,15 +1,18 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
 
-const EditAndProfile = ({ member, date, isAnswer }) => {
+const EditAndProfile = ({ member, date, isAnswer, content }) => {
   const navigate = useNavigate();
-  const { id } = useParams();
   const handdleEditClick = isAnswer => {
     if (isAnswer) {
       navigate('/');
     } else {
-      console.log(id);
+      navigate('./edit', {
+        state: {
+          content,
+        },
+      });
     }
   };
   return (
