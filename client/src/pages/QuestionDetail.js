@@ -4,7 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import SideContent from 'components/SideContent';
-import Footer from 'containers/Footer';
+// import Footer from 'containers/Footer';
 import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
 import Answers from 'components/Answers';
@@ -18,13 +18,17 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
 
   const getData = async () => {
-    await axios
-      .get(`http://localhost:3001/questions?questionId=${id}`)
-      .then(response => setQuestion(response.data[0]));
+    await axios.get(`http://localhost:3001/questions?questionId=${id}`).then(response => {
+      setQuestion(response.data[0]);
+    });
   };
+
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     getData();
-  }, []);
+  }, [window.scrollY]);
 
   return (
     <>
@@ -47,7 +51,6 @@ const QuestionDetail = () => {
               <SideContent />
             </ContentSection>
           </Container>
-          <Footer />
         </>
       )}
     </>
@@ -56,7 +59,7 @@ const QuestionDetail = () => {
 
 const Container = styled.div`
   width: 1280px;
-  height: fit-content;
+  height: 100%;
   padding-left: 11rem;
   @media screen and (max-width: 640px) {
     padding-left: 0;
@@ -77,7 +80,7 @@ const ContentSection = styled.section`
 
 const Wrapper = styled.div`
   width: 51rem;
-  height: fit-content;
+  height: calc(100% + 30rem);
   padding: 1rem;
   padding-left: 1.5rem;
   padding-right: 2rem;

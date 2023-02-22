@@ -1,12 +1,27 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
 
-const EditAndProfile = ({ member, date, isAnswer }) => {
+const EditAndProfile = ({ member, date, isAnswer, content }) => {
+  const navigate = useNavigate();
+  const handdleEditClick = isAnswer => {
+    if (isAnswer) {
+      navigate('/');
+    } else {
+      navigate('./edit', {
+        state: {
+          content,
+        },
+      });
+    }
+  };
   return (
     <ProfileWrapper>
       <EditAndDelete>
         <li>Share</li>
-        <li>Edit</li>
+        <li role="presentation" onClick={() => handdleEditClick(isAnswer)}>
+          Edit
+        </li>
         <li>Delete</li>
       </EditAndDelete>
       <Profile className={isAnswer ? 'answer_profile' : null}>
