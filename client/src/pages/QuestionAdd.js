@@ -196,12 +196,12 @@ const QuestionAdd = () => {
 
 const Container = styled.div`
   width: 100vw;
-  height: 100%;
+  height: fit-content;
   display: flex;
   justify-content: center;
   background-color: #f8f9f9;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
 `;
 
 const Wrapper = styled.div`

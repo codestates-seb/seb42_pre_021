@@ -48,7 +48,7 @@ const SignUp = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 3rem);
   display: flex;
   justify-content: center;
   align-items: center;
