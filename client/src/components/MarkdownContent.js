@@ -43,20 +43,20 @@ const MarkdownDesign = styled.div`
       border-radius: 2px;
     }
     .toastui-editor-ww-code-block {
-      max-width: 100%;
       width: 100%;
       pre {
         width: 100%;
-      }
-      pre > code {
-        // * 코드 블럭
-        display: inline-block;
-        overflow-x: scroll;
-        width: 100%;
-        background-color: #f6f6f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin: 0.5rem 0;
+        > code {
+          // * 코드 블럭
+          display: block;
+          width: 100%;
+          height: fit-content;
+          overflow: scroll;
+          background-color: #f6f6f6;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          margin: 0.5rem 0;
+        }
       }
     }
   }
