@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navigation from 'containers/Navigation';
 import MyProfileList from 'components/MyProfileList';
@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 const URL = 'http://localhost:3001/data';
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
 
   const getData = async () => {
@@ -24,16 +25,20 @@ const MyPage = () => {
     getData();
   }, []);
 
+  const handleClickEdit = () => {
+    navigate('/mypage/edit', { state: user });
+  };
+
   return (
     <>
       <Navigation />
       {user[0] && (
         <Container>
           <ButtonBox>
-            <Link to="/mypage/edit" className="mypageButton">
+            <button className="mypageButton" onClick={handleClickEdit}>
               <FaPen />
               Edit profile
-            </Link>
+            </button>
             <button className="mypageButton">
               <FaTrashAlt />
               Delete Profile

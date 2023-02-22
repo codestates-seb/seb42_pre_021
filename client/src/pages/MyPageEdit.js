@@ -1,44 +1,77 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
+import { useRef, useState } from 'react';
+import axios from 'axios';
 
 const MyPageEdit = () => {
   const isEdit = true;
 
+  const { state } = useLocation(); // mypage에서 가져온 내용
+
+  const editorRef = useRef('');
+
+  const [aboutMe, setAboutMe] = useState(null);
+  // const [userNickName, setUserNickName] =
+
+  const handleSaveButtonClick = () => {
+    const html = editorRef.current?.getInstance().getHTML();
+    const markdown = editorRef.current?.getInstance().getMarkdown();
+    setAboutMe({ html, markdown });
+
+    // password -> display name
+    // profile
+    // company -> location
+    // title
+    // content
+    console.log(aboutMe);
+    const data = { aboutMe };
+    console.log(data);
+  };
+
+  axios;
+
   return (
     <>
       <Navigation />
-      <Container>
-        <InfoContainer>
-          <h3>Public information</h3>
-          <div className="infoForm">
-            <InfoHeader>
-              <span>Profile image</span>
-              <div>
-                <ImageBox>
-                  <Search className="profileImage" />
-                </ImageBox>
-              </div>
-            </InfoHeader>
-            <MyProfileList
-              username={'username'}
-              location={'Seoul'}
-              title={'Title'}
-              aboutme={'Hello'}
-              isEdit={isEdit}
-            />
-          </div>
-        </InfoContainer>
-        <ButtonBox>
-          <AddButton buttonText={'Save profile'}></AddButton>
-          <Link to="/mypage" className="cancleButton">
-            Cancel
-          </Link>
-        </ButtonBox>
-      </Container>
+      {state[0] && (
+        <Container>
+          <InfoContainer>
+            <h3>Public information</h3>
+            <form className="infoForm" onSubmit={handleSaveButtonClick}>
+              <InfoHeader>
+                <span>Profile image</span>
+                <div>
+                  <ImageBox>
+                    <Search className="profileImage" />
+                  </ImageBox>
+                </div>
+              </InfoHeader>
+              <MyProfileList
+                username={state[0].nickname}
+                location={state[0].location}
+                title={state[0].title}
+                aboutme={state[0].content}
+                editorRef={editorRef}
+                isEdit={isEdit}
+              />
+            </form>
+          </InfoContainer>
+          <ButtonBox>
+            <AddButton
+              buttonText={'Save profile'}
+              handleButtonClick={handleSaveButtonClick}
+            ></AddButton>
+            <Link to="/mypage" className="cancleButton">
+              Cancel
+            </Link>
+          </ButtonBox>
+        </Container>
+      )}
     </>
   );
 };
@@ -60,7 +93,7 @@ const InfoContainer = styled.section`
     padding: 0 10% 0 0;
     justify-content: center;
   }
-  > div {
+  > form {
     width: calc(10rem + 55%);
     padding: 1rem;
     border-radius: 4px;
