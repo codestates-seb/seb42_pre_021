@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { getTime } from 'utils/getTime';
 
-const EditAndProfile = ({ member, asked, isAnswer }) => {
+const EditAndProfile = ({ member, date, isAnswer }) => {
   return (
     <ProfileWrapper>
       <EditAndDelete>
@@ -13,7 +14,7 @@ const EditAndProfile = ({ member, asked, isAnswer }) => {
         <div>
           <p>{member.nickname}</p>
           <p>
-            {isAnswer ? 'answered' : 'asked'} {new Date(asked).toLocaleDateString()}
+            {isAnswer ? 'answered' : 'asked'} {getTime(date)}
           </p>
         </div>
       </Profile>

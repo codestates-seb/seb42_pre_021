@@ -1,6 +1,7 @@
 import AddButton from 'components/AddButton';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getTime } from 'utils/getTime';
 
 const DetailTitle = ({ question }) => {
   const navigate = useNavigate();
@@ -15,9 +16,9 @@ const DetailTitle = ({ question }) => {
       </div>
       <ul>
         <p>Asked</p>
-        <li>{new Date(question.createdAt).toLocaleString()}</li>
+        <li>{getTime(question.createdAt)}</li>
         <p>Modefied</p>
-        <li>{new Date(question.modifiedAt).toLocaleString()}</li>
+        <li>{getTime(question.modifiedAt)}</li>
         <p>Viewed</p>
         <li>{question.viewCount}</li>
       </ul>

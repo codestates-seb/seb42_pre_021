@@ -28,7 +28,7 @@ const Sort = styled.ul`
   flex-direction: row;
   justify-content: space-between;
   border: 1px solid #888;
-  width: 15rem;
+  width: max-content;
   height: 2.2rem;
   list-style: none;
   border-radius: 3px;
@@ -41,6 +41,7 @@ const Sort = styled.ul`
     flex: 1;
     color: #888;
     font-size: 0.8rem;
+    padding: 0 1rem;
     cursor: pointer;
     :nth-of-type(n + 2) {
       border-left: 1px solid #888;
