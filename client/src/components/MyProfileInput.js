@@ -10,8 +10,7 @@ const MyProfileInput = ({ label, value, isEdit, id }) => {
           <Inputs
             id={id}
             type="text"
-            required
-            {...value}
+            defaultValue={value}
             autoComplete="off"
             placeholder={label === 'Title' ? 'No title has been set' : null}
           />
