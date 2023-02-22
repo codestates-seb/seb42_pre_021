@@ -17,6 +17,8 @@ import Footer from 'containers/Footer';
 // import axios from 'axios';
 // import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const App = () => {
   // const [isLogin, setIsLogin] = useState(false);
@@ -62,6 +64,7 @@ const App = () => {
           {/* <Route path="/mypage/edit" element={<MyPageEdit userInfo={userInfo} />} /> */}
           <Route path="/mypage/edit" element={<MyPageEdit />} />
         </Routes>
+        <ToastContainer />
       </MainContainer>
       <Footer />
     </div>

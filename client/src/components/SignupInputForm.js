@@ -1,11 +1,16 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { register, reset } from 'features/authSlice';
+import { checkEmail, checkPassword } from 'features/validationCheck';
+import Spinner from 'components/Spinner';
 
 const SignupInputForm = () => {
   const [values, setValues] = useState({
-    name: '',
     email: '',
+    nickname: '',
     password: '',
   });
 
@@ -15,18 +20,55 @@ const SignupInputForm = () => {
       [event.target.name]: event.target.value,
     });
   };
-  axios.defaults.withCredentials = true;
 
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   axios
-  //     .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { withCredentials: true })
-  // };
+  const { email, nickname, password } = values;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isLoding, isError, isSuccess, message } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate('/');
+    }
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    if (!checkEmail(email)) {
+      toast.error('Email 형식을 확인해주세요');
+    } else if (!checkPassword(password)) {
+      toast.error('비밀번호는 최소 8자이상, 1개의 문자, 1개의 숫자를 포함해야합니다');
+    } else if (nickname.length <= 0) {
+      toast.error('닉네임을 입력해주세요');
+    }
+
+    const userData = {
+      id: '1ad23f',
+      email,
+      nickname,
+      password,
+    };
+    dispatch(register(userData));
+  };
+
+  if (isLoding) {
+    return <Spinner />;
+  }
 
   return (
     <InputContainer>
       <Label>Display name</Label>
-      <SignUpInput type={'name'} name="name" value={values.name} onChange={handleChange} />
+      <SignUpInput
+        type={'nickname'}
+        name="nickname"
+        value={values.nickname}
+        onChange={handleChange}
+      />
       <Label>Email</Label>
       <SignUpInput
         type={'email'}
@@ -46,7 +88,7 @@ const SignupInputForm = () => {
       <span>
         Passwords must contain at least eight characters, including at least 1 letter and 1 number.
       </span>
-      <SignUpButton>Sign up</SignUpButton>
+      <SignUpButton onClick={handleSubmit}>Sign up</SignUpButton>
     </InputContainer>
   );
 };

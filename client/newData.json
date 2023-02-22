@@ -86,7 +86,6 @@
       "viewCount": 2,
       "answerCount": 0,
       "tag": ["React", "javaScript"],
-
       "questionMember": {
         "nickname": "dfsdfsd",
         "profile": "https://source.boringavatars.com/beam/6"
@@ -130,7 +129,6 @@
       "viewCount": 132,
       "answerCount": 0,
       "tag": ["React", "javaScript"],
-
       "questionMember": {
         "nickname": "fsdagfds",
         "profile": "https://source.boringavatars.com/beam/3"
@@ -174,12 +172,24 @@
       "viewCount": 60,
       "answerCount": 0,
       "tag": [],
-
       "questionMember": {
         "nickname": "fgdfgdfg",
         "profile": "https://source.boringavatars.com/beam/12"
       },
       "questionAnswers": []
+    }
+  ],
+  "members": [
+    {
+      "nickname": "apple",
+      "email": "apple23@apple.kr",
+      "password": "dovmfdltka23"
+    },
+    {
+      "id": "1ad23f",
+      "email": "apple123@apple.com",
+      "nickname": "apple123",
+      "password": "dovmf123123"
     }
   ]
 }

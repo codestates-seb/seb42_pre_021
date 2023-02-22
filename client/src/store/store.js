@@ -1,8 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import userReducer from 'features/userSlice';
+import authReducer from 'features/authSlice';
+// import userReducer from 'features/userSlice';
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
-
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 // redux state를 storage에 저장할 때 사용하는 redux-persist
 const persistConfig = {
   timeout: 2000,
@@ -10,18 +19,25 @@ const persistConfig = {
   key: 'root',
   // localStorage에 저장.
   storage,
-  whitelist: ['login, logout'],
+  whitelist: ['auth'],
   //whitelist : persist 지속시킬 모듈을 설정.
 };
 
 const reducer = combineReducers({
-  user: userReducer,
+  // user: userReducer,
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);
