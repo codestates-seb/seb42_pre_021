@@ -45,8 +45,26 @@ const TitleSection = styled.section`
     display: flex;
     gap: 0.5rem;
     font-size: 0.8rem;
+    > p {
+      color: #666;
+    }
     > li {
-      margin-right: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    > div {
+      flex-direction: column-reverse;
+      button {
+        align-self: flex-end;
+        margin-bottom: 1rem;
+      }
+    }
+    > ul {
+      font-size: 0.7rem;
+      > li {
+        margin-right: 0.3rem;
+      }
     }
   }
 `;

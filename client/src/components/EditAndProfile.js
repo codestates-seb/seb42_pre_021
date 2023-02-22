@@ -4,6 +4,7 @@ const EditAndProfile = ({ member, asked, isAnswer }) => {
   return (
     <ProfileWrapper>
       <EditAndDelete>
+        <li>Share</li>
         <li>Edit</li>
         <li>Delete</li>
       </EditAndDelete>
@@ -38,7 +39,7 @@ const EditAndDelete = styled.ul`
   list-style: none;
   display: flex;
   gap: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #888;
   font-weight: 600;
   cursor: pointer;
@@ -53,11 +54,10 @@ const Profile = styled.div`
   width: 13rem;
   height: 4.3rem;
   background-color: #d0e2f0;
-  padding: 0.3rem 0.5rem;
+  padding: 0 0.7rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   > img {
     width: 2.5rem;
     margin-right: 1rem;

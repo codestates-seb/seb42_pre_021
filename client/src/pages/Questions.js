@@ -35,7 +35,7 @@ const Container = styled.div`
     grid-template-columns: 1fr;
   }
   @media screen and (max-width: 640px) {
-    padding-left: 1rem;
+    padding-left: 0;
   }
 `;
 
