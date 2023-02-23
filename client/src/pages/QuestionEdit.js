@@ -1,9 +1,10 @@
+import TextEditor from 'components/Editor';
 import HowToEdit from 'components/HowToEdit';
 import HowToFormat from 'components/HowToFormat';
 import HowToTag from 'components/HowToTag';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -11,14 +12,22 @@ const QuestionEdit = () => {
   const location = useLocation();
   const { content } = location.state;
   const [currentForm, setCurrentForm] = useState('edit');
+  const [isChanged, setIsChanged] = useState(false);
+  const questionEditRef = useRef('');
 
-  useEffect(() => {
-    console.log(content);
-    console.log(setCurrentForm);
-  }, []);
+  useEffect(() => {}, []);
 
   const handleSectionClick = form => {
     setCurrentForm(form);
+  };
+
+  const handleEditorChange = () => {
+    const ref = questionEditRef.current?.getInstance().getMarkdown();
+    if (ref === content.markdown) {
+      setIsChanged(false);
+    } else {
+      setIsChanged(true);
+    }
   };
 
   return (
@@ -41,6 +50,23 @@ const QuestionEdit = () => {
           </TitleEdit>
           <BodyEdit onClick={() => handleSectionClick('format')}>
             <InputTitle>Body</InputTitle>
+            <div
+              className={
+                currentForm === 'format'
+                  ? `focused ${isChanged ? 'changed' : 'not_changed'}`
+                  : `not_focused ${isChanged ? null : 'not_changed'}`
+              }
+            >
+              <TextEditor
+                editorRef={questionEditRef}
+                editorValue={content.markdown}
+                editorHeight="400px"
+                onEditorChange={handleEditorChange}
+              />
+              {!isChanged ? (
+                <span>It looks like your post is not changed; please add some more details.</span>
+              ) : null}
+            </div>
           </BodyEdit>
           <TagEdit onClick={() => handleSectionClick('tag')}>
             <InputTitle>Tags</InputTitle>
@@ -62,14 +88,15 @@ const QuestionEdit = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: max-content;
   display: flex;
   padding: 1.7rem 0;
   @media screen and (max-width: 1279px) {
     display: grid;
-    grid-template-columns: calc(100% - 24rem) 24rem;
+    grid-template-columns: calc(100% - 24rem) 23rem;
+    padding-right: 1rem;
   }
-  @media screen and (max-width: 979px) {
+  @media screen and (max-width: 1049px) {
     grid-template-columns: 100%;
     padding: 1.7rem 1rem;
   }
@@ -128,7 +155,6 @@ const SideNotice = styled.aside`
   }
   @media screen and (max-width: 1279px) {
     width: 100%;
-    padding: 0 1rem;
   }
   @media screen and (max-width: 979px) {
     position: relative;
@@ -148,13 +174,52 @@ const TitleEdit = styled.div`
   > input {
     width: 100%;
     border: 1px solid #bbb;
-    border-radius: 2px;
+    border-radius: 3px;
     padding: 0.3rem 0.5rem;
+    :focus {
+      border: 1px solid #58a4de;
+      outline: 4px solid #ddeaf7;
+    }
   }
 `;
 
 const BodyEdit = styled.div`
   width: 100%;
+  position: relative;
+  .toastui-editor-toolbar {
+    overflow: hidden;
+  }
+  .focused.changed {
+    .toastui-editor-main {
+      border-radius: 3px;
+      border: 1px solid #58a4de;
+      outline: 4px solid #ddeaf7;
+    }
+  }
+  .focused.not_changed {
+    .toastui-editor-main {
+      border-radius: 3px;
+      border: 1px solid red;
+      outline: 4px solid #f8e1e0;
+    }
+    > span {
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      color: #d0393e;
+    }
+  }
+  .not_focused.not_changed {
+    .toastui-editor-main {
+      border: 1px solid red;
+      border-radius: 0px 0px 3px 3px;
+      outline: none;
+    }
+    > span {
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      color: #d0393e;
+    }
+  }
 `;
 
 const TagEdit = styled.div`
