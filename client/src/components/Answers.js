@@ -19,7 +19,7 @@ const Answers = ({ answers }) => {
         {answers.map((answer, i) => (
           <div className="answer_content" key={i}>
             <Vote />
-            <MarkdownContent data={answer} isAnswer={true} />
+            <MarkdownContent data={answer} isAnswer={true} answerId={answer.answerId} />
           </div>
         ))}
       </AnswerList>
