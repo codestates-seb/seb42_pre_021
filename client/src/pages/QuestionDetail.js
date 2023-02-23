@@ -42,9 +42,7 @@ const QuestionDetail = () => {
                   <Vote />
                   <MarkdownContent data={question} />
                 </div>
-                {question.questionAnswers.length ? (
-                  <Answers answers={question.questionAnswers} />
-                ) : null}
+                {question.questionAnswers.length ? <Answers data={question} /> : null}
                 <YourAnswer />
               </Wrapper>
               <SideContent />

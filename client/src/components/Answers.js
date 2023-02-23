@@ -4,7 +4,8 @@ import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
 import Vote from './Vote';
 
-const Answers = ({ answers }) => {
+const Answers = ({ data }) => {
+  const answers = data.questionAnswers;
   const [answerSortBy, setAnswerSortBy] = useState('created_newest');
 
   return (
@@ -19,7 +20,12 @@ const Answers = ({ answers }) => {
         {answers.map((answer, i) => (
           <div className="answer_content" key={i}>
             <Vote />
-            <MarkdownContent data={answer} isAnswer={true} answerId={answer.answerId} />
+            <MarkdownContent
+              data={answer}
+              isAnswer={true}
+              answerId={answer.answerId}
+              title={data.title}
+            />
           </div>
         ))}
       </AnswerList>
