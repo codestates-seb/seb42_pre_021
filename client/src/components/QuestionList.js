@@ -5,20 +5,46 @@ import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 import { useNavigate } from 'react-router-dom';
 import baseURL from 'api/baseURL';
+// import Paging from './Paging';
 
 const QuestionList = () => {
   const navigate = useNavigate();
-  const SORT_BY = ['Newest', 'Oldest', 'Answers', 'Views'];
   const [questionList, setQuestionList] = useState([]);
-  const [currentSortBy, setCurrentSortBy] = useState(0);
+  const [sortBy, setSortBy] = useState('createdAt');
+  // const [pageInfo, setPageInfo] = useState({});
+  // const [page, setPage] = useState(1);
+  // const [size, setSize] = useState(10);
 
   const getQuestionsData = async () => {
     await baseURL.get('/questions').then(response => setQuestionList(response.data));
   };
 
+  // ! 서버 연동시 사용할 코드
+  // const getQuestions = async () => {
+  //   let sortDir = 'ASC';
+  //   if (sortBy === 'createdAt') {
+  //     sortDir = 'DESC'
+  //   }
+  //   await baseURL.get('/questions', {
+  //     page,
+  //     size,
+  //     sortDir,
+  //     sortBy,
+  //     memberId
+  //   }).then((response) => {
+  //     setQuestionList(response.data);
+  //     setPageInfo(response.pageInfo);
+  //   })
+  // }
+
   useEffect(() => {
     getQuestionsData();
   }, []);
+
+  // ! 서버 연동시 사용할 코드
+  // useEffect(() => {
+  //   getQuestions();
+  // }, [sortBy, page, size])
 
   const handleAskButtonClick = () => {
     navigate('/add');
@@ -33,11 +59,7 @@ const QuestionList = () => {
         </div>
         <div>
           <h2>{questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions</h2>
-          <ListSort
-            sortby={SORT_BY}
-            currentSortBy={currentSortBy}
-            setCurrentSortBy={setCurrentSortBy}
-          />
+          <ListSort sortBy={sortBy} setSortBy={setSortBy} />
         </div>
       </TitleWrapper>
       <QuestionWrapper>
@@ -45,6 +67,8 @@ const QuestionList = () => {
           return <QuestionArticle key={question.questionId} question={question} />;
         })}
       </QuestionWrapper>
+      {/* <Paging sortBy={sortBy} page={page} setPage={setPage} size={size} setSize={setSize} total={pageInfo.totalElements} /> */}
+      {/* <Paging /> */}
     </>
   );
 };
