@@ -72,15 +72,17 @@ const QuestionEdit = () => {
             <InputTitle>Tags</InputTitle>
           </TagEdit>
         </EditSection>
-        <SideNotice>
-          {currentForm === 'edit' ? (
-            <HowToEdit />
-          ) : currentForm === 'format' ? (
-            <HowToFormat />
-          ) : (
-            <HowToTag />
-          )}
-        </SideNotice>
+        <div>
+          <SideNotice>
+            {currentForm === 'edit' ? (
+              <HowToEdit />
+            ) : currentForm === 'format' ? (
+              <HowToFormat />
+            ) : (
+              <HowToTag />
+            )}
+          </SideNotice>
+        </div>
       </Wrapper>
     </Container>
   );
@@ -91,7 +93,13 @@ const Wrapper = styled.div`
   height: max-content;
   display: flex;
   padding: 1.7rem 0;
-  overflow-x: hidden;
+  position: relative;
+  > div {
+    :last-of-type {
+      width: 23rem;
+      height: 100vh;
+    }
+  }
   @media screen and (max-width: 1279px) {
     display: grid;
     grid-template-columns: calc(100% - 24rem) 23rem;
@@ -127,15 +135,15 @@ const TopNotice = styled.div`
 `;
 
 const SideNotice = styled.aside`
+  z-index: 3;
   background-color: #fdf7e2;
   height: fit-content;
   width: 23rem;
-  position: sticky;
-  top: 4.1rem;
   border-radius: 5px;
   border: 1px solid #f1e5bc;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  position: fixed;
   > div {
     padding: 0.8rem;
     width: 100%;
