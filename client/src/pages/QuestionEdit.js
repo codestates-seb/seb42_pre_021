@@ -9,12 +9,14 @@ import {
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
+import baseURL from 'api/baseURL';
 
 const QuestionEdit = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const location = useLocation();
   const { title, content, tags } = location.state;
   const [currentForm, setCurrentForm] = useState('edit');
@@ -26,9 +28,28 @@ const QuestionEdit = () => {
     setCurrentForm(form);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const confirmEdit = confirm('수정하시겠습니까?');
     console.log(confirmEdit);
+    if (confirmEdit) {
+      const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
+      const htmlValue = questionEditRef.current?.getInstance().getHTML();
+      await baseURL
+        .patch(`/${id}`, {
+          title: titleValue,
+          content: {
+            html: htmlValue,
+            markdown: markdownValue,
+          },
+          tag: tagsArr,
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+      navigate(-1);
+    } else {
+      return;
+    }
   };
 
   const handleCancelButton = () => {
