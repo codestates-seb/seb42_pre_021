@@ -1,7 +1,7 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
-const TextEditor = ({ editorRef, editorValue, editorHeight }) => {
+const TextEditor = ({ editorRef, editorValue, editorHeight, onEditorChange }) => {
   return (
     <Editor
       ref={editorRef} // DOM 선택용 useRef
@@ -19,6 +19,7 @@ const TextEditor = ({ editorRef, editorValue, editorHeight }) => {
       ]}
       initialValue={editorValue}
       hideModeSwitch={true}
+      onChange={onEditorChange ? onEditorChange : () => {}}
     ></Editor>
   );
 };
