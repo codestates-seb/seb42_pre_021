@@ -43,9 +43,10 @@ const MarkdownDesign = styled.div`
     margin-bottom: 2rem;
     p > code {
       // * 인라인 코드
-      background-color: #e4e5e7;
+      background-color: #f9f2f4;
       padding: 1px 2px;
       border-radius: 2px;
+      color: #dbaeba;
     }
     .toastui-editor-ww-code-block {
       width: 100%;
@@ -57,7 +58,7 @@ const MarkdownDesign = styled.div`
           width: 100%;
           height: fit-content;
           overflow-x: auto;
-          background-color: #f6f6f6;
+          background-color: #f4f7f8;
           padding: 1rem;
           border-radius: 0.5rem;
           margin: 0.5rem 0;

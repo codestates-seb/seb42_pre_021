@@ -44,7 +44,7 @@ const HowToFormat = () => {
 const CodeBlock = styled.div`
   font-family: 'Fira Code', monospace;
   width: 13rem;
-  background-color: #f1f2f3;
+  background-color: #f4f7f8;
   border-radius: 5px;
   padding: 0.5rem;
   margin-top: 0.2rem;
@@ -65,7 +65,7 @@ const Bold = styled.span`
 const InlineCode = styled.span`
   font-family: 'Fira Code', monospace;
   padding: 0.1rem 0.3rem;
-  background-color: #e4e5e7;
+  background-color: #f9f2f4;
   border-radius: 2px;
 `;
 
