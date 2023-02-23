@@ -46,7 +46,7 @@ const MarkdownDesign = styled.div`
       background-color: #f9f2f4;
       padding: 1px 2px;
       border-radius: 2px;
-      color: #dbaeba;
+      color: #c27b8d;
     }
     .toastui-editor-ww-code-block {
       width: 100%;

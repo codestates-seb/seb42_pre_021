@@ -67,6 +67,7 @@ const InlineCode = styled.span`
   padding: 0.1rem 0.3rem;
   background-color: #f9f2f4;
   border-radius: 2px;
+  color: #c27b8d;
 `;
 
 export default HowToFormat;
