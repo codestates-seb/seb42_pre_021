@@ -1,35 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import SideContent from 'components/SideContent';
-// import Footer from 'containers/Footer';
 import DetailTitle from 'components/DetailTitle';
 import Vote from 'components/Vote';
 import Answers from 'components/Answers';
 import MarkdownContent from 'components/MarkdownContent';
 import YourAnswer from 'components/YourAnswer';
 import { Container } from 'containers/Container';
-
-// const USER = '김코딩';
+import baseURL from 'api/baseURL';
 
 const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
 
-  const getData = async () => {
-    await axios.get(`http://localhost:3001/questions?questionId=${id}`).then(response => {
-      setQuestion(response.data[0]);
-    });
+  const getQuestionData = async () => {
+    await baseURL.get(`/questions/${id}`).then(response => setQuestion(response.data));
   };
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
     });
-    getData();
   }, [window.scrollY]);
+
+  useEffect(() => {
+    getQuestionData();
+  }, []);
 
   return (
     <>
@@ -44,9 +42,7 @@ const QuestionDetail = () => {
                   <Vote />
                   <MarkdownContent data={question} />
                 </div>
-                {question.questionAnswers.length ? (
-                  <Answers answers={question.questionAnswers} />
-                ) : null}
+                {question.questionAnswers.length ? <Answers data={question} /> : null}
                 <YourAnswer />
               </Wrapper>
               <SideContent />

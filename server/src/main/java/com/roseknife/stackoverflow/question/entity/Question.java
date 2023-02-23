@@ -30,8 +30,8 @@ public class Question extends Auditable {
     private String content;
 
     private Integer viewCount=0;    //초기화 = 0
-    private Integer AnswerCount=0;  //초기화 = 0
-
+    private Integer answerCount=0;  //초기화 = 0
+    private Integer voteCount=0;
 //    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -52,7 +52,7 @@ public class Question extends Auditable {
 //    private List<QuestionTag> questionTags;
 //
 //    @OneToMany(mappedBy = "question")
-//    private List<QuestionVote> questionVotes;
+//    private List<QuestionVote> questionVotes; //voteCount 로 대체
 
     // modified 55-63
     @JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)

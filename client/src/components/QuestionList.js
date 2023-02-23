@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AddButton from './AddButton';
 import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 import { useNavigate } from 'react-router-dom';
+import baseURL from 'api/baseURL';
 
 const QuestionList = () => {
   const navigate = useNavigate();
@@ -12,9 +12,14 @@ const QuestionList = () => {
   const [questionList, setQuestionList] = useState([]);
   const [currentSortBy, setCurrentSortBy] = useState(0);
 
+  const getQuestionsData = async () => {
+    await baseURL.get('/questions').then(response => setQuestionList(response.data));
+  };
+
   useEffect(() => {
-    axios.get('http://localhost:3001/questions').then(response => setQuestionList(response.data));
+    getQuestionsData();
   }, []);
+
   const handleAskButtonClick = () => {
     navigate('/add');
   };

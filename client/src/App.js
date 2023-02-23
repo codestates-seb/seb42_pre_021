@@ -49,6 +49,7 @@ const MainContainer = styled.main`
   align-items: flex-start;
   /* flex-direction: column; */
   flex-wrap: wrap;
+  overflow-x: hidden;
 `;
 
 export default App;

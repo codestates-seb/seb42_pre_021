@@ -26,6 +26,7 @@ public interface QuestionMapper {
     @Named("Q2R3")
     @Mapping(source = "member.nickname",target = "questionMember.nickname")
     @Mapping(source = "member.profile",target = "questionMember.profile")
+    @Mapping(source = "member.memberId",target = "questionMember.memberId")
     QuestionDto.ResponseAll questionToQuestionResponseAll(Question requestBody);
     @IterableMapping(qualifiedByName = "Q2R3")
     List<QuestionDto.ResponseAll> questionsToQuestionResponses(List<Question> questions);
@@ -33,6 +34,8 @@ public interface QuestionMapper {
     //답변 댓글 -> 답변 댓글 리스폰DTO로 변경 (#1)
     @Named("Q2R1")
     @Mapping(source = "member.nickname", target = "nickname")
+    @Mapping(source = "member.profile", target = "profile")
+    @Mapping(source = "member.memberId", target = "memberId")
     AnswerCommentDto.Response answerCommentToAnswerCommentResponseDto(AnswerComment answerComment);
     //답변 댓글 -> 답변 댓글 리스폰DTO 리스트로 변경 (#2)
     @IterableMapping(qualifiedByName = "Q2R1")
@@ -44,7 +47,7 @@ public interface QuestionMapper {
             return null;
         }
 
-        QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(requestBody.getMember().getNickname(),requestBody.getMember().getProfile());
+        QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(requestBody.getMember().getMemberId(),requestBody.getMember().getNickname(),requestBody.getMember().getProfile());
         LocalDateTime createdAt = requestBody.getCreatedAt();
         LocalDateTime modifiedAt = requestBody.getModifiedAt();
         String content = requestBody.getContent();
@@ -59,6 +62,7 @@ public interface QuestionMapper {
     //댓글 -> 질문-댓글용 DTO로 변경 (#1)
     @Named("Q2R2")
     @Mapping(source = "member.nickname",target = "nickname")
+    @Mapping(source = "member.memberId",target = "memberId")
     @Mapping(source = "member.profile",target = "profile")
     QuestionDto.QuestionCommentResponse commentToQuestionCommentResponse(QuestionComment requestBody);
 
@@ -72,7 +76,7 @@ public interface QuestionMapper {
             return null;
         }
 
-        QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(question.getMember().getNickname(),question.getMember().getProfile());
+        QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(question.getMember().getMemberId(),question.getMember().getNickname(),question.getMember().getProfile());
         List<QuestionDto.QuestionCommentResponse> questionComments = null;
         List<QuestionDto.QuestionAnswer> questionAnswers = null;
         Long questionId = question.getQuestionId();
@@ -82,6 +86,7 @@ public interface QuestionMapper {
         LocalDateTime modifiedAt = question.getModifiedAt();
         Integer viewCount = question.getViewCount();
         Integer answerCount = question.getAnswerCount();
+        Integer voteCount = question.getVoteCount();
         List<Answer> answers = pageAnswers.getContent();
         List<QuestionComment> comments = question.getQuestionComments();
 
