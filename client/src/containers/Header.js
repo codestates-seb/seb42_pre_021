@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as StackoverflowLogo } from 'assets/stackoverflowLogo.svg';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { ReactComponent as Stackoverflow } from 'assets/stackoverflow.svg';
@@ -7,16 +7,28 @@ import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa';
 import { useState } from 'react';
 import HeaderInputForm from 'components/HeaderInputForm';
+import { useSelector, useDispatch } from 'react-redux';
+import { reset, logout } from 'features/authSlice';
 
 // nav가 바로 렌더링되는가 or 메뉴아이콘이 있고 눌러야 렌더링 되는가
 // 로그인이 되어있는지 확인하고 헤더 버튼 다르게 출력
 
 const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
+
   const isDeskOrMobi = useMediaQuery({ maxWidth: 640 });
   const [inputClicked, setInputClickd] = useState(false);
 
   const handleInputClick = () => {
     setInputClickd(!inputClicked);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/');
   };
 
   return (
@@ -50,12 +62,32 @@ const Header = () => {
           )}
         </div>
         <ButtonContainer>
-          <Link to="/login" className="loginLink">
+          {user ? (
+            <>
+              {' '}
+              <Link to="/mypage" className="mypageLink" onClick={handleLogout}>
+                <Search width={25} height={25} />
+              </Link>
+              <Link to="/logout" className="logoutLink">
+                Log out
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="loginLink">
+                Log in
+              </Link>
+              <Link to="/signup" className="signupLink">
+                Sign up
+              </Link>
+            </>
+          )}
+          {/* <Link to="/login" className="loginLink">
             Log in
           </Link>
           <Link to="/signup" className="signupLink">
             Sign up
-          </Link>
+          </Link> */}
           {/* <Link to="/mypage" className="mypageLink">
             <Search width={25} height={25} />
           </Link>

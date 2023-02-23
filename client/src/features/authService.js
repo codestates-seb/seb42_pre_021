@@ -13,8 +13,24 @@ const register = async userData => {
   return response.data;
 };
 
+//로그인 요청
+const login = async userData => {
+  const response = await axios.post(`${API_URL}`, userData);
+  if (response.data) {
+    localStorage.setItem('user', JSON.stringify(response.data));
+  }
+  return response.data;
+};
+
+//로그아웃 요청
+const logout = () => {
+  localStorage.removeItem('user');
+};
+
 const authService = {
   register,
+  login,
+  logout,
 };
 
 export default authService;

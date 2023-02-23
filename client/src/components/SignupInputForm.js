@@ -21,9 +21,9 @@ const SignupInputForm = () => {
     });
   };
 
-  const { email, nickname, password } = values;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { email, nickname, password } = values;
   const { user, isLoding, isError, isSuccess, message } = useSelector(state => state.auth);
 
   useEffect(() => {

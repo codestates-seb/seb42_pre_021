@@ -12,7 +12,7 @@ const initialState = {
   message: '',
 };
 
-//회원가입 리듀서
+//회원가입 슬라이스
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
   try {
     return await authService.register(user);
@@ -25,6 +25,25 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
     return thunkAPI.rejectWithValue(message);
     //에러가 발생시, 에러메세지를 action.payload에 담아줌.
   }
+});
+
+//
+export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+  try {
+    return await authService.login(user);
+    //여기서 http 요청을 비동기로 실행
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toStirng();
+    return thunkAPI.rejectWithValue(message);
+    //에러가 발생시, 에러메세지를 action.payload에 담아줌.
+  }
+});
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+  await authService.logout();
 });
 
 export const authSlice = createSlice({
@@ -52,6 +71,23 @@ export const authSlice = createSlice({
         state.isLoding = false;
         state.isError = true;
         state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(login.pending, state => {
+        state.isLoding = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoding = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoding = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(logout.fulfilled, state => {
         state.user = null;
       });
   },
