@@ -91,6 +91,7 @@ const Wrapper = styled.div`
   height: max-content;
   display: flex;
   padding: 1.7rem 0;
+  overflow-x: hidden;
   @media screen and (max-width: 1279px) {
     display: grid;
     grid-template-columns: calc(100% - 24rem) 23rem;
@@ -99,6 +100,9 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1049px) {
     grid-template-columns: 100%;
     padding: 1.7rem 1rem;
+  }
+  @media screen and (max-width: 640px) {
+    /* padding: 0; */
   }
 `;
 
@@ -185,7 +189,9 @@ const TitleEdit = styled.div`
 
 const BodyEdit = styled.div`
   width: 100%;
-  position: relative;
+  div {
+    width: 100%;
+  }
   .toastui-editor-toolbar {
     overflow: hidden;
   }
@@ -219,6 +225,9 @@ const BodyEdit = styled.div`
       margin-top: 1rem;
       color: #d0393e;
     }
+  }
+  @media screen and (max-width: 640px) {
+    width: calc(100vw - 2rem);
   }
 `;
 
