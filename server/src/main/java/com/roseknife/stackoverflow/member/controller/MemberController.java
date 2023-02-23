@@ -18,6 +18,7 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @Validated
 @RequestMapping("/members")
@@ -42,7 +43,7 @@ public class MemberController {
         Member member = memberService.findMember(memberId);
 
         return ResponseEntity.ok(
-            new SingleResponseDto<>(mapper.membertoMemberResponse(member)));
+                new SingleResponseDto<>(mapper.membertoMemberResponse(member)));
     }
 
     @GetMapping
@@ -54,20 +55,20 @@ public class MemberController {
         List<Member> members = pageMembers.getContent();
 
         return ResponseEntity.ok(
-            new MultiResponseDto<>(mapper.membersToMemberResponses(members), pageMembers)
+                new MultiResponseDto<>(mapper.membersToMemberResponses(members), pageMembers)
         );
     }
 
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") long memberId,
-            @RequestBody MemberDto.Patch requestBody) {
+                                      @RequestBody MemberDto.Patch requestBody) {
         requestBody.setMemberId(memberId);
         Member member = mapper.memberPatchToMember(requestBody);
 
         Member updatedMember = memberService.updateMember(member);
 
         return ResponseEntity.ok(
-            new SingleResponseDto<>(mapper.membertoMemberResponse(updatedMember)));
+                new SingleResponseDto<>(mapper.membertoMemberResponse(updatedMember)));
     }
 
     @DeleteMapping("/{member-id}")
