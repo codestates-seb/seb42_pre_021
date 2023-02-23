@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-const MyProfileInput = ({ label, value, isEdit, id }) => {
+const MyProfileInput = ({ label, value, isEdit, id, handleOnChange }) => {
   return (
     <>
       <ProfileLabel htmlFor={id}>{label}</ProfileLabel>
@@ -13,6 +13,7 @@ const MyProfileInput = ({ label, value, isEdit, id }) => {
             defaultValue={value}
             autoComplete="off"
             placeholder={label === 'Title' ? 'No title has been set' : null}
+            onChange={handleOnChange}
           />
         </InputBox>
       ) : (

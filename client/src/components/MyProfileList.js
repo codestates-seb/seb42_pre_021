@@ -2,25 +2,58 @@ import styled from 'styled-components';
 import TextEditor from 'components/Editor';
 import MyProfileInput from './MyProfileInput';
 
-const MyProfileList = ({ username, location, title, aboutme, editorRef, isEdit }) => {
+const MyProfileList = ({
+  nickname,
+  location,
+  title,
+  content,
+  editorRef,
+  isEdit,
+  handleOnChangeEditor,
+  handleOnChangeInput,
+}) => {
   return (
     <InfoMain>
       <ul>
         <li>
-          <MyProfileInput label={'Display name'} value={username} isEdit={isEdit} id={'name'} />
+          <MyProfileInput
+            label={'Display name'}
+            value={nickname}
+            isEdit={isEdit}
+            id={'nickname'}
+            handleOnChange={handleOnChangeInput}
+          />
         </li>
         <li>
-          <MyProfileInput label={'Location'} value={location} isEdit={isEdit} id={'location'} />
+          <MyProfileInput
+            label={'Location'}
+            value={location}
+            isEdit={isEdit}
+            id={'location'}
+            handleOnChange={handleOnChangeInput}
+          />
         </li>
         <li>
-          <MyProfileInput label={'Title'} value={title} isEdit={isEdit} id={'title'} />
+          <MyProfileInput
+            label={'Title'}
+            value={title}
+            isEdit={isEdit}
+            id={'title'}
+            handleOnChange={handleOnChangeInput}
+          />
         </li>
         <li>
           <div className="inputTitle">About me</div>
           {isEdit ? (
-            <TextEditor editorRef={editorRef} editorValue={' '} editorHeight={'10rem'} />
+            <TextEditor
+              editorRef={editorRef}
+              editorValue={content || ' '}
+              editorHeight={'10rem'}
+              value={content}
+              onEditorChange={handleOnChangeEditor}
+            />
           ) : (
-            <span>{aboutme}</span>
+            <span>{content}</span>
           )}
         </li>
       </ul>

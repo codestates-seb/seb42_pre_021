@@ -1,38 +1,41 @@
 import styled from 'styled-components';
+import { useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
-import { useRef, useState } from 'react';
-import axios from 'axios';
 
 const MyPageEdit = () => {
-  const isEdit = true;
-
+  const isEdit = true; // edit 창인가 아닌가
   const { state } = useLocation(); // mypage에서 가져온 내용
-
   const editorRef = useRef('');
 
-  const [aboutMe, setAboutMe] = useState(null);
-  // const [userNickName, setUserNickName] =
+  const [content, setContent] = useState(null);
+  const [inputData, setInputData] = useState({
+    nickname: state[0].nickname,
+    location: state[0].location,
+    title: state[0].title,
+  });
 
-  const handleSaveButtonClick = () => {
+  const handleOnChangeEditor = () => {
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    setAboutMe({ html, markdown });
-
-    // password -> display name
-    // profile
-    // company -> location
-    // title
-    // content
-    console.log(aboutMe);
-    const data = { aboutMe };
-    console.log(data);
+    setContent({ html, markdown });
   };
 
-  axios;
+  const handleOnChangeInput = e => {
+    setInputData({ ...inputData, [e.target.id]: e.target.value });
+  };
+
+  const handleSaveButtonClick = () => {
+    const data = { ...inputData, content };
+
+    console.log(data);
+
+    return axios.patch(`http://localhost:3001/data`, data);
+  };
 
   return (
     <>
@@ -51,12 +54,14 @@ const MyPageEdit = () => {
                 </div>
               </InfoHeader>
               <MyProfileList
-                username={state[0].nickname}
+                nickname={state[0].nickname}
                 location={state[0].location}
                 title={state[0].title}
-                aboutme={state[0].content}
+                content={state[0].content}
                 editorRef={editorRef}
                 isEdit={isEdit}
+                handleOnChangeEditor={handleOnChangeEditor}
+                handleOnChangeInput={handleOnChangeInput}
               />
             </form>
           </InfoContainer>
