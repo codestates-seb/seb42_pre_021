@@ -1,4 +1,13 @@
-import { TitleEdit, BodyEdit, TagEdit, HowToEdit, HowToFormat, HowToTag } from 'components/edit';
+import {
+  TitleEdit,
+  BodyEdit,
+  TagEdit,
+  HowToEdit,
+  HowToFormat,
+  HowToTag,
+  CancelButton,
+  TopNotice,
+} from 'components/edit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useRef, useState } from 'react';
@@ -6,7 +15,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import baseURL from 'api/baseURL';
-import TopNotice from 'components/edit/TopNotice';
 
 const QuestionEdit = () => {
   const navigate = useNavigate();
@@ -24,7 +32,6 @@ const QuestionEdit = () => {
 
   const handleSubmit = async () => {
     const confirmEdit = confirm('수정하시겠습니까?');
-    console.log(confirmEdit);
     if (confirmEdit) {
       const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
       const htmlValue = questionEditRef.current?.getInstance().getHTML();
@@ -45,10 +52,6 @@ const QuestionEdit = () => {
     } else {
       return;
     }
-  };
-
-  const handleCancelButton = () => {
-    navigate(-1);
   };
 
   return (
@@ -76,7 +79,7 @@ const QuestionEdit = () => {
             currentForm={currentForm}
           />
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton onClick={handleCancelButton}>Cancel</CancelButton>
+          <CancelButton />
         </EditSection>
         <div>
           <SideNotice>
@@ -176,22 +179,6 @@ const SideNotice = styled.aside`
     width: 100%;
     position: relative;
     top: auto;
-  }
-`;
-
-const CancelButton = styled.button`
-  margin-left: 0.5rem;
-  border: none;
-  width: fit-content;
-  height: 2.5rem;
-  background-color: #fff;
-  color: #0b95ff;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding: 0 1rem;
-  cursor: pointer;
-  :hover {
-    background-color: #eff8ff;
   }
 `;
 
