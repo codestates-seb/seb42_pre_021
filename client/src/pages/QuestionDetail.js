@@ -16,7 +16,7 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
 
   const getQuestionData = async () => {
-    await baseURL.get(`/${id}`).then(response => setQuestion(response.data));
+    await baseURL.get(`/questions/${id}`).then(response => setQuestion(response.data));
   };
 
   useEffect(() => {
