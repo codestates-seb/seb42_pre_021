@@ -1,11 +1,19 @@
+import baseURL from 'api/baseURL';
 import { useState } from 'react';
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
 
-const Bookmark = () => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+const Bookmark = ({ bookmark, id, type }) => {
+  const [isBookmarked, setIsBookmarked] = useState(bookmark);
 
-  const handleBookmarkClick = () => {
+  const handleBookmarkClick = async () => {
     setIsBookmarked(cur => !cur);
+    await baseURL
+      .patch(`/${type}/${id}`, {
+        bookmark: !isBookmarked,
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
   };
 
   return (
