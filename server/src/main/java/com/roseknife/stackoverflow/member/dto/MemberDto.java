@@ -28,7 +28,7 @@ public class MemberDto {
         @Setter
         private Long memberId;
         private String profile;
-        private String company;
+        private String location;
         private String title;
         private String content;
     }
@@ -50,12 +50,12 @@ public class MemberDto {
         private String createdAt;
         private String modifiedAt;
         private String lastLoginAt;
-        private String company;
+        private String location;
         private String title;
         private String content;
         private String memberStatus;
 
-        public Response(Long memberId, String nickname, String email, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, LocalDateTime lastLoginAt, String company, String title, String content, String memberStatus) {
+        public Response(Long memberId, String nickname, String email, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, LocalDateTime lastLoginAt, String location, String title, String content, String memberStatus) {
             this.memberId = memberId;
             this.nickname = nickname;
             this.email = email;
@@ -63,7 +63,7 @@ public class MemberDto {
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.lastLoginAt = lastLoginAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            this.company = company;
+            this.location = location;
             this.title = title;
             this.content = content;
             this.memberStatus = memberStatus;

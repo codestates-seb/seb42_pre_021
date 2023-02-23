@@ -1,13 +1,16 @@
 package com.roseknife.stackoverflow.auth.config;
 
-import com.google.gson.Gson;
 import com.roseknife.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.roseknife.stackoverflow.auth.filter.JwtAuthorizationFilter;
+import com.roseknife.stackoverflow.auth.handler.MemberAuthenticationEntryPoint;
 import com.roseknife.stackoverflow.auth.handler.MemberAuthenticationFailureHandler;
 import com.roseknife.stackoverflow.auth.handler.MemberAuthenticationSuccessHandler;
+import com.roseknife.stackoverflow.auth.handler.OAuth2MemberSuccessHandler;
 import com.roseknife.stackoverflow.auth.jwt.JwtTokenizer;
+import com.roseknife.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,26 +19,33 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import com.roseknife.stackoverflow.auth.utils.CustomAuthorityUtils;
 
 import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-//    private final Gson gson;
+    private final MemberService memberService;
+
+    @Value("${spring.security.oauth2.client.registration.google.clientId}")
+    private String clientId;
+
+    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
+    private String clientSecret;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -48,27 +58,61 @@ public class SecurityConfiguration {
             .and()
             .formLogin().disable()
             .httpBasic().disable()  //UsernamePasswordAuthenticationFilter 필터 끊기?
+            .logout()
+            .logoutUrl("/members/logout")
+            .logoutSuccessUrl("/members/login")
+            .and()
+            .exceptionHandling()
+            .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+            .and()
             .apply(new CustomFilterConfigurer()) //addFilter(jwtAuthenticationFilter) 필터 추가 대체사용?
             .and()
             .authorizeHttpRequests(authorize -> authorize
                 .antMatchers(HttpMethod.PATCH, "/members/*").hasRole("USER")
                 .anyRequest().permitAll()
+            )
+            .oauth2Login(oAuth2 -> oAuth2
+                .authorizationEndpoint()
+                .baseUri("/members/login")
+                .and()
+                .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
+                .failureHandler(new MemberAuthenticationFailureHandler())
             );
 
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public ClientRegistrationRepository clientRegistrationRepository() {
+        var clientRegistration = clientRegistration();
+
+        return new InMemoryClientRegistrationRepository(clientRegistration);
+    }
+
+    private ClientRegistration clientRegistration() {
+        return CommonOAuth2Provider
+            .GOOGLE
+            .getBuilder("google")
+            .clientId(clientId)
+            .clientSecret(clientSecret)
+            .build();
     }
 
     // CORS 정책 설정
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Refresh");
+        configuration.addExposedHeader("location");
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
+//        configuration.setAllowCredentials(true);
+//        configuration.addAllowedOriginPattern("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
