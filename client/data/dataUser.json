@@ -12,6 +12,19 @@
       "title": "title",
       "content": "dfssafasdf",
       "memberStatus": "Yes"
+    },
+    {
+      "memberId": 2,
+      "email": "kimcoding@naver.com",
+      "nickname": "",
+      "profile": "",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "",
+      "title": "",
+      "content": "",
+      "memberStatus": "Yes"
     }
   ]
 }
