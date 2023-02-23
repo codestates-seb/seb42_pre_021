@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
 
-const EditAndProfile = ({ member, date, isAnswer, content }) => {
+const EditAndProfile = ({ member, date, isAnswer, data }) => {
   const navigate = useNavigate();
   const handdleEditClick = isAnswer => {
     if (isAnswer) {
@@ -10,7 +10,9 @@ const EditAndProfile = ({ member, date, isAnswer, content }) => {
     } else {
       navigate('./edit', {
         state: {
-          content,
+          title: data.title,
+          content: data.content,
+          tags: data.tag,
         },
       });
     }
