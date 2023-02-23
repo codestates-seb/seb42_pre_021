@@ -68,32 +68,6 @@ const LoginInputForm = () => {
     dispatch(login(userData));
   };
 
-  //   const headers = {
-  //     'Access-Control-Allow-Origin': '*',
-  //     'Content-Type': 'application/json',
-  //   };
-
-  //     return axios
-  //       .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { headers })
-  //       .then(response => {
-  //         const { accessToken } = response.data;
-  //         localStorage.setItem('accessToken', accessToken);
-  //       })
-  //       .get(`${process.env.REACT_APP_API_URL}/members/`, {
-  //         withCredentials: true,
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //         },
-  //       })
-  //       .then(() => {
-  //         // setIsLogin(true);
-  //         navigate('/questions');
-  //       })
-  //       .catch(error => {
-  //         alert(error);
-  //       });
-  // };
-
   return (
     <InputContainer>
       <Label>Email</Label>

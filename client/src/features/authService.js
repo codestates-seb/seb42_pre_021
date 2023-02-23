@@ -1,4 +1,3 @@
-//http 요청을 모아두는 파일 post,patch ...
 import axios from 'axios';
 
 // const URL = 'http://localhost:3001/';

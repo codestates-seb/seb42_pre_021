@@ -54,6 +54,7 @@ const SignupInputForm = () => {
       password,
     };
     dispatch(register(userData));
+    navigate('/login');
   };
 
   if (isLoding) {
