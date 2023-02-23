@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @AllArgsConstructor
 @Getter
 public class Introduce {
-    private String company;
+    private String location;
 
     private String title;
 

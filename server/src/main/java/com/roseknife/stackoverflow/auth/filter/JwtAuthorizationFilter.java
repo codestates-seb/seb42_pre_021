@@ -2,7 +2,8 @@ package com.roseknife.stackoverflow.auth.filter;
 
 import com.roseknife.stackoverflow.auth.jwt.JwtTokenizer;
 import com.roseknife.stackoverflow.auth.utils.CustomAuthorityUtils;
-import lombok.AllArgsConstructor;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,9 +26,17 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Map<String, Object> claims = verifyJws(request); //jwt 안에 정보 읽기
-        setAuthenticationToContext(claims);
 
+        try {
+            Map<String, Object> claims = verifyJws(request); //jwt 안에 정보 읽기
+            setAuthenticationToContext(claims);
+        } catch (SignatureException se) {
+            request.setAttribute("exception", se);
+        } catch (ExpiredJwtException ee) {
+            request.setAttribute("exception", ee);
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
+        }
         filterChain.doFilter(request, response);
     }
 
@@ -40,7 +49,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         return authorization == null || !authorization.startsWith("Bearer");
     }
@@ -52,6 +61,5 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         return claims;
     }
-
 
 }
