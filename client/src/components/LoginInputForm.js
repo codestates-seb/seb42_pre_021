@@ -1,6 +1,11 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { login, reset } from 'features/authSlice';
+import { checkEmail, checkPassword } from 'features/validationCheck';
+import Spinner from 'components/Spinner';
 
 const LoginInputForm = () => {
   const [values, setValues] = useState({
@@ -8,44 +13,110 @@ const LoginInputForm = () => {
     password: '',
   });
 
-  const handleChange = event => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { email, password } = values;
+  const { user, isLoding, isError, isSuccess, message } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess || user) {
+      navigate('/');
+    }
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const handleChangeInput = event => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
   };
-  axios.defaults.withCredentials = true;
 
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   axios
-  //     .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { withCredentials: true })
-  //     .then(res => {
-  //       localStorage.setItem('accessToken', res.data)
-  //     })
-  //     .get(`${process.env.REACT_APP_API_URL}/members/`, {
-  //       withCredentials: true,
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //       },
-  //     })
-  //     .then((res)=>{
-  //       setIsLogin(true)
-  //       navigate('/questions')
-  //     })
-  //     .catch(error => {
-  //       alert(error);
-  //     });
+  if (isLoding) {
+    return <Spinner />;
+  }
+
+  // // 인풋값입력후 포커스 잃은 후(onBlur) 유효성검사
+  // const CheckEmail = event => {
+  //   const emailRegex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+  //   if (emailRegex.test(event.target.value)) {
+  //     setEmailValid(true);
+  //   } else {
+  //     alert('이메일을 형식에 맞게 입력해 주세요');
+  //   }
+  // };
+
+  // const checkPassword = event => {
+  //   const passwordRegex = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$/;
+  //   //8자이상, 하나이상의 문자(대소문자 구별안함), 하나이상의 숫자
+  //   if (passwordRegex.test(event.target.value)) {
+  //     setPasswordValid(true);
+  //   } else {
+  //     alert('패스워드를 확인해주세요');
+  //   }
+  // };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(login(userData));
+  };
+
+  //   const headers = {
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Content-Type': 'application/json',
+  //   };
+
+  //     return axios
+  //       .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { headers })
+  //       .then(response => {
+  //         const { accessToken } = response.data;
+  //         localStorage.setItem('accessToken', accessToken);
+  //       })
+  //       .get(`${process.env.REACT_APP_API_URL}/members/`, {
+  //         withCredentials: true,
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  //         },
+  //       })
+  //       .then(() => {
+  //         // setIsLogin(true);
+  //         navigate('/questions');
+  //       })
+  //       .catch(error => {
+  //         alert(error);
+  //       });
   // };
 
   return (
     <InputContainer>
       <Label>Email</Label>
-      <Input type={'email'} name="email" value={values.email} onChange={handleChange} />
+      <Input
+        type={'email'}
+        name="email"
+        value={values.email}
+        onChange={handleChangeInput}
+        onBlur={event => {
+          checkEmail(event.target.value);
+        }}
+      />
       <Label>Password</Label>
-      <Input type={'password'} name="password" value={values.password} onChange={handleChange} />
-      {/* <LoginButton onSubmit={handleSubmit}>Log in</LoginButton> */}
-      <LoginButton>Log in</LoginButton>
+      <Input
+        type={'password'}
+        name="password"
+        value={values.password}
+        onChange={handleChangeInput}
+        onBlur={event => {
+          checkPassword(event.target.value);
+        }}
+      />
+      <LoginButton onClick={handleSubmit}>Log in</LoginButton>
     </InputContainer>
   );
 };
