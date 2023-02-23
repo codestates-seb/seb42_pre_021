@@ -9,7 +9,7 @@ import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
-// 원래는 회원 아이디를 받아서 조회
+// 원래는 userInfo를 mypage가 받아서 조회를 받아서 조회
 const URL = 'http://localhost:3001/data';
 
 const MyPage = () => {
@@ -87,7 +87,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 1280px;
-  height: 100vh;
+  height: fit-content;
   margin-left: 10%;
   margin-top: 3rem;
 `;
@@ -107,6 +107,7 @@ const InfoContainer = styled.section`
     padding: 1rem;
     border-radius: 4px;
     border: 1px solid #bbc0c4;
+    margin-bottom: 3rem;
     > h3 {
       margin-bottom: 0.5rem;
       white-space: nowrap;

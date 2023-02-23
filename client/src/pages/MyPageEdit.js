@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyProfileList';
@@ -80,7 +79,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 1280px;
-  height: 100vh;
+  height: fit-content;
   margin-left: 10%;
   margin-top: 3rem;
 `;
