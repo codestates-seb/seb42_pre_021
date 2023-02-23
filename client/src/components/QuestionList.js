@@ -5,11 +5,13 @@ import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 import { useNavigate } from 'react-router-dom';
 import baseURL from 'api/baseURL';
+// import Paging from './Paging';
 
 const QuestionList = () => {
   const navigate = useNavigate();
   const [questionList, setQuestionList] = useState([]);
   const [sortBy, setSortBy] = useState('createdAt');
+  // const [pageInfo, setPageInfo] = useState({});
   // const [page, setPage] = useState(1);
   // const [size, setSize] = useState(10);
 
@@ -17,6 +19,7 @@ const QuestionList = () => {
     await baseURL.get('/questions').then(response => setQuestionList(response.data));
   };
 
+  // ! 서버 연동시 사용할 코드
   // const getQuestions = async () => {
   //   let sortDir = 'ASC';
   //   if (sortBy === 'createdAt') {
@@ -28,14 +31,17 @@ const QuestionList = () => {
   //     sortDir,
   //     sortBy,
   //     memberId
+  //   }).then((response) => {
+  //     setQuestionList(response.data);
+  //     setPageInfo(response.pageInfo);
   //   })
   // }
 
   useEffect(() => {
     getQuestionsData();
-    console.log(sortBy);
   }, []);
 
+  // ! 서버 연동시 사용할 코드
   // useEffect(() => {
   //   getQuestions();
   // }, [sortBy, page, size])
@@ -61,6 +67,8 @@ const QuestionList = () => {
           return <QuestionArticle key={question.questionId} question={question} />;
         })}
       </QuestionWrapper>
+      {/* <Paging sortBy={sortBy} page={page} setPage={setPage} size={size} setSize={setSize} total={pageInfo.totalElements} /> */}
+      {/* <Paging /> */}
     </>
   );
 };
