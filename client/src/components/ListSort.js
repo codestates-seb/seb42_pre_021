@@ -1,19 +1,36 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-const ListSort = ({ sortby, currentSortBy, setCurrentSortBy }) => {
-  const handleSortClick = index => {
-    setCurrentSortBy(index);
+const ListSort = ({ setSortBy }) => {
+  const SORT_BY = ['Newest', 'Votes', 'Answers', 'Views'];
+  const [current, setCurrent] = useState(0);
+
+  const handleSortClick = (index, type) => {
+    setCurrent(index);
+    switch (type) {
+      case 'Votes':
+        setSortBy('voteCount');
+        break;
+      case 'Answers':
+        setSortBy('answerCount');
+        break;
+      case 'Views':
+        setSortBy('viewCount');
+        break;
+      default:
+        setSortBy('createdAt');
+    }
   };
 
   return (
     <Sort>
-      {sortby.map((item, idx) => {
+      {SORT_BY.map((item, idx) => {
         return (
           <li
             key={idx}
             role="presentation"
-            className={currentSortBy === idx ? 'current' : null}
-            onClick={() => handleSortClick(idx)}
+            className={current === idx ? 'current' : null}
+            onClick={() => handleSortClick(idx, item)}
           >
             {item}
           </li>
