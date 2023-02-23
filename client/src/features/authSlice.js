@@ -12,7 +12,7 @@ const initialState = {
   message: '',
 };
 
-//회원가입 슬라이스
+//회원가입
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
   try {
     return await authService.register(user);
@@ -27,21 +27,20 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
   }
 });
 
-//
+//로그인
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   try {
     return await authService.login(user);
-    //여기서 http 요청을 비동기로 실행
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
       error.toStirng();
     return thunkAPI.rejectWithValue(message);
-    //에러가 발생시, 에러메세지를 action.payload에 담아줌.
   }
 });
 
+//로그아웃
 export const logout = createAsyncThunk('auth/logout', async () => {
   await authService.logout();
 });

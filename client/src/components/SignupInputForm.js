@@ -48,9 +48,9 @@ const SignupInputForm = () => {
     }
 
     const userData = {
-      id: '1ad23f',
-      email,
+      // id: '1ad23f',
       nickname,
+      email,
       password,
     };
     dispatch(register(userData));
