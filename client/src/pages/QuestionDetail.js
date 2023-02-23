@@ -48,7 +48,7 @@ const QuestionDetail = () => {
                   <MarkdownContent data={question} />
                 </div>
                 {question.questionAnswers.length ? <Answers data={question} /> : null}
-                <YourAnswer />
+                <YourAnswer questionId={question.questionId} />
               </Wrapper>
               <SideContent />
             </ContentSection>
