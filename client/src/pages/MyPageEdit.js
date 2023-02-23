@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyProfileList';
@@ -34,7 +34,7 @@ const MyPageEdit = () => {
 
     console.log(data);
 
-    return axios.patch(`http://localhost:3001/data`, data);
+    // return axios.patch(`http://localhost:3001/data`, data);
   };
 
   return (
