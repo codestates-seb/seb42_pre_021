@@ -5,7 +5,9 @@ import {
   HowToEdit,
   HowToFormat,
   HowToTag,
-} from 'components/editQuestion';
+  CancelButton,
+  TopNotice,
+} from 'components/edit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useRef, useState } from 'react';
@@ -30,13 +32,13 @@ const QuestionEdit = () => {
 
   const handleSubmit = async () => {
     const confirmEdit = confirm('수정하시겠습니까?');
-    console.log(confirmEdit);
     if (confirmEdit) {
       const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
       const htmlValue = questionEditRef.current?.getInstance().getHTML();
       await baseURL
         .patch(`/questions/${id}`, {
           title: titleValue,
+          modifiedAt: new Date(),
           content: {
             html: htmlValue,
             markdown: markdownValue,
@@ -52,24 +54,12 @@ const QuestionEdit = () => {
     }
   };
 
-  const handleCancelButton = () => {
-    navigate(-1);
-  };
-
   return (
     <Container>
       <Navigation />
       <Wrapper>
         <EditSection>
-          <TopNotice>
-            Your edit will be placed in a queue until it is peer reviewed.
-            <br />
-            <br />
-            We welcome edits that make the post easier to understand and more valuable for readers.
-            Because community members review edits, please try to make the post substantially better
-            than how you found it, for example, by fixing grammar or adding additional resources and
-            hyperlinks.
-          </TopNotice>
+          <TopNotice />
           <TitleEdit
             title={title}
             handleSectionClick={handleSectionClick}
@@ -89,7 +79,7 @@ const QuestionEdit = () => {
             currentForm={currentForm}
           />
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton onClick={handleCancelButton}>Cancel</CancelButton>
+          <CancelButton />
         </EditSection>
         <div>
           <SideNotice>
@@ -151,15 +141,6 @@ const EditSection = styled.section`
   }
 `;
 
-const TopNotice = styled.div`
-  width: 100%;
-  background-color: #fdf7e2;
-  padding: 1rem;
-  font-size: 0.8rem;
-  border-radius: 5px;
-  border: 1px solid #f1e5bc;
-`;
-
 const SideNotice = styled.aside`
   z-index: 3;
   background-color: #fdf7e2;
@@ -198,22 +179,6 @@ const SideNotice = styled.aside`
     width: 100%;
     position: relative;
     top: auto;
-  }
-`;
-
-const CancelButton = styled.button`
-  margin-left: 0.5rem;
-  border: none;
-  width: fit-content;
-  height: 2.5rem;
-  background-color: #fff;
-  color: #0b95ff;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding: 0 1rem;
-  cursor: pointer;
-  :hover {
-    background-color: #eff8ff;
   }
 `;
 
