@@ -1,21 +1,49 @@
 import TextEditor from 'components/Editor';
-import { HowToEdit, HowToFormat } from 'components/edit';
+import { HowToEdit, HowToFormat, CancelButton, TopNotice } from 'components/edit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import styled from 'styled-components';
-import TopNotice from 'components/edit/TopNotice';
+import AddButton from 'components/AddButton';
+import baseURL from 'api/baseURL';
 
 const AnswerEdit = () => {
+  const navigate = useNavigate();
   const answerEditRef = useRef();
   const location = useLocation();
   const { title, content, answerId } = location.state;
 
   useEffect(() => {
     console.log(answerId, title);
-  });
+  }, []);
+
+  const handleClickTitle = () => {
+    navigate(-1);
+  };
+
+  const handleSubmit = async () => {
+    const confirmEdit = confirm('수정하시겠습니까?');
+    if (confirmEdit) {
+      const markdownValue = answerEditRef.current?.getInstance().getMarkdown();
+      const htmlValue = answerEditRef.current?.getInstance().getHTML();
+      await baseURL
+        .patch(`/answers/${answerId}`, {
+          modifiedAt: new Date(),
+          content: {
+            html: htmlValue,
+            markdown: markdownValue,
+          },
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+      navigate(-1);
+    } else {
+      return;
+    }
+  };
 
   return (
     <Container>
@@ -23,7 +51,7 @@ const AnswerEdit = () => {
       <Wrapper>
         <EditSection>
           <TopNotice />
-          <QuestionTitle>{title}</QuestionTitle>
+          <QuestionTitle onClick={handleClickTitle}>{title}</QuestionTitle>
           <BodyEditWrapper>
             <h1>Answer</h1>
             <TextEditor
@@ -32,6 +60,8 @@ const AnswerEdit = () => {
               editorHeight="400px"
             />
           </BodyEditWrapper>
+          <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
+          <CancelButton />
         </EditSection>
         <div>
           <SideNotice>
@@ -86,10 +116,19 @@ const EditSection = styled.section`
   }
 `;
 
-const QuestionTitle = styled(Link)``;
+const QuestionTitle = styled.div`
+  width: fit-content;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  color: #0b95ff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+`;
 
 const BodyEditWrapper = styled.div`
   width: 100%;
+  margin-bottom: 2rem;
   > h1 {
     font-size: 1.2rem;
     margin: 1rem 0;
