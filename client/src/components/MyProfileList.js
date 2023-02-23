@@ -28,7 +28,7 @@ const MyProfileList = ({ username, location, title, aboutme, editorRef, isEdit }
   );
 };
 
-const InfoMain = styled.main`
+const InfoMain = styled.article`
   > ul {
     > li {
       display: flex;
