@@ -22,7 +22,7 @@ const YourAnswer = () => {
 const YourAnswerWrapper = styled.div`
   width: 100%;
   height: 18rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 6rem;
   > h1 {
     font-size: 1.1rem;
