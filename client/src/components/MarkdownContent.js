@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import EditAndProfile from './EditAndProfile';
 import Tags from './Tags';
 
-const MarkdownContent = ({ data, isAnswer }) => {
+const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
   const handleHTML = str => {
     if (str.content !== undefined) {
       const { html } = str.content;
@@ -22,6 +22,8 @@ const MarkdownContent = ({ data, isAnswer }) => {
             date={data.createdAt}
             isAnswer={isAnswer}
             data={data}
+            answerId={answerId}
+            title={title}
           />
         </MarkdownDesign>
       )}
