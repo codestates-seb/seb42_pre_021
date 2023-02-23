@@ -1,7 +1,11 @@
-import TextEditor from 'components/Editor';
-import HowToEdit from 'components/HowToEdit';
-import HowToFormat from 'components/HowToFormat';
-import HowToTag from 'components/HowToTag';
+import {
+  TitleEdit,
+  BodyEdit,
+  TagEdit,
+  HowToEdit,
+  HowToFormat,
+  HowToTag,
+} from 'components/editQuestion';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -10,24 +14,16 @@ import styled from 'styled-components';
 
 const QuestionEdit = () => {
   const location = useLocation();
-  const { content } = location.state;
+  const { title, content, tags } = location.state;
   const [currentForm, setCurrentForm] = useState('edit');
-  const [isChanged, setIsChanged] = useState(false);
+  const [titleValue, setTitleValue] = useState(title);
+  const [tagsArr, setTagsArr] = useState([...tags]);
   const questionEditRef = useRef('');
 
   useEffect(() => {}, []);
 
   const handleSectionClick = form => {
     setCurrentForm(form);
-  };
-
-  const handleEditorChange = () => {
-    const ref = questionEditRef.current?.getInstance().getMarkdown();
-    if (ref === content.markdown) {
-      setIsChanged(false);
-    } else {
-      setIsChanged(true);
-    }
   };
 
   return (
@@ -44,33 +40,24 @@ const QuestionEdit = () => {
             than how you found it, for example, by fixing grammar or adding additional resources and
             hyperlinks.
           </TopNotice>
-          <TitleEdit onClick={() => handleSectionClick('edit')}>
-            <InputTitle>Title</InputTitle>
-            <input type="text" />
-          </TitleEdit>
-          <BodyEdit onClick={() => handleSectionClick('format')}>
-            <InputTitle>Body</InputTitle>
-            <div
-              className={
-                currentForm === 'format'
-                  ? `focused ${isChanged ? 'changed' : 'not_changed'}`
-                  : `not_focused ${isChanged ? null : 'not_changed'}`
-              }
-            >
-              <TextEditor
-                editorRef={questionEditRef}
-                editorValue={content.markdown}
-                editorHeight="400px"
-                onEditorChange={handleEditorChange}
-              />
-              {!isChanged ? (
-                <span>It looks like your post is not changed; please add some more details.</span>
-              ) : null}
-            </div>
-          </BodyEdit>
-          <TagEdit onClick={() => handleSectionClick('tag')}>
-            <InputTitle>Tags</InputTitle>
-          </TagEdit>
+          <TitleEdit
+            title={title}
+            handleSectionClick={handleSectionClick}
+            setTitleValue={setTitleValue}
+            titleValue={titleValue}
+          />
+          <BodyEdit
+            questionEditRef={questionEditRef}
+            content={content}
+            handleSectionClick={handleSectionClick}
+            currentForm={currentForm}
+          />
+          <TagEdit
+            handleSectionClick={handleSectionClick}
+            tagsArr={tagsArr}
+            setTagsArr={setTagsArr}
+            currentForm={currentForm}
+          />
         </EditSection>
         <div>
           <SideNotice>
@@ -93,7 +80,6 @@ const Wrapper = styled.div`
   height: max-content;
   display: flex;
   padding: 1.7rem 0;
-  position: relative;
   > div {
     :last-of-type {
       width: 23rem;
@@ -102,12 +88,20 @@ const Wrapper = styled.div`
   }
   @media screen and (max-width: 1279px) {
     display: grid;
-    grid-template-columns: calc(100% - 24rem) 23rem;
+    grid-template-columns: calc(100% - 23rem) 23rem;
     padding-right: 1rem;
   }
   @media screen and (max-width: 1049px) {
     grid-template-columns: 100%;
     padding: 1.7rem 1rem;
+    > div {
+      :last-of-type {
+        width: 100%;
+        height: auto;
+        padding-right: 0;
+        margin-top: 2rem;
+      }
+    }
   }
   @media screen and (max-width: 640px) {
     /* padding: 0; */
@@ -120,7 +114,7 @@ const EditSection = styled.section`
   @media screen and (max-width: 1279px) {
     width: 100%;
   }
-  @media screen and (max-width: 979px) {
+  @media screen and (max-width: 1049px) {
     padding: 0;
   }
 `;
@@ -166,81 +160,13 @@ const SideNotice = styled.aside`
     }
   }
   @media screen and (max-width: 1279px) {
-    width: 100%;
+    width: 22.5rem;
   }
-  @media screen and (max-width: 979px) {
+  @media screen and (max-width: 1049px) {
+    width: 100%;
     position: relative;
     top: auto;
   }
-`;
-
-const InputTitle = styled.h1`
-  font-size: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 0.3rem;
-  cursor: pointer;
-`;
-
-const TitleEdit = styled.div`
-  width: 100%;
-  > input {
-    width: 100%;
-    border: 1px solid #bbb;
-    border-radius: 3px;
-    padding: 0.3rem 0.5rem;
-    :focus {
-      border: 1px solid #58a4de;
-      outline: 4px solid #ddeaf7;
-    }
-  }
-`;
-
-const BodyEdit = styled.div`
-  width: 100%;
-  div {
-    width: 100%;
-  }
-  .toastui-editor-toolbar {
-    overflow: hidden;
-  }
-  .focused.changed {
-    .toastui-editor-main {
-      border-radius: 3px;
-      border: 1px solid #58a4de;
-      outline: 4px solid #ddeaf7;
-    }
-  }
-  .focused.not_changed {
-    .toastui-editor-main {
-      border-radius: 3px;
-      border: 1px solid red;
-      outline: 4px solid #f8e1e0;
-    }
-    > span {
-      font-size: 0.8rem;
-      margin-top: 1rem;
-      color: #d0393e;
-    }
-  }
-  .not_focused.not_changed {
-    .toastui-editor-main {
-      border: 1px solid red;
-      border-radius: 0px 0px 3px 3px;
-      outline: none;
-    }
-    > span {
-      font-size: 0.8rem;
-      margin-top: 1rem;
-      color: #d0393e;
-    }
-  }
-  @media screen and (max-width: 640px) {
-    width: calc(100vw - 2rem);
-  }
-`;
-
-const TagEdit = styled.div`
-  width: 100%;
 `;
 
 export default QuestionEdit;
