@@ -35,7 +35,7 @@ const QuestionEdit = () => {
       const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
       const htmlValue = questionEditRef.current?.getInstance().getHTML();
       await baseURL
-        .patch(`/${id}`, {
+        .patch(`/questions/${id}`, {
           title: titleValue,
           content: {
             html: htmlValue,

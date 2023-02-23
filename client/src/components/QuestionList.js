@@ -13,7 +13,7 @@ const QuestionList = () => {
   const [currentSortBy, setCurrentSortBy] = useState(0);
 
   const getQuestionsData = async () => {
-    await baseURL.get().then(response => setQuestionList(response.data));
+    await baseURL.get('/questions').then(response => setQuestionList(response.data));
   };
 
   useEffect(() => {
