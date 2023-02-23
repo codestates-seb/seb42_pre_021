@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import TextEditor from 'components/Editor';
+import { useState } from 'react';
 
 const BodyEdit = ({ questionEditRef, content, handleSectionClick, currentForm }) => {
   const [isChanged, setIsChanged] = useState(false);
+
   const handleEditorChange = () => {
     const ref = questionEditRef.current?.getInstance().getMarkdown();
     if (ref === content.markdown) {

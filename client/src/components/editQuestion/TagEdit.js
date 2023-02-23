@@ -62,6 +62,7 @@ const TagEdit = ({ tagsArr, handleSectionClick, setTagsArr, currentForm }) => {
 
 const TagEditWrapper = styled.div`
   width: 100%;
+  margin-bottom: 2rem;
   > h1 {
     font-size: 1rem;
     margin-top: 1rem;

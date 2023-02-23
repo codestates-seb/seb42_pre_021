@@ -8,11 +8,13 @@ import {
 } from 'components/editQuestion';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
-import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import AddButton from 'components/AddButton';
 
 const QuestionEdit = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { title, content, tags } = location.state;
   const [currentForm, setCurrentForm] = useState('edit');
@@ -20,10 +22,17 @@ const QuestionEdit = () => {
   const [tagsArr, setTagsArr] = useState([...tags]);
   const questionEditRef = useRef('');
 
-  useEffect(() => {}, []);
-
   const handleSectionClick = form => {
     setCurrentForm(form);
+  };
+
+  const handleSubmit = () => {
+    const confirmEdit = confirm('수정하시겠습니까?');
+    console.log(confirmEdit);
+  };
+
+  const handleCancelButton = () => {
+    navigate(-1);
   };
 
   return (
@@ -58,6 +67,8 @@ const QuestionEdit = () => {
             setTagsArr={setTagsArr}
             currentForm={currentForm}
           />
+          <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
+          <CancelButton onClick={handleCancelButton}>Cancel</CancelButton>
         </EditSection>
         <div>
           <SideNotice>
@@ -166,6 +177,22 @@ const SideNotice = styled.aside`
     width: 100%;
     position: relative;
     top: auto;
+  }
+`;
+
+const CancelButton = styled.button`
+  margin-left: 0.5rem;
+  border: none;
+  width: fit-content;
+  height: 2.5rem;
+  background-color: #fff;
+  color: #0b95ff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0 1rem;
+  cursor: pointer;
+  :hover {
+    background-color: #eff8ff;
   }
 `;
 
