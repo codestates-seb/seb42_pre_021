@@ -21,7 +21,7 @@ const MarkdownContent = ({ data, isAnswer }) => {
             member={data.questionMember}
             date={data.createdAt}
             isAnswer={isAnswer}
-            content={data.content}
+            data={data}
           />
         </MarkdownDesign>
       )}
