@@ -39,7 +39,12 @@ const QuestionDetail = () => {
             <ContentSection>
               <Wrapper>
                 <div className="question_content">
-                  <Vote />
+                  <Vote
+                    count={question.voteCount}
+                    id={question.questionId}
+                    type="questions"
+                    bookmark={question.bookmark}
+                  />
                   <MarkdownContent data={question} />
                 </div>
                 {question.questionAnswers.length ? <Answers data={question} /> : null}
