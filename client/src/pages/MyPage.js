@@ -1,23 +1,42 @@
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Navigation from 'containers/Navigation';
 import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 
 // const { user } = useSelector(state => state.auth);
 //useSelect는 전역스토어에서 유저의 정보를 가져옵니다. 없으면 null 값입니다.
 //dispatch를 이용하여 get/patch 요청을 날려야하므로 feature 폴더에 관련 api를 작성하세요
 
+// 원래는 userInfo를 mypage가 받아서 조회를 받아서 조회
+// const URL = 'http://localhost:3001/data';
+
 const MyPage = () => {
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   const handleClickEditProfile = () => {
     navigate('/edit');
+  };
+
+  const getData = async () => {
+    const { data } = await axios.get(URL);
+    setUser(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const handleClickEdit = () => {
+    navigate('/mypage/edit', { state: user });
   };
 
   return (
@@ -68,6 +87,53 @@ const MyPage = () => {
           </div>
         </InfoContainer>
       </Container>
+      {user[0] && (
+        <Container>
+          <ButtonBox>
+            <button className="mypageButton" onClick={handleClickEdit}>
+              <FaPen />
+              Edit profile
+            </button>
+            <button className="mypageButton">
+              <FaTrashAlt />
+              Delete Profile
+            </button>
+          </ButtonBox>
+          <InfoContainer>
+            <h3>Public information</h3>
+            <div>
+              <InfoHeader>
+                <span>Profile image</span>
+                <ProfileContainer>
+                  <ImageBox>
+                    <Search className="profileImage" />
+                  </ImageBox>
+                  <ul>
+                    <li>
+                      <MdCake className="icon" />
+                      Member for 3 months
+                    </li>
+                    <li>
+                      <AiOutlineClockCircle className="icon" />
+                      Last seen this week
+                    </li>
+                    <li>
+                      <FaRegCalendarAlt className="icon" />
+                      Visited 4 days, 2 consecutive
+                    </li>
+                  </ul>
+                </ProfileContainer>
+              </InfoHeader>
+              <MyProfileList
+                username={user[0].nickname}
+                location={user[0].location}
+                title={user[0].title}
+                aboutme={user[0].content}
+              />
+            </div>
+          </InfoContainer>
+        </Container>
+      )}
     </>
   );
 };
@@ -76,7 +142,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 1280px;
-  height: 100vh;
+  height: fit-content;
   margin-left: 10%;
   margin-top: 3rem;
 `;
@@ -96,6 +162,7 @@ const InfoContainer = styled.section`
     padding: 1rem;
     border-radius: 4px;
     border: 1px solid #bbc0c4;
+    margin-bottom: 3rem;
     > h3 {
       margin-bottom: 0.5rem;
       white-space: nowrap;

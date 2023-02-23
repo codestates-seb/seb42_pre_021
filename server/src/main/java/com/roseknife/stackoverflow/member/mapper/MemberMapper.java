@@ -11,12 +11,12 @@ import java.util.List;
 public interface MemberMapper {
 
     Member memberPostToMember(MemberDto.Post requestBody);
-    @Mapping(source = "company", target = "introduce.company")
+    @Mapping(source = "location", target = "introduce.location")
     @Mapping(source = "title", target = "introduce.title")
     @Mapping(source = "content", target = "introduce.content")
     Member memberPatchToMember(MemberDto.Patch requestBody);
 
-    @Mapping(source = "introduce.company", target = "company")
+    @Mapping(source = "introduce.location", target = "location")
     @Mapping(source = "introduce.title", target = "title")
     @Mapping(source = "introduce.content", target = "content")
     MemberDto.Response membertoMemberResponse(Member member);

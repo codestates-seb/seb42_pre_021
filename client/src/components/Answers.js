@@ -19,7 +19,7 @@ const Answers = ({ data }) => {
       <AnswerList>
         {answers.map((answer, i) => (
           <div className="answer_content" key={i}>
-            <Vote />
+            <Vote count={answer.voteCount} id={answer.answerId} type="answers" />
             <MarkdownContent
               data={answer}
               isAnswer={true}
@@ -38,6 +38,7 @@ const AnswerWrapper = styled.div`
   height: fit-content;
   .answer_markdown {
     border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
   }
   .answer_content {
     position: relative;

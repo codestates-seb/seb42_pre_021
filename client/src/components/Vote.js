@@ -1,25 +1,46 @@
-import { useState } from 'react';
+import baseURL from 'api/baseURL';
+import { useMemo, useState } from 'react';
 import { IoCaretUpSharp, IoCaretDownSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 import Bookmark from './Bookmark';
 
-const Vote = () => {
-  const [voteCount, setVoteCount] = useState(0);
+const Vote = ({ count, id, type, bookmark }) => {
+  const [voteCount, setVoteCount] = useState(count);
+  const [isVoted, setIsVoted] = useState(false);
+  const currentVote = useMemo(() => voteCount, []);
 
   const handleArrowClick = type => {
-    if (type === 'increase') {
+    if (type === 'up' && voteCount <= currentVote && !isVoted) {
       setVoteCount(cur => cur + 1);
-    } else {
+      setIsVoted(true);
+      patchVote(count + 1);
+    } else if (type === 'down' && voteCount >= currentVote && !isVoted) {
       setVoteCount(cur => cur - 1);
+      setIsVoted(true);
+      patchVote(count - 1);
     }
+    if (isVoted) {
+      alert('이미 투표한 글입니다!');
+    }
+  };
+
+  const patchVote = async count => {
+    await baseURL
+      .patch(`/${type}/${id}`, {
+        voteCount: count,
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+    console.log(voteCount);
   };
 
   return (
     <Wrapper>
-      <IoCaretUpSharp className="updown" onClick={() => handleArrowClick('increase')} />
+      <IoCaretUpSharp className="updown" onClick={() => handleArrowClick('up')} />
       <p>{voteCount}</p>
-      <IoCaretDownSharp className="updown" onClick={() => handleArrowClick('decrease')} />
-      <Bookmark />
+      <IoCaretDownSharp className="updown" onClick={() => handleArrowClick('down')} />
+      <Bookmark bookmark={bookmark} id={id} type={type} />
     </Wrapper>
   );
 };

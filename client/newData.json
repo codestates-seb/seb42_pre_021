@@ -12,8 +12,11 @@
       "modifiedAt": "2023-02-23T06:05:34.863Z",
       "viewCount": 42,
       "answerCount": 0,
+      "voteCount": 2,
+      "bookmark": false,
       "tag": ["React", "javaScript"],
       "questionMember": {
+        "memberId": "dsgsdgdsg",
         "nickname": "dfgjgfhd",
         "profile": "https://source.boringavatars.com/beam/32"
       },
@@ -22,11 +25,14 @@
           "answerId": 14134,
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "voteCount": 0,
+          "bookmark": false,
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
           },
           "questionMember": {
+            "memberId": "dsgsdgdsg",
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
           }
@@ -45,8 +51,11 @@
       "modifiedAt": "2023-02-23T06:56:03.141Z",
       "viewCount": 30,
       "answerCount": 0,
+      "voteCount": 3,
+      "bookmark": true,
       "tag": ["java", "error", "new_error", "uri", "asfasfasfas"],
       "questionMember": {
+        "memberId": "kimcoding",
         "nickname": "김코딩",
         "profile": "https://source.boringavatars.com/beam/37"
       },
@@ -55,11 +64,14 @@
           "answerId": 15534,
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "voteCount": 2,
+          "bookmark": false,
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
           },
           "questionMember": {
+            "memberId": "dsgsdgdsg",
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/8"
           }
@@ -68,11 +80,14 @@
           "answerId": 6745,
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "voteCount": 1,
+          "bookmark": true,
           "content": {
             "html": "<p>A <code data-backticks=\"1\">Uri</code> is not a file. There is no requirement for the user to choose a file on the device, let alone a file whose filesystem path is available to an arbitrary other app.</p><p><br></p><p>Replace that with:</p><div data-language=\"java\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"java\">String str_address=getArguments().getString(\"Path\");\n        Uri uri = Uri.parse(str_address);\n\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent(Intent.ACTION_VIEW, uri);\n                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);\n                startActivity(intent);\n            }\n        });</code></pre></div>",
             "markdown": "A `Uri` is not a file. There is no requirement for the user to choose a file on the device, let alone a file whose filesystem path is available to an arbitrary other app.\n\nReplace that with:\n```java\nString str_address=getArguments().getString(\"Path\");\n        Uri uri = Uri.parse(str_address);\n\n        imgg.setOnClickListener(new View.OnClickListener() {\n            public void onClick(View view) {\n                Intent intent = new Intent(Intent.ACTION_VIEW, uri);\n                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);\n                startActivity(intent);\n            }\n        });\n```\n\n"
           },
           "questionMember": {
+            "memberId": "kimcoding",
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/8"
           }
@@ -83,6 +98,7 @@
       "id": 3,
       "questionId": 3,
       "title": "test_title3",
+      "bookmark": false,
       "content": {
         "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
         "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
@@ -91,8 +107,10 @@
       "modifiedAt": "2023-02-18T20:55:30.042741",
       "viewCount": 2,
       "answerCount": 0,
+      "voteCount": 1,
       "tag": ["React", "javaScript"],
       "questionMember": {
+        "memberId": "dsgsdgdsg",
         "nickname": "dfsdfsd",
         "profile": "https://source.boringavatars.com/beam/6"
       },
@@ -101,11 +119,14 @@
           "answerId": 654645,
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "voteCount": 1,
+          "bookmark": false,
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
           },
           "questionMember": {
+            "memberId": "dsgsdgdsg",
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
           }
@@ -114,11 +135,14 @@
           "answerId": 42335,
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "voteCount": 1,
+          "bookmark": true,
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
           },
           "questionMember": {
+            "memberId": "dsgsdgdsg",
             "nickname": "김코딩3",
             "profile": "https://source.boringavatars.com/beam/4"
           }
@@ -129,6 +153,7 @@
       "id": 4,
       "questionId": 4,
       "title": "test_title4",
+      "voteCount": 1,
       "content": {
         "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
         "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
@@ -137,8 +162,10 @@
       "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
       "viewCount": 132,
       "answerCount": 0,
+      "bookmark": false,
       "tag": ["React", "javaScript"],
       "questionMember": {
+        "memberId": "dsgsdgdsg",
         "nickname": "fsdagfds",
         "profile": "https://source.boringavatars.com/beam/3"
       },
@@ -146,12 +173,15 @@
         {
           "answerId": 876876,
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "bookmark": false,
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "voteCount": 1,
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
           },
           "questionMember": {
+            "memberId": "dsgsdgdsg",
             "nickname": "김코딩2",
             "profile": "https://source.boringavatars.com/beam/3"
           }
@@ -159,12 +189,15 @@
         {
           "answerId": 96794,
           "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "bookmark": false,
           "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+          "voteCount": 1,
           "content": {
             "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
             "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
           },
           "questionMember": {
+            "memberId": "dsgsdgdsg",
             "nickname": "김코딩3",
             "profile": "https://source.boringavatars.com/beam/2"
           }
@@ -175,6 +208,8 @@
       "id": 5,
       "questionId": 5,
       "title": "test_title5",
+      "bookmark": false,
+      "voteCount": 1,
       "content": {
         "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
         "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
@@ -185,17 +220,301 @@
       "answerCount": 0,
       "tag": [],
       "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 6,
+      "questionId": 6,
+      "title": "test_title6",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 7,
+      "questionId": 7,
+      "title": "test_title7",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 8,
+      "questionId": 8,
+      "title": "test_title8",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 9,
+      "questionId": 9,
+      "title": "test_title9",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 10,
+      "questionId": 10,
+      "title": "test_title10",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 11,
+      "questionId": 11,
+      "title": "test_title11",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 12,
+      "questionId": 12,
+      "title": "test_title12",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 13,
+      "questionId": 13,
+      "title": "test_title13",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 14,
+      "questionId": 14,
+      "title": "test_title14",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 15,
+      "questionId": 15,
+      "title": "test_title15",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 20,
+      "questionId": 20,
+      "title": "test_title20",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
+        "nickname": "fgdfgdfg",
+        "profile": "https://source.boringavatars.com/beam/12"
+      },
+      "questionAnswers": []
+    },
+    {
+      "id": 21,
+      "questionId": 21,
+      "title": "test_title21",
+      "bookmark": false,
+      "voteCount": 1,
+      "content": {
+        "html": "<p><code data-backticks=\"1\">hello</code></p><div data-language=\"javascript\" class=\"toastui-editor-ww-code-block\"><pre><code data-language=\"javascript\">let a = 1;\nconsole.log(a);\nconsole.log('hello world!');</code></pre></div>",
+        "markdown": "`hello`\n```javascript\nlet a = 1;\nconsole.log(a);\nconsole.log('hello world!');\n```"
+      },
+      "createdAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "modifiedAt": "Fri Feb 17 2023 12:10:08 GMT+0900",
+      "viewCount": 60,
+      "answerCount": 0,
+      "tag": [],
+      "questionMember": {
+        "memberId": "dsgsdgdsg",
         "nickname": "fgdfgdfg",
         "profile": "https://source.boringavatars.com/beam/12"
       },
       "questionAnswers": []
     }
   ],
-  "members": [
+  "answers": [
     {
-      "nickname": "apple",
-      "email": "apple23@apple.kr",
-      "password": "dovmfdltka23"
+      "questionId": 2,
+      "content": {
+        "markdown": " heyy",
+        "html": "<p>heyy</p>"
+      },
+      "id": 1
+    },
+    {
+      "questionId": 2,
+      "content": {
+        "markdown": " heyy",
+        "html": "<p>heyy</p>"
+      },
+      "id": 2
+    },
+    {
+      "questionId": 2,
+      "content": {
+        "markdown": " safasfa",
+        "html": "<p>safasfa</p>"
+      },
+      "id": 3
     }
   ]
 }

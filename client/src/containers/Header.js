@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import HeaderInputForm from 'components/HeaderInputForm';
 import { ReactComponent as StackoverflowLogo } from 'assets/stackoverflowLogo.svg';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { ReactComponent as Stackoverflow } from 'assets/stackoverflow.svg';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa';
-import { useState } from 'react';
-import HeaderInputForm from 'components/HeaderInputForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { reset, logout } from 'features/authSlice';
 
 // nav가 바로 렌더링되는가 or 메뉴아이콘이 있고 눌러야 렌더링 되는가
 // 로그인이 되어있는지 확인하고 헤더 버튼 다르게 출력
+// Header = ({ isLogin, setIsLogin, profile}) =>
 
 const Header = () => {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const Header = () => {
               {' '}
               <Link to="/mypage" className="mypageLink">
                 <Search width={25} height={25} />
+                {/*프로필사진*/}
               </Link>
               <Link to="/logout" className="logoutLink" onClick={handleLogout}>
                 Log out
@@ -155,37 +157,6 @@ const HeaderMenus = styled.div`
   }
 `;
 
-// const SearchFrom = styled.form`
-//   display: flex;
-//   width: 100%;
-//   border-radius: 0.2rem;
-//   border: 1px solid rgb(204, 208, 211);
-//   background-color: #fff;
-//   &:focus-within {
-//     border: 1px solid RGB(10, 149, 255);
-//     box-shadow: 0px 0px 0px 5px RGB(225, 236, 244);
-//   }
-
-//   > .searchIconContainer {
-//     > .searchIcon {
-//       margin: 0.4rem 0.4rem 0.2rem;
-//       &:hover {
-//         cursor: text;
-//       }
-//     }
-//   }
-
-//   > .searchInput {
-//     display: flex;
-//     width: 100%;
-//     border: none;
-//     background-color: transparent;
-//     &:focus {
-//       outline: none;
-//     }
-//   }
-// `;
-
 const MobileLogoBox = styled.div`
   display: flex;
   align-items: center;
@@ -247,9 +218,11 @@ const ButtonContainer = styled.div`
   }
 
   > .mypageLink {
-    background-color: blue;
+    background-color: red;
     border-radius: 50%;
     border: none;
+    width: 30px;
+    height: 30px;
   }
 
   > .logoutLink {

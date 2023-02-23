@@ -1,15 +1,27 @@
+import baseURL from 'api/baseURL';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import AddButton from './AddButton';
 import TextEditor from './Editor';
 
-const YourAnswer = () => {
+const YourAnswer = ({ questionId }) => {
   const answerRef = useRef('');
   // ! 버튼 핸들러 함수 구현 필요
-  const handlePostButton = () => {
-    console.log('html', answerRef.current?.getInstance().getHTML());
-    console.log('markdown', answerRef.current?.getInstance().getMarkdown());
+  const handlePostButton = async () => {
+    const html = answerRef.current?.getInstance().getHTML();
+    const markdown = answerRef.current?.getInstance().getMarkdown();
+    const confirmValue = confirm('답변을 등록하시겠습니까?');
+    if (confirmValue) {
+      await baseURL.post('/answers', {
+        questionId,
+        content: {
+          markdown,
+          html,
+        },
+      });
+    }
   };
+
   return (
     <YourAnswerWrapper>
       <h1>Your Answer</h1>
@@ -22,7 +34,7 @@ const YourAnswer = () => {
 const YourAnswerWrapper = styled.div`
   width: 100%;
   height: 18rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 6rem;
   > h1 {
     font-size: 1.1rem;
