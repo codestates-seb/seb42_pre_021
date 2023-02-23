@@ -2,10 +2,9 @@
 import axios from 'axios';
 
 // const URL = 'http://localhost:3001/';
-const URL = 'https://d1ad-1-237-37-135.jp.ngrok.io/';
+// const URL = 'https://d1ad-1-237-37-135.jp.ngrok.io/';
+const URL = 'https://2bc4-59-10-231-15.jp.ngrok.io/';
 // const URL = process.env.REACT_APP_API_URL
-// ${API_URL}
-axios.defaults.withCredentials = true;
 
 //회원가입 요청
 const register = async userData => {
@@ -37,14 +36,17 @@ const login = async userData => {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      // authorization: `Bearer ${accessToken}`,
     },
   });
+
+  console.log(response.data);
+  const { authorization } = response.data;
+  const { refresh } = response.data;
+  axios.defaults.headers.common['Authorization'] = `Bearer ${authorization}`;
+  axios.defaults.headers.common['refresh'] = `Bearer ${refresh}`;
+
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
-    console.log(response.authorization);
-    console.log(response.headers.get('authorizaion'));
-    console.log(response.headers);
   }
   return response.data;
 };
@@ -55,6 +57,7 @@ const logout = async () => {
   // // const response = await axios.post(`members/logout`);
   // if (response.data) {
   localStorage.removeItem('user');
+  window.location.replace('/');
   // }
 };
 

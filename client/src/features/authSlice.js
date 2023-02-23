@@ -12,6 +12,7 @@ const initialState = {
   message: '',
 };
 
+//createAsyncThunk는 비동기작업을 처리해주는 액션을 만들어 준다.
 //회원가입
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
   try {

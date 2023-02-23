@@ -5,9 +5,15 @@ import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 import { useNavigate } from 'react-router-dom';
 import baseURL from 'api/baseURL';
+import { useSelector } from 'react-redux';
 
 const QuestionList = () => {
   const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
+  //useSelect는 전역스토어에서 유저의 정보를 가져옵니다. 없으면 null 값입니다.
+  //dispatch를 이용하여 get 요청을 날려야하므로 feature 폴더에 관련 api를 작성하세요
+
   const SORT_BY = ['Newest', 'Oldest', 'Answers', 'Views'];
   const [questionList, setQuestionList] = useState([]);
   const [currentSortBy, setCurrentSortBy] = useState(0);
@@ -21,7 +27,7 @@ const QuestionList = () => {
   }, []);
 
   const handleAskButtonClick = () => {
-    navigate('/add');
+    user ? navigate('/add') : navigate('/login');
   };
 
   return (

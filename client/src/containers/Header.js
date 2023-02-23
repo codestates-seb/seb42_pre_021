@@ -65,10 +65,10 @@ const Header = () => {
           {user ? (
             <>
               {' '}
-              <Link to="/mypage" className="mypageLink" onClick={handleLogout}>
+              <Link to="/mypage" className="mypageLink">
                 <Search width={25} height={25} />
               </Link>
-              <Link to="/logout" className="logoutLink">
+              <Link to="/logout" className="logoutLink" onClick={handleLogout}>
                 Log out
               </Link>
             </>
@@ -82,18 +82,6 @@ const Header = () => {
               </Link>
             </>
           )}
-          {/* <Link to="/login" className="loginLink">
-            Log in
-          </Link>
-          <Link to="/signup" className="signupLink">
-            Sign up
-          </Link> */}
-          {/* <Link to="/mypage" className="mypageLink">
-            <Search width={25} height={25} />
-          </Link>
-          <Link to="/logout" className="logoutLink">
-            Log out
-          </Link> */}
         </ButtonContainer>
       </HeaderMenus>
       {inputClicked && isDeskOrMobi ? (

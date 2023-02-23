@@ -1,19 +1,31 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navigation from 'containers/Navigation';
 import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
+// import { useSelector } from 'react-redux';
+
+// const { user } = useSelector(state => state.auth);
+//useSelect는 전역스토어에서 유저의 정보를 가져옵니다. 없으면 null 값입니다.
+//dispatch를 이용하여 get/patch 요청을 날려야하므로 feature 폴더에 관련 api를 작성하세요
 
 const MyPage = () => {
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+
+  const handleClickEditProfile = () => {
+    navigate('/edit');
+  };
+
   return (
     <>
       <Navigation />
       <Container>
         <ButtonBox>
-          <Link to="/mypage/edit" className="mypageButton">
+          <Link to="/mypage/edit" className="mypageButton" onClick={handleClickEditProfile}>
             <FaPen />
             Edit profile
           </Link>
