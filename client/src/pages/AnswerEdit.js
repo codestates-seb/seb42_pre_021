@@ -10,12 +10,18 @@ import { useRef } from 'react';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import baseURL from 'api/baseURL';
+import { toast } from 'react-toastify';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
 const AnswerEdit = () => {
   const navigate = useNavigate();
   const answerEditRef = useRef();
   const location = useLocation();
-  const { title, content, answerId } = location.state;
+  const { title, markdown, answerId } = location.state;
+
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     console.log(answerId, title);
@@ -26,25 +32,37 @@ const AnswerEdit = () => {
   };
 
   const handleSubmit = async () => {
-    const confirmEdit = confirm('수정하시겠습니까?');
-    if (confirmEdit) {
-      const markdownValue = answerEditRef.current?.getInstance().getMarkdown();
-      const htmlValue = answerEditRef.current?.getInstance().getHTML();
-      await baseURL
-        .patch(`/answers/${answerId}`, {
-          modifiedAt: new Date(),
-          content: {
-            html: htmlValue,
-            markdown: markdownValue,
-          },
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
-      navigate(-1);
-    } else {
-      return;
-    }
+    const markdownValue = answerEditRef.current?.getInstance().getMarkdown();
+    const htmlValue = answerEditRef.current?.getInstance().getHTML();
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
+    await baseURL
+      .patch(`/answers/${answerId}`, {
+        html: htmlValue,
+        markdown: markdownValue,
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+
+    // ! 서버 연동시 사용할 코드
+    // await axios({
+    //   url: `/answers/${answerId}`,
+    //   method: 'patch',
+    //   data: {
+    //       html: htmlValue,
+    //       markdown: markdownValue,
+    //   },
+    //   headers,
+    //   withCredentials: true,
+    // }).catch(err => {
+    //   console.log(err.message);
+    // });
+    navigate(-1);
+    toast.success('수정이 완료되었습니다');
   };
 
   return (
@@ -56,11 +74,7 @@ const AnswerEdit = () => {
           <QuestionTitle onClick={handleClickTitle}>{title}</QuestionTitle>
           <BodyEditWrapper>
             <h1>Answer</h1>
-            <TextEditor
-              editorRef={answerEditRef}
-              editorValue={content.markdown}
-              editorHeight="400px"
-            />
+            <TextEditor editorRef={answerEditRef} editorValue={markdown} editorHeight="400px" />
           </BodyEditWrapper>
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
           <CancelButton />

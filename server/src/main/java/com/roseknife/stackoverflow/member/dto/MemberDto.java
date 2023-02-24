@@ -30,7 +30,8 @@ public class MemberDto {
         private String profile;
         private String location;
         private String title;
-        private String content;
+        private String html;
+        private String markdown;
     }
 
     @Getter
@@ -52,10 +53,11 @@ public class MemberDto {
         private String lastLoginAt;
         private String location;
         private String title;
-        private String content;
+        private String html;
+        private String markdown;
         private String memberStatus;
 
-        public Response(Long memberId, String nickname, String email, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, LocalDateTime lastLoginAt, String location, String title, String content, String memberStatus) {
+        public Response(Long memberId, String nickname, String email, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, LocalDateTime lastLoginAt, String location, String title, String html, String markdown, String memberStatus) {
             this.memberId = memberId;
             this.nickname = nickname;
             this.email = email;
@@ -65,7 +67,8 @@ public class MemberDto {
             this.lastLoginAt = lastLoginAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.location = location;
             this.title = title;
-            this.content = content;
+            this.html = html;
+            this.markdown = markdown;
             this.memberStatus = memberStatus;
         }
     }
@@ -77,13 +80,18 @@ public class MemberDto {
         private String email;
         private String profile;
         private String memberStatus;
+        private String authorization;
+        private String refresh;
 
-        public ResponseLogin(Long memberId, String nickname, String email, String profile, String memberStatus) {
+        public ResponseLogin(Long memberId, String nickname, String email, String profile, String memberStatus,
+                             String authorization, String refresh) {
             this.memberId = memberId;
             this.nickname = nickname;
             this.email = email;
             this.profile = profile;
             this.memberStatus = memberStatus;
+            this.authorization = authorization;
+            this.refresh = refresh;
         }
     }
 }

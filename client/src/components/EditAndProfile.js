@@ -1,36 +1,117 @@
+import baseURL from 'api/baseURL';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
-const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
+const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
   const navigate = useNavigate();
-  const handdleEditClick = isAnswer => {
+
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
+
+  const handleEditClick = isAnswer => {
     if (isAnswer) {
       navigate('./answer-edit', {
         state: {
           title: title,
-          content: data.content,
-          answerId,
+          markdown: data.markdown,
+          answerId: data.answerId,
         },
       });
     } else {
       navigate('./edit', {
         state: {
           title: data.title,
-          content: data.content,
+          markdown: data.markdown,
           tags: data.tag,
         },
       });
     }
   };
+
+  const handleDeleteClick = isAnswer => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "you won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      if (result.isConfirmed) {
+        deleteRequest(isAnswer);
+      } else {
+        if (isAnswer) {
+          toast.info('Cancelled! Your answer is safe.');
+        } else {
+          toast.info('Cancelled! Your question is safe.');
+        }
+      }
+    });
+  };
+
+  const deleteRequest = async isAnswer => {
+    // ! 서버 연동시 사용할 코드
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
+
+    if (isAnswer) {
+      await baseURL.delete(`/answers/${data.answerId}`).catch(error => {
+        console.log(error.message);
+      });
+
+      // ! 서버 연동시 사용할 코드
+      // await axios({
+      //   url: `/answers/${data.answerId}`,
+      //   method: 'delete',
+      //   withCredentials: true,
+      //   headers,
+      // }).catch(error => {
+      //   console.log(error);
+      // });
+      location.reload();
+      toast.success('Your answer has been deleted!');
+    } else {
+      await baseURL.delete(`/questions/${data.questionId}`).catch(error => {
+        console.log(error.message);
+      });
+
+      // ! 서버 연동시 사용할 코드
+      // await axios({
+      //   url: `/questions/${data.questionId}`,
+      //   method: 'delete',
+      //   withCredentials: true,
+      //   headers,
+      // }).catch(error => {
+      //   console.log(error);
+      // });
+      navigate('/');
+      toast.success('Your question has been deleted!');
+    }
+  };
+
   return (
     <ProfileWrapper>
       <EditAndDelete>
         <li>Share</li>
-        <li role="presentation" onClick={() => handdleEditClick(isAnswer)}>
+        {/* {user.memberId === data.memberId && (
+          <> */}
+        <li role="presentation" onClick={() => handleEditClick(isAnswer)}>
           Edit
         </li>
-        <li>Delete</li>
+        <li role="presentation" onClick={() => handleDeleteClick(isAnswer)}>
+          Delete
+        </li>
+        {/* </>
+        )} */}
       </EditAndDelete>
       <Profile className={isAnswer ? 'answer_profile' : null}>
         <img src={member.profile} alt={`${member.nickname} profile`} />

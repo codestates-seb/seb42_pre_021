@@ -4,6 +4,7 @@ import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
@@ -15,7 +16,10 @@ public class AnswerDto {
 	@Getter
 	public static class Post {
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 
 		@Positive
 		private Long memberId;
@@ -30,14 +34,19 @@ public class AnswerDto {
 		private Long answerId;
 
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 	}
 
 	@Getter
 	public static class Response {
 		private Long answerId;
 
-		private String content;
+		private String html;
+
+		private String markdown;
 
 		private String nickname;
 
@@ -49,9 +58,10 @@ public class AnswerDto {
 
 		private List<AnswerComment> answerComments;
 
-		public Response(Long answerId, String content, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, List<AnswerComment> answerComments) {
+		public Response(Long answerId, String html, String markdown, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, List<AnswerComment> answerComments) {
 			this.answerId = answerId;
-			this.content = content;
+			this.html = html;
+			this.markdown = markdown;
 			this.nickname = nickname;
 			this.profile = profile;
 			this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);

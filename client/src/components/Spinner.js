@@ -16,19 +16,12 @@ const Container = styled.div`
   align-items: center;
 `;
 const LodingSpinner = styled.div`
-  border: 16px solid pink;
-  border-top: 16px darkblue solid;
+  border: 16px solid #bcae9a;
+  border-top: 16px solid #252423;
   border-radius: 50%;
   height: 120px;
   width: 120px;
   animation: spin 2s linear infinite;
-  /* 
-  border: 16px solid #f3f3f3; 
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite; */
 
   @keyframes spin {
     0% {

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -16,5 +17,9 @@ public class Introduce {
 
     private String title;
 
-    private String content;
+    @Column(length = 1000000000)
+    private String html;
+
+    @Column(length = 1000000000)
+    private String markdown;
 }
