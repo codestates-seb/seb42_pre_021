@@ -23,5 +23,7 @@ public class QuestionBookmarkDto {
 		private Long questionBookmarkId;
 
 		private boolean questionBookmarkFlag;
+
+		private Long memberId;
 	}
 }

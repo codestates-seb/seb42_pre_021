@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @Validated
 @RequestMapping("/members")

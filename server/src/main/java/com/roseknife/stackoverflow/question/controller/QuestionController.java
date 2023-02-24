@@ -7,6 +7,8 @@ import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.mapper.QuestionMapper;
 import com.roseknife.stackoverflow.question.service.RealQuestionService;
+import com.roseknife.stackoverflow.tag.entity.Tag;
+import com.roseknife.stackoverflow.tag.repository.TagRepository;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,9 +32,16 @@ public class QuestionController {
     private final RealQuestionService questionService;
     private final QuestionMapper questionMapper;
 
+    private final TagRepository tagRepository;
+
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
-        Question question = questionMapper.questionPostToQuestion(requestBody);
+        List<Tag> tags = new ArrayList<>();
+        for (String tagName : requestBody.getTagNames()) {
+            tags.add(tagRepository.findByName(tagName));
+        }
+
+        Question question = questionMapper.questionPostToQuestion(requestBody,tags);
 
         Question createQuestion = questionService.createQuestion(question);
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, createQuestion.getQuestionId());
