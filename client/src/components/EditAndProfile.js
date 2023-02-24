@@ -1,8 +1,9 @@
+import baseURL from 'api/baseURL';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
 
-const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
+const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
   const navigate = useNavigate();
   const handdleEditClick = isAnswer => {
     if (isAnswer) {
@@ -10,7 +11,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
         state: {
           title: title,
           content: data.content,
-          answerId,
+          answerId: data.answerId,
         },
       });
     } else {
@@ -23,6 +24,20 @@ const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
       });
     }
   };
+  const handleDelete = async isAnswer => {
+    const deleteConfirm = confirm('정말 삭제하시겠습니까?');
+    if (deleteConfirm) {
+      if (isAnswer) {
+        await baseURL.delete(`/answer/${data.answerId}`);
+        location.reload();
+      } else {
+        await baseURL.delete(`/questions/${data.questionId}`).catch(err => {
+          console.log(err.message);
+        });
+        navigate('../');
+      }
+    }
+  };
   return (
     <ProfileWrapper>
       <EditAndDelete>
@@ -30,7 +45,9 @@ const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
         <li role="presentation" onClick={() => handdleEditClick(isAnswer)}>
           Edit
         </li>
-        <li>Delete</li>
+        <li role="presentation" onClick={() => handleDelete(isAnswer)}>
+          Delete
+        </li>
       </EditAndDelete>
       <Profile className={isAnswer ? 'answer_profile' : null}>
         <img src={member.profile} alt={`${member.nickname} profile`} />

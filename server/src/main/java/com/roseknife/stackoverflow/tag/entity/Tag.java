@@ -20,6 +20,6 @@ public class Tag {
     private String name;
     private String content;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
 }

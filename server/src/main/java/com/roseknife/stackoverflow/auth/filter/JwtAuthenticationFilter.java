@@ -46,17 +46,20 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) throws IOException, ServletException {
         Member member = (Member) authResult.getPrincipal();
 
+        Gson gson = new Gson();
+        String accessToken = delegateAccessToken(member);
+        String refreshToken = delegateRefreshToken(member);
+
         MemberDto.ResponseLogin memberResponse = new MemberDto.ResponseLogin(
             member.getMemberId(),
             member.getNickname(),
             member.getEmail(),
             member.getProfile(),
-            member.getMemberStatus().getStatus()
+            member.getMemberStatus().getStatus(),
+            accessToken,
+            refreshToken
         );
 
-        Gson gson = new Gson();
-        String accessToken = delegateAccessToken(member);
-        String refreshToken = delegateRefreshToken(member);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
