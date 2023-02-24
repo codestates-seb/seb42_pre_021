@@ -26,8 +26,11 @@ public class Answer extends Auditable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long answerId;
 
-	@Column(nullable = false)
-	private String content;
+	@Column(length = 1000000)
+	private String html;
+
+	@Column(length = 1000000)
+	private String markdown;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")

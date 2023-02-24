@@ -34,14 +34,19 @@ public class AnswerDto {
 		private Long answerId;
 
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 	}
 
 	@Getter
 	public static class Response {
 		private Long answerId;
 
-		private String content;
+		private String html;
+
+		private String markdown;
 
 		private String nickname;
 
@@ -53,9 +58,10 @@ public class AnswerDto {
 
 		private List<AnswerComment> answerComments;
 
-		public Response(Long answerId, String content, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, List<AnswerComment> answerComments) {
+		public Response(Long answerId, String html, String markdown, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, List<AnswerComment> answerComments) {
 			this.answerId = answerId;
-			this.content = content;
+			this.html = html;
+			this.markdown = markdown;
 			this.nickname = nickname;
 			this.profile = profile;
 			this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);

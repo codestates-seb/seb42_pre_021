@@ -28,7 +28,8 @@ public class AnswerService {
 
 	public Answer updateAnswer(Answer answer) {
 		Answer findAnswer = findVerifiedAnswerById(answer.getAnswerId());
-		Optional.ofNullable(answer.getContent()).ifPresent(findAnswer::setContent);
+		Optional.ofNullable(answer.getHtml()).ifPresent(findAnswer::setHtml);
+		Optional.ofNullable(answer.getHtml()).ifPresent(findAnswer::setHtml);
 
 		return answerRepository.save(findAnswer);
 	}
