@@ -5,6 +5,7 @@ import com.roseknife.stackoverflow.bookmark.repository.QuestionBookmarkRepositor
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.member.service.MemberService;
+import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +56,14 @@ public class QuestionBookmarkService {
 		QuestionBookmark questionBookmark
 			= optionalQuestionBookmark.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_BOOKMARK_NOT_FOUND));
 		return questionBookmark;
+	}
+
+	@Transactional(readOnly = true)
+	public QuestionBookmark findByMemberIdQuestionBookmark(Long questionId,Long memberId) {
+		Optional<QuestionBookmark> optionalQuestionBookmark = questionBookmarkRepository.findByQuestionQuestionIdAndMemberMemberId(questionId,memberId);
+		QuestionBookmark findBookmark =
+				optionalQuestionBookmark.orElse(new QuestionBookmark());
+
+		return findBookmark;
 	}
 }

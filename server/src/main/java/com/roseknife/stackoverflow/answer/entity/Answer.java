@@ -26,8 +26,11 @@ public class Answer extends Auditable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long answerId;
 
-	@Column(nullable = false)
-	private String content;
+	@Column(length = 1000000)
+	private String html;
+
+	@Column(length = 1000000)
+	private String markdown;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
@@ -45,7 +48,7 @@ public class Answer extends Auditable {
 
 	// modified 36-44
 	@JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
-	@OneToOne(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(mappedBy = "answer")
 	private AnswerBookmark answerBookmark;
 
 	public void setAnswerBookmark(AnswerBookmark answerBookmark) {
