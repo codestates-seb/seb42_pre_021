@@ -1,6 +1,7 @@
 package com.roseknife.stackoverflow.question.dto;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
+import com.roseknife.stackoverflow.bookmark.dto.AnswerBookmarkDto;
 import com.roseknife.stackoverflow.bookmark.dto.QuestionBookmarkDto;
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
@@ -54,9 +55,10 @@ public class QuestionDto {
         private QuestionDto.QuestionMember questionMember;
         private List<AnswerCommentDto.Response> answerComments;
 
-        private AnswerBookmark answerBookmark;
+//        private AnswerBookmark answerBookmark;
+        private AnswerBookmarkDto.Response answerBookmark;
         public QuestionAnswer(LocalDateTime createdAt, LocalDateTime modifiedAt, String content, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments,
-                              AnswerBookmark answerBookmark) {
+                              AnswerBookmarkDto.Response answerBookmark) {
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.content = content;

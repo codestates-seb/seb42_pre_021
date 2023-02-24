@@ -2,6 +2,7 @@ package com.roseknife.stackoverflow.question.mapper;
 
 import com.roseknife.stackoverflow.answer.dto.AnswerDto;
 import com.roseknife.stackoverflow.answer.entity.Answer;
+import com.roseknife.stackoverflow.bookmark.dto.AnswerBookmarkDto;
 import com.roseknife.stackoverflow.bookmark.dto.QuestionBookmarkDto;
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
@@ -29,6 +30,9 @@ public interface QuestionMapper {
 
     @Mapping(source = "member.memberId",target = "memberId")
     QuestionBookmarkDto.Response questionBookmarkToQuestionBookmarkResponseDto(QuestionBookmark questionBookmark);
+
+    @Mapping(source = "member.memberId",target = "memberId")
+    AnswerBookmarkDto.Response answerBookmarkToAnswerBookmarkResponseDto(AnswerBookmark answerBookmark);
 //    @Mapping(source = "memberId",target = "member.memberId")
     default Question questionPostToQuestion(QuestionDto.Post requestBody,List<Tag> tags) {
         if ( requestBody == null ) {
@@ -45,7 +49,7 @@ public interface QuestionMapper {
         List<QuestionTag> questionTags = tags.stream()
                 .map(requestTag -> {
                     QuestionTag questionTag = new QuestionTag();
-                    questionTag.addTag(requestTag);// qT -> tag name //id content x
+                    questionTag.addTag(requestTag); // qT -> tag name //id content x
                     questionTag.addQuestion(question);
                     return questionTag;
                     }
@@ -88,8 +92,8 @@ public interface QuestionMapper {
         LocalDateTime createdAt = requestBody.getCreatedAt();
         LocalDateTime modifiedAt = requestBody.getModifiedAt();
         String content = requestBody.getContent();
-        AnswerBookmark answerBookmark = requestBody.getAnswerBookmark();
-
+//        AnswerBookmark answerBookmark = requestBody.getAnswerBookmark();
+        AnswerBookmarkDto.Response answerBookmark = answerBookmarkToAnswerBookmarkResponseDto(requestBody.getAnswerBookmark());
         List<AnswerCommentDto.Response> answerCommentResponse = answerCommentsToAnswerCommentResponseDtos(requestBody.getAnswerComments());
         QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, content, questionMember,answerCommentResponse,answerBookmark);
 

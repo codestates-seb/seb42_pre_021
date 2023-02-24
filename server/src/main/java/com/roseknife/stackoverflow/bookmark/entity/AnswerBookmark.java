@@ -21,7 +21,7 @@ public class AnswerBookmark {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
-	private Member member;
+	private Member member;	// answer 1 member 1 answerbookmark 1 < member 1
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ANSWER_ID")

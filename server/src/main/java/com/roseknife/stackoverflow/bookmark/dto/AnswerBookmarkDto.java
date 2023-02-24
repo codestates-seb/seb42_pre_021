@@ -21,5 +21,7 @@ public class AnswerBookmarkDto {
 		private Long answerBookmarkId;
 
 		private boolean answerBookmarkFlag;
+
+		private Long memberId;
 	}
 }

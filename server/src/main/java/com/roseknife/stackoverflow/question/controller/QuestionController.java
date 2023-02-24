@@ -24,9 +24,10 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/questions")
 @Validated
+@RequestMapping("/questions")
 @RequiredArgsConstructor
 public class QuestionController {
     private final static String QUESTION_DEFAULT_URL = "/questions";
