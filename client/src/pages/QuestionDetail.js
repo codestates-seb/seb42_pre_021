@@ -10,12 +10,14 @@ import MarkdownContent from 'components/MarkdownContent';
 import YourAnswer from 'components/YourAnswer';
 import { Container } from 'containers/Container';
 import baseURL from 'api/baseURL';
+import SignUpModal from 'components/SignUpModal';
 // import { useSelector } from 'react-redux';
 // import axios from 'axios';
 
 const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
+  const [isShowModal, setIsShowModal] = useState(true);
 
   // const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -73,15 +75,19 @@ const QuestionDetail = () => {
                 id={question.questionId}
                 type="questions"
                 bookmark={question.bookmark}
+                setIsShowModal={setIsShowModal}
               />
               <MarkdownContent data={question} />
             </div>
-            {question.questionAnswers ? <Answers data={question} /> : null}
+            {question.questionAnswers ? (
+              <Answers data={question} setIsShowModal={setIsShowModal} />
+            ) : null}
             <YourAnswer questionId={question.questionId} />
           </Wrapper>
           <SideContent />
         </ContentSection>
       </Container>
+      {isShowModal && <SignUpModal setIsShowModal={setIsShowModal} />}
     </>
   );
 };
