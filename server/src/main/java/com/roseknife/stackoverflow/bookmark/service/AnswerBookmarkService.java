@@ -1,16 +1,13 @@
 package com.roseknife.stackoverflow.bookmark.service;
 
+import com.roseknife.stackoverflow.answer.service.AnswerService;
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
-import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.bookmark.repository.AnswerBookmarkRepository;
-import com.roseknife.stackoverflow.exception.BusinessLogicException;
-import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -19,43 +16,24 @@ import java.util.Optional;
 public class AnswerBookmarkService {
 	private final AnswerBookmarkRepository answerBookmarkRepository;
 	private final MemberService memberService;
+	private final AnswerService answerService;
 
 	public AnswerBookmark createAnswerBookmark(AnswerBookmark answerBookmark) {
-		verifyExistAnswerBookmark(answerBookmark);
-		answerBookmark.setAnswerBookmarkFlag(true);
-		return answerBookmarkRepository.save(answerBookmark);
+		memberService.findMember(answerBookmark.getMember().getMemberId());
+		answerService.findAnswer(answerBookmark.getAnswer().getAnswerId());
+
+		Optional<AnswerBookmark> optionalAnswerBookmark
+				= Optional.ofNullable(verifyExistAnswerBookmark(answerBookmark));
+		AnswerBookmark bookmark = optionalAnswerBookmark.orElse(answerBookmark);
+
+		bookmark.setAnswerBookmarkFlag(!bookmark.isAnswerBookmarkFlag());
+		return answerBookmarkRepository.save(bookmark);
 	}
 
-	public AnswerBookmark updateAnswerBookmark(AnswerBookmark answerBookmark) {
-		AnswerBookmark findAnswerBookmark = findVerifiedAnswerBookmark(answerBookmark.getAnswerBookmarkId());
-
-		if (Objects.isNull(findAnswerBookmark.getMember())) {
-			findAnswerBookmark.setMember(memberService.findMember(answerBookmark.getMember().getMemberId()));
-		}
-		if (isValidMember(answerBookmark, findAnswerBookmark)) {
-			findAnswerBookmark.setAnswerBookmarkFlag(!findAnswerBookmark.isAnswerBookmarkFlag());
-		}
-		return findAnswerBookmark;
-	}
-
-	private static boolean isValidMember(AnswerBookmark answerBookmark, AnswerBookmark findAnswerBookmark) {
-		return Objects.equals(findAnswerBookmark.getMember().getMemberId(), answerBookmark.getMember().getMemberId());
-	}
-
-	private void verifyExistAnswerBookmark(AnswerBookmark answerBookmark) {
+	private AnswerBookmark verifyExistAnswerBookmark(AnswerBookmark answerBookmark) {
 		Optional<AnswerBookmark> optionalAnswerBookmark
 				= answerBookmarkRepository.findByAnswerAnswerIdAndMemberMemberId(answerBookmark.getAnswer().getAnswerId(), answerBookmark.getMember().getMemberId());
-		if (optionalAnswerBookmark.isPresent()) {
-			throw new BusinessLogicException(ExceptionCode.QUESTION_BOOKMARK_EXISTS);
-		}
-	}
-
-	private AnswerBookmark findVerifiedAnswerBookmark(Long answerBookmarkId) {
-		Optional<AnswerBookmark> optionalAnswerBookmark = answerBookmarkRepository.findById(answerBookmarkId);
-
-		AnswerBookmark answerBookmark
-			= optionalAnswerBookmark.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_BOOKMARK_NOT_FOUND));
-		return answerBookmark;
+		return optionalAnswerBookmark.orElse(null);
 	}
 
 	@Transactional(readOnly = true)

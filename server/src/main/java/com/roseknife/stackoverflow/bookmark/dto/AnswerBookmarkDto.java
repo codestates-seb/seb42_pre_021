@@ -17,15 +17,6 @@ public class AnswerBookmarkDto {
 
 	@Getter
 	@Setter
-	public static class Patch {
-		private Long answerBookmarkId;
-
-		@Positive
-		private Long memberId;
-	}
-
-	@Getter
-	@Setter
 	public static class Response {
 		private Long answerBookmarkId;
 
