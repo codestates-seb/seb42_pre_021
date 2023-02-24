@@ -10,11 +10,13 @@ import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @Entity
 @Getter
 @Setter
@@ -42,7 +44,8 @@ public class Answer extends Auditable {
 	private List<AnswerComment> answerComments = new ArrayList<>();
 
 	// modified 36-44
-	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+	@JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
+	@OneToOne(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private AnswerBookmark answerBookmark;
 
 	public void setAnswerBookmark(AnswerBookmark answerBookmark) {

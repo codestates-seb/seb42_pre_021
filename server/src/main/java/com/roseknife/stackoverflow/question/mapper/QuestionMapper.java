@@ -2,24 +2,65 @@ package com.roseknife.stackoverflow.question.mapper;
 
 import com.roseknife.stackoverflow.answer.dto.AnswerDto;
 import com.roseknife.stackoverflow.answer.entity.Answer;
+import com.roseknife.stackoverflow.bookmark.dto.AnswerBookmarkDto;
+import com.roseknife.stackoverflow.bookmark.dto.QuestionBookmarkDto;
+import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.comment.dto.AnswerCommentDto;
 import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.dto.PageInfo;
+import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
+import com.roseknife.stackoverflow.tag.entity.Tag;
+import com.roseknife.stackoverflow.tag.repository.TagRepository;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
     //기본 질문 Mapper
-    @Mapping(source = "memberId",target = "member.memberId")
-    Question questionPostToQuestion(QuestionDto.Post requestBody);
+
+    @Mapping(source = "member.memberId",target = "memberId")
+    QuestionBookmarkDto.Response questionBookmarkToQuestionBookmarkResponseDto(QuestionBookmark questionBookmark);
+
+    @Mapping(source = "member.memberId",target = "memberId")
+    AnswerBookmarkDto.Response answerBookmarkToAnswerBookmarkResponseDto(AnswerBookmark answerBookmark);
+//    @Mapping(source = "memberId",target = "member.memberId")
+    default Question questionPostToQuestion(QuestionDto.Post requestBody,List<Tag> tags) {
+        if ( requestBody == null ) {
+            return null;
+        }
+
+        Question question = new Question();
+        Member member = new Member();
+        member.setMemberId(requestBody.getMemberId());
+
+        question.setMember(member);
+        question.setTitle( requestBody.getTitle() );
+        question.setContent( requestBody.getContent() );
+        List<QuestionTag> questionTags = tags.stream()
+                .map(requestTag -> {
+                    QuestionTag questionTag = new QuestionTag();
+                    questionTag.addTag(requestTag); // qT -> tag name //id content x
+                    questionTag.addQuestion(question);
+                    return questionTag;
+                    }
+                ).collect(Collectors.toList());
+
+        question.setQuestionTags(questionTags);
+
+        return question;
+    }
+
+
     Question questionPatchToQuestion(QuestionDto.Patch requestBody);
 
     //질문 전체 조회 Mapper
@@ -51,8 +92,10 @@ public interface QuestionMapper {
         LocalDateTime createdAt = requestBody.getCreatedAt();
         LocalDateTime modifiedAt = requestBody.getModifiedAt();
         String content = requestBody.getContent();
+//        AnswerBookmark answerBookmark = requestBody.getAnswerBookmark();
+        AnswerBookmarkDto.Response answerBookmark = answerBookmarkToAnswerBookmarkResponseDto(requestBody.getAnswerBookmark());
         List<AnswerCommentDto.Response> answerCommentResponse = answerCommentsToAnswerCommentResponseDtos(requestBody.getAnswerComments());
-        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, content, questionMember,answerCommentResponse);
+        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, content, questionMember,answerCommentResponse,answerBookmark);
 
         return questionAnswer;
     }
@@ -79,6 +122,11 @@ public interface QuestionMapper {
         QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(question.getMember().getMemberId(),question.getMember().getNickname(),question.getMember().getProfile());
         List<QuestionDto.QuestionCommentResponse> questionComments = null;
         List<QuestionDto.QuestionAnswer> questionAnswers = null;
+//        List<QuestionTag> questionTags = question.getQuestionTags();
+        List<String> questionTags = new ArrayList<>();
+        for (QuestionTag questionTag : question.getQuestionTags()) {
+            questionTags.add(questionTag.getTag().getName());
+        }
         Long questionId = question.getQuestionId();
         String title = question.getTitle();
         String content = question.getContent();
@@ -87,6 +135,8 @@ public interface QuestionMapper {
         Integer viewCount = question.getViewCount();
         Integer answerCount = question.getAnswerCount();
         Integer voteCount = question.getVoteCount();
+//        QuestionBookmark questionBookmark = question.getQuestionBookmark();
+        QuestionBookmarkDto.Response questionBookmark = questionBookmarkToQuestionBookmarkResponseDto(question.getQuestionBookmark());
         List<Answer> answers = pageAnswers.getContent();
         List<QuestionComment> comments = question.getQuestionComments();
 
@@ -96,8 +146,8 @@ public interface QuestionMapper {
         questionAnswers = answersToQuestionAnswers(answers);
         questionComments = commentsToQuestionCommentResponses(comments);
 
-        QuestionDto.Response response = new QuestionDto.Response(questionId, title, content, "createdAt", "modifiedAt", viewCount,
-                answerCount, questionMember, questionAnswers, pageInfo, questionComments);
+        QuestionDto.Response response = new QuestionDto.Response(questionId, title, content, createdAt, modifiedAt, viewCount,
+                answerCount, questionMember, questionAnswers, pageInfo, questionComments,questionTags,questionBookmark);
 
         return response;
     }

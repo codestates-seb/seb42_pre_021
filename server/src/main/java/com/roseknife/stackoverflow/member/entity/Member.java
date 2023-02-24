@@ -1,7 +1,10 @@
 package com.roseknife.stackoverflow.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.audit.Auditable;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.question.entity.Question;
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,6 +46,10 @@ public class Member extends Auditable {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<QuestionBookmark> questionBookmarks = new ArrayList<>();
 
     public enum MemberStatus{
         MEMBER_ACTIVE("활동중"),

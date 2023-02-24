@@ -1,9 +1,14 @@
 package com.roseknife.stackoverflow.question.dto;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
+import com.roseknife.stackoverflow.bookmark.dto.AnswerBookmarkDto;
+import com.roseknife.stackoverflow.bookmark.dto.QuestionBookmarkDto;
+import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.comment.dto.AnswerCommentDto;
 import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import com.roseknife.stackoverflow.dto.PageInfo;
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -24,6 +29,8 @@ public class QuestionDto {
         private String title;
 
         private String content;
+
+        private List<String> tagNames; //
 
     }
 
@@ -47,12 +54,17 @@ public class QuestionDto {
         private String content;
         private QuestionDto.QuestionMember questionMember;
         private List<AnswerCommentDto.Response> answerComments;
-        public QuestionAnswer(LocalDateTime createdAt, LocalDateTime modifiedAt, String content, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments) {
+
+//        private AnswerBookmark answerBookmark;
+        private AnswerBookmarkDto.Response answerBookmark;
+        public QuestionAnswer(LocalDateTime createdAt, LocalDateTime modifiedAt, String content, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments,
+                              AnswerBookmarkDto.Response answerBookmark) {
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.content = content;
             this.questionMember = questionMember;
             this.answerComments = answerComments;
+            this.answerBookmark = answerBookmark;
         }
     }
 
@@ -76,6 +88,7 @@ public class QuestionDto {
             this.profile = profile;
         }
     }
+
     @AllArgsConstructor
     @Getter
     public static class Response {
@@ -88,6 +101,9 @@ public class QuestionDto {
         private Integer answerCount;
         //질문 안 멤버 DTO
         private QuestionDto.QuestionMember questionMember;
+
+//        private List<QuestionTag> questionTags;
+        private List<String> questionTags;
         //질문 답변 DTO
         private List<QuestionDto.QuestionAnswer> questionAnswers;
         //질문 답변 페이지 정보
@@ -95,9 +111,12 @@ public class QuestionDto {
         //질문 댓글 DTO
         private List<QuestionDto.QuestionCommentResponse> questionComments;
 
+//        private QuestionBookmark questionBookmark;
+        private QuestionBookmarkDto.Response questionBookmark;
         public Response(Long questionId, String title, String content, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount,
                         Integer answerCount, QuestionMember questionMember,
-                        List<QuestionDto.QuestionAnswer> questionAnswers,PageInfo answerPageInfo,List<QuestionDto.QuestionCommentResponse> questionComments) {
+                        List<QuestionDto.QuestionAnswer> questionAnswers,PageInfo answerPageInfo,List<QuestionDto.QuestionCommentResponse> questionComments,
+                        List<String> questionTags,QuestionBookmarkDto.Response questionBookmark) {
             this.questionId = questionId;
             this.title = title;
             this.content = content;
@@ -109,6 +128,8 @@ public class QuestionDto {
             this.questionAnswers = questionAnswers;
             this.answerPageInfo = answerPageInfo;
             this.questionComments = questionComments;
+            this.questionTags = questionTags;
+            this.questionBookmark = questionBookmark;
         }
 
         //Question-AnswerDto
@@ -148,9 +169,6 @@ public class QuestionDto {
             this.answerCount = answerCount;
             this.questionMember = questionMember;
         }
-
-
-        //        private List<Tag> Tags;
 
     }
 }

@@ -77,13 +77,18 @@ public class MemberDto {
         private String email;
         private String profile;
         private String memberStatus;
+        private String authorization;
+        private String refresh;
 
-        public ResponseLogin(Long memberId, String nickname, String email, String profile, String memberStatus) {
+        public ResponseLogin(Long memberId, String nickname, String email, String profile, String memberStatus,
+                             String authorization, String refresh) {
             this.memberId = memberId;
             this.nickname = nickname;
             this.email = email;
             this.profile = profile;
             this.memberStatus = memberStatus;
+            this.authorization = authorization;
+            this.refresh = refresh;
         }
     }
 }

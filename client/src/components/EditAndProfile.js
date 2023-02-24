@@ -5,7 +5,7 @@ import { getTime } from 'utils/getTime';
 // import { useSelector } from 'react-redux';
 // import axios from 'axios';
 
-const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
+const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
   const navigate = useNavigate();
 
   // const { user } = useSelector(state => state.auth);
@@ -17,7 +17,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
         state: {
           title: title,
           content: data.content,
-          answerId,
+          answerId: data.answerId,
         },
       });
     } else {
@@ -30,6 +30,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, answerId, title }) => {
       });
     }
   };
+
   const handleDeleteClick = async isAnswer => {
     // ! 서버 연동시 사용할 코드
     // const headers = {
