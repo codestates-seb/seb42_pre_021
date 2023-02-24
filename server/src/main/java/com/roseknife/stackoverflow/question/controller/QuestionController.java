@@ -9,6 +9,7 @@ import com.roseknife.stackoverflow.question.mapper.QuestionMapper;
 import com.roseknife.stackoverflow.question.service.RealQuestionService;
 import com.roseknife.stackoverflow.tag.entity.Tag;
 import com.roseknife.stackoverflow.tag.repository.TagRepository;
+import com.roseknife.stackoverflow.tag.service.TagService;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,16 +31,16 @@ import java.util.List;
 public class QuestionController {
     private final static String QUESTION_DEFAULT_URL = "/questions";
     private final RealQuestionService questionService;
+
+    private final TagService tagService;
     private final QuestionMapper questionMapper;
-
-    private final TagRepository tagRepository;
-
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
-        List<Tag> tags = new ArrayList<>();
-        for (String tagName : requestBody.getTagNames()) {
-            tags.add(tagRepository.findByName(tagName));
-        }
+//        List<Tag> tags = new ArrayList<>();
+//        for (String tagName : requestBody.getTagNames()) {
+//            tags.add(tagRepository.findByName(tagName));
+//        }
+        List<Tag> tags = tagService.findTagNames(requestBody.getTagNames());
 
         Question question = questionMapper.questionPostToQuestion(requestBody,tags);
 
