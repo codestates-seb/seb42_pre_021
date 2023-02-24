@@ -3,6 +3,7 @@ package com.roseknife.stackoverflow.bookmark.service;
 import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.bookmark.repository.QuestionBookmarkRepository;
 import com.roseknife.stackoverflow.member.service.MemberService;
+import com.roseknife.stackoverflow.question.entity.FindStatus;
 import com.roseknife.stackoverflow.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class QuestionBookmarkService {
 
 	public QuestionBookmark createQuestionBookmark(QuestionBookmark questionBookmark) {
 		memberService.findMember(questionBookmark.getMember().getMemberId());
-		questionService.findQuestion(questionBookmark.getQuestion().getQuestionId());
+		questionService.findVerifiedQuestion(questionBookmark.getQuestion().getQuestionId(), FindStatus.NONE);
 
 		Optional<QuestionBookmark> optionalQuestionBookmark
 				= Optional.ofNullable(verifyExistQuestionBookmark(questionBookmark));
