@@ -33,7 +33,7 @@ const QuestionAdd = () => {
     } else {
       setTagsValid(false);
     }
-  }, [tagsArr, title]);
+  }, [tagsArr, title, navigate]);
 
   const handleTitleChange = event => {
     setTitle(event.target.value);
@@ -73,11 +73,13 @@ const QuestionAdd = () => {
   };
 
   const handleSubmitButton = () => {
-    const authorization = localStorage.getItem('authorization');
-    const refresh = localStorage.getItem('refresh');
+    // const authorization = localStorage.getItem('authorization');
+    const authorization = user.authorization;
+    // const refresh = localStorage.getItem('refresh');
+    const refresh = user.refresh;
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    const URL = 'https://975c-59-10-231-15.jp.ngrok.io/';
+    const URL = 'https://9f1a-59-10-231-15.jp.ngrok.io/';
 
     setContentValue({ html, markdown });
 
@@ -92,15 +94,15 @@ const QuestionAdd = () => {
     }
 
     const questionData = {
-      id: user.memberId,
+      memberId: user.memberId,
       title,
       html,
       markdown,
-      tag: [...tagsArr],
+      tagNames: [...tagsArr],
     };
 
     return axios({
-      url: `${URL}/questions`,
+      url: `${URL}questions`,
       method: 'post',
       data: questionData,
       withCredentials: true,
@@ -113,8 +115,13 @@ const QuestionAdd = () => {
     })
       .then(response => {
         console.log(response.data);
-        localStorage.user.setItem('question-id', JSON.stringify([response.data]));
-        navigate(`/+${JSON.stringify(response.data)}`);
+        console.log(response.headers);
+        console.log(response.headers['location']);
+
+        const questionId = JSON.stringify(response.headers.location);
+        console.log(questionId);
+        // redirect('/');
+        navigate(`/`);
       })
       .catch(error => {
         console.log(error);

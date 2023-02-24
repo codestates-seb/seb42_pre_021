@@ -1,11 +1,11 @@
-import baseURL from 'api/baseURL';
+// import baseURL from 'api/baseURL';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import AddButton from './AddButton';
 import TextEditor from './Editor';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-// import axios from 'axios';
+import axios from 'axios';
 
 const YourAnswer = ({ questionId }) => {
   const answerRef = useRef('');
@@ -22,39 +22,38 @@ const YourAnswer = ({ questionId }) => {
       return;
     }
 
-    // ^ json-server 테스트용 코드
-    await baseURL.post('/answers', {
-      questionId,
-      content: {
-        markdown,
-        html,
-      },
-      memberId: user.memberId,
-    });
-
-    // ! 서버 연동시 사용할 코드
-    // const headers = {
-    //   Authorization: `Bearer ${user.authorization}`,
-    //   refresh: `Bearer ${user.refresh}`,
-    //   'Content-Type': 'Application/json',
-    // };
-    //
-    // await axios({
-    //   url: '/answers',
-    //   method: 'post',
-    //   data: {
-    //     questionId,
-    //     content: {
-    //       markdown,
-    //       html,
-    //     },
-    //     memberId: user.memberId,
+    // // ^ json-server 테스트용 코드
+    // await baseURL.post('/answers', {
+    //   questionId,
+    //   content: {
+    //     markdown,
+    //     html,
     //   },
-    //   withCredentials: true,
-    //   headers,
+    //   memberId: user.memberId,
     // });
 
+    // ! 서버 연동시 사용할 코드
+    const headers = {
+      Authorization: `Bearer ${user.authorization}`,
+      refresh: `Bearer ${user.refresh}`,
+      'Content-Type': 'Application/json',
+    };
+
+    await axios({
+      url: `https://9f1a-59-10-231-15.jp.ngrok.io/answers`,
+      method: 'post',
+      data: {
+        questionId,
+        markdown,
+        html,
+        memberId: user.memberId,
+      },
+      withCredentials: true,
+      headers,
+    });
+
     toast.success('답변이 등록되었습니다!');
+    //여기에 새로고침? 혹은 리렌더링? 이 필요해요!
   };
 
   return (
