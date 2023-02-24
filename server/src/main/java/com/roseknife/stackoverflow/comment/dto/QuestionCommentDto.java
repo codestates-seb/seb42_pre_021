@@ -12,7 +12,10 @@ public class QuestionCommentDto {
 	@Getter
 	public static class Post {
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 
 		@Positive
 		private Long memberId;
@@ -27,7 +30,10 @@ public class QuestionCommentDto {
 		private Long questionCommentId;
 
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 	}
 
 	@Getter
@@ -35,7 +41,9 @@ public class QuestionCommentDto {
 	public static class Response {
 		private Long questionCommentId;
 
-		private String content;
+		private String html;
+
+		private String markdown;
 
 		private String nickname;
 
@@ -45,9 +53,10 @@ public class QuestionCommentDto {
 
 		private String modifiedAt;
 
-		public Response(Long questionCommentId, String content, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+		public Response(Long questionCommentId, String html, String markdown, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt) {
 			this.questionCommentId = questionCommentId;
-			this.content = content;
+			this.html = html;
+			this.markdown = markdown;
 			this.nickname = nickname;
 			this.profile = profile;
 			this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);

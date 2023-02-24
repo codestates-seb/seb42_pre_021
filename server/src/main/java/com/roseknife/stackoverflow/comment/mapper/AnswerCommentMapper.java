@@ -14,5 +14,6 @@ public interface AnswerCommentMapper {
 	AnswerComment answerCommentPatchDtoToAnswerComment(AnswerCommentDto.Patch answerCommentPatchDto);
 
 	@Mapping(source = "member.nickname", target = "nickname")
+	@Mapping(source = "member.profile", target = "profile")
 	AnswerCommentDto.Response answerCommentToAnswerCommentResponseDto(AnswerComment answerComment);
 }
