@@ -15,6 +15,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import baseURL from 'api/baseURL';
+// import { useSelector } from 'react-redux';
 
 const QuestionEdit = () => {
   const navigate = useNavigate();
@@ -26,6 +27,9 @@ const QuestionEdit = () => {
   const [tagsArr, setTagsArr] = useState([...tags]);
   const questionEditRef = useRef('');
 
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
+
   const handleSectionClick = form => {
     setCurrentForm(form);
   };
@@ -35,19 +39,41 @@ const QuestionEdit = () => {
     if (confirmEdit) {
       const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
       const htmlValue = questionEditRef.current?.getInstance().getHTML();
+      // const headers = {
+      //   Authorization: `Bearer ${user.authorization}`,
+      //   refresh: `Bearer ${user.refresh}`,
+      //   'Content-Type': 'Application/json',
+      // };
       await baseURL
         .patch(`/questions/${id}`, {
           title: titleValue,
-          modifiedAt: new Date(),
           content: {
             html: htmlValue,
             markdown: markdownValue,
           },
-          tag: tagsArr,
+          tag: [...tagsArr],
         })
         .catch(err => {
           console.log(err.message);
         });
+
+      // ! 서버 연동시 사용할 코드
+      // await axios({
+      //   url: `/questions/${id}`,
+      //   method: 'patch',
+      //   data: {
+      //     title: titleValue,
+      //     content: {
+      //       html: htmlValue,
+      //       markdown: markdownValue,
+      //     },
+      //     tag: [...tagsArr],
+      //   },
+      //   headers,
+      //   withCredentials: true,
+      // }).catch(err => {
+      //   console.log(err.message);
+      // });
       navigate(-1);
     } else {
       return;

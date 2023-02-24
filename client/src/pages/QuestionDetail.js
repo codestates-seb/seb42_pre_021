@@ -10,20 +10,49 @@ import MarkdownContent from 'components/MarkdownContent';
 import YourAnswer from 'components/YourAnswer';
 import { Container } from 'containers/Container';
 import baseURL from 'api/baseURL';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
 const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
 
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
+
   const getQuestionData = async () => {
-    await baseURL.get(`/questions/${id}`).then(response => setQuestion(response.data));
+    // const memberId = user ? user.memberId : 0;
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    //   'Access-Control-Allow-Origin': '*',
+    // };
+    // const params = {
+    //   page: 1,
+    //   size: 10,
+    //   sortDir: 'DESC',
+    //   sortBy: 'createdAt',
+    //   memberId,
+    // };
+
+    // ^ json-server 테스트용 코드
+    await baseURL.get(`/questions/${id}`).then(response => setQuestion(response.data.data));
+
+    // await axios({
+    //   url: `/questions/${id}`,
+    //   method: 'get',
+    //   withCredentials: true,
+    //   headers,
+    //   params,
+    // }).then(response => setQuestion(response.data.data));
   };
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-    });
-  }, [window.scrollY]);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //   });
+  // }, [window.scrollY]);
 
   useEffect(() => {
     getQuestionData();

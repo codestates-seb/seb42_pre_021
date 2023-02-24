@@ -2,11 +2,13 @@ import AddButton from 'components/AddButton';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
+import { useSelector } from 'react-redux';
 
 const DetailTitle = ({ question }) => {
   const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
   const handleAskButtonClick = () => {
-    navigate('/add');
+    user ? navigate('/add') : navigate('/login');
   };
   return (
     <TitleSection>
