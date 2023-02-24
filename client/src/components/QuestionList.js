@@ -83,26 +83,26 @@ const QuestionList = () => {
 
   return (
     <>
-      {questionList[0] && (
-        <>
-          <TitleWrapper>
-            <div>
-              <h1>All Questions</h1>
-              <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
-            </div>
-            <div>
-              <h2>
-                {questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
-              </h2>
-              <ListSort sortBy={sortBy} setSortBy={setSortBy} />
-            </div>
-          </TitleWrapper>
-          <QuestionWrapper>
-            {questionList.map(question => {
-              return <QuestionArticle key={question.questionId} question={question} />;
-            })}
-          </QuestionWrapper>
-          {/* <Paging
+      <TitleWrapper>
+        <div>
+          <h1>All Questions</h1>
+          <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
+        </div>
+        <div>
+          {questionList[0] && (
+            <h2>
+              {questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
+            </h2>
+          )}
+          <ListSort sortBy={sortBy} setSortBy={setSortBy} />
+        </div>
+      </TitleWrapper>
+      <QuestionWrapper>
+        {questionList.map(question => {
+          return <QuestionArticle key={question.questionId} question={question} />;
+        })}
+      </QuestionWrapper>
+      {/* <Paging
             sortBy={sortBy}
             page={page}
             setPage={setPage}
@@ -110,8 +110,6 @@ const QuestionList = () => {
             setSize={setSize}
             total={pageInfo.totalElements}
           /> */}
-        </>
-      )}
     </>
   );
 };
