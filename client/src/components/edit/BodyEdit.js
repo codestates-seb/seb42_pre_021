@@ -7,7 +7,7 @@ const BodyEdit = ({ questionEditRef, content, handleSectionClick, currentForm })
 
   const handleEditorChange = () => {
     const ref = questionEditRef.current?.getInstance().getMarkdown();
-    if (ref === content.markdown) {
+    if (ref === content) {
       setIsChanged(false);
     } else {
       setIsChanged(true);
@@ -26,7 +26,7 @@ const BodyEdit = ({ questionEditRef, content, handleSectionClick, currentForm })
       >
         <TextEditor
           editorRef={questionEditRef}
-          editorValue={content.markdown}
+          editorValue={content}
           editorHeight="400px"
           onEditorChange={handleEditorChange}
         />

@@ -24,7 +24,7 @@ const QuestionArticle = ({ question }) => {
               <h1>
                 <Link to={`/${question.questionId}`}>{question.title}</Link>
               </h1>
-              <p>{handleHTMLToText(question.content.html)}</p>
+              <p>{handleHTMLToText(question.html)}</p>
               <div>
                 {question.tag ? <Tags data={question} /> : null}
                 <MemberInfo>

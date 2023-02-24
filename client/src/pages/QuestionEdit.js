@@ -22,7 +22,7 @@ const QuestionEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const { title, content, tags } = location.state;
+  const { title, markdown, tags } = location.state;
   const [currentForm, setCurrentForm] = useState('edit');
   const [titleValue, setTitleValue] = useState(title);
   const [tagsArr, setTagsArr] = useState([...tags]);
@@ -46,10 +46,8 @@ const QuestionEdit = () => {
     await baseURL
       .patch(`/questions/${id}`, {
         title: titleValue,
-        content: {
-          html: htmlValue,
-          markdown: markdownValue,
-        },
+        html: htmlValue,
+        markdown: markdownValue,
         tag: [...tagsArr],
       })
       .catch(err => {
@@ -62,10 +60,8 @@ const QuestionEdit = () => {
     //   method: 'patch',
     //   data: {
     //     title: titleValue,
-    //     content: {
     //       html: htmlValue,
     //       markdown: markdownValue,
-    //     },
     //     tag: [...tagsArr],
     //   },
     //   headers,
@@ -91,7 +87,7 @@ const QuestionEdit = () => {
           />
           <BodyEdit
             questionEditRef={questionEditRef}
-            content={content}
+            content={markdown}
             handleSectionClick={handleSectionClick}
             currentForm={currentForm}
           />
