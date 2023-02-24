@@ -17,7 +17,7 @@ import SignUpModal from 'components/SignUpModal';
 const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
-  const [isShowModal, setIsShowModal] = useState(true);
+  const [isShowModal, setIsShowModal] = useState(false);
 
   // const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -70,13 +70,15 @@ const QuestionDetail = () => {
         <ContentSection>
           <Wrapper>
             <div className="question_content">
-              <Vote
-                count={question.voteCount}
-                id={question.questionId}
-                type="questions"
-                bookmark={question.bookmark}
-                setIsShowModal={setIsShowModal}
-              />
+              {question.voteCount && (
+                <Vote
+                  count={question.voteCount}
+                  id={question.questionId}
+                  type="questions"
+                  bookmark={question.bookmark}
+                  setIsShowModal={setIsShowModal}
+                />
+              )}
               <MarkdownContent data={question} />
             </div>
             {question.questionAnswers ? (

@@ -3,6 +3,7 @@ import baseURL from 'api/baseURL';
 import { useState } from 'react';
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
   const [isBookmarked, setIsBookmarked] = useState(bookmark);
@@ -16,8 +17,13 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
       setIsShowModal(true);
       return;
     }
-
-    setIsBookmarked(cur => !cur);
+    if (isBookmarked) {
+      setIsBookmarked(cur => !cur);
+      toast.success('북마크가 헤제되었습니다!');
+    } else {
+      setIsBookmarked(cur => !cur);
+      toast.success('북마크가 체크되었습니다!');
+    }
     // const headers = {
     //   Authorization: `Bearer ${user.authorization}`,
     //   refresh: `Bearer ${user.refresh}`,

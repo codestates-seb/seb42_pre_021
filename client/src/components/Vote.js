@@ -4,6 +4,7 @@ import { IoCaretUpSharp, IoCaretDownSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 import Bookmark from './Bookmark';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 // import axios from 'axios';
 
 const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
@@ -20,7 +21,6 @@ const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
       setIsShowModal(true);
       return;
     }
-
     if (type === 'up' && voteCount <= currentVote && !isVoted) {
       setVoteCount(cur => cur + 1);
       setIsVoted(true);
@@ -31,7 +31,7 @@ const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
       patchVote(count - 1);
     }
     if (isVoted) {
-      alert('이미 투표한 글입니다!');
+      toast.error('이미 투표한 글입니다!');
     }
   };
 
