@@ -35,9 +35,6 @@ public class RealQuestionService implements QuestionService{
     private final CustomBeanUtils<Question> beanUtils;
 
     public Question createQuestion(Question question) {
-        // modified 32
-        question.setQuestionBookmark(new QuestionBookmark());
-
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion;
     }
