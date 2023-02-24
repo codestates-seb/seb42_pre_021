@@ -18,7 +18,7 @@ const AnswerEdit = () => {
   const navigate = useNavigate();
   const answerEditRef = useRef();
   const location = useLocation();
-  const { title, content, answerId } = location.state;
+  const { title, markdown, answerId } = location.state;
 
   // const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -41,10 +41,8 @@ const AnswerEdit = () => {
     // };
     await baseURL
       .patch(`/answers/${answerId}`, {
-        content: {
-          html: htmlValue,
-          markdown: markdownValue,
-        },
+        html: htmlValue,
+        markdown: markdownValue,
       })
       .catch(err => {
         console.log(err.message);
@@ -55,10 +53,8 @@ const AnswerEdit = () => {
     //   url: `/answers/${answerId}`,
     //   method: 'patch',
     //   data: {
-    //     content: {
     //       html: htmlValue,
     //       markdown: markdownValue,
-    //     },
     //   },
     //   headers,
     //   withCredentials: true,
@@ -78,11 +74,7 @@ const AnswerEdit = () => {
           <QuestionTitle onClick={handleClickTitle}>{title}</QuestionTitle>
           <BodyEditWrapper>
             <h1>Answer</h1>
-            <TextEditor
-              editorRef={answerEditRef}
-              editorValue={content.markdown}
-              editorHeight="400px"
-            />
+            <TextEditor editorRef={answerEditRef} editorValue={markdown} editorHeight="400px" />
           </BodyEditWrapper>
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
           <CancelButton />
