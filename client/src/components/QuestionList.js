@@ -33,39 +33,31 @@ const QuestionList = () => {
 
   // ! 서버 연동시 사용할 코드
   // const getQuestions = async () => {
-  // const headers = {
-  //   'Content-Type': 'Application/json',
-  //   'Access-Control-Allow-Origin': '*',
-  // };
-  // const params = {
-  //   page,
-  //   size,
-  //   sortDir: 'DESC',
-  //   sortBy,
-  // };
-
-  // await baseURL
-  //   .get('/questions', {
-  //     params,
-  //     headers,
+  //   const headers = {
+  //     'Content-Type': 'Application/json',
+  //     'Access-Control-Allow-Origin': '*',
+  //   };
+  //   const params = {
+  //     page,
+  //     size,
+  //     sortDir: 'DESC',
+  //     sortBy,
+  //   };
+  //   await axios({
+  //     url: 'https://975c-59-10-231-15.jp.ngrok.io/questions',
+  //     method: 'get',
   //     withCredentials: true,
+  //     headers,
+  //     params,
   //   })
-
-  // await axios({
-  //   url: 'https://7c5f-221-140-143-39.jp.ngrok.io/questions',
-  //   method: 'get',
-  //   withCredentials: true,
-  //   headers,
-  //   params,
-  // })
-  //   .then(response => {
-  //     console.log(response);
-  //     setQuestionList(response.data.data);
-  //     setPageInfo(response.data.pageInfo);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
+  //     .then(response => {
+  //       console.log(response);
+  //       setQuestionList(response.data.data);
+  //       setPageInfo(response.data.pageInfo);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
   // };
 
   useEffect(() => {
@@ -89,11 +81,7 @@ const QuestionList = () => {
           <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
         </div>
         <div>
-          {questionList[0] && (
-            <h2>
-              {questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
-            </h2>
-          )}
+          <h2>{questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions</h2>
           <ListSort sortBy={sortBy} setSortBy={setSortBy} />
         </div>
       </TitleWrapper>
@@ -103,13 +91,13 @@ const QuestionList = () => {
         })}
       </QuestionWrapper>
       {/* <Paging
-            sortBy={sortBy}
-            page={page}
-            setPage={setPage}
-            size={size}
-            setSize={setSize}
-            total={pageInfo.totalElements}
-          /> */}
+        sortBy={sortBy}
+        page={page}
+        setPage={setPage}
+        size={size}
+        setSize={setSize}
+        total={pageInfo.totalElements}
+      /> */}
     </>
   );
 };
