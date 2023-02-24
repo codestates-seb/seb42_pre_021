@@ -45,6 +45,12 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
     }).then(result => {
       if (result.isConfirmed) {
         deleteRequest(isAnswer);
+      } else {
+        if (isAnswer) {
+          toast.info('Cancelled! Your answer is safe.');
+        } else {
+          toast.info('Cancelled! Your question is safe.');
+        }
       }
     });
   };
@@ -96,12 +102,16 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
     <ProfileWrapper>
       <EditAndDelete>
         <li>Share</li>
+        {/* {user.memberId === data.memberId && (
+          <> */}
         <li role="presentation" onClick={() => handleEditClick(isAnswer)}>
           Edit
         </li>
         <li role="presentation" onClick={() => handleDeleteClick(isAnswer)}>
           Delete
         </li>
+        {/* </>
+        )} */}
       </EditAndDelete>
       <Profile className={isAnswer ? 'answer_profile' : null}>
         <img src={member.profile} alt={`${member.nickname} profile`} />
