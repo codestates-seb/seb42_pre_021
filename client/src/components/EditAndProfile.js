@@ -2,10 +2,16 @@ import baseURL from 'api/baseURL';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
 const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
   const navigate = useNavigate();
-  const handdleEditClick = isAnswer => {
+
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
+
+  const handleEditClick = isAnswer => {
     if (isAnswer) {
       navigate('./answer-edit', {
         state: {
@@ -24,28 +30,53 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
       });
     }
   };
-  const handleDelete = async isAnswer => {
-    const deleteConfirm = confirm('정말 삭제하시겠습니까?');
-    if (deleteConfirm) {
-      if (isAnswer) {
-        await baseURL.delete(`/answer/${data.answerId}`);
-        location.reload();
-      } else {
-        await baseURL.delete(`/questions/${data.questionId}`).catch(err => {
-          console.log(err.message);
-        });
-        navigate('../');
-      }
+
+  const handleDeleteClick = async isAnswer => {
+    // ! 서버 연동시 사용할 코드
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
+
+    if (isAnswer) {
+      await baseURL.delete(`/answers/${answerId}`).catch(error => {
+        console.log(error.message);
+      });
+
+      // ! 서버 연동시 사용할 코드
+      // await axios({
+      //   url: `/answers/${answerId}`,
+      //   method: 'delete',
+      //   withCredentials: true,
+      //   headers,
+      // }).catch(error => {
+      //   console.log(error);
+      // });
+    } else {
+      await baseURL.delete(`/questions/${data.questionId}`).catch(error => {
+        console.log(error.message);
+      });
+
+      // ! 서버 연동시 사용할 코드
+      // await axios({
+      //   url: `/questions/${data.questionId}`,
+      //   method: 'delete',
+      //   withCredentials: true,
+      //   headers,
+      // }).catch(error => {
+      //   console.log(error);
+      // });
     }
   };
   return (
     <ProfileWrapper>
       <EditAndDelete>
         <li>Share</li>
-        <li role="presentation" onClick={() => handdleEditClick(isAnswer)}>
+        <li role="presentation" onClick={() => handleEditClick(isAnswer)}>
           Edit
         </li>
-        <li role="presentation" onClick={() => handleDelete(isAnswer)}>
+        <li role="presentation" onClick={() => handleDeleteClick(isAnswer)}>
           Delete
         </li>
       </EditAndDelete>

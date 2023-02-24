@@ -10,12 +10,17 @@ import { useRef } from 'react';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import baseURL from 'api/baseURL';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
 const AnswerEdit = () => {
   const navigate = useNavigate();
   const answerEditRef = useRef();
   const location = useLocation();
   const { title, content, answerId } = location.state;
+
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     console.log(answerId, title);
@@ -30,9 +35,13 @@ const AnswerEdit = () => {
     if (confirmEdit) {
       const markdownValue = answerEditRef.current?.getInstance().getMarkdown();
       const htmlValue = answerEditRef.current?.getInstance().getHTML();
+      // const headers = {
+      //   Authorization: `Bearer ${user.authorization}`,
+      //   refresh: `Bearer ${user.refresh}`,
+      //   'Content-Type': 'Application/json',
+      // };
       await baseURL
         .patch(`/answers/${answerId}`, {
-          modifiedAt: new Date(),
           content: {
             html: htmlValue,
             markdown: markdownValue,
@@ -41,6 +50,22 @@ const AnswerEdit = () => {
         .catch(err => {
           console.log(err.message);
         });
+
+      // ! 서버 연동시 사용할 코드
+      // await axios({
+      //   url: `/answers/${answerId}`,
+      //   method: 'patch',
+      //   data: {
+      //     content: {
+      //       html: htmlValue,
+      //       markdown: markdownValue,
+      //     },
+      //   },
+      //   headers,
+      //   withCredentials: true,
+      // }).catch(err => {
+      //   console.log(err.message);
+      // });
       navigate(-1);
     } else {
       return;

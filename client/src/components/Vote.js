@@ -3,11 +3,16 @@ import { useMemo, useState } from 'react';
 import { IoCaretUpSharp, IoCaretDownSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 import Bookmark from './Bookmark';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
 const Vote = ({ count, id, type, bookmark }) => {
   const [voteCount, setVoteCount] = useState(count);
   const [isVoted, setIsVoted] = useState(false);
   const currentVote = useMemo(() => voteCount, []);
+
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
 
   const handleArrowClick = type => {
     if (type === 'up' && voteCount <= currentVote && !isVoted) {
@@ -25,6 +30,11 @@ const Vote = ({ count, id, type, bookmark }) => {
   };
 
   const patchVote = async count => {
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
     await baseURL
       .patch(`/${type}/${id}`, {
         voteCount: count,
@@ -32,7 +42,19 @@ const Vote = ({ count, id, type, bookmark }) => {
       .catch(err => {
         console.log(err.message);
       });
-    console.log(voteCount);
+
+    // ! 서버 연동시 사용할 코드
+    // await axios({
+    //   url: `/${type}/${id}`,
+    //   method: 'patch',
+    //   WithCredentials: true,
+    //   headers,
+    //   data: {
+    //     voteCount: count,
+    //   },
+    // }).catch(error => {
+    //   console.log(error);
+    // });
   };
 
   return (

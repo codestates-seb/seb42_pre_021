@@ -5,32 +5,39 @@ import Tags from './Tags';
 
 const QuestionArticle = ({ question }) => {
   const handleHTMLToText = text => {
+    if (!text) {
+      return;
+    }
     return text.replace(/(<([^>]+)>)/gi, ' ');
   };
   return (
-    <Question>
-      <section>
-        <ul>
-          <li>0 votes</li>
-          <li>{question.answerCount} answers</li>
-          <li>{question.viewCount} views</li>
-        </ul>
-        <div>
-          <h1>
-            <Link to={`/${question.questionId}`}>{question.title}</Link>
-          </h1>
-          <p>{handleHTMLToText(question.content.html)}</p>
-          <div>
-            {question.tag.length ? <Tags data={question} /> : null}
-            <MemberInfo>
-              <img src={question.questionMember.profile} alt="profileImg" />
-              <p>{question.questionMember.nickname}</p>
-              <p>{getTime(question.createdAt)}</p>
-            </MemberInfo>
-          </div>
-        </div>
-      </section>
-    </Question>
+    <>
+      {question && (
+        <Question>
+          <section>
+            <ul>
+              <li>0 votes</li>
+              <li>{question.answerCount} answers</li>
+              <li>{question.viewCount} views</li>
+            </ul>
+            <div>
+              <h1>
+                <Link to={`/${question.questionId}`}>{question.title}</Link>
+              </h1>
+              <p>{handleHTMLToText(question.content.html)}</p>
+              <div>
+                {question.tag ? <Tags data={question} /> : null}
+                <MemberInfo>
+                  <img src={question.questionMember.profile} alt="profileImg" />
+                  <p>{question.questionMember.nickname}</p>
+                  <p>{getTime(question.createdAt)}</p>
+                </MemberInfo>
+              </div>
+            </div>
+          </section>
+        </Question>
+      )}
+    </>
   );
 };
 

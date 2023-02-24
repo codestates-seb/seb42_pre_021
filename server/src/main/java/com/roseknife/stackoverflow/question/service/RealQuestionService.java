@@ -37,6 +37,7 @@ public class RealQuestionService implements QuestionService{
     public Question createQuestion(Question question) {
         // modified 32
         question.setQuestionBookmark(new QuestionBookmark());
+
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion;
     }
