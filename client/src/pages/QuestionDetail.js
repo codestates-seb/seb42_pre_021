@@ -37,7 +37,9 @@ const QuestionDetail = () => {
     // };
 
     // ^ json-server 테스트용 코드
-    await baseURL.get(`/questions/${id}`).then(response => setQuestion(response.data.data));
+    await baseURL.get(`/questions/${id}`).then(response => {
+      setQuestion(response.data);
+    });
 
     // await axios({
     //   url: `/questions/${id}`,
@@ -60,30 +62,26 @@ const QuestionDetail = () => {
 
   return (
     <>
-      {question.questionId && (
-        <>
-          <Container>
-            <Navigation />
-            <DetailTitle question={question} />
-            <ContentSection>
-              <Wrapper>
-                <div className="question_content">
-                  <Vote
-                    count={question.voteCount}
-                    id={question.questionId}
-                    type="questions"
-                    bookmark={question.bookmark}
-                  />
-                  <MarkdownContent data={question} />
-                </div>
-                {question.questionAnswers.length ? <Answers data={question} /> : null}
-                <YourAnswer questionId={question.questionId} />
-              </Wrapper>
-              <SideContent />
-            </ContentSection>
-          </Container>
-        </>
-      )}
+      <Container>
+        <Navigation />
+        <DetailTitle question={question} />
+        <ContentSection>
+          <Wrapper>
+            <div className="question_content">
+              <Vote
+                count={question.voteCount}
+                id={question.questionId}
+                type="questions"
+                bookmark={question.bookmark}
+              />
+              <MarkdownContent data={question} />
+            </div>
+            {question.questionAnswers ? <Answers data={question} /> : null}
+            <YourAnswer questionId={question.questionId} />
+          </Wrapper>
+          <SideContent />
+        </ContentSection>
+      </Container>
     </>
   );
 };
