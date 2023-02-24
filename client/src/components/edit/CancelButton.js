@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const CancelButton = () => {
+const CancelButton = ({ id }) => {
   const navigate = useNavigate();
   const handleCancelButton = () => {
-    navigate(-1);
+    navigate(`../${id}`);
   };
   return <CancelButtonDesign onClick={handleCancelButton}>Cancel</CancelButtonDesign>;
 };
