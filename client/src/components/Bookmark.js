@@ -17,22 +17,43 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
       setIsShowModal(true);
       return;
     }
-    if (isBookmarked) {
-      setIsBookmarked(cur => !cur);
-      toast.success('북마크가 헤제되었습니다!');
-    } else {
-      setIsBookmarked(cur => !cur);
-      toast.success('북마크가 체크되었습니다!');
-    }
+
+    // if (isBookmarked) {
+    //   setIsBookmarked(cur => !cur);
+    //   toast.success('북마크가 헤제되었습니다!');
+    // } else {
+    //   setIsBookmarked(cur => !cur);
+    //   toast.success('북마크가 체크되었습니다!');
+    // }
+
     // const headers = {
     //   Authorization: `Bearer ${user.authorization}`,
     //   refresh: `Bearer ${user.refresh}`,
     //   'Content-Type': 'Application/json',
     // };
-    console.log();
-    await baseURL
-      .patch(`/${type}/${id}`, {
+    let data;
+    if (type === 'questions') {
+      data = {
         memberId: user.memberId,
+        questionId: id,
+      };
+    } else {
+      data = {
+        memberId: user.memberId,
+        answerId: id,
+      };
+    }
+    await baseURL
+      .post(`bookmarks/${type}/${id}`, {
+        ...data,
+      })
+      .then(resp => {
+        setIsBookmarked(resp.data.questionBookmarkFlag);
+        if (resp.data.questionBookmarkFlag) {
+          toast.success('북마크가 등록되었습니다!');
+        } else {
+          toast.success('북마크가 해제되었습니다!');
+        }
       })
       .catch(err => {
         console.log(err.message);
@@ -40,15 +61,22 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
     // ! 서버 연동시 사용할 코드
     // await axios({
     //   url: `bookmarks/${type}/${id}`,
-    //   method: 'patch',
-    //   data: {
-    //     memberId: user.memberId,
-    //   },
+    //   method: 'post',
+    //   data,
     //   withCredentials: true,
     //   headers,
-    // }).catch(error => {
-    //   console.log(error);
-    // });
+    // })
+    //   .then(resp => {
+    //     setIsBookmarked(resp.data.questionBookmarkFlag);
+    //     if (resp.data.questionBookmarkFlag) {
+    //       toast.success('북마크가 등록되었습니다!');
+    //     } else {
+    //       toast.success('북마크가 해제되었습니다!');
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   };
 
   return (
