@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import TextEditor from 'components/Editor';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { BsXLg } from 'react-icons/bs';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const stepList = [
   'Summarize your problem in a one-line title.',
@@ -14,6 +16,7 @@ const stepList = [
 ];
 
 const QuestionAdd = () => {
+  const { user } = useSelector(state => state.auth);
   const [title, setTitle] = useState('');
   const [titleValid, setTitleValid] = useState(false);
   const [contentValue, setContentValue] = useState('');
@@ -21,14 +24,8 @@ const QuestionAdd = () => {
   const [tagsInput, setTagsInput] = useState('');
   const [tagsArr, setTagsArr] = useState([]);
   const [tagsValid, setTagsValid] = useState(false);
-
+  const navigate = useNavigate();
   const editorRef = useRef();
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!isLogin) {
-  //     navigate('/login');
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (tagsArr.length >= 1) {
@@ -76,11 +73,12 @@ const QuestionAdd = () => {
   };
 
   const handleSubmitButton = () => {
+    const authorization = localStorage.getItem('authorization');
+    const refresh = localStorage.getItem('refresh');
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    const editorContent = { html, markdown };
 
-    setContentValue(editorContent);
+    setContentValue({ html, markdown });
 
     if (markdown.length >= 30) {
       setContentValid(true);
@@ -88,35 +86,39 @@ const QuestionAdd = () => {
       setContentValid(false);
     }
 
-    if (!titleValid || !contentValid || !tagsValid) {
+    if (!titleValid || !contentValid || !tagsValid || !contentValue) {
       return alert('제목 10자이상, 본문 30자이상, 태그 1개이상인지 확인해주세요');
     }
 
-    const data = {
-      id: 'tempid_123', //로그인정보(유저아이디)필요_현재 임시값
+    const questionData = {
+      id: user.memberId,
       title,
-      content: contentValue,
+      html,
+      markdown,
       tag: [...tagsArr],
     };
-    return axios.post(`http://localhost:3001/questions`, data);
-    //   const accessToken = sessionStorage.getItem('accesstoken');
-    //   axios.defaults.withCredentials = true;
 
-    //   const headers = {
-    //     Authorization: `Bearer ${accessToken}`,
-    //     'Content-Type': 'Application/json',
-    //     Accept: '*/*',
-    //   };
-
-    // const data = {
-    //   title,
-    //   content: contentValue,
-    //   tag: [...tagsArr],
-    //   memberId : userId
-    // };
-
-    //   return axios.post(`${process.env.REACT_APP_API_URL}/questions`, data, { headers });
-    // };
+    return axios({
+      url: 'http://localhost:3001/questions',
+      method: 'post',
+      data: questionData,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${authorization}`,
+        refresh: `Bearer ${refresh}`,
+      },
+    })
+      .then(response => {
+        console.log(response.data);
+        localStorage.user.setItem('question-id', JSON.stringify([response.data]));
+        navigate(`/+${JSON.stringify(response.data)}`);
+      })
+      .catch(error => {
+        console.log(error);
+        toast.error('질문 생성에 실패하였습니다. 다시 시도해주세요');
+      });
   };
 
   return (

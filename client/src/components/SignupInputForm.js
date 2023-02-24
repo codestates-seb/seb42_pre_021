@@ -8,11 +8,8 @@ import { checkEmail, checkPassword } from 'features/validationCheck';
 import Spinner from 'components/Spinner';
 
 const SignupInputForm = () => {
-  const [values, setValues] = useState({
-    email: '',
-    nickname: '',
-    password: '',
-  });
+  const initialValues = { nickname: '', email: '', password: '' };
+  const [values, setValues] = useState(initialValues);
 
   const handleChange = event => {
     setValues({
@@ -94,7 +91,7 @@ const SignupInputForm = () => {
   );
 };
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
   width: 20rem;
   height: fit-content;
   border-radius: 0.5rem;
