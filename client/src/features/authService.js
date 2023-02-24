@@ -42,7 +42,7 @@ const login = async userData => {
   console.log(response.data);
   const { authorization } = response.data;
   const { refresh } = response.data;
-  axios.defaults.headers.common['Authorization'] = `Bearer ${authorization}`;
+  axios.defaults.headers.common['authorization'] = `Bearer ${authorization}`;
   axios.defaults.headers.common['refresh'] = `Bearer ${refresh}`;
 
   if (response.data) {
