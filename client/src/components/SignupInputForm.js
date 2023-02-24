@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { register, reset } from 'features/authSlice';
 import Spinner from 'components/Spinner';
+import { checkEmail, checkPassword } from 'features/validationCheck';
 
 const SignupInputForm = () => {
   const [formErrors, setFormErrors] = useState({});
@@ -46,20 +47,17 @@ const SignupInputForm = () => {
 
   const validate = values => {
     const errors = {};
-    const emailRegex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-    const passwordRegex = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$/;
-
     if (!values.nickname) {
       errors.nickname = 'Nickname is required!';
     }
     if (!values.email) {
       errors.email = 'Email is required!';
-    } else if (!emailRegex.test(values.email)) {
+    } else if (!checkEmail(values.email)) {
       errors.email = 'Invalid Email Format';
     }
     if (!values.password) {
       errors.password = 'Password is required!';
-    } else if (!passwordRegex.test(values.password)) {
+    } else if (!checkPassword(values.password)) {
       errors.password = 'Invalid Password';
     }
     return errors;
@@ -118,7 +116,7 @@ const SignupInputForm = () => {
           number.
         </span>
         <SignUpButton
-          disabled={!password || !email || !nickname.length > 0 ? true : false}
+          disabled={!checkEmail(email) || !checkPassword(password) || !nickname.length > 0}
           onClick={handleSubmit}
         >
           Sign up
