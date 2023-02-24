@@ -18,7 +18,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
       navigate('./answer-edit', {
         state: {
           title: title,
-          content: data.content,
+          markdown: data.markdown,
           answerId: data.answerId,
         },
       });
@@ -26,7 +26,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
       navigate('./edit', {
         state: {
           title: data.title,
-          content: data.content,
+          markdown: data.markdown,
           tags: data.tag,
         },
       });
