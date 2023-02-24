@@ -6,6 +6,7 @@ import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.member.entity.Member;
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,12 +46,10 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
     private List<QuestionComment> questionComments = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "question")
-//    private List<QuestionImage> questionImages;
-//
-//    @OneToMany(mappedBy = "question")
-//    private List<QuestionTag> questionTags;
-//
+    @JsonIgnore
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<QuestionTag> questionTags = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionVote> questionVotes; //voteCount 로 대체
 

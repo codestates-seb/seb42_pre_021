@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.auth.config;
 
+import com.google.gson.Gson;
 import com.roseknife.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.roseknife.stackoverflow.auth.filter.JwtAuthorizationFilter;
 import com.roseknife.stackoverflow.auth.handler.MemberAuthenticationEntryPoint;
@@ -20,6 +21,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
@@ -27,6 +30,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import com.roseknife.stackoverflow.auth.utils.CustomAuthorityUtils;
 
 import java.util.Arrays;
 

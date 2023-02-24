@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,5 +30,13 @@ public class TagService {
 
     public List<Tag> findTag(String name) {
         return tagRepository.findAllByNameLike("%"+name+"%");
+    }
+
+    public List<Tag> findTagNames(List<String> tagNames) {
+        List<Tag> tags = new ArrayList<>();
+        for (String tagName : tagNames) {
+            tags.add(tagRepository.findByName(tagName));
+        }
+        return tags;
     }
 }
