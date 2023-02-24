@@ -77,6 +77,7 @@ const QuestionAdd = () => {
     const refresh = localStorage.getItem('refresh');
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
+    const URL = 'https://975c-59-10-231-15.jp.ngrok.io/';
 
     setContentValue({ html, markdown });
 
@@ -99,7 +100,7 @@ const QuestionAdd = () => {
     };
 
     return axios({
-      url: 'http://localhost:3001/questions',
+      url: `${URL}/questions`,
       method: 'post',
       data: questionData,
       withCredentials: true,
