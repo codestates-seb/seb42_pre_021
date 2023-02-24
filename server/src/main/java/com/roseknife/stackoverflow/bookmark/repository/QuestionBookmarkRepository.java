@@ -1,7 +1,6 @@
 package com.roseknife.stackoverflow.bookmark.repository;
 
 import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
-import org.mapstruct.Mapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

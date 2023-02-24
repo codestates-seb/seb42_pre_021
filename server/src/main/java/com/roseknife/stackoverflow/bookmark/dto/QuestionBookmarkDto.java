@@ -1,7 +1,5 @@
 package com.roseknife.stackoverflow.bookmark.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,15 +13,6 @@ public class QuestionBookmarkDto {
 
 		@Positive
 		private Long questionId;
-	}
-
-	@Getter
-	@Setter
-	public static class Patch {
-		private Long questionBookmarkId;
-
-		@Positive
-		private Long memberId;
 	}
 
 	@Getter

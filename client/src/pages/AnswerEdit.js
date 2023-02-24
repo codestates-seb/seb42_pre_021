@@ -4,7 +4,7 @@ import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 // eslint-disable-next-line
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 // eslint-disable-next-line
 import { useRef } from 'react';
 import styled from 'styled-components';
@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 // import axios from 'axios';
 
 const AnswerEdit = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const answerEditRef = useRef();
   const location = useLocation();
@@ -23,12 +24,8 @@ const AnswerEdit = () => {
   // const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
 
-  useEffect(() => {
-    console.log(answerId, title);
-  }, []);
-
   const handleClickTitle = () => {
-    navigate(-1);
+    navigate(`../${id}`);
   };
 
   const handleSubmit = async () => {
@@ -77,7 +74,7 @@ const AnswerEdit = () => {
             <TextEditor editorRef={answerEditRef} editorValue={markdown} editorHeight="400px" />
           </BodyEditWrapper>
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton />
+          <CancelButton id={id} />
         </EditSection>
         <div>
           <SideNotice>

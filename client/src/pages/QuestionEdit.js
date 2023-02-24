@@ -98,7 +98,7 @@ const QuestionEdit = () => {
             currentForm={currentForm}
           />
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton />
+          <CancelButton id={id} />
         </EditSection>
         <div>
           <SideNotice>

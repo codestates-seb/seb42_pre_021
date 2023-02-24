@@ -68,6 +68,43 @@ const QuestionList = () => {
       });
   };
 
+<<<<<<< HEAD
+=======
+  // ! 서버 연동시 사용할 코드
+  // const getQuestions = async () => {
+  //   const headers = {
+  //     'Content-Type': 'Application/json',
+  //     'Access-Control-Allow-Origin': '*',
+  //   };
+  //   const params = {
+  //     page,
+  //     size,
+  //     sortDir: 'DESC',
+  //     sortBy,
+  //   };
+  //   await axios({
+  //     url: 'https://975c-59-10-231-15.jp.ngrok.io/questions',
+  //     method: 'get',
+  //     withCredentials: true,
+  //     headers,
+  //     params,
+  //   })
+  //     .then(response => {
+  //       console.log(response);
+  //       setQuestionList(response.data.data);
+  //       setPageInfo(response.data.pageInfo);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
+
+  useEffect(() => {
+    getQuestionsData();
+  }, []);
+
+  // ! 서버 연동시 사용할 코드
+>>>>>>> 7df5bd26d0362233e92ff1a69a705cc7d4768d0c
   // useEffect(() => {
   //   getQuestionsData();
   // }, []);
@@ -83,6 +120,7 @@ const QuestionList = () => {
 
   return (
     <>
+<<<<<<< HEAD
       {questionList[0] && (
         <>
           <TitleWrapper>
@@ -112,6 +150,31 @@ const QuestionList = () => {
           />
         </>
       )}
+=======
+      <TitleWrapper>
+        <div>
+          <h1>All Questions</h1>
+          <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
+        </div>
+        <div>
+          <h2>{questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions</h2>
+          <ListSort sortBy={sortBy} setSortBy={setSortBy} />
+        </div>
+      </TitleWrapper>
+      <QuestionWrapper>
+        {questionList.map(question => {
+          return <QuestionArticle key={question.questionId} question={question} />;
+        })}
+      </QuestionWrapper>
+      {/* <Paging
+        sortBy={sortBy}
+        page={page}
+        setPage={setPage}
+        size={size}
+        setSize={setSize}
+        total={pageInfo.totalElements}
+      /> */}
+>>>>>>> 7df5bd26d0362233e92ff1a69a705cc7d4768d0c
     </>
   );
 };
