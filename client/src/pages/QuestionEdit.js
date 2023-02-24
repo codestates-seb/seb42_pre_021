@@ -15,43 +15,62 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import baseURL from 'api/baseURL';
+import { toast } from 'react-toastify';
+// import { useSelector } from 'react-redux';
 
 const QuestionEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const { title, content, tags } = location.state;
+  const { title, markdown, tags } = location.state;
   const [currentForm, setCurrentForm] = useState('edit');
   const [titleValue, setTitleValue] = useState(title);
   const [tagsArr, setTagsArr] = useState([...tags]);
   const questionEditRef = useRef('');
+
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
 
   const handleSectionClick = form => {
     setCurrentForm(form);
   };
 
   const handleSubmit = async () => {
-    const confirmEdit = confirm('수정하시겠습니까?');
-    if (confirmEdit) {
-      const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
-      const htmlValue = questionEditRef.current?.getInstance().getHTML();
-      await baseURL
-        .patch(`/questions/${id}`, {
-          title: titleValue,
-          modifiedAt: new Date(),
-          content: {
-            html: htmlValue,
-            markdown: markdownValue,
-          },
-          tag: tagsArr,
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
-      navigate(-1);
-    } else {
-      return;
-    }
+    const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
+    const htmlValue = questionEditRef.current?.getInstance().getHTML();
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
+    await baseURL
+      .patch(`/questions/${id}`, {
+        title: titleValue,
+        html: htmlValue,
+        markdown: markdownValue,
+        tag: [...tagsArr],
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+
+    // ! 서버 연동시 사용할 코드
+    // await axios({
+    //   url: `/questions/${id}`,
+    //   method: 'patch',
+    //   data: {
+    //     title: titleValue,
+    //       html: htmlValue,
+    //       markdown: markdownValue,
+    //     tag: [...tagsArr],
+    //   },
+    //   headers,
+    //   withCredentials: true,
+    // }).catch(err => {
+    //   console.log(err.message);
+    // });
+    navigate(-1);
+    toast.success('수정이 완료되었습니다');
   };
 
   return (
@@ -68,7 +87,7 @@ const QuestionEdit = () => {
           />
           <BodyEdit
             questionEditRef={questionEditRef}
-            content={content}
+            content={markdown}
             handleSectionClick={handleSectionClick}
             currentForm={currentForm}
           />

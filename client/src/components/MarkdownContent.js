@@ -4,9 +4,8 @@ import Tags from './Tags';
 
 const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
   const handleHTML = str => {
-    if (str.content !== undefined) {
-      const { html } = str.content;
-      return { __html: html };
+    if (str !== undefined) {
+      return { __html: str };
     }
     return { __html: '' };
   };
@@ -15,7 +14,7 @@ const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
     <>
       {data.createdAt && (
         <MarkdownDesign className={isAnswer ? 'answer_markdown' : null}>
-          <div className="content" dangerouslySetInnerHTML={handleHTML(data)}></div>
+          <div className="content" dangerouslySetInnerHTML={handleHTML(data.html)}></div>
           {data.tag && <Tags data={data} />}
           <EditAndProfile
             member={data.questionMember}

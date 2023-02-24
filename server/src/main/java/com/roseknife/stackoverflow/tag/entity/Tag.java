@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.tag.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Tag {
     private String name;
     private String content;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "tag") // cascade 관게? 학습예제에선 만드는쪽(질문)에서 CascadeType.PERSIST로 작성 되어있음)
     private List<QuestionTag> questionTags = new ArrayList<>();
 }

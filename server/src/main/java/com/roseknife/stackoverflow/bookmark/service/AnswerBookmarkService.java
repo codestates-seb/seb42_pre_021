@@ -1,6 +1,7 @@
 package com.roseknife.stackoverflow.bookmark.service;
 
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.bookmark.repository.AnswerBookmarkRepository;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
@@ -19,6 +20,11 @@ public class AnswerBookmarkService {
 	private final AnswerBookmarkRepository answerBookmarkRepository;
 	private final MemberService memberService;
 
+	public AnswerBookmark createAnswerBookmark(AnswerBookmark answerBookmark) {
+		verifyExistAnswerBookmark(answerBookmark);
+		answerBookmark.setAnswerBookmarkFlag(true);
+		return answerBookmarkRepository.save(answerBookmark);
+	}
 
 	public AnswerBookmark updateAnswerBookmark(AnswerBookmark answerBookmark) {
 		AnswerBookmark findAnswerBookmark = findVerifiedAnswerBookmark(answerBookmark.getAnswerBookmarkId());
@@ -36,11 +42,28 @@ public class AnswerBookmarkService {
 		return Objects.equals(findAnswerBookmark.getMember().getMemberId(), answerBookmark.getMember().getMemberId());
 	}
 
+	private void verifyExistAnswerBookmark(AnswerBookmark answerBookmark) {
+		Optional<AnswerBookmark> optionalAnswerBookmark
+				= answerBookmarkRepository.findByAnswerAnswerIdAndMemberMemberId(answerBookmark.getAnswer().getAnswerId(), answerBookmark.getMember().getMemberId());
+		if (optionalAnswerBookmark.isPresent()) {
+			throw new BusinessLogicException(ExceptionCode.QUESTION_BOOKMARK_EXISTS);
+		}
+	}
+
 	private AnswerBookmark findVerifiedAnswerBookmark(Long answerBookmarkId) {
 		Optional<AnswerBookmark> optionalAnswerBookmark = answerBookmarkRepository.findById(answerBookmarkId);
 
 		AnswerBookmark answerBookmark
 			= optionalAnswerBookmark.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_BOOKMARK_NOT_FOUND));
 		return answerBookmark;
+	}
+
+	@Transactional(readOnly = true)
+	public AnswerBookmark findByMemberIdAnswerBookmark(Long answerId, Long memberId) {
+		Optional<AnswerBookmark> optionalAnswerBookmark = answerBookmarkRepository.findByAnswerAnswerIdAndMemberMemberId(answerId,memberId);
+		AnswerBookmark findBookmark =
+				optionalAnswerBookmark.orElse(new AnswerBookmark());
+
+		return findBookmark;
 	}
 }

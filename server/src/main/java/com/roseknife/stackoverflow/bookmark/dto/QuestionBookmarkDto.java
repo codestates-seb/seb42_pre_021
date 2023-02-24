@@ -9,6 +9,15 @@ import javax.validation.constraints.Positive;
 
 public class QuestionBookmarkDto {
 	@Getter
+	public static class Post {
+		@Positive
+		private Long memberId;
+
+		@Positive
+		private Long questionId;
+	}
+
+	@Getter
 	@Setter
 	public static class Patch {
 		private Long questionBookmarkId;
@@ -23,5 +32,7 @@ public class QuestionBookmarkDto {
 		private Long questionBookmarkId;
 
 		private boolean questionBookmarkFlag;
+
+		private Long memberId;
 	}
 }

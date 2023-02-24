@@ -6,6 +6,7 @@ import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.member.entity.Member;
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +28,11 @@ public class Question extends Auditable {
     @Column(length = 100, nullable = false)
     private String title;
 
-    private String content;
+    @Column(length = 1_000_000_000)
+    private String html;
+
+    @Column(length = 1_000_000_000)
+    private String markdown;
 
     private Integer viewCount=0;    //초기화 = 0
     private Integer answerCount=0;  //초기화 = 0
@@ -45,18 +50,16 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
     private List<QuestionComment> questionComments = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "question")
-//    private List<QuestionImage> questionImages;
-//
-//    @OneToMany(mappedBy = "question")
-//    private List<QuestionTag> questionTags;
-//
+    @JsonIgnore
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<QuestionTag> questionTags = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "question")
 //    private List<QuestionVote> questionVotes; //voteCount 로 대체
 
     // modified 55-63
     @JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
-    @OneToOne(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(mappedBy = "question")
     private QuestionBookmark questionBookmark;
 
     public void setQuestionBookmark(QuestionBookmark questionBookmark) {

@@ -13,7 +13,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
 //    @Query(value = "select * from question where (title || content) like %:keyword%",nativeQuery = true)
 //    List<Question> searchQuestionsByKeyword(@Param("keyword") String keyword);
-    Page<Question> findByTitleContainsOrContentContains(String titleKeyword,String contentKeyword,Pageable pageable);
+    Page<Question> findByTitleContainsOrHtmlContains(String titleKeyword,String htmlKeyword,Pageable pageable);
 
 
 }

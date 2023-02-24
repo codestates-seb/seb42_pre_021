@@ -3,13 +3,24 @@ import { useMemo, useState } from 'react';
 import { IoCaretUpSharp, IoCaretDownSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 import Bookmark from './Bookmark';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+// import axios from 'axios';
 
-const Vote = ({ count, id, type, bookmark }) => {
+const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
   const [voteCount, setVoteCount] = useState(count);
   const [isVoted, setIsVoted] = useState(false);
   const currentVote = useMemo(() => voteCount, []);
 
+  const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
+
   const handleArrowClick = type => {
+    // ! 로그인 안했을 시 모달 띄우기
+    if (!user) {
+      setIsShowModal(true);
+      return;
+    }
     if (type === 'up' && voteCount <= currentVote && !isVoted) {
       setVoteCount(cur => cur + 1);
       setIsVoted(true);
@@ -20,11 +31,16 @@ const Vote = ({ count, id, type, bookmark }) => {
       patchVote(count - 1);
     }
     if (isVoted) {
-      alert('이미 투표한 글입니다!');
+      toast.error('이미 투표한 글입니다!');
     }
   };
 
   const patchVote = async count => {
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
     await baseURL
       .patch(`/${type}/${id}`, {
         voteCount: count,
@@ -32,7 +48,19 @@ const Vote = ({ count, id, type, bookmark }) => {
       .catch(err => {
         console.log(err.message);
       });
-    console.log(voteCount);
+
+    // ! 서버 연동시 사용할 코드
+    // await axios({
+    //   url: `/${type}/${id}`,
+    //   method: 'patch',
+    //   WithCredentials: true,
+    //   headers,
+    //   data: {
+    //     voteCount: count,
+    //   },
+    // }).catch(error => {
+    //   console.log(error);
+    // });
   };
 
   return (
@@ -40,7 +68,7 @@ const Vote = ({ count, id, type, bookmark }) => {
       <IoCaretUpSharp className="updown" onClick={() => handleArrowClick('up')} />
       <p>{voteCount}</p>
       <IoCaretDownSharp className="updown" onClick={() => handleArrowClick('down')} />
-      <Bookmark bookmark={bookmark} id={id} type={type} />
+      <Bookmark bookmark={bookmark} id={id} type={type} setIsShowModal={setIsShowModal} />
     </Wrapper>
   );
 };
