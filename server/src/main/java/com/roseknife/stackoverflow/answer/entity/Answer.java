@@ -45,7 +45,7 @@ public class Answer extends Auditable {
 
 	// modified 36-44
 	@JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
-	@OneToOne(mappedBy = "answer", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(mappedBy = "answer")
 	private AnswerBookmark answerBookmark;
 
 	public void setAnswerBookmark(AnswerBookmark answerBookmark) {

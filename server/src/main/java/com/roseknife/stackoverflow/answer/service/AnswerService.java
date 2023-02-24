@@ -2,10 +2,8 @@ package com.roseknife.stackoverflow.answer.service;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import com.roseknife.stackoverflow.answer.repository.AnswerRepository;
-import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
-import com.roseknife.stackoverflow.member.service.MemberService;
 import com.roseknife.stackoverflow.question.entity.FindStatus;
 import com.roseknife.stackoverflow.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;

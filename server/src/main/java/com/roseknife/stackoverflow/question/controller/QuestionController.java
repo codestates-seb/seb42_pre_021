@@ -1,14 +1,17 @@
 package com.roseknife.stackoverflow.question.controller;
 
 import com.roseknife.stackoverflow.answer.entity.Answer;
+import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
+import com.roseknife.stackoverflow.bookmark.service.AnswerBookmarkService;
+import com.roseknife.stackoverflow.bookmark.service.QuestionBookmarkService;
 import com.roseknife.stackoverflow.dto.MultiResponseDto;
 import com.roseknife.stackoverflow.dto.SingleResponseDto;
 import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.mapper.QuestionMapper;
-import com.roseknife.stackoverflow.question.service.RealQuestionService;
+import com.roseknife.stackoverflow.question.service.QuestionService;
 import com.roseknife.stackoverflow.tag.entity.Tag;
-import com.roseknife.stackoverflow.tag.repository.TagRepository;
 import com.roseknife.stackoverflow.tag.service.TagService;
 import com.roseknife.stackoverflow.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -31,16 +33,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionController {
     private final static String QUESTION_DEFAULT_URL = "/questions";
-    private final RealQuestionService questionService;
+    private final QuestionService questionService;
 
     private final TagService tagService;
+
+    private final QuestionBookmarkService questionBookmarkService;
+    private final AnswerBookmarkService answerBookmarkService;
     private final QuestionMapper questionMapper;
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
-//        List<Tag> tags = new ArrayList<>();
-//        for (String tagName : requestBody.getTagNames()) {
-//            tags.add(tagRepository.findByName(tagName));
-//        }
         List<Tag> tags = tagService.findTagNames(requestBody.getTagNames());
 
         Question question = questionMapper.questionPostToQuestion(requestBody,tags);
@@ -49,9 +50,6 @@ public class QuestionController {
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, createQuestion.getQuestionId());
 
         return ResponseEntity.created(location).build();
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(questionMapper.questionToQuestionResponse(question))
-//                        , HttpStatus.OK);
     }
 
     @PatchMapping("/{question-id}")
@@ -61,8 +59,6 @@ public class QuestionController {
 
         Question question = questionService.updateQuestion(questionMapper.questionPatchToQuestion(requestBody));
 
-//        return new ResponseEntity(new SingleResponseDto<>(questionMapper.questionToQuestionResponse(question))
-//                , HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -75,9 +71,15 @@ public class QuestionController {
 
         Question question = questionService.findQuestion(questionId);
         Page<Answer> pageAnswers = questionService.findQuestionAnswers(questionId,page-1,size,sortDir,sortBy);
-        QuestionDto.Response responseQuestions = questionMapper.questionsToQuestionAnswer(question,pageAnswers);
 
+        QuestionBookmark findBookmark = questionBookmarkService.findByMemberIdQuestionBookmark(question.getQuestionId(), memberId);
+        pageAnswers.getContent().stream()
+                .forEach(answer -> {
+                    AnswerBookmark answerBookmark = answerBookmarkService.findByMemberIdAnswerBookmark(answer.getAnswerId(), memberId);
+                    answer.setAnswerBookmark(answerBookmark);
+                });
 
+        QuestionDto.Response responseQuestions = questionMapper.questionsToQuestionAnswer(question,pageAnswers,findBookmark);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(responseQuestions)

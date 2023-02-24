@@ -1,6 +1,7 @@
 package com.roseknife.stackoverflow.bookmark.service;
 
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
+import com.roseknife.stackoverflow.bookmark.entity.QuestionBookmark;
 import com.roseknife.stackoverflow.bookmark.repository.AnswerBookmarkRepository;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
@@ -55,5 +56,14 @@ public class AnswerBookmarkService {
 		AnswerBookmark answerBookmark
 			= optionalAnswerBookmark.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_BOOKMARK_NOT_FOUND));
 		return answerBookmark;
+	}
+
+	@Transactional(readOnly = true)
+	public AnswerBookmark findByMemberIdAnswerBookmark(Long answerId, Long memberId) {
+		Optional<AnswerBookmark> optionalAnswerBookmark = answerBookmarkRepository.findByAnswerAnswerIdAndMemberMemberId(answerId,memberId);
+		AnswerBookmark findBookmark =
+				optionalAnswerBookmark.orElse(new AnswerBookmark());
+
+		return findBookmark;
 	}
 }

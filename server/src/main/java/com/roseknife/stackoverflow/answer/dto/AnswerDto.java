@@ -4,6 +4,7 @@ import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
@@ -15,7 +16,10 @@ public class AnswerDto {
 	@Getter
 	public static class Post {
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 
 		@Positive
 		private Long memberId;

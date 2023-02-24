@@ -28,7 +28,11 @@ public class Question extends Auditable {
     @Column(length = 100, nullable = false)
     private String title;
 
-    private String content;
+    @Column(length = 1_000_000_000)
+    private String html;
+
+    @Column(length = 1_000_000_000)
+    private String markdown;
 
     private Integer viewCount=0;    //초기화 = 0
     private Integer answerCount=0;  //초기화 = 0
@@ -55,7 +59,7 @@ public class Question extends Auditable {
 
     // modified 55-63
     @JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
-    @OneToOne(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(mappedBy = "question")
     private QuestionBookmark questionBookmark;
 
     public void setQuestionBookmark(QuestionBookmark questionBookmark) {
