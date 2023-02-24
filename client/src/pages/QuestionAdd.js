@@ -3,9 +3,10 @@ import TextEditor from 'components/Editor';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { BsXLg } from 'react-icons/bs';
-import axios from 'axios';
+// import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import customAxios from 'api/baseURL';
 
 const stepList = [
   'Summarize your problem in a one-line title.',
@@ -37,7 +38,7 @@ const QuestionAdd = () => {
 
   const handleTitleChange = event => {
     setTitle(event.target.value);
-    if (title.length >= 10) {
+    if (title.length >= 5) {
       setTitleValid(true);
     } else {
       setTitleValid(false);
@@ -73,24 +74,18 @@ const QuestionAdd = () => {
   };
 
   const handleSubmitButton = () => {
-    // const authorization = localStorage.getItem('authorization');
-    const authorization = user.authorization;
-    // const refresh = localStorage.getItem('refresh');
-    const refresh = user.refresh;
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    const URL = 'https://9f1a-59-10-231-15.jp.ngrok.io/';
-
     setContentValue({ html, markdown });
 
-    if (markdown.length >= 30) {
+    if (markdown.length >= 10) {
       setContentValid(true);
     } else {
       setContentValid(false);
     }
 
     if (!titleValid || !contentValid || !tagsValid || !contentValue) {
-      return alert('제목 10자이상, 본문 30자이상, 태그 1개이상인지 확인해주세요');
+      return alert('제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요');
     }
 
     const questionData = {
@@ -101,28 +96,38 @@ const QuestionAdd = () => {
       tagNames: [...tagsArr],
     };
 
-    return axios({
-      url: `${URL}questions`,
-      method: 'post',
-      data: questionData,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        Authorization: `Bearer ${authorization}`,
-        refresh: `Bearer ${refresh}`,
-      },
-    })
-      .then(response => {
-        console.log(response.data);
-        console.log(response.headers);
-        console.log(response.headers['location']);
+    // const { authorization, refresh } = user;
+    // const URL = 'https://9f1a-59-10-231-15.jp.ngrok.io/';
+    // return axios({
+    //   url: `${URL}questions`,
+    //   method: 'post',
+    //   data: questionData,
+    //   withCredentials: true,
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': '*',
+    //     Authorization: `Bearer ${authorization}`,
+    //     refresh: `Bearer ${refresh}`,
+    //   },
+    // })
+    //   .then(response => {
+    //     console.log(response.data);
+    //     console.log(response.headers);
+    //     console.log(response.headers['location']);
 
-        const questionId = JSON.stringify(response.headers.location);
-        console.log(questionId);
-        // redirect('/');
-        navigate(`/`);
-      })
+    //     const questionId = JSON.stringify(response.headers.location);
+    //     console.log(questionId);
+    //     // redirect('/');
+    //     navigate(`/`);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     toast.error('질문 생성에 실패하였습니다. 다시 시도해주세요');
+    //   });
+
+    return customAxios
+      .post('/questions', questionData)
+      .then(navigate(`/`))
       .catch(error => {
         console.log(error);
         toast.error('질문 생성에 실패하였습니다. 다시 시도해주세요');

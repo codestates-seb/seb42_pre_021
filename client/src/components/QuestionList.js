@@ -68,8 +68,6 @@ const QuestionList = () => {
       });
   };
 
-<<<<<<< HEAD
-=======
   // ! 서버 연동시 사용할 코드
   // const getQuestions = async () => {
   //   const headers = {
@@ -99,15 +97,14 @@ const QuestionList = () => {
   //     });
   // };
 
-  useEffect(() => {
-    getQuestionsData();
-  }, []);
-
-  // ! 서버 연동시 사용할 코드
->>>>>>> 7df5bd26d0362233e92ff1a69a705cc7d4768d0c
   // useEffect(() => {
   //   getQuestionsData();
   // }, []);
+
+  // // ! 서버 연동시 사용할 코드
+  // // useEffect(() => {
+  // //   getQuestionsData();
+  // // }, []);
 
   // ! 서버 연동시 사용할 코드
   useEffect(() => {
@@ -120,37 +117,6 @@ const QuestionList = () => {
 
   return (
     <>
-<<<<<<< HEAD
-      {questionList[0] && (
-        <>
-          <TitleWrapper>
-            <div>
-              <h1>All Questions</h1>
-              <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
-            </div>
-            <div>
-              <h2>
-                {questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
-              </h2>
-              <ListSort sortBy={sortBy} setSortBy={setSortBy} />
-            </div>
-          </TitleWrapper>
-          <QuestionWrapper>
-            {questionList.map(question => {
-              return <QuestionArticle key={question.questionId} question={question} />;
-            })}
-          </QuestionWrapper>
-          <Paging
-            sortBy={sortBy}
-            page={page}
-            setPage={setPage}
-            size={size}
-            setSize={setSize}
-            total={pageInfo.totalElements}
-          />
-        </>
-      )}
-=======
       <TitleWrapper>
         <div>
           <h1>All Questions</h1>
@@ -166,15 +132,14 @@ const QuestionList = () => {
           return <QuestionArticle key={question.questionId} question={question} />;
         })}
       </QuestionWrapper>
-      {/* <Paging
+      <Paging
         sortBy={sortBy}
         page={page}
         setPage={setPage}
         size={size}
         setSize={setSize}
         total={pageInfo.totalElements}
-      /> */}
->>>>>>> 7df5bd26d0362233e92ff1a69a705cc7d4768d0c
+      />
     </>
   );
 };
