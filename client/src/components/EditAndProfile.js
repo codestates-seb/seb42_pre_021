@@ -40,13 +40,13 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
     // };
 
     if (isAnswer) {
-      await baseURL.delete(`/answers/${answerId}`).catch(error => {
+      await baseURL.delete(`/answers/${data.answerId}`).catch(error => {
         console.log(error.message);
       });
 
       // ! 서버 연동시 사용할 코드
       // await axios({
-      //   url: `/answers/${answerId}`,
+      //   url: `/answers/${data.answerId}`,
       //   method: 'delete',
       //   withCredentials: true,
       //   headers,
