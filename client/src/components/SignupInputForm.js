@@ -19,29 +19,30 @@ const SignupInputForm = () => {
   const { email, nickname, password } = values;
   const { user, isLoding, isError, isSuccess, message } = useSelector(state => state.auth);
 
+  useEffect(() => {
+    // if (isError) {
+    //   toast.error(message);
+    // }
+    if (isError) {
+      if (message === 'Email Already Exists') {
+        toast.error('이미 사용중인 이메일 입니다.');
+      } else if (message === 'Nickname Already Exists') {
+        toast.error('이미 사용중인 닉네임 입니다.');
+      } else toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate('/');
+    }
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch, formErrors]);
+
   const handleChange = event => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
   };
-
-  // useEffect(() => {
-  //   if (Object.keys(formErrors).length === 0) {
-  //     console.log(values);
-  //   }
-  //   console.log(formErrors);
-  // }, [formErrors]);
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-    if (isSuccess || user) {
-      navigate('/');
-    }
-    dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch, formErrors]);
 
   const validate = values => {
     const errors = {};
@@ -116,7 +117,12 @@ const SignupInputForm = () => {
           Passwords must contain at least eight characters, including at least 1 letter and 1
           number.
         </span>
-        <SignUpButton onClick={handleSubmit}>Sign up</SignUpButton>
+        <SignUpButton
+          disabled={!password || !email || !nickname.length > 0 ? true : false}
+          onClick={handleSubmit}
+        >
+          Sign up
+        </SignUpButton>
       </InputForm>
     </FormContainer>
   );
@@ -210,6 +216,7 @@ const SignUpButton = styled.button`
   align-self: center;
   border-radius: 0.2rem;
   background-color: #3b95ff;
+  background-color: ${props => (props.disabled ? 'gray' : ' #3b95ff;')};
   color: white;
   display: inline-block;
   margin-top: 1rem;
@@ -217,8 +224,13 @@ const SignUpButton = styled.button`
   border-style: none;
   border: 1px solid #d5d9dc;
   cursor: pointer;
+
   &:hover {
-    background-color: #057aff;
+    background-color: ${props => (props.disabled ? 'gray' : '#9ecbff')};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 
