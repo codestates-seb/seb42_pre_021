@@ -14,7 +14,10 @@ public class AnswerCommentDto {
 	@Getter
 	public static class Post {
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 
 		@Positive
 		private Long memberId;
@@ -29,17 +32,21 @@ public class AnswerCommentDto {
 		private Long answerCommentId;
 
 		@NotBlank
-		private String content;
+		private String html;
+
+		@NotBlank
+		private String markdown;
 	}
 
 	@Getter
-//	@Setter
 	@AllArgsConstructor
 	@Builder
 	public static class Response {
 		private Long answerCommentId;
 
-		private String content;
+		private String html;
+
+		private String markdown;
 
 		private String memberId;
 		private String nickname;
@@ -49,9 +56,10 @@ public class AnswerCommentDto {
 
 		private String modifiedAt;
 
-		public Response(Long answerCommentId, String content, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+		public Response(Long answerCommentId, String html, String markdown, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt) {
 			this.answerCommentId = answerCommentId;
-			this.content = content;
+			this.html = html;
+			this.markdown = markdown;
 			this.nickname = nickname;
 			this.profile = profile;
 			this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
