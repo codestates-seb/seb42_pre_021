@@ -3,6 +3,8 @@ import { useRef } from 'react';
 import styled from 'styled-components';
 import AddButton from './AddButton';
 import TextEditor from './Editor';
+import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
 const YourAnswer = ({ questionId }) => {
   const answerRef = useRef('');
@@ -11,14 +13,42 @@ const YourAnswer = ({ questionId }) => {
     const html = answerRef.current?.getInstance().getHTML();
     const markdown = answerRef.current?.getInstance().getMarkdown();
     const confirmValue = confirm('답변을 등록하시겠습니까?');
+
+    const { user } = useSelector(state => state.auth);
+    // const user = JSON.parse(localStorage.getItem('user'));
+
     if (confirmValue) {
+      // ^ json-server 테스트용 코드
       await baseURL.post('/answers', {
         questionId,
         content: {
           markdown,
           html,
         },
+        memberId: user.memberId,
       });
+
+      // ! 서버 연동시 사용할 코드
+      // const headers = {
+      //   Authorization: `Bearer ${user.authorization}`,
+      //   refresh: `Bearer ${user.refresh}`,
+      //   'Content-Type': 'Application/json',
+      // };
+      //
+      // await axios({
+      //   url: '/answers',
+      //   method: 'post',
+      //   data: {
+      //     questionId,
+      //     content: {
+      //       markdown,
+      //       html,
+      //     },
+      //     memberId: user.memberId,
+      //   },
+      //   withCredentials: true,
+      //   headers,
+      // });
     }
   };
 
