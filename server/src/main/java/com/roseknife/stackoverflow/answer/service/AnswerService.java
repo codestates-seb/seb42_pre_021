@@ -20,16 +20,11 @@ import java.util.Optional;
 public class AnswerService {
 	private final AnswerRepository answerRepository;
 	private final QuestionService questionService;
-	private final MemberService memberService;
 
-	// TODO: 답변 등록
 	public Answer createAnswer(Answer answer) {
 
-		//Answer count 증가 추가
 		questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId(), FindStatus.ANSWER);
 
-		// modified 21
-		answer.setAnswerBookmark(new AnswerBookmark());
 		return answerRepository.save(answer);
 	}
 

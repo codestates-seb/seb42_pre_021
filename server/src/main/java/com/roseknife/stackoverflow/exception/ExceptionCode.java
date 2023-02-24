@@ -14,6 +14,8 @@ public enum ExceptionCode {
     QUESTION_COMMENT_NOT_FOUND(404, "Question Comment Not Found"),
     ANSWER_COMMENT_NOT_FOUND(404, "Answer Comment Not Found"),
 
+    QUESTION_BOOKMARK_EXISTS(409, "Question Bookmark Already Exists"),
+    ANSWER_BOOKMARK_EXISTS(409, "Answer Bookmark Already Exists"),
     QUESTION_BOOKMARK_NOT_FOUND(404, "Question Bookmark Not Found"),
     ANSWER_BOOKMARK_NOT_FOUND(404, "Answer Bookmark Not Found"),
 

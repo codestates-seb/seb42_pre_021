@@ -19,6 +19,11 @@ public class AnswerBookmarkService {
 	private final AnswerBookmarkRepository answerBookmarkRepository;
 	private final MemberService memberService;
 
+	public AnswerBookmark createAnswerBookmark(AnswerBookmark answerBookmark) {
+		verifyExistAnswerBookmark(answerBookmark);
+		answerBookmark.setAnswerBookmarkFlag(true);
+		return answerBookmarkRepository.save(answerBookmark);
+	}
 
 	public AnswerBookmark updateAnswerBookmark(AnswerBookmark answerBookmark) {
 		AnswerBookmark findAnswerBookmark = findVerifiedAnswerBookmark(answerBookmark.getAnswerBookmarkId());
@@ -34,6 +39,14 @@ public class AnswerBookmarkService {
 
 	private static boolean isValidMember(AnswerBookmark answerBookmark, AnswerBookmark findAnswerBookmark) {
 		return Objects.equals(findAnswerBookmark.getMember().getMemberId(), answerBookmark.getMember().getMemberId());
+	}
+
+	private void verifyExistAnswerBookmark(AnswerBookmark answerBookmark) {
+		Optional<AnswerBookmark> optionalAnswerBookmark
+				= answerBookmarkRepository.findByAnswerAnswerIdAndMemberMemberId(answerBookmark.getAnswer().getAnswerId(), answerBookmark.getMember().getMemberId());
+		if (optionalAnswerBookmark.isPresent()) {
+			throw new BusinessLogicException(ExceptionCode.QUESTION_BOOKMARK_EXISTS);
+		}
 	}
 
 	private AnswerBookmark findVerifiedAnswerBookmark(Long answerBookmarkId) {
