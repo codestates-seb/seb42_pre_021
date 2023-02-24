@@ -67,7 +67,8 @@ public class QuestionController {
                                       @Positive @RequestParam("page") int page,
                                       @Positive @RequestParam("size") int size,
                                       @RequestParam("sortDir") String sortDir,
-                                      @RequestParam("sortBy") String sortBy) {
+                                      @RequestParam("sortBy") String sortBy,
+                                      @RequestParam("memberId") long memberId) {
 
         Question question = questionService.findQuestion(questionId);
         Page<Answer> pageAnswers = questionService.findQuestionAnswers(questionId,page-1,size,sortDir,sortBy);
