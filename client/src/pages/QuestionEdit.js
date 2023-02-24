@@ -15,6 +15,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import baseURL from 'api/baseURL';
+import { toast } from 'react-toastify';
 // import { useSelector } from 'react-redux';
 
 const QuestionEdit = () => {
@@ -35,49 +36,45 @@ const QuestionEdit = () => {
   };
 
   const handleSubmit = async () => {
-    const confirmEdit = confirm('수정하시겠습니까?');
-    if (confirmEdit) {
-      const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
-      const htmlValue = questionEditRef.current?.getInstance().getHTML();
-      // const headers = {
-      //   Authorization: `Bearer ${user.authorization}`,
-      //   refresh: `Bearer ${user.refresh}`,
-      //   'Content-Type': 'Application/json',
-      // };
-      await baseURL
-        .patch(`/questions/${id}`, {
-          title: titleValue,
-          content: {
-            html: htmlValue,
-            markdown: markdownValue,
-          },
-          tag: [...tagsArr],
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
+    const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
+    const htmlValue = questionEditRef.current?.getInstance().getHTML();
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
+    await baseURL
+      .patch(`/questions/${id}`, {
+        title: titleValue,
+        content: {
+          html: htmlValue,
+          markdown: markdownValue,
+        },
+        tag: [...tagsArr],
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
 
-      // ! 서버 연동시 사용할 코드
-      // await axios({
-      //   url: `/questions/${id}`,
-      //   method: 'patch',
-      //   data: {
-      //     title: titleValue,
-      //     content: {
-      //       html: htmlValue,
-      //       markdown: markdownValue,
-      //     },
-      //     tag: [...tagsArr],
-      //   },
-      //   headers,
-      //   withCredentials: true,
-      // }).catch(err => {
-      //   console.log(err.message);
-      // });
-      navigate(-1);
-    } else {
-      return;
-    }
+    // ! 서버 연동시 사용할 코드
+    // await axios({
+    //   url: `/questions/${id}`,
+    //   method: 'patch',
+    //   data: {
+    //     title: titleValue,
+    //     content: {
+    //       html: htmlValue,
+    //       markdown: markdownValue,
+    //     },
+    //     tag: [...tagsArr],
+    //   },
+    //   headers,
+    //   withCredentials: true,
+    // }).catch(err => {
+    //   console.log(err.message);
+    // });
+    navigate(-1);
+    toast.success('수정이 완료되었습니다');
   };
 
   return (
