@@ -1,12 +1,10 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
 import Vote from './Vote';
 
-const Answers = ({ data, setIsShowModal }) => {
+const Answers = ({ data, setIsShowModal, setAnswerSort }) => {
   const answers = data.questionAnswers;
-  const [answerSortBy, setAnswerSortBy] = useState('created_newest');
 
   return (
     <>
@@ -16,7 +14,7 @@ const Answers = ({ data, setIsShowModal }) => {
             <h1>
               {answers.length} {answers.length === 1 ? 'Answer' : 'Answers'}
             </h1>
-            <AnswerSort answerSortBy={answerSortBy} setAnswerSortBy={setAnswerSortBy} />
+            <AnswerSort setAnswerSort={setAnswerSort} />
           </AnswerHead>
           <AnswerList>
             {answers.map((answer, i) => (

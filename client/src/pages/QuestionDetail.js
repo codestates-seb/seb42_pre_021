@@ -13,32 +13,37 @@ import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import { Container } from 'containers/Container';
 import baseURL from 'api/baseURL';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import axios from 'axios';
 
 const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
+  const [answerSort, setAnswerSort] = useState({
+    by: 'voteCount',
+    dir: 'DESC',
+  });
 
-  // const { user } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
 
   const getQuestionData = async () => {
-    // const memberId = user ? user.memberId : 0;
+    const memberId = user ? user.memberId : 0;
     // const headers = {
     //   Authorization: `Bearer ${user.authorization}`,
     //   refresh: `Bearer ${user.refresh}`,
     //   'Content-Type': 'Application/json',
     //   'Access-Control-Allow-Origin': '*',
     // };
-    // const params = {
-    //   page: 1,
-    //   size: 10,
-    //   sortDir: 'DESC',
-    //   sortBy: 'createdAt',
-    //   memberId,
-    // };
+    const params = {
+      page: 1,
+      size: 10,
+      sortDir: answerSort.dir,
+      sortBy: answerSort.by,
+      memberId,
+    };
+    console.log(params, user);
 
     // ^ json-server 테스트용 코드
     await baseURL.get(`/questions/${id}`).then(response => {
@@ -84,7 +89,11 @@ const QuestionDetail = () => {
               <MarkdownContent data={question} />
             </div>
             {question.questionAnswers ? (
-              <Answers data={question} setIsShowModal={setIsShowModal} />
+              <Answers
+                data={question}
+                setIsShowModal={setIsShowModal}
+                setAnswerSort={setAnswerSort}
+              />
             ) : null}
             <YourAnswer questionId={question.questionId} />
           </Wrapper>
