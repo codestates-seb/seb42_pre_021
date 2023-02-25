@@ -1,93 +1,41 @@
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Navigation from 'containers/Navigation';
 import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
-// import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from 'features/userSlice';
 
-// const { user } = useSelector(state => state.auth);
 //useSelect는 전역스토어에서 유저의 정보를 가져옵니다. 없으면 null 값입니다.
 //dispatch를 이용하여 get/patch 요청을 날려야하므로 feature 폴더에 관련 api를 작성하세요
 
-// 원래는 userInfo를 mypage가 받아서 조회를 받아서 조회
-// const URL = 'http://localhost:3001/data';
-
 const MyPage = () => {
-  const [user, setUser] = useState({});
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
-  const handleClickEditProfile = () => {
-    navigate('/edit');
-  };
-
-  const getData = async () => {
-    const { data } = await axios.get(URL);
-    setUser(data);
-  };
-
+  const dispatch = useDispatch();
+  const { userinfo, isLoading, error } = useSelector(state => state.user);
+  // Edit으로 중첩라우터 만들기
+  // const { user } = useSelector(state => state.auth);
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // user.memberId
   useEffect(() => {
-    getData();
-  }, []);
-
+    dispatch(getUser(1));
+  }, [dispatch]);
+  // [userinfo, isLoading, error, dispatch]
   const handleClickEdit = () => {
-    navigate('/mypage/edit', { state: user });
+    navigate('/mypage/edit');
   };
 
   return (
     <>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>{error.message}</div>}
+
       <Navigation />
-      <Container>
-        <ButtonBox>
-          <Link to="/mypage/edit" className="mypageButton" onClick={handleClickEditProfile}>
-            <FaPen />
-            Edit profile
-          </Link>
-          <button className="mypageButton">
-            <FaTrashAlt />
-            Delete Profile
-          </button>
-        </ButtonBox>
-        <InfoContainer>
-          <h3>Public information</h3>
-          <div>
-            <InfoHeader>
-              <span>Profile image</span>
-              <ProfileContainer>
-                <ImageBox>
-                  <Search className="profileImage" />
-                </ImageBox>
-                <ul>
-                  <li>
-                    <MdCake className="icon" />
-                    Member for 3 months
-                  </li>
-                  <li>
-                    <AiOutlineClockCircle className="icon" />
-                    Last seen this week
-                  </li>
-                  <li>
-                    <FaRegCalendarAlt className="icon" />
-                    Visited 4 days, 2 consecutive
-                  </li>
-                </ul>
-              </ProfileContainer>
-            </InfoHeader>
-            <MyProfileList
-              username={'username'}
-              location={'Seoul'}
-              title={'Title'}
-              aboutme={'Hello'}
-            />
-          </div>
-        </InfoContainer>
-      </Container>
-      {user[0] && (
+      {userinfo[0] && (
         <Container>
           <ButtonBox>
             <button className="mypageButton" onClick={handleClickEdit}>
@@ -124,12 +72,7 @@ const MyPage = () => {
                   </ul>
                 </ProfileContainer>
               </InfoHeader>
-              <MyProfileList
-                username={user[0].nickname}
-                location={user[0].location}
-                title={user[0].title}
-                aboutme={user[0].content}
-              />
+              <MyProfileList userinfo={userinfo[0]} />
             </div>
           </InfoContainer>
         </Container>
