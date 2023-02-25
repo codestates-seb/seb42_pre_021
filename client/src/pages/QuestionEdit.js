@@ -69,7 +69,7 @@ const QuestionEdit = () => {
     // }).catch(err => {
     //   console.log(err.message);
     // });
-    navigate(-1);
+    navigate(`../${id}`);
     toast.success('수정이 완료되었습니다');
   };
 
