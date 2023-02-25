@@ -72,7 +72,7 @@ const QuestionDetail = () => {
         <ContentSection>
           <Wrapper>
             <div className="question_content">
-              {question.voteCount && (
+              {question.voteCount !== undefined && (
                 <Vote
                   count={question.voteCount}
                   id={question.questionId}
