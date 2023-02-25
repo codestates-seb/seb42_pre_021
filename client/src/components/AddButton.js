@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-const AddButton = ({ buttonText, handleButtonClick }) => {
-  return <StyledButton onClick={handleButtonClick}>{buttonText}</StyledButton>;
+const AddButton = ({ buttonText, handleButtonClick, isDisabled }) => {
+  return (
+    <StyledButton onClick={handleButtonClick} disabled={isDisabled}>
+      {buttonText}
+    </StyledButton>
+  );
 };
 
 const StyledButton = styled.button`
@@ -18,6 +22,10 @@ const StyledButton = styled.button`
   padding: 0 0.5rem;
   cursor: pointer;
   :hover {
+    filter: brightness(0.9);
+  }
+  :disabled {
+    cursor: not-allowed;
     filter: brightness(0.9);
   }
 `;
