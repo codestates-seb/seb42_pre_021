@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-const TitleEdit = ({ titleValue, setTitleValue, handleSectionClick }) => {
+const TitleEdit = ({ titleValue, setTitleValue, handleSectionClick, setIsQuestionChanged }) => {
   const handleTitleChange = event => {
     const { value } = event.target;
     setTitleValue(value);
+    setIsQuestionChanged(cur => cur || true);
   };
   return (
     <TitleEditWrapper onClick={() => handleSectionClick('edit')}>
