@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { getTime } from 'utils/getTime';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import axios from 'axios';
 
 const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
   const navigate = useNavigate();
 
-  // const { user } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
 
   const handleEditClick = isAnswer => {
@@ -102,16 +102,18 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
     <ProfileWrapper>
       <EditAndDelete>
         <li>Share</li>
-        {/* {user.memberId === data.memberId && (
-          <> */}
-        <li role="presentation" onClick={() => handleEditClick(isAnswer)}>
-          Edit
-        </li>
-        <li role="presentation" onClick={() => handleDeleteClick(isAnswer)}>
-          Delete
-        </li>
-        {/* </>
-        )} */}
+        {user
+          ? user.memberId === data.memberId && (
+              <>
+                <li role="presentation" onClick={() => handleEditClick(isAnswer)}>
+                  Edit
+                </li>
+                <li role="presentation" onClick={() => handleDeleteClick(isAnswer)}>
+                  Delete
+                </li>
+              </>
+            )
+          : null}
       </EditAndDelete>
       <Profile className={isAnswer ? 'answer_profile' : null}>
         <img src={member.profile} alt={`${member.nickname} profile`} />
