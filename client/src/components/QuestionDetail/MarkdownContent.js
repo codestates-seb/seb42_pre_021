@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import EditAndProfile from './EditAndProfile';
-import Tags from './Tags';
+import { Tags } from 'components/Questions';
 
 const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
   const handleHTML = str => {

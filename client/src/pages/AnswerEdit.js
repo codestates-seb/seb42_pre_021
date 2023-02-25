@@ -1,9 +1,8 @@
 import TextEditor from 'components/Editor';
-import { HowToEdit, HowToFormat, CancelButton, TopNotice } from 'components/edit';
+import { HowToEdit, HowToFormat, CancelButton, TopNotice } from 'components/Edit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 // eslint-disable-next-line
-import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 // eslint-disable-next-line
 import { useRef } from 'react';

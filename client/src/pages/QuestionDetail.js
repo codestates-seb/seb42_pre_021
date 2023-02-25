@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {
+  DetailTitle,
+  Vote,
+  Answers,
+  MarkdownContent,
+  YourAnswer,
+  SignUpModal,
+} from 'components/QuestionDetail';
+import { SideContent } from 'components/Questions';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
-import SideContent from 'components/SideContent';
-import DetailTitle from 'components/DetailTitle';
-import Vote from 'components/Vote';
-import Answers from 'components/Answers';
-import MarkdownContent from 'components/MarkdownContent';
-import YourAnswer from 'components/YourAnswer';
 import { Container } from 'containers/Container';
 import baseURL from 'api/baseURL';
-import SignUpModal from 'components/SignUpModal';
 // import { useSelector } from 'react-redux';
 // import axios from 'axios';
 

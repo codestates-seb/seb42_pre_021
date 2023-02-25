@@ -7,7 +7,7 @@ import {
   HowToTag,
   CancelButton,
   TopNotice,
-} from 'components/edit';
+} from 'components/Edit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useRef, useState } from 'react';

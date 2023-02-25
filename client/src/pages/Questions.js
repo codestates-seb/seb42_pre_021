@@ -1,7 +1,6 @@
-import QuestionList from 'components/QuestionList';
-import SideContent from 'components/SideContent';
 import Navigation from 'containers/Navigation';
 import styled from 'styled-components';
+import { SideContent, QuestionList } from 'components/Questions';
 
 const Questions = () => {
   return (

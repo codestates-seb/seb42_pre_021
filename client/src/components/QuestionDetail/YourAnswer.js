@@ -1,8 +1,8 @@
 import baseURL from 'api/baseURL';
 import { useRef } from 'react';
 import styled from 'styled-components';
-import AddButton from './AddButton';
-import TextEditor from './Editor';
+import AddButton from 'components/AddButton';
+import TextEditor from 'components/Editor';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 // import axios from 'axios';
