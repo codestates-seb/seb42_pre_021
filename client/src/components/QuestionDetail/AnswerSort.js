@@ -1,17 +1,30 @@
 import styled from 'styled-components';
 
-const AnswerSort = ({ setAnswerSortBy }) => {
+const AnswerSort = ({ setAnswerSort }) => {
   const handleChangeOption = event => {
     const { value } = event.target;
     console.log(value);
-    setAnswerSortBy(value);
+    if (value === 'createdAt') {
+      setAnswerSort({
+        by: value,
+        dir: 'ASC',
+      });
+    } else {
+      setAnswerSort({
+        by: value,
+        dir: 'DESC',
+      });
+    }
   };
   return (
     <SortWrapper>
       <p>Sorted by:</p>
       <select onChange={handleChangeOption}>
-        <option value="created_newest">Date Created (newest firtst)</option>
-        <option value="created_oldest">Date Created (oldest firtst)</option>
+        <option value="voteCount" defaultValue={true}>
+          Highest score (default)
+        </option>
+        <option value="createdAt">Date Created (oldest firtst)</option>
+        <option value="modifiedAt">Date Modified (newest first)</option>
       </select>
     </SortWrapper>
   );

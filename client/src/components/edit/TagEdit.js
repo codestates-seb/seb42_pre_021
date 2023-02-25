@@ -2,16 +2,14 @@ import styled from 'styled-components';
 import { GoX } from 'react-icons/go';
 import { useState } from 'react';
 
-const TagEdit = ({ tagsArr, handleSectionClick, setTagsArr, currentForm }) => {
+const TagEdit = ({
+  tagsArr,
+  handleSectionClick,
+  setTagsArr,
+  currentForm,
+  setIsQuestionChanged,
+}) => {
   const [tagValue, setTagValue] = useState('');
-
-  // // * tag창 input 크기 계산을 위한 한 줄당 태그의 글자수 얻기
-  // const tagsLineWidth = () => {
-  //   if (tagsArr.length % 5 === 0) {
-  //     return 0;
-  //   }
-  //   return tagsArr.slice(-(tagsArr.length % 5)).reduce((acc, cur) => acc + cur.length, 0);
-  // };
 
   const handleChangeInput = event => {
     const { value } = event.target;
@@ -28,6 +26,7 @@ const TagEdit = ({ tagsArr, handleSectionClick, setTagsArr, currentForm }) => {
     ) {
       setTagsArr(cur => [...cur, tagText]);
       setTagValue('');
+      setIsQuestionChanged(cur => cur || true);
     }
   };
 
@@ -35,6 +34,7 @@ const TagEdit = ({ tagsArr, handleSectionClick, setTagsArr, currentForm }) => {
     const newTagsArr = [...tagsArr];
     newTagsArr.splice(index, 1);
     setTagsArr(newTagsArr);
+    setIsQuestionChanged(cur => cur || true);
   };
 
   return (

@@ -7,7 +7,7 @@ import {
   HowToTag,
   CancelButton,
   TopNotice,
-} from 'components/edit';
+} from 'components/Edit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useRef, useState } from 'react';
@@ -26,6 +26,7 @@ const QuestionEdit = () => {
   const [currentForm, setCurrentForm] = useState('edit');
   const [titleValue, setTitleValue] = useState(title);
   const [tagsArr, setTagsArr] = useState([...tags]);
+  const [isQuestionChanged, setIsQuestionChanged] = useState(false);
   const questionEditRef = useRef('');
 
   // const { user } = useSelector(state => state.auth);
@@ -36,6 +37,11 @@ const QuestionEdit = () => {
   };
 
   const handleSubmit = async () => {
+    // * 변경된 내용이 없을 시
+    if (!isQuestionChanged) {
+      toast.error('Nothing has changed!!');
+      return;
+    }
     const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
     const htmlValue = questionEditRef.current?.getInstance().getHTML();
     // const headers = {
@@ -69,7 +75,7 @@ const QuestionEdit = () => {
     // }).catch(err => {
     //   console.log(err.message);
     // });
-    navigate(-1);
+    navigate(`../${id}`);
     toast.success('수정이 완료되었습니다');
   };
 
@@ -84,18 +90,21 @@ const QuestionEdit = () => {
             handleSectionClick={handleSectionClick}
             setTitleValue={setTitleValue}
             titleValue={titleValue}
+            setIsQuestionChanged={setIsQuestionChanged}
           />
           <BodyEdit
             questionEditRef={questionEditRef}
             content={markdown}
             handleSectionClick={handleSectionClick}
             currentForm={currentForm}
+            setIsQuestionChanged={setIsQuestionChanged}
           />
           <TagEdit
             handleSectionClick={handleSectionClick}
             tagsArr={tagsArr}
             setTagsArr={setTagsArr}
             currentForm={currentForm}
+            setIsQuestionChanged={setIsQuestionChanged}
           />
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
           <CancelButton id={id} />

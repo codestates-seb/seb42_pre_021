@@ -1,5 +1,5 @@
-import Notices from 'components/Notices';
-import Colletives from 'components/Colletives';
+import Notices from './Notices';
+import Colletives from './Colletives';
 import styled from 'styled-components';
 
 const SideContent = () => {
