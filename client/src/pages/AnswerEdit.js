@@ -99,7 +99,7 @@ const AnswerEdit = () => {
             </div>
           </BodyEditWrapper>
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton id={id} />
+          <CancelButton id={id} isChanged={isChanged} />
         </EditSection>
         <div>
           <SideNotice>
