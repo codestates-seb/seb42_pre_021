@@ -1,10 +1,25 @@
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 
 const CancelButton = ({ id }) => {
   const navigate = useNavigate();
   const handleCancelButton = () => {
-    navigate(`../${id}`);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: '수정하던 모든 내용은 저장되지 않습니다!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+    }).then(result => {
+      if (result.isConfirmed) {
+        navigate(`../${id}`);
+        toast.info('your edit is cancelled!');
+      }
+    });
   };
   return <CancelButtonDesign onClick={handleCancelButton}>Cancel</CancelButtonDesign>;
 };
