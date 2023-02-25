@@ -9,33 +9,37 @@ const Answers = ({ data, setIsShowModal }) => {
   const [answerSortBy, setAnswerSortBy] = useState('created_newest');
 
   return (
-    <AnswerWrapper>
-      <AnswerHead>
-        <h1>
-          {answers.length} {answers.length === 1 ? 'Answer' : 'Answers'}
-        </h1>
-        <AnswerSort answerSortBy={answerSortBy} setAnswerSortBy={setAnswerSortBy} />
-      </AnswerHead>
-      <AnswerList>
-        {answers.map((answer, i) => (
-          <div className="answer_content" key={i}>
-            <Vote
-              count={answer.voteCount}
-              id={answer.answerId}
-              type="answers"
-              bookmark={answer.bookmark}
-              setIsShowModal={setIsShowModal}
-            />
-            <MarkdownContent
-              data={answer}
-              isAnswer={true}
-              answerId={answer.answerId}
-              title={data.title}
-            />
-          </div>
-        ))}
-      </AnswerList>
-    </AnswerWrapper>
+    <>
+      {answers.length ? (
+        <AnswerWrapper>
+          <AnswerHead>
+            <h1>
+              {answers.length} {answers.length === 1 ? 'Answer' : 'Answers'}
+            </h1>
+            <AnswerSort answerSortBy={answerSortBy} setAnswerSortBy={setAnswerSortBy} />
+          </AnswerHead>
+          <AnswerList>
+            {answers.map((answer, i) => (
+              <div className="answer_content" key={i}>
+                <Vote
+                  count={answer.voteCount}
+                  id={answer.answerId}
+                  type="answers"
+                  bookmark={answer.bookmark}
+                  setIsShowModal={setIsShowModal}
+                />
+                <MarkdownContent
+                  data={answer}
+                  isAnswer={true}
+                  answerId={answer.answerId}
+                  title={data.title}
+                />
+              </div>
+            ))}
+          </AnswerList>
+        </AnswerWrapper>
+      ) : null}
+    </>
   );
 };
 
