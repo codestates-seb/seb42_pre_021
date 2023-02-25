@@ -1,43 +1,54 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {
+  DetailTitle,
+  Vote,
+  Answers,
+  MarkdownContent,
+  YourAnswer,
+  SignUpModal,
+} from 'components/QuestionDetail';
+import { SideContent } from 'components/Questions';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
-import SideContent from 'components/SideContent';
-import DetailTitle from 'components/DetailTitle';
-import Vote from 'components/Vote';
-import Answers from 'components/Answers';
-import MarkdownContent from 'components/MarkdownContent';
-import YourAnswer from 'components/YourAnswer';
 import { Container } from 'containers/Container';
 import baseURL from 'api/baseURL';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import axios from 'axios';
 
 const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [answerSort, setAnswerSort] = useState({
+    by: 'voteCount',
+    dir: 'DESC',
+  });
 
-  // const { user } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
 
   const getQuestionData = async () => {
-    // const memberId = user ? user.memberId : 0;
+    const memberId = user ? user.memberId : 0;
     // const headers = {
     //   Authorization: `Bearer ${user.authorization}`,
     //   refresh: `Bearer ${user.refresh}`,
     //   'Content-Type': 'Application/json',
     //   'Access-Control-Allow-Origin': '*',
     // };
-    // const params = {
-    //   page: 1,
-    //   size: 10,
-    //   sortDir: 'DESC',
-    //   sortBy: 'createdAt',
-    //   memberId,
-    // };
+    const params = {
+      page: 1,
+      size: 10,
+      sortDir: answerSort.dir,
+      sortBy: answerSort.by,
+      memberId,
+    };
+    console.log(params, user);
 
     // ^ json-server 테스트용 코드
-    await baseURL.get(`/questions/${id}`).then(response => setQuestion(response.data.data));
+    await baseURL.get(`/questions/${id}`).then(response => {
+      setQuestion(response.data);
+    });
 
     // await axios({
     //   url: `/questions/${id}`,
@@ -60,30 +71,36 @@ const QuestionDetail = () => {
 
   return (
     <>
-      {question.questionId && (
-        <>
-          <Container>
-            <Navigation />
-            <DetailTitle question={question} />
-            <ContentSection>
-              <Wrapper>
-                <div className="question_content">
-                  <Vote
-                    count={question.voteCount}
-                    id={question.questionId}
-                    type="questions"
-                    bookmark={question.bookmark}
-                  />
-                  <MarkdownContent data={question} />
-                </div>
-                {question.questionAnswers.length ? <Answers data={question} /> : null}
-                <YourAnswer questionId={question.questionId} />
-              </Wrapper>
-              <SideContent />
-            </ContentSection>
-          </Container>
-        </>
-      )}
+      <Container>
+        <Navigation />
+        <DetailTitle question={question} />
+        <ContentSection>
+          <Wrapper>
+            <div className="question_content">
+              {question.voteCount !== undefined && (
+                <Vote
+                  count={question.voteCount}
+                  id={question.questionId}
+                  type="questions"
+                  bookmark={question.bookmark}
+                  setIsShowModal={setIsShowModal}
+                />
+              )}
+              <MarkdownContent data={question} />
+            </div>
+            {question.questionAnswers ? (
+              <Answers
+                data={question}
+                setIsShowModal={setIsShowModal}
+                setAnswerSort={setAnswerSort}
+              />
+            ) : null}
+            <YourAnswer questionId={question.questionId} />
+          </Wrapper>
+          <SideContent />
+        </ContentSection>
+      </Container>
+      {isShowModal && <SignUpModal setIsShowModal={setIsShowModal} />}
     </>
   );
 };

@@ -19,7 +19,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 const App = () => {
   return (
-    <div className="App">
+    <>
       <Header />
       <MainContainer>
         <Routes>
@@ -36,7 +36,7 @@ const App = () => {
         <ToastContainer />
       </MainContainer>
       <Footer />
-    </div>
+    </>
   );
 };
 

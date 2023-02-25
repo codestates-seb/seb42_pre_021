@@ -7,7 +7,7 @@ import {
   HowToTag,
   CancelButton,
   TopNotice,
-} from 'components/edit';
+} from 'components/Edit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 import { useRef, useState } from 'react';
@@ -15,16 +15,18 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import baseURL from 'api/baseURL';
+import { toast } from 'react-toastify';
 // import { useSelector } from 'react-redux';
 
 const QuestionEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const { title, content, tags } = location.state;
+  const { title, markdown, tags } = location.state;
   const [currentForm, setCurrentForm] = useState('edit');
   const [titleValue, setTitleValue] = useState(title);
   const [tagsArr, setTagsArr] = useState([...tags]);
+  const [isQuestionChanged, setIsQuestionChanged] = useState(false);
   const questionEditRef = useRef('');
 
   // const { user } = useSelector(state => state.auth);
@@ -35,49 +37,46 @@ const QuestionEdit = () => {
   };
 
   const handleSubmit = async () => {
-    const confirmEdit = confirm('수정하시겠습니까?');
-    if (confirmEdit) {
-      const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
-      const htmlValue = questionEditRef.current?.getInstance().getHTML();
-      // const headers = {
-      //   Authorization: `Bearer ${user.authorization}`,
-      //   refresh: `Bearer ${user.refresh}`,
-      //   'Content-Type': 'Application/json',
-      // };
-      await baseURL
-        .patch(`/questions/${id}`, {
-          title: titleValue,
-          content: {
-            html: htmlValue,
-            markdown: markdownValue,
-          },
-          tag: [...tagsArr],
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
-
-      // ! 서버 연동시 사용할 코드
-      // await axios({
-      //   url: `/questions/${id}`,
-      //   method: 'patch',
-      //   data: {
-      //     title: titleValue,
-      //     content: {
-      //       html: htmlValue,
-      //       markdown: markdownValue,
-      //     },
-      //     tag: [...tagsArr],
-      //   },
-      //   headers,
-      //   withCredentials: true,
-      // }).catch(err => {
-      //   console.log(err.message);
-      // });
-      navigate(-1);
-    } else {
+    // * 변경된 내용이 없을 시
+    if (!isQuestionChanged) {
+      toast.error('Nothing has changed!!');
       return;
     }
+    const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
+    const htmlValue = questionEditRef.current?.getInstance().getHTML();
+    // const headers = {
+    //   Authorization: `Bearer ${user.authorization}`,
+    //   refresh: `Bearer ${user.refresh}`,
+    //   'Content-Type': 'Application/json',
+    // };
+    await baseURL
+      .patch(`/questions/${id}`, {
+        title: titleValue,
+        html: htmlValue,
+        markdown: markdownValue,
+        tag: [...tagsArr],
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+
+    // ! 서버 연동시 사용할 코드
+    // await axios({
+    //   url: `/questions/${id}`,
+    //   method: 'patch',
+    //   data: {
+    //     title: titleValue,
+    //       html: htmlValue,
+    //       markdown: markdownValue,
+    //     tag: [...tagsArr],
+    //   },
+    //   headers,
+    //   withCredentials: true,
+    // }).catch(err => {
+    //   console.log(err.message);
+    // });
+    navigate(`../${id}`);
+    toast.success('수정이 완료되었습니다');
   };
 
   return (
@@ -91,21 +90,24 @@ const QuestionEdit = () => {
             handleSectionClick={handleSectionClick}
             setTitleValue={setTitleValue}
             titleValue={titleValue}
+            setIsQuestionChanged={setIsQuestionChanged}
           />
           <BodyEdit
             questionEditRef={questionEditRef}
-            content={content}
+            content={markdown}
             handleSectionClick={handleSectionClick}
             currentForm={currentForm}
+            setIsQuestionChanged={setIsQuestionChanged}
           />
           <TagEdit
             handleSectionClick={handleSectionClick}
             tagsArr={tagsArr}
             setTagsArr={setTagsArr}
             currentForm={currentForm}
+            setIsQuestionChanged={setIsQuestionChanged}
           />
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton />
+          <CancelButton id={id} />
         </EditSection>
         <div>
           <SideNotice>

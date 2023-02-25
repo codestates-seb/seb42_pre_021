@@ -41,11 +41,16 @@ public interface QuestionMapper {
 
         Question question = new Question();
         Member member = new Member();
+//        QuestionBookmark questionBookmark = new QuestionBookmark();
         member.setMemberId(requestBody.getMemberId());
 
         question.setMember(member);
         question.setTitle( requestBody.getTitle() );
-        question.setContent( requestBody.getContent() );
+//        question.setContent( requestBody.getContent() );
+        question.setHtml(requestBody.getHtml());
+        question.setMarkdown(requestBody.getMarkdown());
+//        question.setQuestionBookmark(questionBookmark);
+
         List<QuestionTag> questionTags = tags.stream()
                 .map(requestTag -> {
                     QuestionTag questionTag = new QuestionTag();
@@ -91,11 +96,13 @@ public interface QuestionMapper {
         QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(requestBody.getMember().getMemberId(),requestBody.getMember().getNickname(),requestBody.getMember().getProfile());
         LocalDateTime createdAt = requestBody.getCreatedAt();
         LocalDateTime modifiedAt = requestBody.getModifiedAt();
-        String content = requestBody.getContent();
+//        String content = requestBody.getContent();
+        String html = requestBody.getHtml();
+        String markdown = requestBody.getMarkdown();
 //        AnswerBookmark answerBookmark = requestBody.getAnswerBookmark();
         AnswerBookmarkDto.Response answerBookmark = answerBookmarkToAnswerBookmarkResponseDto(requestBody.getAnswerBookmark());
         List<AnswerCommentDto.Response> answerCommentResponse = answerCommentsToAnswerCommentResponseDtos(requestBody.getAnswerComments());
-        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, content, questionMember,answerCommentResponse,answerBookmark);
+        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, html,markdown, questionMember,answerCommentResponse,answerBookmark);
 
         return questionAnswer;
     }
@@ -114,7 +121,7 @@ public interface QuestionMapper {
     List<QuestionDto.QuestionCommentResponse> commentsToQuestionCommentResponses(List<QuestionComment> requestBody);
 
     //질문 -> 질문 단건 리스폰스로 변경 (페이지네이션 적용, 여러 리스트로 인해 defualt 사용 - 추후 리팩토링 예정)
-    default QuestionDto.Response questionsToQuestionAnswer(Question question, Page<Answer> pageAnswers) {
+    default QuestionDto.Response questionsToQuestionAnswer(Question question, Page<Answer> pageAnswers,QuestionBookmark findBookmark) {
         if ( question == null ) {
             return null;
         }
@@ -129,14 +136,17 @@ public interface QuestionMapper {
         }
         Long questionId = question.getQuestionId();
         String title = question.getTitle();
-        String content = question.getContent();
+//        String content = question.getContent();
+        String html = question.getHtml();
+        String markdown = question.getMarkdown();
         LocalDateTime createdAt = question.getCreatedAt();
         LocalDateTime modifiedAt = question.getModifiedAt();
         Integer viewCount = question.getViewCount();
         Integer answerCount = question.getAnswerCount();
         Integer voteCount = question.getVoteCount();
-//        QuestionBookmark questionBookmark = question.getQuestionBookmark();
-        QuestionBookmarkDto.Response questionBookmark = questionBookmarkToQuestionBookmarkResponseDto(question.getQuestionBookmark());
+
+        QuestionBookmarkDto.Response questionBookmark = questionBookmarkToQuestionBookmarkResponseDto(findBookmark);
+
         List<Answer> answers = pageAnswers.getContent();
         List<QuestionComment> comments = question.getQuestionComments();
 
@@ -146,7 +156,7 @@ public interface QuestionMapper {
         questionAnswers = answersToQuestionAnswers(answers);
         questionComments = commentsToQuestionCommentResponses(comments);
 
-        QuestionDto.Response response = new QuestionDto.Response(questionId, title, content, createdAt, modifiedAt, viewCount,
+        QuestionDto.Response response = new QuestionDto.Response(questionId, title, html, markdown, createdAt, modifiedAt, viewCount,
                 answerCount, questionMember, questionAnswers, pageInfo, questionComments,questionTags,questionBookmark);
 
         return response;

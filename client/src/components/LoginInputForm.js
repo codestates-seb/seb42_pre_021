@@ -39,26 +39,6 @@ const LoginInputForm = () => {
     return <Spinner />;
   }
 
-  // // 인풋값입력후 포커스 잃은 후(onBlur) 유효성검사
-  // const CheckEmail = event => {
-  //   const emailRegex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-  //   if (emailRegex.test(event.target.value)) {
-  //     setEmailValid(true);
-  //   } else {
-  //     alert('이메일을 형식에 맞게 입력해 주세요');
-  //   }
-  // };
-
-  // const checkPassword = event => {
-  //   const passwordRegex = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$/;
-  //   //8자이상, 하나이상의 문자(대소문자 구별안함), 하나이상의 숫자
-  //   if (passwordRegex.test(event.target.value)) {
-  //     setPasswordValid(true);
-  //   } else {
-  //     alert('패스워드를 확인해주세요');
-  //   }
-  // };
-
   const handleSubmit = event => {
     event.preventDefault();
     const userData = {
@@ -67,32 +47,6 @@ const LoginInputForm = () => {
     };
     dispatch(login(userData));
   };
-
-  //   const headers = {
-  //     'Access-Control-Allow-Origin': '*',
-  //     'Content-Type': 'application/json',
-  //   };
-
-  //     return axios
-  //       .post(`${process.env.REACT_APP_API_URL}/members/login`, values, { headers })
-  //       .then(response => {
-  //         const { accessToken } = response.data;
-  //         localStorage.setItem('accessToken', accessToken);
-  //       })
-  //       .get(`${process.env.REACT_APP_API_URL}/members/`, {
-  //         withCredentials: true,
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //         },
-  //       })
-  //       .then(() => {
-  //         // setIsLogin(true);
-  //         navigate('/questions');
-  //       })
-  //       .catch(error => {
-  //         alert(error);
-  //       });
-  // };
 
   return (
     <InputContainer>

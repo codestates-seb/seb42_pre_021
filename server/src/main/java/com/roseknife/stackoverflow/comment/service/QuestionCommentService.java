@@ -22,7 +22,8 @@ public class QuestionCommentService {
 
 	public QuestionComment updateQuestionComment(QuestionComment questionComment) {
 		QuestionComment findQuestionComment = findVerifiedQuestionComment(questionComment.getQuestionCommentId());
-		Optional.ofNullable(questionComment.getContent()).ifPresent(findQuestionComment::setContent);
+		Optional.ofNullable(questionComment.getHtml()).ifPresent(findQuestionComment::setHtml);
+		Optional.ofNullable(questionComment.getMarkdown()).ifPresent(findQuestionComment::setMarkdown);
 
 		return questionCommentRepository.save(findQuestionComment);
 	}
