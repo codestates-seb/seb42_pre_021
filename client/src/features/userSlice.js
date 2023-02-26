@@ -25,7 +25,6 @@ export const getUser = createAsyncThunk('user/getUser', async (id, thunkAPI) => 
 
 export const patchUser = createAsyncThunk('user/editUser', async (editData, thunkAPI) => {
   try {
-    console.log(editData);
     return await userService.userInfoEdit(editData.data, editData.id);
   } catch (error) {
     console.log(error);

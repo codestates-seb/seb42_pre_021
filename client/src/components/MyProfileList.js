@@ -46,12 +46,12 @@ const MyProfileList = ({
               {isEdit ? (
                 <TextEditor
                   editorRef={editorRef}
-                  editorValue={userinfo.content || ' '}
+                  editorValue={userinfo.content.markdown || ' '}
                   editorHeight={'10rem'}
                   onEditorChange={handleOnChangeEditor}
                 />
               ) : (
-                <span>{userinfo.content}</span>
+                <span>{userinfo.content.markdown}</span>
               )}
             </li>
           </ul>

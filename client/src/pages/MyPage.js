@@ -1,14 +1,16 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+
 import Navigation from 'containers/Navigation';
 import MyProfileList from 'components/MyProfileList';
+import { deleteUser, getUser } from 'features/userSlice';
+
 import { ReactComponent as Search } from 'assets/search.svg';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from 'features/userSlice';
 
 //useSelect는 전역스토어에서 유저의 정보를 가져옵니다. 없으면 null 값입니다.
 //dispatch를 이용하여 get/patch 요청을 날려야하므로 feature 폴더에 관련 api를 작성하세요
@@ -16,17 +18,29 @@ import { getUser } from 'features/userSlice';
 const MyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { userinfo, isLoading, error } = useSelector(state => state.user);
-  // Edit으로 중첩라우터 만들기
+
   // const { user } = useSelector(state => state.auth);
-  // const user = JSON.parse(localStorage.getItem('user'));
   // user.memberId
   useEffect(() => {
-    dispatch(getUser(1));
+    /**
+     * if 주석 풀고 해야된다 실제로 할 땐
+     */
+    // if (!user) {
+    //   navigate('/');
+    //   return;
+    // }
+    dispatch(getUser(1)); //id
   }, [dispatch]);
-  // [userinfo, isLoading, error, dispatch]
+
   const handleClickEdit = () => {
     navigate('/mypage/edit');
+  };
+
+  const handleDeleteButtonClick = () => {
+    dispatch(deleteUser(1)); //id
+    navigate('/');
   };
 
   return (
@@ -35,14 +49,14 @@ const MyPage = () => {
       {error && <div>{error.message}</div>}
 
       <Navigation />
-      {userinfo[0] && (
+      {userinfo && (
         <Container>
           <ButtonBox>
             <button className="mypageButton" onClick={handleClickEdit}>
               <FaPen />
               Edit profile
             </button>
-            <button className="mypageButton">
+            <button className="mypageButton" onClick={handleDeleteButtonClick}>
               <FaTrashAlt />
               Delete Profile
             </button>
@@ -72,7 +86,7 @@ const MyPage = () => {
                   </ul>
                 </ProfileContainer>
               </InfoHeader>
-              <MyProfileList userinfo={userinfo[0]} />
+              <MyProfileList userinfo={userinfo} />
             </div>
           </InfoContainer>
         </Container>

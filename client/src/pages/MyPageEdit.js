@@ -1,23 +1,33 @@
 import styled from 'styled-components';
-import { useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// import { useLocation } from 'react-router-dom';
 // import axios from 'axios';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
+import { patchUser, getUser } from 'features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const MyPageEdit = () => {
-  const isEdit = true; // edit 창인가 아닌가
-  const { state } = useLocation(); // mypage에서 가져온 내용
   const editorRef = useRef('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { userinfo, isLoading, error } = useSelector(state => state.user);
 
-  const [content, setContent] = useState(null);
-  const [inputData, setInputData] = useState({
-    nickname: state[0].nickname,
-    location: state[0].location,
-    title: state[0].title,
-  });
+  const isEdit = true; // edit 창인가 아닌가
+  const [content, setContent] = useState({});
+  const [inputData, setInputData] = useState({});
+
+  /**
+   * @problem id는 이걸로
+  const { user } = useSelector(state => state.auth);
+  user.memberId 
+  */
+  useEffect(() => {
+    dispatch(getUser(1)); //id
+  }, [dispatch]);
 
   const handleOnChangeEditor = () => {
     const html = editorRef.current?.getInstance().getHTML();
@@ -30,21 +40,35 @@ const MyPageEdit = () => {
   };
 
   const handleSaveButtonClick = () => {
-    const data = { ...inputData, content };
+    let data = { ...inputData, content };
+    if (Object.keys(content).length === 0) {
+      data = { ...inputData };
+    }
 
-    console.log(data);
+    /**
+     * @problem - 나중에 지워 id
+     */
+    const id = 1;
+    const editData = { data, id };
+    dispatch(patchUser(editData));
+    navigate('/mypage');
+  };
 
-    // return axios.patch(`http://localhost:3001/data`, data);
+  const handleCancelButtonClick = () => {
+    window.location.replace('/mypage');
   };
 
   return (
     <>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>{error.message}</div>}
+
       <Navigation />
-      {state[0] && (
+      {userinfo && (
         <Container>
           <InfoContainer>
             <h3>Public information</h3>
-            <form className="infoForm" onSubmit={handleSaveButtonClick}>
+            <form className="infoForm">
               <InfoHeader>
                 <span>Profile image</span>
                 <div>
@@ -54,10 +78,7 @@ const MyPageEdit = () => {
                 </div>
               </InfoHeader>
               <MyProfileList
-                nickname={state[0].nickname}
-                location={state[0].location}
-                title={state[0].title}
-                content={state[0].content}
+                userinfo={userinfo}
                 editorRef={editorRef}
                 isEdit={isEdit}
                 handleOnChangeEditor={handleOnChangeEditor}
@@ -70,9 +91,9 @@ const MyPageEdit = () => {
               buttonText={'Save profile'}
               handleButtonClick={handleSaveButtonClick}
             ></AddButton>
-            <Link to="/mypage" className="cancleButton">
+            <button className="cancleButton" onClick={handleCancelButtonClick}>
               Cancel
-            </Link>
+            </button>
           </ButtonBox>
         </Container>
       )}
