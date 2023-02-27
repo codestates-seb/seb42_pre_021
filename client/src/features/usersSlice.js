@@ -9,9 +9,9 @@ const initialState = {
   error: null,
 };
 
-export const getUsers = createAsyncThunk('users/getUsers', async thunkAPI => {
+export const getUsers = createAsyncThunk('users/getUsers', async (data, thunkAPI) => {
   try {
-    return await userService.users();
+    return await userService.users(data);
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);
@@ -28,8 +28,7 @@ export const usersSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getUsers.fulfilled, (state, action) => {
-        console.log(action);
-        state.users = action.payload;
+        state.users = action.payload.data;
         state.isLoading = false;
       })
       .addCase(getUsers.rejected, (state, action) => {

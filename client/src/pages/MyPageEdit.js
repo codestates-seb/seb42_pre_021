@@ -15,7 +15,6 @@ const MyPageEdit = () => {
   const { userinfo, isLoading, error } = useSelector(state => state.user);
 
   const isEdit = true;
-  const [content, setContent] = useState({});
   const [inputData, setInputData] = useState({});
   const [userPassword, setUserPassword] = useState({});
   const [isClick, setIsClick] = useState(false);
@@ -27,15 +26,10 @@ const MyPageEdit = () => {
     dispatch(getUser(id));
   }, [dispatch]);
 
-  const handleOnChangeEditor = () => {
+  const handleSaveButtonClick = async () => {
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    setContent({ html, markdown });
-  };
-
-  const handleSaveButtonClick = () => {
-    console.log(userPassword);
-    const data = { ...inputData, ...content };
+    const data = { ...inputData, html, markdown, userPassword };
     const userData = { data, id };
     console.log(userData);
     dispatch(patchUser(userData));
@@ -78,7 +72,6 @@ const MyPageEdit = () => {
                 userinfo={userinfo}
                 editorRef={editorRef}
                 isEdit={isEdit}
-                handleOnChangeEditor={handleOnChangeEditor}
                 state={inputData}
                 setState={setInputData}
               />
@@ -210,7 +203,7 @@ const Backdrop = styled.div`
 const BackdropView = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 50%;
   height: 20vh;
   justify-content: center;
   align-items: center;
