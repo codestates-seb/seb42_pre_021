@@ -17,7 +17,7 @@ const initialState = {
 
 export const getUser = createAsyncThunk('user/getUser', async (id, thunkAPI) => {
   try {
-    return await userService.userInfo(1);
+    return await userService.userInfo(id);
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);
