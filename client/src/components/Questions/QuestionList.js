@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Paging from './Paging';
 import customAxios from 'api/baseURL';
+import { LoadingContainer } from 'containers/Container';
+import Spinner from 'components/Spinner';
 
 const QuestionList = () => {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const QuestionList = () => {
   const [pageInfo, setPageInfo] = useState({});
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getQuestions = async () => {
     const params = {
@@ -33,6 +36,7 @@ const QuestionList = () => {
       .then(response => {
         setQuestionList(response.data.data);
         setPageInfo(response.data.pageInfo);
+        setIsLoading(false);
       })
       .catch(error => {
         console.log(error);
@@ -49,29 +53,39 @@ const QuestionList = () => {
 
   return (
     <>
-      <TitleWrapper>
-        <div>
-          <h1>All Questions</h1>
-          <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
-        </div>
-        <div>
-          <h2>{questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions</h2>
-          <ListSort sortBy={sortBy} setSortBy={setSortBy} />
-        </div>
-      </TitleWrapper>
-      <QuestionWrapper>
-        {questionList.map(question => {
-          return <QuestionArticle key={question.questionId} question={question} />;
-        })}
-      </QuestionWrapper>
-      <Paging
-        sortBy={sortBy}
-        page={page}
-        setPage={setPage}
-        size={size}
-        setSize={setSize}
-        total={pageInfo.totalElements}
-      />
+      {!isLoading ? (
+        <>
+          <TitleWrapper>
+            <div>
+              <h1>All Questions</h1>
+              <AddButton buttonText="Add Question" handleButtonClick={handleAskButtonClick} />
+            </div>
+            <div>
+              <h2>
+                {questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
+              </h2>
+              <ListSort sortBy={sortBy} setSortBy={setSortBy} />
+            </div>
+          </TitleWrapper>
+          <QuestionWrapper>
+            {questionList.map(question => {
+              return <QuestionArticle key={question.questionId} question={question} />;
+            })}
+          </QuestionWrapper>
+          <Paging
+            sortBy={sortBy}
+            page={page}
+            setPage={setPage}
+            size={size}
+            setSize={setSize}
+            total={pageInfo.totalElements}
+          />
+        </>
+      ) : (
+        <LoadingContainer>
+          <Spinner />
+        </LoadingContainer>
+      )}
     </>
   );
 };
