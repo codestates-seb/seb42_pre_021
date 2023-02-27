@@ -12,14 +12,10 @@ const initialState = {
   message: '',
 };
 
-//createAsyncThunk는 비동기작업을 처리해주는 액션을 만들어 준다.
 //회원가입
-// EMAIL_EXISTS(409, "Email Already Exists"),
-// NICKNAME_EXIST(409, "Nickname Already Exists"),
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
   try {
     return await authService.register(user);
-    //여기서 http 요청을 비동기로 실행
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
