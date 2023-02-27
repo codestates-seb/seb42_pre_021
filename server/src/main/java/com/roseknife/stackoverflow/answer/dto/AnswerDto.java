@@ -26,6 +26,8 @@ public class AnswerDto {
 
 		@Positive
 		private Long questionId;
+
+//		private Integer voteCount;
 	}
 
 	@Getter
@@ -33,11 +35,11 @@ public class AnswerDto {
 	public static class Patch {
 		private Long answerId;
 
-		@NotBlank
 		private String html;
 
-		@NotBlank
 		private String markdown;
+
+		private Integer voteCount;
 	}
 
 	@Getter
@@ -56,9 +58,11 @@ public class AnswerDto {
 
 		private String modifiedAt;
 
+		private Integer voteCount;
 		private List<AnswerComment> answerComments;
 
-		public Response(Long answerId, String html, String markdown, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, List<AnswerComment> answerComments) {
+		public Response(Integer voteCount, Long answerId, String html, String markdown, String nickname, String profile, LocalDateTime createdAt, LocalDateTime modifiedAt, List<AnswerComment> answerComments) {
+			this.voteCount = voteCount;
 			this.answerId = answerId;
 			this.html = html;
 			this.markdown = markdown;

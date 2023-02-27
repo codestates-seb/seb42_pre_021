@@ -31,10 +31,10 @@ public class QuestionService {
         return savedQuestion;
     }
 
-    public Question updateQuestion(Question Question) {
-        Question findQuestion = findVerifiedQuestion(Question.getQuestionId(),FindStatus.NONE);
+    public Question updateQuestion(Question question) {
+        Question findQuestion = findVerifiedQuestion(question.getQuestionId(),FindStatus.NONE);
 
-        Question updateQuestion = beanUtils.copyNonNullProperties(Question, findQuestion);
+        Question updateQuestion = beanUtils.copyNonNullProperties(question, findQuestion);
 
         return questionRepository.save(updateQuestion);
     }
