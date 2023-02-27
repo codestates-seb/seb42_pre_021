@@ -1,5 +1,5 @@
 import TextEditor from 'components/Editor';
-import { HowToEdit, HowToFormat, CancelButton, TopNotice } from 'components/Edit';
+import { HowToEdit, HowToFormat, CancelButton, TopNotice } from 'components/QuestionAnswerEdit';
 import { Container } from 'containers/Container';
 import Navigation from 'containers/Navigation';
 // eslint-disable-next-line
