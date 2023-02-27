@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import { Container } from 'containers/Container';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import customAxios from 'api/baseURL';
 // import baseURL from 'api/baseURL';
 
 const QuestionDetail = () => {
@@ -30,12 +30,6 @@ const QuestionDetail = () => {
 
   const getQuestionData = async () => {
     const memberId = user ? user.memberId : 0;
-    const headers = {
-      Authorization: `Bearer ${user.authorization}`,
-      refresh: `Bearer ${user.refresh}`,
-      'Content-Type': 'Application/json',
-      'Access-Control-Allow-Origin': '*',
-    };
 
     const params = {
       page: 1,
@@ -46,20 +40,12 @@ const QuestionDetail = () => {
     };
     console.log(params, user);
 
-    await axios({
-      url: `https://9f1a-59-10-231-15.jp.ngrok.io/questions/${id}`,
-      method: 'get',
-      withCredentials: true,
-      headers,
-      params,
-    }).then(response => setQuestion(response.data.data));
+    await customAxios
+      .get(`questions/${id}`, {
+        params,
+      })
+      .then(response => setQuestion(response.data.data));
   };
-
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: 0,
-  //   });
-  // }, [window.scrollY]);
 
   useEffect(() => {
     getQuestionData();
