@@ -8,10 +8,9 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
-import baseURL from 'api/baseURL';
 import { toast } from 'react-toastify';
-// import { useSelector } from 'react-redux';
-// import axios from 'axios';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const AnswerEdit = () => {
   const { id } = useParams();
@@ -30,7 +29,7 @@ const AnswerEdit = () => {
     }
   };
 
-  // const { user } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
 
   const handleClickTitle = () => {
@@ -46,33 +45,23 @@ const AnswerEdit = () => {
 
     const markdownValue = answerEditRef.current?.getInstance().getMarkdown();
     const htmlValue = answerEditRef.current?.getInstance().getHTML();
-    // const headers = {
-    //   Authorization: `Bearer ${user.authorization}`,
-    //   refresh: `Bearer ${user.refresh}`,
-    //   'Content-Type': 'Application/json',
-    // };
-    await baseURL
-      .patch(`/answers/${answerId}`, {
+    const headers = {
+      Authorization: `Bearer ${user.authorization}`,
+      refresh: `Bearer ${user.refresh}`,
+      'Content-Type': 'Application/json',
+    };
+    await axios({
+      url: `/answers/${answerId}`,
+      method: 'patch',
+      data: {
         html: htmlValue,
         markdown: markdownValue,
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-
-    // ! 서버 연동시 사용할 코드
-    // await axios({
-    //   url: `/answers/${answerId}`,
-    //   method: 'patch',
-    //   data: {
-    //       html: htmlValue,
-    //       markdown: markdownValue,
-    //   },
-    //   headers,
-    //   withCredentials: true,
-    // }).catch(err => {
-    //   console.log(err.message);
-    // });
+      },
+      headers,
+      withCredentials: true,
+    }).catch(err => {
+      console.log(err.message);
+    });
     navigate(`../${id}`);
     toast.success('수정이 완료되었습니다');
   };

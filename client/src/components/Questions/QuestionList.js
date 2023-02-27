@@ -4,70 +4,53 @@ import AddButton from '../AddButton';
 import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 import { useNavigate } from 'react-router-dom';
-import baseURL from 'api/baseURL';
-// import axios from 'axios';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
-// import Paging from './Paging';
+import Paging from './Paging';
 
 const QuestionList = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
 
-  //useSelect는 전역스토어에서 유저의 정보를 가져옵니다. 없으면 null 값입니다.
-  //dispatch를 이용하여 get 요청을 날려야하므로 feature 폴더에 관련 api를 작성하세요
-
-  // const SORT_BY = ['Newest', 'Oldest', 'Answers', 'Views'];
-
   const [questionList, setQuestionList] = useState([]);
   const [sortBy, setSortBy] = useState('createdAt');
-  // const [pageInfo, setPageInfo] = useState({});
-  // const [page, setPage] = useState(1);
-  // const [size, setSize] = useState(10);
+  const [pageInfo, setPageInfo] = useState({});
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(10);
 
-  // ^ json-server 테스트용 코드
-  const getQuestionsData = async () => {
-    await baseURL.get('/questions').then(response => setQuestionList(response.data));
+  // ! 서버 연동시 사용할 코드
+  const getQuestions = async () => {
+    const headers = {
+      'Content-Type': 'Application/json',
+      'Access-Control-Allow-Origin': '*',
+    };
+    const params = {
+      page,
+      size,
+      sortDir: 'DESC',
+      sortBy,
+    };
+    await axios({
+      url: '/questions',
+      method: 'get',
+      withCredentials: true,
+      headers,
+      params,
+    })
+      .then(response => {
+        console.log(response);
+        setQuestionList(response.data.data);
+        setPageInfo(response.data.pageInfo);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
-  // ! 서버 연동시 사용할 코드
-  // const getQuestions = async () => {
-  //   const headers = {
-  //     'Content-Type': 'Application/json',
-  //     'Access-Control-Allow-Origin': '*',
-  //   };
-  //   const params = {
-  //     page,
-  //     size,
-  //     sortDir: 'DESC',
-  //     sortBy,
-  //   };
-  //   await axios({
-  //     url: 'https://975c-59-10-231-15.jp.ngrok.io/questions',
-  //     method: 'get',
-  //     withCredentials: true,
-  //     headers,
-  //     params,
-  //   })
-  //     .then(response => {
-  //       console.log(response);
-  //       setQuestionList(response.data.data);
-  //       setPageInfo(response.data.pageInfo);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
-
   useEffect(() => {
-    getQuestionsData();
-  }, []);
-
-  // ! 서버 연동시 사용할 코드
-  // useEffect(() => {
-  //   getQuestions();
-  // }, [sortBy, page, size]);
+    getQuestions();
+  }, [sortBy, page, size]);
 
   const handleAskButtonClick = () => {
     user ? navigate('/add') : navigate('/login');
@@ -90,14 +73,14 @@ const QuestionList = () => {
           return <QuestionArticle key={question.questionId} question={question} />;
         })}
       </QuestionWrapper>
-      {/* <Paging
+      <Paging
         sortBy={sortBy}
         page={page}
         setPage={setPage}
         size={size}
         setSize={setSize}
         total={pageInfo.totalElements}
-      /> */}
+      />
     </>
   );
 };
@@ -106,6 +89,7 @@ const TitleWrapper = styled.div`
   background-color: #fff;
   width: 100%;
   height: max-content;
+  min-height: calc(100vh - 3rem);
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;

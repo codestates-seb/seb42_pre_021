@@ -83,7 +83,6 @@ const TagWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   > input {
-    /* width: calc(100% - ${props => props.length * 10 + 20}px); */
     width: auto;
     border: none;
     :focus {
