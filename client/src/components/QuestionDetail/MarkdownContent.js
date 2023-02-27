@@ -15,7 +15,7 @@ const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
       {data.createdAt && (
         <MarkdownDesign className={isAnswer ? 'answer_markdown' : null}>
           <div className="content" dangerouslySetInnerHTML={handleHTML(data.html)}></div>
-          {data.tagNames && <Tags data={data} />}
+          {data.questionTags && <Tags data={data} />}
           <EditAndProfile
             member={data.questionMember}
             date={data.createdAt}
@@ -38,6 +38,11 @@ const MarkdownDesign = styled.div`
   padding: 0.5rem 0 2rem 4rem;
   code {
     font-family: 'Fira Code', monospace;
+  }
+  p {
+    > img {
+      width: 100%;
+    }
   }
   .content {
     width: 100%;
