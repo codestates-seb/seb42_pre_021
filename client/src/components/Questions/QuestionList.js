@@ -89,6 +89,7 @@ const TitleWrapper = styled.div`
   background-color: #fff;
   width: 100%;
   height: max-content;
+  min-height: calc(100vh - 3rem);
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
