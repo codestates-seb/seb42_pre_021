@@ -22,32 +22,34 @@ const Paging = ({ size, page, setPage, setSize, total }) => {
         nextPageText={'Next'}
         onChange={handlePageChange}
       />
-      <PagePer>
-        <ul>
-          <li
-            role="presentation"
-            className={size === 10 ? 'current_size' : null}
-            onClick={() => handleClickSize(10)}
-          >
-            10
-          </li>
-          <li
-            role="presentation"
-            className={size === 15 ? 'current_size' : null}
-            onClick={() => handleClickSize(15)}
-          >
-            15
-          </li>
-          <li
-            role="presentation"
-            className={size === 20 ? 'current_size' : null}
-            onClick={() => handleClickSize(20)}
-          >
-            20
-          </li>
-        </ul>
-        <p>per page</p>
-      </PagePer>
+      {setSize && (
+        <PagePer>
+          <ul>
+            <li
+              role="presentation"
+              className={size === 10 ? 'current_size' : null}
+              onClick={() => handleClickSize(10)}
+            >
+              10
+            </li>
+            <li
+              role="presentation"
+              className={size === 15 ? 'current_size' : null}
+              onClick={() => handleClickSize(15)}
+            >
+              15
+            </li>
+            <li
+              role="presentation"
+              className={size === 20 ? 'current_size' : null}
+              onClick={() => handleClickSize(20)}
+            >
+              20
+            </li>
+          </ul>
+          <p>per page</p>
+        </PagePer>
+      )}
     </PagingWrapper>
   );
 };
