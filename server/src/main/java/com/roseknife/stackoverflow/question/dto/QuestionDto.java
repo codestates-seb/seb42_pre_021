@@ -54,6 +54,8 @@ public class QuestionDto {
     @Getter
     @AllArgsConstructor
     public static class QuestionAnswer {
+        @Positive
+        private Long answerId;
         private String createdAt;
         private String modifiedAt;
 
@@ -68,8 +70,9 @@ public class QuestionDto {
 
 //        private AnswerBookmark answerBookmark;
         private AnswerBookmarkDto.Response answerBookmark;
-        public QuestionAnswer(LocalDateTime createdAt, LocalDateTime modifiedAt, String html,String markdown, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments,
+        public QuestionAnswer(Long answerId,LocalDateTime createdAt, LocalDateTime modifiedAt, String html,String markdown, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments,
                               AnswerBookmarkDto.Response answerBookmark,Integer voteCount) {
+            this.answerId = answerId;
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.html = html;
@@ -187,11 +190,12 @@ public class QuestionDto {
 
         private Integer voteCount;
 
+        private List<String> questionTags;
         private QuestionDto.QuestionMember questionMember;
 
         public ResponseAll(Long questionId, String title, String html, String markdown, LocalDateTime createdAt,
                            LocalDateTime modifiedAt, Integer viewCount, Integer answerCount,
-                           QuestionMember questionMember,Integer voteCount) {
+                           QuestionMember questionMember,Integer voteCount, List<String> questionTags) {
             this.questionId = questionId;
             this.title = title;
             this.html = html;
@@ -202,6 +206,7 @@ public class QuestionDto {
             this.answerCount = answerCount;
             this.questionMember = questionMember;
             this.voteCount = voteCount;
+            this.questionTags = questionTags;
         }
 
     }

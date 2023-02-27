@@ -20,6 +20,7 @@ import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,12 +70,43 @@ public interface QuestionMapper {
     Question questionPatchToQuestion(QuestionDto.Patch requestBody);
 
     //질문 전체 조회 Mapper
-    @Named("Q2R3")
-    @Mapping(source = "member.nickname",target = "questionMember.nickname")
-    @Mapping(source = "member.profile",target = "questionMember.profile")
-    @Mapping(source = "member.memberId",target = "questionMember.memberId")
-    QuestionDto.ResponseAll questionToQuestionResponseAll(Question requestBody);
-    @IterableMapping(qualifiedByName = "Q2R3")
+//    @Named("Q2R3")
+//    @Mapping(source = "member.nickname",target = "questionMember.nickname")
+//    @Mapping(source = "member.profile",target = "questionMember.profile")
+//    @Mapping(source = "member.memberId",target = "questionMember.memberId")
+    default QuestionDto.ResponseAll questionToQuestionResponseAll(Question requestBody){
+        if ( requestBody == null ) {
+            return null;
+        }
+
+        QuestionDto.ResponseAll.ResponseAllBuilder responseAll = QuestionDto.ResponseAll.builder();
+
+
+        responseAll.questionMember(new QuestionDto.QuestionMember(requestBody.getMember().getMemberId(),requestBody.getMember().getNickname(),requestBody.getMember().getProfile()));
+        List<String> questionTags = new ArrayList<>();
+        for (QuestionTag questionTag : requestBody.getQuestionTags()) {
+            questionTags.add(questionTag.getTag().getName());
+        }
+        responseAll.questionTags(questionTags);
+        responseAll.questionId( requestBody.getQuestionId() );
+        responseAll.title( requestBody.getTitle() );
+        responseAll.html( requestBody.getHtml() );
+        responseAll.markdown( requestBody.getMarkdown() );
+        if ( requestBody.getCreatedAt() != null ) {
+            responseAll.createdAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( requestBody.getCreatedAt() ) );
+        }
+        if ( requestBody.getModifiedAt() != null ) {
+            responseAll.modifiedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( requestBody.getModifiedAt() ) );
+        }
+        responseAll.viewCount( requestBody.getViewCount() );
+        responseAll.answerCount( requestBody.getAnswerCount() );
+        responseAll.voteCount( requestBody.getVoteCount() );
+
+        return responseAll.build();
+    }
+
+
+//    @IterableMapping(qualifiedByName = "Q2R3")
     List<QuestionDto.ResponseAll> questionsToQuestionResponses(List<Question> questions);
 
     //답변 댓글 -> 답변 댓글 리스폰DTO로 변경 (#1)
@@ -94,6 +126,7 @@ public interface QuestionMapper {
         }
 
         QuestionDto.QuestionMember questionMember = new QuestionDto.QuestionMember(requestBody.getMember().getMemberId(),requestBody.getMember().getNickname(),requestBody.getMember().getProfile());
+        Long answerId = requestBody.getAnswerId();
         LocalDateTime createdAt = requestBody.getCreatedAt();
         LocalDateTime modifiedAt = requestBody.getModifiedAt();
 //        String content = requestBody.getContent();
@@ -103,7 +136,7 @@ public interface QuestionMapper {
 //        AnswerBookmark answerBookmark = requestBody.getAnswerBookmark();
         AnswerBookmarkDto.Response answerBookmark = answerBookmarkToAnswerBookmarkResponseDto(requestBody.getAnswerBookmark());
         List<AnswerCommentDto.Response> answerCommentResponse = answerCommentsToAnswerCommentResponseDtos(requestBody.getAnswerComments());
-        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, html,markdown, questionMember,answerCommentResponse,answerBookmark,voteCount);
+        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer(answerId, createdAt, modifiedAt, html,markdown, questionMember,answerCommentResponse,answerBookmark,voteCount);
 
         return questionAnswer;
     }
