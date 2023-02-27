@@ -1,23 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {
+  DetailTitle,
+  Vote,
+  Answers,
+  MarkdownContent,
+  YourAnswer,
+  SignUpModal,
+} from 'components/QuestionDetail';
+import { SideContent } from 'components/Questions';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
-import SideContent from 'components/SideContent';
-import DetailTitle from 'components/DetailTitle';
-import Vote from 'components/Vote';
-import Answers from 'components/Answers';
-import MarkdownContent from 'components/MarkdownContent';
-import YourAnswer from 'components/YourAnswer';
 import { Container } from 'containers/Container';
 // import baseURL from 'api/baseURL';
 import SignUpModal from 'components/SignUpModal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import baseURL from 'api/baseURL';
+import { useSelector } from 'react-redux';
+// import axios from 'axios';
 
 const QuestionDetail = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
+  const [answerSort, setAnswerSort] = useState({
+    by: 'voteCount',
+    dir: 'DESC',
+  });
 
   const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -30,18 +40,15 @@ const QuestionDetail = () => {
       'Content-Type': 'Application/json',
       'Access-Control-Allow-Origin': '*',
     };
+
     const params = {
       page: 1,
       size: 10,
-      sortDir: 'DESC',
-      sortBy: 'createdAt',
+      sortDir: answerSort.dir,
+      sortBy: answerSort.by,
       memberId,
     };
-
-    // // ^ json-server 테스트용 코드
-    // await baseURL.get(`/questions/${id}`).then(response => {
-    //   setQuestion(response.data);
-    // });
+    console.log(params, user);
 
     await axios({
       url: `https://9f1a-59-10-231-15.jp.ngrok.io/questions/${id}`,
@@ -70,7 +77,7 @@ const QuestionDetail = () => {
         <ContentSection>
           <Wrapper>
             <div className="question_content">
-              {question.voteCount && (
+              {question.voteCount !== undefined && (
                 <Vote
                   count={question.voteCount}
                   id={question.questionId}
@@ -82,7 +89,11 @@ const QuestionDetail = () => {
               <MarkdownContent data={question} />
             </div>
             {question.questionAnswers ? (
-              <Answers data={question} setIsShowModal={setIsShowModal} />
+              <Answers
+                data={question}
+                setIsShowModal={setIsShowModal}
+                setAnswerSort={setAnswerSort}
+              />
             ) : null}
             <YourAnswer questionId={question.questionId} />
           </Wrapper>

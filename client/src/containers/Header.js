@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <HeaderContainer>
+    <Container>
       <HeaderMenus>
         <div className="logoContainer">
           {isDeskOrMobi === true ? (
@@ -65,7 +65,6 @@ const Header = () => {
         <ButtonContainer>
           {user ? (
             <>
-              {' '}
               <Link to="/mypage" className="mypageLink">
                 <Search width={25} height={25} />
                 {/*프로필사진*/}
@@ -91,11 +90,11 @@ const Header = () => {
           <HeaderInputForm />
         </InputDrop>
       ) : null}
-    </HeaderContainer>
+    </Container>
   );
 };
 
-const HeaderContainer = styled.header`
+const Container = styled.header`
   display: flex;
   position: fixed;
   top: 0;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import AddButton from './AddButton';
+import AddButton from '../AddButton';
 import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 import { useNavigate } from 'react-router-dom';

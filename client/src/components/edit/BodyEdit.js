@@ -2,15 +2,23 @@ import styled from 'styled-components';
 import TextEditor from 'components/Editor';
 import { useState } from 'react';
 
-const BodyEdit = ({ questionEditRef, content, handleSectionClick, currentForm }) => {
+const BodyEdit = ({
+  questionEditRef,
+  content,
+  handleSectionClick,
+  currentForm,
+  setIsQuestionChanged,
+}) => {
   const [isChanged, setIsChanged] = useState(false);
 
   const handleEditorChange = () => {
     const ref = questionEditRef.current?.getInstance().getMarkdown();
     if (ref === content) {
       setIsChanged(false);
+      setIsQuestionChanged(cur => cur || false);
     } else {
       setIsChanged(true);
+      setIsQuestionChanged(cur => cur || true);
     }
   };
 
