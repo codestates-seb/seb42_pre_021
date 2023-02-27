@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useLocation } from 'react-router-dom';
-// import axios from 'axios';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyProfileList';
@@ -16,17 +14,15 @@ const MyPageEdit = () => {
   const dispatch = useDispatch();
   const { userinfo, isLoading, error } = useSelector(state => state.user);
 
-  const isEdit = true; // edit 창인가 아닌가
+  const isEdit = true;
   const [content, setContent] = useState({});
   const [inputData, setInputData] = useState({});
 
-  /**
-   * @problem id는 이걸로
   const { user } = useSelector(state => state.auth);
-  user.memberId 
-  */
+  const id = user.memberId;
+
   useEffect(() => {
-    dispatch(getUser(1)); //id
+    dispatch(getUser(id));
   }, [dispatch]);
 
   const handleOnChangeEditor = () => {
@@ -45,10 +41,6 @@ const MyPageEdit = () => {
       data = { ...inputData };
     }
 
-    /**
-     * @problem - 나중에 지워 id
-     */
-    const id = 1;
     const editData = { data, id };
     dispatch(patchUser(editData));
     navigate('/mypage');
