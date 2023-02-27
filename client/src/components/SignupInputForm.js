@@ -117,7 +117,7 @@ const SignupInputForm = () => {
           number.
         </span>
         <SignUpButton
-          // disabled={!checkEmail(email) || !checkPassword(password) || !nickname.length > 0}
+          disabled={!checkEmail(email) || !checkPassword(password) || !nickname.length > 0}
           onClick={handleSubmit}
         >
           Sign up
@@ -227,10 +227,6 @@ const SignUpButton = styled.button`
   &:hover {
     background-color: ${props => (props.disabled ? 'gray' : '#9ecbff')};
   }
-
-  /* &:disabled {
-    cursor: not-allowed;
-  } */
 `;
 
 export default SignupInputForm;

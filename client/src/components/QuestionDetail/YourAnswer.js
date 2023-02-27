@@ -1,16 +1,12 @@
-// import baseURL from 'api/baseURL';
+import baseURL from 'api/baseURL';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import TextEditor from 'components/Editor';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-<<<<<<< HEAD:client/src/components/YourAnswer.js
-import axios from 'axios';
-=======
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
->>>>>>> 88da46c8c8bcdc707f3bcd33c04b80c195e1fe5c:client/src/components/QuestionDetail/YourAnswer.js
 
 const YourAnswer = ({ questionId }) => {
   const answerRef = useRef('');
@@ -27,14 +23,6 @@ const YourAnswer = ({ questionId }) => {
       return;
     }
 
-<<<<<<< HEAD:client/src/components/YourAnswer.js
-    // // ^ json-server 테스트용 코드
-    // await baseURL.post('/answers', {
-    //   questionId,
-    //   content: {
-    //     markdown,
-    //     html,
-=======
     // ^ json-server 테스트용 코드
     await baseURL.post('/answers', {
       questionId,
@@ -60,37 +48,11 @@ const YourAnswer = ({ questionId }) => {
     //       html,
     //     },
     //     memberId: user.memberId,
->>>>>>> 88da46c8c8bcdc707f3bcd33c04b80c195e1fe5c:client/src/components/QuestionDetail/YourAnswer.js
     //   },
     //   memberId: user.memberId,
     // });
-<<<<<<< HEAD:client/src/components/YourAnswer.js
-
-    // ! 서버 연동시 사용할 코드
-    const headers = {
-      Authorization: `Bearer ${user.authorization}`,
-      refresh: `Bearer ${user.refresh}`,
-      'Content-Type': 'Application/json',
-    };
-
-    await axios({
-      url: `https://9f1a-59-10-231-15.jp.ngrok.io/answers`,
-      method: 'post',
-      data: {
-        questionId,
-        markdown,
-        html,
-        memberId: user.memberId,
-      },
-      withCredentials: true,
-      headers,
-    });
-
-=======
     location.reload();
->>>>>>> 88da46c8c8bcdc707f3bcd33c04b80c195e1fe5c:client/src/components/QuestionDetail/YourAnswer.js
     toast.success('답변이 등록되었습니다!');
-    //여기에 새로고침? 혹은 리렌더링? 이 필요해요!
   };
 
   return (

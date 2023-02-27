@@ -12,13 +12,9 @@ import { SideContent } from 'components/Questions';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import { Container } from 'containers/Container';
-// import baseURL from 'api/baseURL';
-import SignUpModal from 'components/SignUpModal';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import baseURL from 'api/baseURL';
-import { useSelector } from 'react-redux';
-// import axios from 'axios';
+// import baseURL from 'api/baseURL';
 
 const QuestionDetail = () => {
   const { id } = useParams();

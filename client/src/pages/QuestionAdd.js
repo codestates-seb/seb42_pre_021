@@ -96,38 +96,16 @@ const QuestionAdd = () => {
       tagNames: [...tagsArr],
     };
 
-    // const { authorization, refresh } = user;
-    // const URL = 'https://9f1a-59-10-231-15.jp.ngrok.io/';
-    // return axios({
-    //   url: `${URL}questions`,
-    //   method: 'post',
-    //   data: questionData,
-    //   withCredentials: true,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Access-Control-Allow-Origin': '*',
-    //     Authorization: `Bearer ${authorization}`,
-    //     refresh: `Bearer ${refresh}`,
-    //   },
-    // })
-    //   .then(response => {
-    //     console.log(response.data);
-    //     console.log(response.headers);
-    //     console.log(response.headers['location']);
-
-    //     const questionId = JSON.stringify(response.headers.location);
-    //     console.log(questionId);
-    //     // redirect('/');
-    //     navigate(`/`);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     toast.error('질문 생성에 실패하였습니다. 다시 시도해주세요');
-    //   });
-
     return customAxios
       .post('/questions', questionData)
-      .then(navigate(`/`))
+      .then(response => {
+        console.log(response.headers['location']);
+        const header = JSON.stringify(response.headers.location);
+        const questionId = header.substring(header.lastIndexOf('/'));
+        console.log(questionId);
+        navigate(`/${questionId}`);
+        // navigate(`/`)
+      })
       .catch(error => {
         console.log(error);
         toast.error('질문 생성에 실패하였습니다. 다시 시도해주세요');
