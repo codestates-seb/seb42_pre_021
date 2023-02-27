@@ -100,11 +100,10 @@ const QuestionAdd = () => {
       .post('/questions', questionData)
       .then(response => {
         console.log(response.headers['location']);
-        const header = JSON.stringify(response.headers.location);
-        const questionId = header.substring(header.lastIndexOf('/'));
-        console.log(questionId);
-        navigate(`/${questionId}`);
-        // navigate(`/`)
+        // const header = JSON.stringify(response.headers.location);
+        // const questionId = header.substring(header.lastIndexOf('/'));
+        // navigate(`/${questionId}`);
+        navigate(`/`);
       })
       .catch(error => {
         console.log(error);
