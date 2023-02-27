@@ -1,14 +1,23 @@
 import customAxios from 'api/baseURL';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
-  const [isBookmarked, setIsBookmarked] = useState(bookmark);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => {
+    console.log(bookmark);
+    if (type === 'questions') {
+      setIsBookmarked(bookmark.questionBookmarkFlag);
+    } else {
+      setIsBookmarked(bookmark.answerBookmarkFlag);
+    }
+  }, []);
 
   const handleBookmarkClick = async () => {
     // ! 로그인 안했을 시 모달창 띄우기
@@ -30,10 +39,10 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
         answerId: id,
       };
     }
+    setIsBookmarked(cur => !cur);
     await customAxios
-      .post(`bookmarks/${type}/${id}`, { ...data })
+      .post(`bookmarks/${type}`, { ...data })
       .then(resp => {
-        setIsBookmarked(resp.data.questionBookmarkFlag);
         if (resp.data.questionBookmarkFlag) {
           toast.success('북마크가 등록되었습니다!');
         } else {

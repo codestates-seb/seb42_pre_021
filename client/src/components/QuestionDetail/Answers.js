@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
@@ -5,7 +6,9 @@ import Vote from './Vote';
 
 const Answers = ({ data, setIsShowModal, setAnswerSort }) => {
   const answers = data.questionAnswers;
-
+  useEffect(() => {
+    console.log(answers);
+  });
   return (
     <>
       {answers.length ? (
@@ -23,7 +26,7 @@ const Answers = ({ data, setIsShowModal, setAnswerSort }) => {
                   count={answer.voteCount}
                   id={answer.answerId}
                   type="answers"
-                  bookmark={answer.bookmark}
+                  bookmark={answer.answerBookmark}
                   setIsShowModal={setIsShowModal}
                 />
                 <MarkdownContent

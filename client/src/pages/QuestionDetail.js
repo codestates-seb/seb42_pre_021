@@ -21,9 +21,10 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
   const [answerSort, setAnswerSort] = useState({
-    by: 'voteCount',
+    by: 'createdAt',
     dir: 'DESC',
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -38,13 +39,15 @@ const QuestionDetail = () => {
       sortBy: answerSort.by,
       memberId,
     };
-    console.log(params, user);
 
     await customAxios
       .get(`questions/${id}`, {
         params,
       })
-      .then(response => setQuestion(response.data.data));
+      .then(response => {
+        setQuestion(response.data.data);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -53,35 +56,37 @@ const QuestionDetail = () => {
 
   return (
     <>
-      <Container>
-        <Navigation />
-        <DetailTitle question={question} />
-        <ContentSection>
-          <Wrapper>
-            <div className="question_content">
-              {question.voteCount !== undefined && (
-                <Vote
-                  count={question.voteCount}
-                  id={question.questionId}
-                  type="questions"
-                  bookmark={question.bookmark}
+      {!isLoading ? (
+        <Container>
+          <Navigation />
+          <DetailTitle question={question} />
+          <ContentSection>
+            <Wrapper>
+              <div className="question_content">
+                {question.questionBookmark && (
+                  <Vote
+                    count={question.voteCount}
+                    id={question.questionId}
+                    type="questions"
+                    bookmark={question.questionBookmark}
+                    setIsShowModal={setIsShowModal}
+                  />
+                )}
+                <MarkdownContent data={question} />
+              </div>
+              {question.questionAnswers ? (
+                <Answers
+                  data={question}
                   setIsShowModal={setIsShowModal}
+                  setAnswerSort={setAnswerSort}
                 />
-              )}
-              <MarkdownContent data={question} />
-            </div>
-            {question.questionAnswers ? (
-              <Answers
-                data={question}
-                setIsShowModal={setIsShowModal}
-                setAnswerSort={setAnswerSort}
-              />
-            ) : null}
-            <YourAnswer questionId={question.questionId} />
-          </Wrapper>
-          <SideContent />
-        </ContentSection>
-      </Container>
+              ) : null}
+              <YourAnswer questionId={question.questionId} />
+            </Wrapper>
+            <SideContent />
+          </ContentSection>
+        </Container>
+      ) : null}
       {isShowModal && <SignUpModal setIsShowModal={setIsShowModal} />}
     </>
   );

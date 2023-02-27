@@ -46,7 +46,7 @@ const QuestionEdit = () => {
         title: titleValue,
         html: htmlValue,
         markdown: markdownValue,
-        tagNames: [...tagsArr],
+        // tagNames: [...tagsArr],
       })
       .catch(err => {
         console.log(err.message);
@@ -83,7 +83,7 @@ const QuestionEdit = () => {
             setIsQuestionChanged={setIsQuestionChanged}
           />
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton id={id} />
+          <CancelButton id={id} isChanged={isQuestionChanged} />
         </EditSection>
         <div>
           <SideNotice>

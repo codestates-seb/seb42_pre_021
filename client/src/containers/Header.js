@@ -28,7 +28,7 @@ const Header = () => {
   const { userinfo } = useSelector(state => state.user);
 
   useEffect(() => {
-    const id = user.memberId;
+    const id = 1;
     dispatch(getUser(id));
   }, [dispatch]);
 
