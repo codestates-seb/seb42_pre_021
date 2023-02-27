@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -13,9 +13,17 @@ import UserFilters from 'components/UserFilters';
 const Users = () => {
   const dispatch = useDispatch();
   const { users, isLoading, error } = useSelector(state => state.users);
+  const [newUserClicked, setNewUserClicked] = useState(false);
+  const data = { sortBy: 'createdAt', size: '10', page: '1', sortDir: 'DESC' };
+
+  const handleClickNewUsers = () => {
+    setNewUserClicked(!newUserClicked);
+    newUserClicked ? (data.sortDir = 'DESC') : (data.sortDir = 'ASC');
+    dispatch(getUsers(data));
+  };
 
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getUsers(data));
   }, [dispatch]);
 
   return (
@@ -34,7 +42,7 @@ const Users = () => {
                 <div className="nav-input__wrapper">
                   <HeaderInputForm placeholder={'Filter by user'} icon={'search'} />
                 </div>
-                <UserFilters />
+                <UserFilters handleClickNewUsers={handleClickNewUsers} />
               </div>
               <UserDataFilter />
             </nav>

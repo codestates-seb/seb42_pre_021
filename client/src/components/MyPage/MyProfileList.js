@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import TextEditor from 'components/Editor';
 import MyProfileInput from './MyProfileInput';
 
-const MyProfileList = ({ userinfo, editorRef, isEdit, handleOnChangeEditor, state, setState }) => {
+const MyProfileList = ({ userinfo, editorRef, isEdit, state, setState }) => {
   return (
     <>
       {userinfo.data && (
@@ -45,7 +45,6 @@ const MyProfileList = ({ userinfo, editorRef, isEdit, handleOnChangeEditor, stat
                   editorRef={editorRef}
                   editorValue={userinfo.data.markdown || ' '}
                   editorHeight={'10rem'}
-                  onEditorChange={handleOnChangeEditor}
                 />
               ) : (
                 <span>{userinfo.data.markdown}</span>

@@ -11,7 +11,7 @@ const HeaderInputForm = ({ placeholder, icon, state }) => {
       </label>
       <input
         className="searchInput"
-        id="search"
+        id={icon}
         type={icon === 'lock' ? 'password' : 'text'}
         placeholder={placeholder}
         autoComplete="off"

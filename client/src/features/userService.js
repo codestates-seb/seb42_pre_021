@@ -7,8 +7,11 @@ const userInfo = async id => {
   return res.data;
 };
 
-const users = async () => {
-  const res = await customAxios.get(`/members`);
+const users = async data => {
+  const res = await customAxios.get(
+    `/members?size=${data.size}&page=${data.page}&sortBy=${data.sortBy}&sortDir=${data.sortDir}`
+  );
+  console.log(res.data);
   return res.data;
 };
 
