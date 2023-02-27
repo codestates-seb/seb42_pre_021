@@ -11,7 +11,6 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
   // const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    console.log(bookmark);
     if (type === 'questions') {
       setIsBookmarked(bookmark.questionBookmarkFlag);
     } else {
