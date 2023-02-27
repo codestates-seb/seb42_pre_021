@@ -19,13 +19,12 @@ const MyPage = () => {
   const { userinfo, isLoading, error } = useSelector(state => state.user);
   const { user } = useSelector(state => state.auth);
 
-  const id = user.memberId;
-
   useEffect(() => {
     if (!user) {
       navigate('/');
       return;
     }
+    const id = user.memberId;
     dispatch(getUser(id));
   }, [dispatch]);
 
@@ -34,6 +33,7 @@ const MyPage = () => {
   };
 
   const handleDeleteButtonClick = () => {
+    const id = user.memberId;
     dispatch(deleteUser(id));
     navigate('/');
   };
