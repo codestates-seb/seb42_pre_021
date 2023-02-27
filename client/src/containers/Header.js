@@ -9,6 +9,8 @@ import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { reset, logout } from 'features/authSlice';
+import { useEffect } from 'react';
+import { getUser } from 'features/userSlice';
 
 // nav가 바로 렌더링되는가 or 메뉴아이콘이 있고 눌러야 렌더링 되는가
 // 로그인이 되어있는지 확인하고 헤더 버튼 다르게 출력
@@ -17,10 +19,20 @@ import { reset, logout } from 'features/authSlice';
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { user } = useSelector(state => state.auth);
 
   const isDeskOrMobi = useMediaQuery({ maxWidth: 640 });
   const [inputClicked, setInputClickd] = useState(false);
+
+  console.log(user);
+
+  const { userinfo } = useSelector(state => state.user);
+
+  useEffect(() => {
+    const id = user.memberId;
+    dispatch(getUser(id));
+  }, [dispatch]);
 
   const handleInputClick = () => {
     setInputClickd(!inputClicked);
@@ -66,8 +78,7 @@ const Header = () => {
           {user ? (
             <>
               <Link to="/mypage" className="mypageLink">
-                <Search width={25} height={25} />
-                {/*프로필사진*/}
+                <img src={userinfo.profile} alt="profileImage" className="profileImage" />
               </Link>
               <Link to="/logout" className="logoutLink" onClick={handleLogout}>
                 Log out
@@ -217,7 +228,6 @@ const ButtonContainer = styled.div`
   }
 
   > .mypageLink {
-    background-color: red;
     border-radius: 50%;
     border: none;
     width: 30px;
