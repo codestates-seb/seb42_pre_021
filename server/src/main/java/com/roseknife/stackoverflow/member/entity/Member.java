@@ -33,7 +33,7 @@ public class Member extends Auditable {
     @Column(length = 100, nullable = false)
     private String password;
 
-    private String profile;
+    private String profile = "https://source.boringavatars.com/beam";
 
     @Column(nullable = false)
     private LocalDateTime lastLoginAt = LocalDateTime.now();

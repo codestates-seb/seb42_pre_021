@@ -1,12 +1,9 @@
-//http 요청을 모아두는 파일 post,patch ...
 import axios from 'axios';
 
-// const URL = 'http://localhost:3001/';
-// const URL = 'https://d1ad-1-237-37-135.jp.ngrok.io/';
-// const URL = 'https://2bc4-59-10-231-15.jp.ngrok.io/';
 // const URL = process.env.REACT_APP_API_URL
 // const URL = 'https://7c5f-221-140-143-39.jp.ngrok.io/';
 // const URL = 'https://d4b8-59-10-231-15.jp.ngrok.io/';
+const URL = 'https://9f1a-59-10-231-15.jp.ngrok.io/';
 
 //회원가입 요청
 const register = async userData => {
@@ -41,9 +38,7 @@ const login = async userData => {
     },
   });
 
-  console.log(response.data);
-  const { authorization } = response.data;
-  const { refresh } = response.data;
+  const { authorization, refresh } = response.data;
   axios.defaults.headers.common['authorization'] = `Bearer ${authorization}`;
   axios.defaults.headers.common['refresh'] = `Bearer ${refresh}`;
 

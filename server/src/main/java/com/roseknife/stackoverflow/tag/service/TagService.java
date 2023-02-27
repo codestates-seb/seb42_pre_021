@@ -18,10 +18,6 @@ import java.util.List;
 public class TagService {
     private final TagRepository tagRepository;
 
-    public Tag createTag(Tag tag) {
-        return tagRepository.save(tag);
-    }
-
     public Page<Tag> findTags(int page, int size) {
         Page<Tag> tags = tagRepository.findAll(PageRequest.of(page, size,
             Sort.by("name")));
@@ -29,13 +25,16 @@ public class TagService {
     }
 
     public List<Tag> findTag(String name) {
-        return tagRepository.findAllByNameLike("%"+name+"%");
+        return tagRepository.findAllByNameLike("%"+name.toUpperCase()+"%");
     }
 
+    @Transactional
     public List<Tag> findTagNames(List<String> tagNames) {
         List<Tag> tags = new ArrayList<>();
         for (String tagName : tagNames) {
-            tags.add(tagRepository.findByName(tagName));
+            Tag findTag = tagRepository.findByName(tagName.toUpperCase()).orElse(new Tag(tagName.toUpperCase(), null));
+            tagRepository.save(findTag);
+            tags.add(findTag);
         }
         return tags;
     }

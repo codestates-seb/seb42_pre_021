@@ -21,13 +21,6 @@ public class TagController {
     private final TagService tagService;
     private final TagMapper mapper;
 
-    @PostMapping
-    public ResponseEntity postTag(@RequestBody TagDto.Post requestBody) {
-        Tag tag = mapper.tagPostToTag(requestBody);
-        tagService.createTag(tag);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping
     public ResponseEntity getTags(@RequestParam("page") int page, @RequestParam("size") int size) {
         Page<Tag> tagPage = tagService.findTags(page - 1, size);

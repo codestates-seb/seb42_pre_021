@@ -14,9 +14,9 @@ import { useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
-import baseURL from 'api/baseURL';
+import axios from 'axios';
 import { toast } from 'react-toastify';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const QuestionEdit = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const QuestionEdit = () => {
   const [isQuestionChanged, setIsQuestionChanged] = useState(false);
   const questionEditRef = useRef('');
 
-  // const { user } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
 
   const handleSectionClick = form => {
@@ -44,37 +44,26 @@ const QuestionEdit = () => {
     }
     const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
     const htmlValue = questionEditRef.current?.getInstance().getHTML();
-    // const headers = {
-    //   Authorization: `Bearer ${user.authorization}`,
-    //   refresh: `Bearer ${user.refresh}`,
-    //   'Content-Type': 'Application/json',
-    // };
-    await baseURL
-      .patch(`/questions/${id}`, {
+    const headers = {
+      Authorization: `Bearer ${user.authorization}`,
+      refresh: `Bearer ${user.refresh}`,
+      'Content-Type': 'Application/json',
+    };
+
+    await axios({
+      url: `/questions/${id}`,
+      method: 'patch',
+      data: {
         title: titleValue,
         html: htmlValue,
         markdown: markdownValue,
         tag: [...tagsArr],
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-
-    // ! 서버 연동시 사용할 코드
-    // await axios({
-    //   url: `/questions/${id}`,
-    //   method: 'patch',
-    //   data: {
-    //     title: titleValue,
-    //       html: htmlValue,
-    //       markdown: markdownValue,
-    //     tag: [...tagsArr],
-    //   },
-    //   headers,
-    //   withCredentials: true,
-    // }).catch(err => {
-    //   console.log(err.message);
-    // });
+      },
+      headers,
+      withCredentials: true,
+    }).catch(err => {
+      console.log(err.message);
+    });
     navigate(`../${id}`);
     toast.success('수정이 완료되었습니다');
   };

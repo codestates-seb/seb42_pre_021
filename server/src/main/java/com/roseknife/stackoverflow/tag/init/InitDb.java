@@ -35,6 +35,12 @@ public class InitDb {
 
             Tag tag4 = createTag("SPRING BOOT", "spring_boot_content");
             em.persist(tag4);
+
+            Tag tag5 = createTag("js", "js");
+            em.persist(tag5);
+
+            Tag tag6 = createTag("react", "react");
+            em.persist(tag6);
         }
 
         private Tag createTag(String name, String content) {
