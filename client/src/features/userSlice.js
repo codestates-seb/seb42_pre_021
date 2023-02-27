@@ -5,7 +5,7 @@ const name = 'userinfo';
 
 const initialState = {
   userinfo: {
-    nikename: '',
+    nickname: '',
     location: '',
     title: '',
     content: '',
@@ -24,9 +24,9 @@ export const getUser = createAsyncThunk('user/getUser', async (id, thunkAPI) => 
   }
 });
 
-export const patchUser = createAsyncThunk('user/editUser', async (editData, thunkAPI) => {
+export const patchUser = createAsyncThunk('user/editUser', async (data, thunkAPI) => {
   try {
-    return await userService.userInfoEdit(editData.data, editData.id);
+    return await userService.userInfoEdit(data.userData, data.id);
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);

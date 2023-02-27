@@ -32,7 +32,7 @@ const Users = () => {
             <nav>
               <div className="nav-filter__wrapper">
                 <div className="nav-input__wrapper">
-                  <HeaderInputForm placeholder={'Filter by user'} />
+                  <HeaderInputForm placeholder={'Filter by user'} icon={'search'} />
                 </div>
                 <UserFilters />
               </div>
