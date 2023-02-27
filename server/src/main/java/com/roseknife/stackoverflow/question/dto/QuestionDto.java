@@ -49,6 +49,8 @@ public class QuestionDto {
         private String html;
 
         private String markdown;
+
+        private Integer voteCount;
     }
     @Builder
     @Getter
@@ -64,14 +66,14 @@ public class QuestionDto {
         @Column(length = 1000000)
         private String markdown;
 
-        private Integer voteCount;
+        private int voteCount;
         private QuestionDto.QuestionMember questionMember;
         private List<AnswerCommentDto.Response> answerComments;
 
 //        private AnswerBookmark answerBookmark;
         private AnswerBookmarkDto.Response answerBookmark;
         public QuestionAnswer(Long answerId,LocalDateTime createdAt, LocalDateTime modifiedAt, String html,String markdown, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments,
-                              AnswerBookmarkDto.Response answerBookmark,Integer voteCount) {
+                              AnswerBookmarkDto.Response answerBookmark,int voteCount) {
             this.answerId = answerId;
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
