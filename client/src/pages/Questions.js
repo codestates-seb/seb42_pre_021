@@ -7,10 +7,12 @@ const Questions = () => {
     <>
       <Navigation />
       <Container>
-        <QuestionSection>
-          <QuestionList />
-        </QuestionSection>
-        <SideContent />
+        <>
+          <QuestionSection>
+            <QuestionList />
+          </QuestionSection>
+          <SideContent />
+        </>
       </Container>
     </>
   );

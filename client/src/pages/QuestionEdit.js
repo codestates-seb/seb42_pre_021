@@ -40,7 +40,6 @@ const QuestionEdit = () => {
     }
     const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
     const htmlValue = questionEditRef.current?.getInstance().getHTML();
-
     await customAxios
       .patch(`/questions/${id}`, {
         title: titleValue,
@@ -83,7 +82,7 @@ const QuestionEdit = () => {
             setIsQuestionChanged={setIsQuestionChanged}
           />
           <AddButton buttonText="Save edits" handleButtonClick={handleSubmit} />
-          <CancelButton id={id} />
+          <CancelButton id={id} isChanged={isQuestionChanged} />
         </EditSection>
         <div>
           <SideNotice>

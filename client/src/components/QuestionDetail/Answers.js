@@ -23,7 +23,7 @@ const Answers = ({ data, setIsShowModal, setAnswerSort }) => {
                   count={answer.voteCount}
                   id={answer.answerId}
                   type="answers"
-                  bookmark={answer.bookmark}
+                  bookmark={answer.answerBookmark}
                   setIsShowModal={setIsShowModal}
                 />
                 <MarkdownContent

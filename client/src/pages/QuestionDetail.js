@@ -11,9 +11,10 @@ import {
 import { SideContent } from 'components/Questions';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
-import { Container } from 'containers/Container';
+import { Container, LoadingContainer } from 'containers/Container';
 import { useSelector } from 'react-redux';
 import customAxios from 'api/baseURL';
+import Spinner from 'components/Spinner';
 // import baseURL from 'api/baseURL';
 
 const QuestionDetail = () => {
@@ -21,9 +22,10 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
   const [answerSort, setAnswerSort] = useState({
-    by: 'voteCount',
+    by: 'createdAt',
     dir: 'DESC',
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useSelector(state => state.auth);
   // const user = JSON.parse(localStorage.getItem('user'));
@@ -38,49 +40,62 @@ const QuestionDetail = () => {
       sortBy: answerSort.by,
       memberId,
     };
-    console.log(params, user);
 
     await customAxios
       .get(`questions/${id}`, {
         params,
       })
-      .then(response => setQuestion(response.data.data));
+      .then(response => {
+        setQuestion(response.data.data);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
     getQuestionData();
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 150);
   }, []);
 
   return (
     <>
       <Container>
         <Navigation />
-        <DetailTitle question={question} />
-        <ContentSection>
-          <Wrapper>
-            <div className="question_content">
-              {question.voteCount !== undefined && (
-                <Vote
-                  count={question.voteCount}
-                  id={question.questionId}
-                  type="questions"
-                  bookmark={question.bookmark}
-                  setIsShowModal={setIsShowModal}
-                />
-              )}
-              <MarkdownContent data={question} />
-            </div>
-            {question.questionAnswers ? (
-              <Answers
-                data={question}
-                setIsShowModal={setIsShowModal}
-                setAnswerSort={setAnswerSort}
-              />
-            ) : null}
-            <YourAnswer questionId={question.questionId} />
-          </Wrapper>
-          <SideContent />
-        </ContentSection>
+        {!isLoading ? (
+          <>
+            <DetailTitle question={question} />
+            <ContentSection>
+              <Wrapper>
+                <div className="question_content">
+                  {question.questionBookmark && (
+                    <Vote
+                      count={question.voteCount}
+                      id={question.questionId}
+                      type="questions"
+                      bookmark={question.questionBookmark}
+                      setIsShowModal={setIsShowModal}
+                    />
+                  )}
+                  <MarkdownContent data={question} />
+                </div>
+                {question.questionAnswers ? (
+                  <Answers
+                    data={question}
+                    setIsShowModal={setIsShowModal}
+                    setAnswerSort={setAnswerSort}
+                  />
+                ) : null}
+                <YourAnswer questionId={question.questionId} />
+              </Wrapper>
+              <SideContent />
+            </ContentSection>
+          </>
+        ) : (
+          <LoadingContainer>
+            <Spinner />
+          </LoadingContainer>
+        )}
       </Container>
       {isShowModal && <SignUpModal setIsShowModal={setIsShowModal} />}
     </>

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roseknife.stackoverflow.audit.Auditable;
 import com.roseknife.stackoverflow.bookmark.entity.AnswerBookmark;
 import com.roseknife.stackoverflow.comment.entity.AnswerComment;
-import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.member.entity.Member;
 import com.roseknife.stackoverflow.question.entity.Question;
 import lombok.Getter;
@@ -38,18 +37,15 @@ public class Answer extends Auditable {
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;
 
-	//JsonIgnore 제거(Many에선 필요 X)
 	@ManyToOne
 	@JoinColumn(name = "QUESTION_ID")
 	private Question question;
 
-	//답변-댓글 맵핑 추가
-	@JsonIgnore //목록으로 가져오는 쪽 에서만 적용해도 가능
-	@OneToMany(mappedBy = "answer",cascade = CascadeType.REMOVE)    //
+	@JsonIgnore
+	@OneToMany(mappedBy = "answer",cascade = CascadeType.REMOVE)
 	private List<AnswerComment> answerComments = new ArrayList<>();
 
-	// modified 36-44
-	@JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
+	@JsonIgnore
 	@OneToOne(mappedBy = "answer")
 	private AnswerBookmark answerBookmark;
 
