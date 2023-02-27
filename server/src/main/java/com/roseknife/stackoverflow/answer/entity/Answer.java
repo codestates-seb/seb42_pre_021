@@ -32,6 +32,8 @@ public class Answer extends Auditable {
 	@Column(length = 1000000)
 	private String markdown;
 
+	private Integer voteCount=0;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID")
 	private Member member;

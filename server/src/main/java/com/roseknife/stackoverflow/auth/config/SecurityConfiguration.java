@@ -99,6 +99,7 @@ public class SecurityConfiguration {
             .getBuilder("google")
             .clientId(clientId)
             .clientSecret(clientSecret)
+//            .redirectUri()
             .build();
     }
 
