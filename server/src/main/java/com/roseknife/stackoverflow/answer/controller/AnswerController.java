@@ -49,14 +49,4 @@ public class AnswerController {
 
 		return ResponseEntity.noContent().build();
 	}
-
-	//테스트용 (엔티티 직접 리스폰시 List 적용안되는것 - 추후 시간날때 확인)
-//	@GetMapping("/{answer-id}")
-//	public ResponseEntity getAnswer(@PathVariable("answer-id") Long answerId) {
-//		Answer answer = answerService.findAnswer(answerId);
-//
-//		return ResponseEntity.ok(
-//				new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer))
-//		);
-//	}
 }

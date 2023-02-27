@@ -4,7 +4,6 @@ import com.roseknife.stackoverflow.answer.dto.AnswerDto;
 import com.roseknife.stackoverflow.answer.entity.Answer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
@@ -18,6 +17,4 @@ public interface AnswerMapper {
 	@Mapping(source = "member.nickname", target = "nickname")
 	@Mapping(source = "member.profile", target = "profile")
 	AnswerDto.Response answerToAnswerResponseDto(Answer answer);
-
-
 }
