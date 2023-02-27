@@ -11,9 +11,10 @@ import {
 import { SideContent } from 'components/Questions';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
-import { Container } from 'containers/Container';
+import { Container, LoadingContainer } from 'containers/Container';
 import { useSelector } from 'react-redux';
 import customAxios from 'api/baseURL';
+import Spinner from 'components/Spinner';
 // import baseURL from 'api/baseURL';
 
 const QuestionDetail = () => {
@@ -21,7 +22,7 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
   const [answerSort, setAnswerSort] = useState({
-    by: 'voteCount',
+    by: 'createdAt',
     dir: 'DESC',
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +48,6 @@ const QuestionDetail = () => {
       .then(response => {
         setQuestion(response.data.data);
         setIsLoading(false);
-        console.log(response.data.data);
       });
   };
 
@@ -55,42 +55,48 @@ const QuestionDetail = () => {
     getQuestionData();
     setTimeout(() => {
       window.scrollTo(0, 0);
-    }, 1000);
+    }, 150);
   }, []);
 
   return (
     <>
-      {!isLoading ? (
-        <Container>
-          <Navigation />
-          <DetailTitle question={question} />
-          <ContentSection>
-            <Wrapper>
-              <div className="question_content">
-                {question.questionBookmark && (
-                  <Vote
-                    count={question.voteCount}
-                    id={question.questionId}
-                    type="questions"
-                    bookmark={question.questionBookmark}
+      <Container>
+        <Navigation />
+        {!isLoading ? (
+          <>
+            <DetailTitle question={question} />
+            <ContentSection>
+              <Wrapper>
+                <div className="question_content">
+                  {question.questionBookmark && (
+                    <Vote
+                      count={question.voteCount}
+                      id={question.questionId}
+                      type="questions"
+                      bookmark={question.questionBookmark}
+                      setIsShowModal={setIsShowModal}
+                    />
+                  )}
+                  <MarkdownContent data={question} />
+                </div>
+                {question.questionAnswers ? (
+                  <Answers
+                    data={question}
                     setIsShowModal={setIsShowModal}
+                    setAnswerSort={setAnswerSort}
                   />
-                )}
-                <MarkdownContent data={question} />
-              </div>
-              {question.questionAnswers ? (
-                <Answers
-                  data={question}
-                  setIsShowModal={setIsShowModal}
-                  setAnswerSort={setAnswerSort}
-                />
-              ) : null}
-              <YourAnswer questionId={question.questionId} />
-            </Wrapper>
-            <SideContent />
-          </ContentSection>
-        </Container>
-      ) : null}
+                ) : null}
+                <YourAnswer questionId={question.questionId} />
+              </Wrapper>
+              <SideContent />
+            </ContentSection>
+          </>
+        ) : (
+          <LoadingContainer>
+            <Spinner />
+          </LoadingContainer>
+        )}
+      </Container>
       {isShowModal && <SignUpModal setIsShowModal={setIsShowModal} />}
     </>
   );
