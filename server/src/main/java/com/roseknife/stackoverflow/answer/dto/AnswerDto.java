@@ -4,12 +4,10 @@ import com.roseknife.stackoverflow.comment.entity.AnswerComment;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AnswerDto {
@@ -26,8 +24,6 @@ public class AnswerDto {
 
 		@Positive
 		private Long questionId;
-
-//		private Integer voteCount;
 	}
 
 	@Getter
