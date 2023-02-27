@@ -13,7 +13,6 @@ import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import { Container } from 'containers/Container';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import customAxios from 'api/baseURL';
 // import baseURL from 'api/baseURL';
 
@@ -31,12 +30,6 @@ const QuestionDetail = () => {
 
   const getQuestionData = async () => {
     const memberId = user ? user.memberId : 0;
-    const headers = {
-      Authorization: `Bearer ${user.authorization}`,
-      refresh: `Bearer ${user.refresh}`,
-      'Content-Type': 'Application/json',
-      'Access-Control-Allow-Origin': '*',
-    };
 
     const params = {
       page: 1,
