@@ -5,7 +5,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    url: ${DATABASE_URL}
+    url: jdbc:mysql://${DATABASE_URL}/pre_project?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
