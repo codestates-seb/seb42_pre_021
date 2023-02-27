@@ -15,7 +15,7 @@ const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
       {data.createdAt && (
         <MarkdownDesign className={isAnswer ? 'answer_markdown' : null}>
           <div className="content" dangerouslySetInnerHTML={handleHTML(data.html)}></div>
-          {data.tag && <Tags data={data} />}
+          {data.tagNames && <Tags data={data} />}
           <EditAndProfile
             member={data.questionMember}
             date={data.createdAt}

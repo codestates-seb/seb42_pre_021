@@ -14,9 +14,8 @@ import { useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import customAxios from 'api/baseURL';
 
 const QuestionEdit = () => {
   const navigate = useNavigate();
@@ -28,9 +27,6 @@ const QuestionEdit = () => {
   const [tagsArr, setTagsArr] = useState([...tags]);
   const [isQuestionChanged, setIsQuestionChanged] = useState(false);
   const questionEditRef = useRef('');
-
-  const { user } = useSelector(state => state.auth);
-  // const user = JSON.parse(localStorage.getItem('user'));
 
   const handleSectionClick = form => {
     setCurrentForm(form);
@@ -44,26 +40,17 @@ const QuestionEdit = () => {
     }
     const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
     const htmlValue = questionEditRef.current?.getInstance().getHTML();
-    const headers = {
-      Authorization: `Bearer ${user.authorization}`,
-      refresh: `Bearer ${user.refresh}`,
-      'Content-Type': 'Application/json',
-    };
 
-    await axios({
-      url: `/questions/${id}`,
-      method: 'patch',
-      data: {
+    await customAxios
+      .patch(`/questions/${id}`, {
         title: titleValue,
         html: htmlValue,
         markdown: markdownValue,
-        tag: [...tagsArr],
-      },
-      headers,
-      withCredentials: true,
-    }).catch(err => {
-      console.log(err.message);
-    });
+        tagNames: [...tagsArr],
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
     navigate(`../${id}`);
     toast.success('수정이 완료되었습니다');
   };

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Bookmark from './Bookmark';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import customAxios from 'api/baseURL';
 
 const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
   const [voteCount, setVoteCount] = useState(count);
@@ -35,23 +35,13 @@ const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
   };
 
   const patchVote = async count => {
-    const headers = {
-      Authorization: `Bearer ${user.authorization}`,
-      refresh: `Bearer ${user.refresh}`,
-      'Content-Type': 'Application/json',
-    };
-
-    await axios({
-      url: `/${type}/${id}`,
-      method: 'patch',
-      WithCredentials: true,
-      headers,
-      data: {
+    await customAxios
+      .patch(`/${type}/${id}`, {
         voteCount: count,
-      },
-    }).catch(error => {
-      console.log(error);
-    });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
