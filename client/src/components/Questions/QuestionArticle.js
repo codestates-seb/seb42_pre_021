@@ -16,7 +16,7 @@ const QuestionArticle = ({ question }) => {
         <Question>
           <section>
             <ul>
-              <li>0 votes</li>
+              <li>{question.voteCount} votes</li>
               <li>{question.answerCount} answers</li>
               <li>{question.viewCount} views</li>
             </ul>

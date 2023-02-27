@@ -1,5 +1,4 @@
-import baseURL from 'api/baseURL';
-// import axios from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
@@ -18,20 +17,14 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
       return;
     }
 
-    // if (isBookmarked) {
-    //   setIsBookmarked(cur => !cur);
-    //   toast.success('북마크가 헤제되었습니다!');
-    // } else {
-    //   setIsBookmarked(cur => !cur);
-    //   toast.success('북마크가 체크되었습니다!');
-    // }
+    const headers = {
+      Authorization: `Bearer ${user.authorization}`,
+      refresh: `Bearer ${user.refresh}`,
+      'Content-Type': 'Application/json',
+    };
 
-    // const headers = {
-    //   Authorization: `Bearer ${user.authorization}`,
-    //   refresh: `Bearer ${user.refresh}`,
-    //   'Content-Type': 'Application/json',
-    // };
     let data;
+
     if (type === 'questions') {
       data = {
         memberId: user.memberId,
@@ -43,10 +36,14 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
         answerId: id,
       };
     }
-    await baseURL
-      .post(`bookmarks/${type}/${id}`, {
-        ...data,
-      })
+
+    await axios({
+      url: `bookmarks/${type}/${id}`,
+      method: 'post',
+      data,
+      withCredentials: true,
+      headers,
+    })
       .then(resp => {
         setIsBookmarked(resp.data.questionBookmarkFlag);
         if (resp.data.questionBookmarkFlag) {
@@ -55,28 +52,9 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
           toast.success('북마크가 해제되었습니다!');
         }
       })
-      .catch(err => {
-        console.log(err.message);
+      .catch(error => {
+        console.log(error);
       });
-    // ! 서버 연동시 사용할 코드
-    // await axios({
-    //   url: `bookmarks/${type}/${id}`,
-    //   method: 'post',
-    //   data,
-    //   withCredentials: true,
-    //   headers,
-    // })
-    //   .then(resp => {
-    //     setIsBookmarked(resp.data.questionBookmarkFlag);
-    //     if (resp.data.questionBookmarkFlag) {
-    //       toast.success('북마크가 등록되었습니다!');
-    //     } else {
-    //       toast.success('북마크가 해제되었습니다!');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
   };
 
   return (
