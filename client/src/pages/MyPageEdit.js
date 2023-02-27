@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
-import MyProfileList from 'components/MyProfileList';
+import MyProfileList from 'components/MyPage/MyProfileList';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { patchUser, getUser } from 'features/userSlice';
 import { useNavigate } from 'react-router-dom';

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import Navigation from 'containers/Navigation';
-import MyProfileList from 'components/MyProfileList';
+import MyProfileList from 'components/MyPage/MyProfileList';
 import { deleteUser, getUser } from 'features/userSlice';
 
 import { ReactComponent as Search } from 'assets/search.svg';
