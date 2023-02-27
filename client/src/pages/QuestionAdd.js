@@ -20,7 +20,6 @@ const QuestionAdd = () => {
   const { user } = useSelector(state => state.auth);
   const [title, setTitle] = useState('');
   const [titleValid, setTitleValid] = useState(false);
-  const [contentValue, setContentValue] = useState('');
   const [contentValid, setContentValid] = useState(false);
   const [tagsInput, setTagsInput] = useState('');
   const [tagsArr, setTagsArr] = useState([]);
@@ -76,15 +75,19 @@ const QuestionAdd = () => {
   const handleSubmitButton = () => {
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    setContentValue({ html, markdown });
 
-    if (markdown.length >= 10) {
+    const pureMarkUpTextLength = markdown.replace(/(<([^>]+)>)/gi, ' ').length;
+    const pureHtmlTextLength = html.replace(/(<([^>]+)>)/gi, ' ').length;
+    console.log(`텍스트 글자는 :${pureHtmlTextLength}`);
+    console.log(`타이틀 글자는 : ${title.length}`);
+
+    if (pureMarkUpTextLength.length >= 10 || pureHtmlTextLength >= 10) {
       setContentValid(true);
     } else {
       setContentValid(false);
     }
 
-    if (!titleValid || !contentValid || !tagsValid || !contentValue) {
+    if (!titleValid || !contentValid || !tagsValid) {
       return alert('제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요');
     }
 
@@ -99,10 +102,7 @@ const QuestionAdd = () => {
     return customAxios
       .post('/questions', questionData)
       .then(response => {
-        console.log(response.headers['location']);
-        // const header = JSON.stringify(response.headers.location);
-        // const questionId = header.substring(header.lastIndexOf('/'));
-        // navigate(`/${questionId}`);
+        console.log(response);
         navigate(`/`);
       })
       .catch(error => {

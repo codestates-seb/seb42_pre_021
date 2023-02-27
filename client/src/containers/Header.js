@@ -10,14 +10,9 @@ import { FaBars } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { reset, logout } from 'features/authSlice';
 
-// nav가 바로 렌더링되는가 or 메뉴아이콘이 있고 눌러야 렌더링 되는가
-// 로그인이 되어있는지 확인하고 헤더 버튼 다르게 출력
-// Header = ({ isLogin, setIsLogin, profile}) =>
-
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { user } = useSelector(state => state.auth);
 
   const isDeskOrMobi = useMediaQuery({ maxWidth: 640 });
@@ -67,13 +62,7 @@ const Header = () => {
           {user ? (
             <>
               <Link to="/mypage" className="mypageLink">
-                <img
-                  src={user.profile}
-                  alt="profileImage"
-                  className="profileImage"
-                  width={30}
-                  height={30}
-                />
+                <img src={user.profile} alt={`${user.nickname} profile`} className="profileImage" />
               </Link>
               <Link to="/logout" className="logoutLink" onClick={handleLogout}>
                 Log out
@@ -227,6 +216,11 @@ const ButtonContainer = styled.div`
     border: none;
     width: 30px;
     height: 30px;
+
+    .profileImage {
+      width: 30px;
+      height: 30px;
+    }
   }
 
   > .logoutLink {
