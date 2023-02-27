@@ -9,8 +9,7 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import customAxios from 'api/baseURL';
 
 const AnswerEdit = () => {
   const { id } = useParams();
@@ -29,9 +28,6 @@ const AnswerEdit = () => {
     }
   };
 
-  const { user } = useSelector(state => state.auth);
-  // const user = JSON.parse(localStorage.getItem('user'));
-
   const handleClickTitle = () => {
     navigate(`../${id}`);
   };
@@ -45,23 +41,15 @@ const AnswerEdit = () => {
 
     const markdownValue = answerEditRef.current?.getInstance().getMarkdown();
     const htmlValue = answerEditRef.current?.getInstance().getHTML();
-    const headers = {
-      Authorization: `Bearer ${user.authorization}`,
-      refresh: `Bearer ${user.refresh}`,
-      'Content-Type': 'Application/json',
-    };
-    await axios({
-      url: `/answers/${answerId}`,
-      method: 'patch',
-      data: {
+
+    await customAxios
+      .patch(`/answers/${answerId}`, {
         html: htmlValue,
         markdown: markdownValue,
-      },
-      headers,
-      withCredentials: true,
-    }).catch(err => {
-      console.log(err.message);
-    });
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
     navigate(`../${id}`);
     toast.success('수정이 완료되었습니다');
   };
