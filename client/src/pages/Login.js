@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import GoogleLogin from 'components/GoogleLogin';
-import GithubLogin from 'components/GithubLogin';
-import LoginInputForm from 'components/LoginInputForm';
+import { GoogleLogin, GithubLogin, LoginInputForm } from 'components/Login';
 import { Link } from 'react-router-dom';
 import { ReactComponent as StackOverFlowLogo } from 'assets/stackoverflow.svg';
 
@@ -38,13 +36,6 @@ const LoginContainer = styled.div`
   align-items: center;
   background-color: #f1f2f3;
 `;
-// const SideArea = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   flex-grow: 1;
-//   align-items: center;
-//   background-color: #f1f2f3;
-// `;
 
 const SignUpTextContainer = styled.div`
   margin-top: 2.5rem;

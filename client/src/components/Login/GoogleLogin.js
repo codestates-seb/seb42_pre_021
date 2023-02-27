@@ -1,24 +1,17 @@
 import styled from 'styled-components';
 import { ReactComponent as GoogleIcon } from 'assets/googleLogo.svg';
-// import axios from 'axios';
-
-// const URL = 'https://9f1a-59-10-231-15.jp.ngrok.io/';
 
 // const HandleClickGoogleLoginButton = () => {
-//   return axios({
-//     url: `${URL}members/login/google`,
-//     method: 'post',
-//     withCredentials: true,
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Access-Control-Allow-Origin': '*',
-//     },
-//   });
+//   return customAxios.post(`members/login/google`);
+//   if (response.data) {
+//     localStorage.setItem('user', JSON.stringify(response.data));
+//   }
+//   return response.data;
 // };
 
 const GoogleLogin = () => {
   return (
-    <GoogleLoginButton href="https://2b96-59-10-231-15.jp.ngrok.io/members/login/google">
+    <GoogleLoginButton href="">
       <GoogleIcon width={20} height={20} />
       <span>Login with Google</span>
     </GoogleLoginButton>

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import GoogleSignUp from 'components/GoogleSignUp';
-import GithubSignUp from 'components/GithubSignUp';
-import SignupInputForm from 'components/SignupInputForm';
+import { GithubSignUp, GoogleSignUp, SignupInputForm } from 'components/SignUp';
 import { Link } from 'react-router-dom';
 import { ReactComponent as QuestionIcon } from 'assets/question.svg';
 import { ReactComponent as VoteIcon } from 'assets/vote.svg';
