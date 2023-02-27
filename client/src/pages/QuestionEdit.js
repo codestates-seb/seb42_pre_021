@@ -40,13 +40,12 @@ const QuestionEdit = () => {
     }
     const markdownValue = questionEditRef.current?.getInstance().getMarkdown();
     const htmlValue = questionEditRef.current?.getInstance().getHTML();
-
     await customAxios
       .patch(`/questions/${id}`, {
         title: titleValue,
         html: htmlValue,
         markdown: markdownValue,
-        // tagNames: [...tagsArr],
+        tagNames: [...tagsArr],
       })
       .catch(err => {
         console.log(err.message);

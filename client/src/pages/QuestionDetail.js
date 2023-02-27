@@ -21,7 +21,7 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
   const [answerSort, setAnswerSort] = useState({
-    by: 'createdAt',
+    by: 'voteCount',
     dir: 'DESC',
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +47,7 @@ const QuestionDetail = () => {
       .then(response => {
         setQuestion(response.data.data);
         setIsLoading(false);
+        console.log(response.data.data);
       });
   };
 
