@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import Navigation from 'containers/Navigation';
-import MyProfileList from 'components/MyProfileList';
+import MyProfileList from 'components/MyPage/MyProfileList';
 import { deleteUser, getUser } from 'features/userSlice';
 
 import { ReactComponent as Search } from 'assets/search.svg';
@@ -12,26 +12,20 @@ import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
 
-//useSelect는 전역스토어에서 유저의 정보를 가져옵니다. 없으면 null 값입니다.
-//dispatch를 이용하여 get/patch 요청을 날려야하므로 feature 폴더에 관련 api를 작성하세요
-
 const MyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userinfo, isLoading, error } = useSelector(state => state.user);
+  const { user } = useSelector(state => state.auth);
 
-  // const { user } = useSelector(state => state.auth);
-  // user.memberId
   useEffect(() => {
-    /**
-     * if 주석 풀고 해야된다 실제로 할 땐
-     */
-    // if (!user) {
-    //   navigate('/');
-    //   return;
-    // }
-    dispatch(getUser(1)); //id
+    if (!user) {
+      navigate('/');
+      return;
+    }
+    const id = user.memberId;
+    dispatch(getUser(id));
   }, [dispatch]);
 
   const handleClickEdit = () => {
@@ -39,7 +33,8 @@ const MyPage = () => {
   };
 
   const handleDeleteButtonClick = () => {
-    dispatch(deleteUser(1)); //id
+    const id = user.memberId;
+    dispatch(deleteUser(id));
     navigate('/');
   };
 

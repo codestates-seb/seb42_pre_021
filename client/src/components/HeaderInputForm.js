@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as Search } from 'assets/search.svg';
 
-const HeaderInputForm = () => {
+const HeaderInputForm = ({ placeholder }) => {
   return (
     <SearchFrom role="search" action="/search" className="searchFrom">
       <label className="searchIconContainer" htmlFor="search">
@@ -11,7 +11,7 @@ const HeaderInputForm = () => {
         className="searchInput"
         id="search"
         type="text"
-        placeholder="Search…"
+        placeholder={placeholder}
         autoComplete="off"
       />
     </SearchFrom>

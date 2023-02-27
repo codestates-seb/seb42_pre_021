@@ -10,10 +10,12 @@ import QuestionAdd from 'pages/QuestionAdd';
 import QuestionDetail from 'pages/QuestionDetail';
 import QuestionEdit from 'pages/QuestionEdit';
 import Questions from 'pages/Questions';
-import SignUp from 'pages/SignUp';
-import styled from 'styled-components';
+import Users from 'pages/Users';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
+import SignUp from 'pages/SignUp';
+import styled from 'styled-components';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -32,6 +34,7 @@ const App = () => {
           <Route path="/:id/answer-edit" element={<AnswerEdit />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage/edit" element={<MyPageEdit />} />
+          <Route path="users" element={<Users />}></Route>
         </Routes>
         <ToastContainer />
       </MainContainer>

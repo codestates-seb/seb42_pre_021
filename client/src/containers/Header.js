@@ -59,7 +59,7 @@ const Header = () => {
               </button>
             </div>
           ) : (
-            <HeaderInputForm />
+            <HeaderInputForm placeholder={'Search...'} />
           )}
         </div>
         <ButtonContainer>
@@ -87,7 +87,7 @@ const Header = () => {
       </HeaderMenus>
       {inputClicked && isDeskOrMobi ? (
         <InputDrop>
-          <HeaderInputForm />
+          <HeaderInputForm placeholder={'Search...'} />
         </InputDrop>
       ) : null}
     </Container>
