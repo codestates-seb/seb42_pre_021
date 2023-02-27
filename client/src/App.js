@@ -34,7 +34,7 @@ const App = () => {
           <Route path="/:id/answer-edit" element={<AnswerEdit />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage/edit" element={<MyPageEdit />} />
-          <Route path="users" element={<Users />}></Route>
+          <Route path="/users" element={<Users />}></Route>
         </Routes>
         <ToastContainer />
       </MainContainer>
