@@ -39,6 +39,11 @@ const MarkdownDesign = styled.div`
   code {
     font-family: 'Fira Code', monospace;
   }
+  p {
+    > img {
+      width: 100%;
+    }
+  }
   .content {
     width: 100%;
     margin-bottom: 2rem;
