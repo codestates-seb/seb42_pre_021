@@ -4,9 +4,9 @@ import AddButton from '../AddButton';
 import ListSort from './ListSort';
 import QuestionArticle from './QuestionArticle';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Paging from './Paging';
+import customAxios from 'api/baseURL';
 
 const QuestionList = () => {
   const navigate = useNavigate();
@@ -19,25 +19,17 @@ const QuestionList = () => {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
 
-  // ! 서버 연동시 사용할 코드
   const getQuestions = async () => {
-    const headers = {
-      'Content-Type': 'Application/json',
-      'Access-Control-Allow-Origin': '*',
-    };
     const params = {
       page,
       size,
       sortDir: 'DESC',
       sortBy,
     };
-    await axios({
-      url: '/questions',
-      method: 'get',
-      withCredentials: true,
-      headers,
-      params,
-    })
+    await customAxios
+      .get('/questions', {
+        params,
+      })
       .then(response => {
         console.log(response);
         setQuestionList(response.data.data);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import customAxios from 'api/baseURL';
 import { useState } from 'react';
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
@@ -17,12 +17,6 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
       return;
     }
 
-    const headers = {
-      Authorization: `Bearer ${user.authorization}`,
-      refresh: `Bearer ${user.refresh}`,
-      'Content-Type': 'Application/json',
-    };
-
     let data;
 
     if (type === 'questions') {
@@ -36,14 +30,8 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
         answerId: id,
       };
     }
-
-    await axios({
-      url: `bookmarks/${type}/${id}`,
-      method: 'post',
-      data,
-      withCredentials: true,
-      headers,
-    })
+    await customAxios
+      .post(`bookmarks/${type}/${id}`, { ...data })
       .then(resp => {
         setIsBookmarked(resp.data.questionBookmarkFlag);
         if (resp.data.questionBookmarkFlag) {

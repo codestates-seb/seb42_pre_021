@@ -76,6 +76,7 @@ const SignupInputForm = () => {
       password,
     };
     dispatch(register(userData));
+    navigate('/login');
   };
 
   if (isLoding) {
@@ -225,10 +226,6 @@ const SignUpButton = styled.button`
 
   &:hover {
     background-color: ${props => (props.disabled ? 'gray' : '#9ecbff')};
-  }
-
-  &:disabled {
-    cursor: not-allowed;
   }
 `;
 

@@ -12,9 +12,9 @@ import { SideContent } from 'components/Questions';
 import styled from 'styled-components';
 import Navigation from 'containers/Navigation';
 import { Container } from 'containers/Container';
-import baseURL from 'api/baseURL';
 import { useSelector } from 'react-redux';
-// import axios from 'axios';
+import customAxios from 'api/baseURL';
+// import baseURL from 'api/baseURL';
 
 const QuestionDetail = () => {
   const { id } = useParams();
@@ -30,12 +30,7 @@ const QuestionDetail = () => {
 
   const getQuestionData = async () => {
     const memberId = user ? user.memberId : 0;
-    // const headers = {
-    //   Authorization: `Bearer ${user.authorization}`,
-    //   refresh: `Bearer ${user.refresh}`,
-    //   'Content-Type': 'Application/json',
-    //   'Access-Control-Allow-Origin': '*',
-    // };
+
     const params = {
       page: 1,
       size: 10,
@@ -45,25 +40,12 @@ const QuestionDetail = () => {
     };
     console.log(params, user);
 
-    // ^ json-server 테스트용 코드
-    await baseURL.get(`/questions/${id}`).then(response => {
-      setQuestion(response.data);
-    });
-
-    // await axios({
-    //   url: `/questions/${id}`,
-    //   method: 'get',
-    //   withCredentials: true,
-    //   headers,
-    //   params,
-    // }).then(response => setQuestion(response.data.data));
+    await customAxios
+      .get(`questions/${id}`, {
+        params,
+      })
+      .then(response => setQuestion(response.data.data));
   };
-
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: 0,
-  //   });
-  // }, [window.scrollY]);
 
   useEffect(() => {
     getQuestionData();
