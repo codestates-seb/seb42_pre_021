@@ -99,10 +99,11 @@ public interface QuestionMapper {
 //        String content = requestBody.getContent();
         String html = requestBody.getHtml();
         String markdown = requestBody.getMarkdown();
+        Integer voteCount = requestBody.getVoteCount();
 //        AnswerBookmark answerBookmark = requestBody.getAnswerBookmark();
         AnswerBookmarkDto.Response answerBookmark = answerBookmarkToAnswerBookmarkResponseDto(requestBody.getAnswerBookmark());
         List<AnswerCommentDto.Response> answerCommentResponse = answerCommentsToAnswerCommentResponseDtos(requestBody.getAnswerComments());
-        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, html,markdown, questionMember,answerCommentResponse,answerBookmark);
+        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer( createdAt, modifiedAt, html,markdown, questionMember,answerCommentResponse,answerBookmark,voteCount);
 
         return questionAnswer;
     }
@@ -157,7 +158,7 @@ public interface QuestionMapper {
         questionComments = commentsToQuestionCommentResponses(comments);
 
         QuestionDto.Response response = new QuestionDto.Response(questionId, title, html, markdown, createdAt, modifiedAt, viewCount,
-                answerCount, questionMember, questionAnswers, pageInfo, questionComments,questionTags,questionBookmark);
+                answerCount, questionMember, questionAnswers, pageInfo, questionComments,questionTags,questionBookmark,voteCount);
 
         return response;
     }

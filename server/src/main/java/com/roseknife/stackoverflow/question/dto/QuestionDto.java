@@ -61,18 +61,20 @@ public class QuestionDto {
         private String html;
         @Column(length = 1000000)
         private String markdown;
+
+        private Integer voteCount;
         private QuestionDto.QuestionMember questionMember;
         private List<AnswerCommentDto.Response> answerComments;
 
 //        private AnswerBookmark answerBookmark;
         private AnswerBookmarkDto.Response answerBookmark;
         public QuestionAnswer(LocalDateTime createdAt, LocalDateTime modifiedAt, String html,String markdown, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments,
-                              AnswerBookmarkDto.Response answerBookmark) {
+                              AnswerBookmarkDto.Response answerBookmark,Integer voteCount) {
             this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
             this.html = html;
             this.markdown = markdown;
-
+            this.voteCount = voteCount;
             this.questionMember = questionMember;
             this.answerComments = answerComments;
             this.answerBookmark = answerBookmark;
@@ -117,6 +119,8 @@ public class QuestionDto {
         private String modifiedAt;
         private Integer viewCount;
         private Integer answerCount;
+
+        private Integer voteCount;
         //질문 안 멤버 DTO
         private QuestionDto.QuestionMember questionMember;
 
@@ -135,7 +139,7 @@ public class QuestionDto {
         public Response(Long questionId, String title, String html, String markdown, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount,
                         Integer answerCount, QuestionMember questionMember,
                         List<QuestionDto.QuestionAnswer> questionAnswers, PageInfo answerPageInfo, List<QuestionDto.QuestionCommentResponse> questionComments,
-                        List<String> questionTags, QuestionBookmarkDto.Response questionBookmark) {
+                        List<String> questionTags, QuestionBookmarkDto.Response questionBookmark,Integer voteCount) {
 
             this.questionId = questionId;
             this.title = title;
@@ -151,6 +155,7 @@ public class QuestionDto {
             this.questionComments = questionComments;
             this.questionTags = questionTags;
             this.questionBookmark = questionBookmark;
+            this.voteCount = voteCount;
         }
 
         //Question-AnswerDto
@@ -179,9 +184,14 @@ public class QuestionDto {
         private String modifiedAt;
         private Integer viewCount;
         private Integer answerCount;
+
+        private Integer voteCount;
+
         private QuestionDto.QuestionMember questionMember;
 
-        public ResponseAll(Long questionId, String title, String html, String markdown, LocalDateTime createdAt, LocalDateTime modifiedAt, Integer viewCount, Integer answerCount, QuestionMember questionMember) {
+        public ResponseAll(Long questionId, String title, String html, String markdown, LocalDateTime createdAt,
+                           LocalDateTime modifiedAt, Integer viewCount, Integer answerCount,
+                           QuestionMember questionMember,Integer voteCount) {
             this.questionId = questionId;
             this.title = title;
             this.html = html;
@@ -191,6 +201,7 @@ public class QuestionDto {
             this.viewCount = viewCount;
             this.answerCount = answerCount;
             this.questionMember = questionMember;
+            this.voteCount = voteCount;
         }
 
     }
