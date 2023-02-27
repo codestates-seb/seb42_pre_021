@@ -24,13 +24,6 @@ const Header = () => {
   const isDeskOrMobi = useMediaQuery({ maxWidth: 640 });
   const [inputClicked, setInputClickd] = useState(false);
 
-  // const { userinfo } = useSelector(state => state.user);
-
-  // useEffect(() => {
-  //   const id = user.memberId;
-  //   dispatch(getUser(id));
-  // }, [dispatch]);
-
   const handleInputClick = () => {
     setInputClickd(!inputClicked);
   };
