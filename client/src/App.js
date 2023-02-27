@@ -18,6 +18,7 @@ import styled from 'styled-components';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import TagsPage from 'pages/TagsPage';
 
 const App = () => {
   return (
@@ -34,7 +35,8 @@ const App = () => {
           <Route path="/:id/answer-edit" element={<AnswerEdit />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage/edit" element={<MyPageEdit />} />
-          <Route path="/users" element={<Users />}></Route>
+          <Route path="/users" element={<Users />} />
+          <Route path="/tags" element={<TagsPage />} />
         </Routes>
         <ToastContainer />
       </MainContainer>
