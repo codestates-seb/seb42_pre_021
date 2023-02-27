@@ -9,6 +9,7 @@ const initialState = {
     location: '',
     title: '',
     content: '',
+    profile: '',
   },
   isLoading: false,
   error: null,
@@ -16,7 +17,7 @@ const initialState = {
 
 export const getUser = createAsyncThunk('user/getUser', async (id, thunkAPI) => {
   try {
-    return await userService.userInfo(id);
+    return await userService.userInfo(1);
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);

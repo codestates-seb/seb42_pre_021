@@ -37,8 +37,6 @@ const MyPage = () => {
     navigate('/');
   };
 
-  console.log(userinfo);
-
   return (
     <>
       {isLoading && <div>Loading...</div>}
