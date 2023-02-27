@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Tags = ({ data }) => {
   return (
     <TagWrapper>
-      {data.tag.map((tag, idx) => {
+      {data.tagNames.map((tag, idx) => {
         return <li key={idx}>{tag}</li>;
       })}
     </TagWrapper>
