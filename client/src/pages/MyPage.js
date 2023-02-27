@@ -7,7 +7,6 @@ import Navigation from 'containers/Navigation';
 import MyProfileList from 'components/MyPage/MyProfileList';
 import { deleteUser, getUser } from 'features/userSlice';
 
-import { ReactComponent as Search } from 'assets/search.svg';
 import { MdCake } from 'react-icons/md';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegCalendarAlt, FaPen, FaTrashAlt } from 'react-icons/fa';
@@ -38,6 +37,8 @@ const MyPage = () => {
     navigate('/');
   };
 
+  console.log(userinfo);
+
   return (
     <>
       {isLoading && <div>Loading...</div>}
@@ -63,7 +64,7 @@ const MyPage = () => {
                 <span>Profile image</span>
                 <ProfileContainer>
                   <ImageBox>
-                    <Search className="profileImage" />
+                    <img src={userinfo.profile} alt="profileImage" className="profileImage" />
                   </ImageBox>
                   <ul>
                     <li>
@@ -161,7 +162,6 @@ const ImageBox = styled.div`
   > .profileImage {
     width: 9rem;
     border-radius: 0.8rem;
-    background-color: gray;
     @media screen and (max-width: 640px) {
       width: 6rem;
     }
