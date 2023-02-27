@@ -14,6 +14,7 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
                                         HttpServletResponse response,
                                         AuthenticationException exception) {
         log.error("# Login Fail: {}", exception.getMessage());
+        response.setStatus(400);
 
     }
 }

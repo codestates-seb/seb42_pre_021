@@ -1,4 +1,3 @@
-import baseURL from 'api/baseURL';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import AddButton from 'components/AddButton';
@@ -6,7 +5,7 @@ import TextEditor from 'components/Editor';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 const YourAnswer = ({ questionId }) => {
   const answerRef = useRef('');
@@ -23,34 +22,24 @@ const YourAnswer = ({ questionId }) => {
       return;
     }
 
-    // ^ json-server 테스트용 코드
-    await baseURL.post('/answers', {
-      questionId,
-      markdown,
-      html,
-      memberId: user.memberId,
-    });
+    const headers = {
+      Authorization: `Bearer ${user.authorization}`,
+      refresh: `Bearer ${user.refresh}`,
+      'Content-Type': 'Application/json',
+    };
 
-    // ! 서버 연동시 사용할 코드
-    // const headers = {
-    //   Authorization: `Bearer ${user.authorization}`,
-    //   refresh: `Bearer ${user.refresh}`,
-    //   'Content-Type': 'Application/json',
-    // };
-    //
-    // await axios({
-    //   url: '/answers',
-    //   method: 'post',
-    //   data: {
-    //     questionId,
-    //     content: {
-    //       markdown,
-    //       html,
-    //     },
-    //     memberId: user.memberId,
-    //   },
-    //   memberId: user.memberId,
-    // });
+    await axios({
+      url: '/answers',
+      method: 'post',
+      data: {
+        questionId,
+        markdown,
+        html,
+        memberId: user.memberId,
+      },
+      withCredentials: true,
+      headers,
+    });
     location.reload();
     toast.success('답변이 등록되었습니다!');
   };

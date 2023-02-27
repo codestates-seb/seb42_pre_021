@@ -1,11 +1,10 @@
-import baseURL from 'api/baseURL';
 import { useMemo, useState } from 'react';
 import { IoCaretUpSharp, IoCaretDownSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 import Bookmark from './Bookmark';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-// import axios from 'axios';
+import axios from 'axios';
 
 const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
   const [voteCount, setVoteCount] = useState(count);
@@ -36,31 +35,23 @@ const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
   };
 
   const patchVote = async count => {
-    // const headers = {
-    //   Authorization: `Bearer ${user.authorization}`,
-    //   refresh: `Bearer ${user.refresh}`,
-    //   'Content-Type': 'Application/json',
-    // };
-    await baseURL
-      .patch(`/${type}/${id}`, {
-        voteCount: count,
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
+    const headers = {
+      Authorization: `Bearer ${user.authorization}`,
+      refresh: `Bearer ${user.refresh}`,
+      'Content-Type': 'Application/json',
+    };
 
-    // ! 서버 연동시 사용할 코드
-    // await axios({
-    //   url: `/${type}/${id}`,
-    //   method: 'patch',
-    //   WithCredentials: true,
-    //   headers,
-    //   data: {
-    //     voteCount: count,
-    //   },
-    // }).catch(error => {
-    //   console.log(error);
-    // });
+    await axios({
+      url: `/${type}/${id}`,
+      method: 'patch',
+      WithCredentials: true,
+      headers,
+      data: {
+        voteCount: count,
+      },
+    }).catch(error => {
+      console.log(error);
+    });
   };
 
   return (
