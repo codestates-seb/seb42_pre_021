@@ -7,6 +7,8 @@ import com.roseknife.stackoverflow.exception.ExceptionCode;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.entity.FindStatus;
 import com.roseknife.stackoverflow.question.repository.QuestionRepository;
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
+import com.roseknife.stackoverflow.tag.repository.QuestionTagRepository;
 import com.roseknife.stackoverflow.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,9 +26,15 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+
+    private final QuestionTagRepository questionTagRepository;
     private final CustomBeanUtils<Question> beanUtils;
 
     public Question createQuestion(Question question) {
+        question.setVoteCount(0);
+        question.setViewCount(0);
+        question.setAnswerCount(0);
+
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion;
     }
@@ -34,9 +42,17 @@ public class QuestionService {
     public Question updateQuestion(Question question) {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId(),FindStatus.NONE);
 
-        Question updateQuestion = beanUtils.copyNonNullProperties(question, findQuestion);
+        for (QuestionTag questionTag : question.getQuestionTags()) {
+            System.out.println(questionTag.getTag().getName());
+        }
 
-        return questionRepository.save(updateQuestion);
+        Optional.ofNullable(question.getQuestionTags()).ifPresent(questionTags -> {
+            questionTagRepository.deleteByQuestionQuestionId(findQuestion.getQuestionId());
+            findQuestion.setQuestionTags(questionTags);
+        });
+        Question updatedQuestion = beanUtils.copyNonNullProperties(question, findQuestion);
+
+        return updatedQuestion;
     }
     public Question findVerifiedQuestion(Long questionId, FindStatus option) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);

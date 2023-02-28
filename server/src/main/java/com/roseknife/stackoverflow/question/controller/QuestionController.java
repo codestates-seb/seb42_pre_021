@@ -11,6 +11,7 @@ import com.roseknife.stackoverflow.question.dto.QuestionDto;
 import com.roseknife.stackoverflow.question.entity.Question;
 import com.roseknife.stackoverflow.question.mapper.QuestionMapper;
 import com.roseknife.stackoverflow.question.service.QuestionService;
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
 import com.roseknife.stackoverflow.tag.entity.Tag;
 import com.roseknife.stackoverflow.tag.service.TagService;
 import com.roseknife.stackoverflow.utils.UriCreator;
@@ -57,8 +58,11 @@ public class QuestionController {
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive Long questionId,
                                         @Valid @RequestBody QuestionDto.Patch requestBody) {
         requestBody.setQuestionId(questionId);
+        List<Tag> tags = tagService.findTagNames(requestBody.getTagNames());
+        Question requestQuestion = questionMapper.questionPatchToQuestion(requestBody,tags);
+//        requestQuestion.setQuestionTags(questionMapper.tagsToQuestionTags(requestQuestion,tags));
 
-        Question question = questionService.updateQuestion(questionMapper.questionPatchToQuestion(requestBody));
+        Question question = questionService.updateQuestion(requestQuestion);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
