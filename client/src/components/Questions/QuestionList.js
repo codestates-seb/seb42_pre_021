@@ -62,7 +62,7 @@ const QuestionList = () => {
             </div>
             <div>
               <h2>
-                {questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
+                {pageInfo.totalElements.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
               </h2>
               <ListSort sortBy={sortBy} setSortBy={setSortBy} />
             </div>

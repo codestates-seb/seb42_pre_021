@@ -4,11 +4,14 @@ import styled from 'styled-components';
 const Paging = ({ size, page, setPage, setSize, total }) => {
   const handlePageChange = page => {
     setPage(page);
-    setSize(10);
   };
 
   const handleClickSize = size => {
-    setSize(size);
+    if (setSize) {
+      setSize(size);
+    } else {
+      return;
+    }
   };
 
   return (
