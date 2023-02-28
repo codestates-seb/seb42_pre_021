@@ -6,8 +6,11 @@ const HeaderInputForm = ({ placeholder, icon, state }) => {
   return (
     <SearchFrom role="search" action="/search" className="searchFrom">
       <label className="searchIconContainer" htmlFor="search">
-        {icon === 'search' ? <Search width={16} height={16} className="icon" /> : null}
-        {icon === 'lock' ? <AiFillLock width={16} height={16} className="icon" /> : null}
+        {!(icon === 'lock') ? (
+          <Search width={16} height={16} className="icon" />
+        ) : (
+          <AiFillLock width={16} height={16} className="icon" />
+        )}
       </label>
       <input
         className="searchInput"

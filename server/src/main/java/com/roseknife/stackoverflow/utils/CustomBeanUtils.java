@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.utils;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Component;

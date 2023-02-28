@@ -51,6 +51,8 @@ public class QuestionDto {
         private String markdown;
 
         private Integer voteCount;
+
+        private List<String> tagNames;
     }
     @Builder
     @Getter

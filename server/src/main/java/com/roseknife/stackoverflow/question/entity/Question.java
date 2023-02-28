@@ -34,9 +34,9 @@ public class Question extends Auditable {
     @Column(length = 1_000_000_000)
     private String markdown;
 
-    private Integer viewCount=0;    //초기화 = 0
-    private Integer answerCount=0;  //초기화 = 0
-    private Integer voteCount=0;
+    private Integer viewCount;    //초기화 = 0
+    private Integer answerCount;  //초기화 = 0
+    private Integer voteCount;
 //    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -51,7 +51,7 @@ public class Question extends Auditable {
     private List<QuestionComment> questionComments = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<QuestionTag> questionTags = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "question")
@@ -59,7 +59,7 @@ public class Question extends Auditable {
 
     // modified 55-63
     @JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
-    @OneToOne(mappedBy = "question")
+    @OneToOne(mappedBy = "question",cascade = CascadeType.REMOVE)
     private QuestionBookmark questionBookmark;
 
     public void setQuestionBookmark(QuestionBookmark questionBookmark) {

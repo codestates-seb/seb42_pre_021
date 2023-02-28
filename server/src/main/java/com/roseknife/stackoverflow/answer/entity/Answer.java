@@ -46,7 +46,7 @@ public class Answer extends Auditable {
 	private List<AnswerComment> answerComments = new ArrayList<>();
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "answer")
+	@OneToOne(mappedBy = "answer",cascade = CascadeType.REMOVE)
 	private AnswerBookmark answerBookmark;
 
 	public void setAnswerBookmark(AnswerBookmark answerBookmark) {

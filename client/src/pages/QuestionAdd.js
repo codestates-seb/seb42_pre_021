@@ -105,6 +105,7 @@ const QuestionAdd = () => {
       .post('/questions', questionData)
       .then(response => {
         console.log(response);
+        toast.success('질문이 등록되었습니다!');
         navigate(`/`);
       })
       .catch(error => {
