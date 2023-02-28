@@ -28,14 +28,14 @@ const MyPageEdit = () => {
   }, [dispatch]);
 
   const handleSaveButtonClick = async () => {
-    const html = editorRef.current?.getInstance().getHTML();
-    const markdown = editorRef.current?.getInstance().getMarkdown();
+    let html = editorRef.current?.getInstance().getHTML();
+    let markdown = editorRef.current?.getInstance().getMarkdown();
 
     userinfo.data.nickname ? (inputData.nickname = userinfo.data.nickname) : '';
     userinfo.data.location ? (inputData.location = userinfo.data.location) : '';
     userinfo.data.title ? (inputData.title = userinfo.data.title) : '';
-    userinfo.data.markdown ? (inputData.markdown = userinfo.data.markdown) : '';
-    userinfo.data.html ? (inputData.html = userinfo.data.html) : '';
+    userinfo.data.markdown ? (markdown = userinfo.data.markdown) : '';
+    userinfo.data.html ? (html = userinfo.data.html) : '';
 
     const data = { ...inputData, html, markdown };
 

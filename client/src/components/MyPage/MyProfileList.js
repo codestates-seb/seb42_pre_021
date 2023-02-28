@@ -49,7 +49,7 @@ const MyProfileList = ({ userinfo, editorRef, isEdit, state, setState }) => {
                   editorHeight={'10rem'}
                 />
               ) : (
-                <span>{userinfo.data ? userinfo.data.markdown : ''}</span>
+                <span>{userinfo.data.markdown ? userinfo.data.markdown : ''}</span>
                 // <span>{userinfo.data.markdown}</span>
               )}
             </li>
