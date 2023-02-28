@@ -38,14 +38,23 @@ const Bookmark = ({ bookmark, id, type, setIsShowModal }) => {
         answerId: id,
       };
     }
-    setIsBookmarked(cur => !cur);
     await customAxios
       .post(`bookmarks/${type}`, { ...data })
       .then(resp => {
-        if (resp.data.questionBookmarkFlag) {
-          toast.success('북마크가 등록되었습니다!');
+        if (type === 'questions') {
+          setIsBookmarked(resp.data.questionBookmarkFlag);
+          if (resp.data.questionBookmarkFlag) {
+            toast.success('북마크가 등록되었습니다!');
+          } else {
+            toast.success('북마크가 해제되었습니다!');
+          }
         } else {
-          toast.success('북마크가 해제되었습니다!');
+          setIsBookmarked(resp.data.answerBookmarkFlag);
+          if (resp.data.answerBookmarkFlag) {
+            toast.success('북마크가 등록되었습니다!');
+          } else {
+            toast.success('북마크가 해제되었습니다!');
+          }
         }
       })
       .catch(error => {
