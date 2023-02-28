@@ -33,6 +33,10 @@ public class TagService {
 //    @Transactional
     public List<Tag> findTagNames(List<String> tagNames) {
         List<Tag> tags = new ArrayList<>();
+        if(tagNames == null){
+            return tags;
+        }
+
         for (String tagName : tagNames) {
             Tag findTag = tagRepository.findByName(tagName.toUpperCase()).orElse(new Tag(tagName.toUpperCase(), null));
             tagRepository.save(findTag);
