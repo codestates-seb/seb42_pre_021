@@ -54,9 +54,6 @@ const BodyEditWrapper = styled.div`
     margin-bottom: 0.3rem;
     cursor: pointer;
   }
-  div {
-    width: 100%;
-  }
   .toastui-editor-toolbar {
     overflow: hidden;
   }

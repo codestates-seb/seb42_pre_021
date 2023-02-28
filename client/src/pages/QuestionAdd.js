@@ -7,6 +7,7 @@ import { BsXLg } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customAxios from 'api/baseURL';
+import Swal from 'sweetalert2';
 
 const stepList = [
   'Summarize your problem in a one-line title.',
@@ -88,7 +89,12 @@ const QuestionAdd = () => {
     }
 
     if (!titleValid || !contentValid || !tagsValid) {
-      return alert('제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요');
+      // return alert('제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요');
+      Swal.fire({
+        icon: 'error',
+        text: '제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요',
+      });
+      return;
     }
 
     const questionData = {
@@ -198,12 +204,15 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   padding: 1rem 0 2rem 0;
-  width: 80%;
+  width: 1280px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
   @media screen and (max-width: 1023px) {
     width: 100%;
   }
@@ -228,6 +237,7 @@ const HeaderTitleContainer = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const HeaderBackground = styled.div`
   background-image: url('https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368');
   display: flex;
@@ -273,8 +283,11 @@ const NoticeContainer = styled.div`
   li {
     font-size: 0.8rem;
   }
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
   @media screen and (max-width: 767px) {
-    width: 70%;
+    /* width: 70%; */
   }
 `;
 
@@ -292,7 +305,7 @@ const TitleContainer = styled.div`
   position: relative;
   min-width: fit-content;
   width: 1024px;
-  height: 10rem;
+  /* height: 10rem; */
   background-color: #ffffff;
   border: 1px solid #e3e6e8;
   display: flex;
@@ -304,6 +317,9 @@ const TitleContainer = styled.div`
   > span {
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
+  }
+  @media screen and (max-width: 1024px) {
+    width: 100%;
   }
 `;
 
@@ -321,13 +337,33 @@ const Input = styled.input`
   border-style: none;
   border-radius: 0.2rem;
   border: 1px solid #babfc4;
+  :focus {
+    border: 1px solid rgba(0, 103, 194, 0.4);
+    box-shadow: 0 0 0 4px rgba(144, 203, 255, 0.4);
+    outline: none;
+  }
 `;
 
 const EditorContainer = styled(TitleContainer)`
-  min-width: fit-content;
   width: 1024px;
   height: 500px;
   margin-bottom: 1rem;
+  overflow: hidden;
+  .toastui-editor-main {
+    :has(.ProseMirror-focused) {
+      border-radius: 3px;
+      border: 1px solid rgba(0, 103, 194, 0.4);
+      box-shadow: 0 0 0 4px rgba(144, 203, 255, 0.4);
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 640px) {
+    .toastui-editor-defaultUI {
+      width: calc(100vw - 6rem);
+    }
+  }
 `;
 
 const TagsWrapper = styled(TitleContainer)`
@@ -397,6 +433,10 @@ const ButtonContainer = styled(TagsInputContainer)`
   justify-content: center;
   border: none;
   padding-bottom: 5rem;
+  &:focus-within {
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 const SubmitButton = styled.button`
