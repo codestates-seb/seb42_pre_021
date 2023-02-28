@@ -16,10 +16,8 @@ const Comments = ({ data, isAnswer }) => {
 
   useEffect(() => {
     if (isAnswer) {
-      console.log('answer', data);
       setComments(data.answerComments);
     } else {
-      console.log('questions', data);
       setComments(data.questionComments);
     }
   }, []);
@@ -40,7 +38,7 @@ const Comments = ({ data, isAnswer }) => {
       await customAxios.post(`/comments/answers`, {
         ...newData,
       });
-      setComments(cur => [...cur, { ...newData }]);
+      setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
     } else {
       const newData = {
         memberId: user.memberId,
@@ -49,7 +47,7 @@ const Comments = ({ data, isAnswer }) => {
         markdown: commentValue,
       };
       await customAxios.post(`/comments/questions`, { ...newData });
-      setComments(cur => [...cur, { ...newData }]);
+      setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
     }
     setCommentValue('');
   };
@@ -73,7 +71,7 @@ const Comments = ({ data, isAnswer }) => {
   };
 
   const deleteRequest = async (isAnswer, comment) => {
-    console.log('comment', comment);
+    console.log('comment', comment, 'user', user);
     if (isAnswer) {
       await customAxios.delete(`/comments/answers/${comment.answerCommentId}`);
     } else {
@@ -92,11 +90,11 @@ const Comments = ({ data, isAnswer }) => {
               <span className="name">&nbsp;- {comment.nickname}</span>
               <span className="time">&nbsp;{getTime(comment.createdAt)}</span>
             </div>
-            {user.memberId === comment.memberId ? (
-              <div className="delete">
-                <GoX role="presentation" onClick={() => handleDelete(comment)} />
-              </div>
-            ) : null}
+            {/* {user.memberId === comment.memberId ? ( */}
+            <div className="delete">
+              <GoX role="presentation" onClick={() => handleDelete(comment)} />
+            </div>
+            {/* ) : null} */}
           </CommentDesign>
         ))}
       </ul>
@@ -150,6 +148,7 @@ const CommentDesign = styled.li`
   padding: 0.5rem 1rem;
   position: relative;
   align-items: center;
+  font-size: 0.9rem;
   .contents {
     display: flex;
     flex-wrap: wrap;
@@ -162,7 +161,7 @@ const CommentDesign = styled.li`
   }
   .time {
     color: #888;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   .delete {
     width: 1rem;
