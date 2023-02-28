@@ -95,7 +95,6 @@ const Tag = styled.div`
   width: fit-content;
   height: 1.5rem;
   background-color: #e1ecf4;
-  margin-right: 0.5rem;
   border-radius: 0.2rem;
   font-size: 0.8rem;
   color: #0074cc;
@@ -104,6 +103,7 @@ const Tag = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
+  margin: 0.2rem;
   > div {
     display: flex;
     align-items: center;
