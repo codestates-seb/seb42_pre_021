@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyPage/MyProfileList';
-import { patchUser, getUser } from 'features/userSlice';
-import HeaderInputForm from 'components/HeaderInputForm';
-// import { useNavigate } from 'react-router-dom';
+import { getUser } from 'features/userSlice';
+// import { patchUser } from 'features/userSlice';
+// import HeaderInputForm from 'components/HeaderInputForm';
+import customAxios from 'api/baseURL';
+import { useNavigate } from 'react-router-dom';
 
 const MyPageEdit = () => {
   const editorRef = useRef('');
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userinfo, isLoading, error } = useSelector(state => state.user);
 
   const isEdit = true;
   const [inputData, setInputData] = useState({});
-  const [userPassword, setUserPassword] = useState({});
-  const [isClick, setIsClick] = useState(false);
+  // const [isClick, setIsClick] = useState(false);
 
   const { user } = useSelector(state => state.auth);
   const id = user.memberId;
@@ -29,17 +30,35 @@ const MyPageEdit = () => {
   const handleSaveButtonClick = async () => {
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    const data = { ...inputData, html, markdown, userPassword };
-    const userData = { data, id };
-    console.log(userData);
-    dispatch(patchUser(userData));
 
-    // navigate('/mypage');
+    userinfo.data.nickname ? (inputData.nickname = userinfo.data.nickname) : '';
+    userinfo.data.location ? (inputData.location = userinfo.data.location) : '';
+    userinfo.data.title ? (inputData.title = userinfo.data.title) : '';
+    userinfo.data.markdown ? (inputData.markdown = userinfo.data.markdown) : '';
+    userinfo.data.html ? (inputData.html = userinfo.data.html) : '';
+
+    const data = { ...inputData, html, markdown };
+
+    await customAxios.patch(`/members/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${user.authorization}`,
+        Refresh: `Bearer ${user.refresh}`,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      withCredentials: true,
+    });
+
+    // useEffect(() => {
+    //   dispatch(patchUser(data));
+    // }, [dispatch]);
+
+    navigate('/mypage');
   };
 
-  const handleBeforeSaveClick = () => {
-    setIsClick(!isClick);
-  };
+  // const handleBeforeSaveClick = () => {
+  //   setIsClick(!isClick);
+  // };
 
   const handleCancelButtonClick = () => {
     window.location.replace('/mypage');
@@ -76,15 +95,11 @@ const MyPageEdit = () => {
                 setState={setInputData}
               />
             </form>
-            {isClick && (
+            {/* {isClick && (
               <Backdrop>
                 <BackdropView>
                   <div>
-                    <HeaderInputForm
-                      placeholder={'password..'}
-                      icon={'lock'}
-                      state={setUserPassword}
-                    ></HeaderInputForm>
+                    <HeaderInputForm placeholder={'password..'} icon={'lock'}></HeaderInputForm>
                   </div>
                   <div className="backdrop-button__box">
                     <AddButton
@@ -95,12 +110,12 @@ const MyPageEdit = () => {
                   </div>
                 </BackdropView>
               </Backdrop>
-            )}
+            )} */}
           </InfoContainer>
           <ButtonBox>
             <AddButton
               buttonText={'Save profile'}
-              handleButtonClick={handleBeforeSaveClick}
+              handleButtonClick={handleSaveButtonClick}
             ></AddButton>
             <CancelButton onClick={handleCancelButtonClick}>Cancel</CancelButton>
           </ButtonBox>
@@ -187,34 +202,34 @@ const CancelButton = styled.button`
   }
 `;
 
-const Backdrop = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
+// const Backdrop = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: fixed;
+//   z-index: 999;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   background-color: rgba(0, 0, 0, 0.4);
+// `;
 
-const BackdropView = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  height: 20vh;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  background-color: #ffffff;
-  border-radius: 0.5rem;
-  > .backdrop-button__box {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-`;
+// const BackdropView = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   width: 50%;
+//   height: 20vh;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 1rem;
+//   background-color: #ffffff;
+//   border-radius: 0.5rem;
+//   > .backdrop-button__box {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//   }
+// `;
 
 export default MyPageEdit;
