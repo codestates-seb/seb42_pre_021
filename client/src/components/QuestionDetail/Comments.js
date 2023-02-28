@@ -8,6 +8,7 @@ import { getTime } from 'utils/getTime';
 const Comments = ({ data, isAnswer }) => {
   const [comments, setComments] = useState([]);
   const [commentValue, setCommentValue] = useState('');
+  const [isShow, setIsShow] = useState(false);
   const { user } = useSelector(state => state.auth);
 
   useEffect(() => {
@@ -61,10 +62,15 @@ const Comments = ({ data, isAnswer }) => {
           </CommentDesign>
         ))}
       </ul>
-      <div>
-        <input type={'text'} value={commentValue} onChange={handleInputChange} />
-        <AddButton buttonText={'Add'} handleButtonClick={handleSubmit} />
+      <div className="comment_click" role="presentation" onClick={() => setIsShow(cur => !cur)}>
+        Add a comment
       </div>
+      {isShow ? (
+        <div>
+          <input type={'text'} value={commentValue} onChange={handleInputChange} />
+          <AddButton buttonText={'Add'} handleButtonClick={handleSubmit} />
+        </div>
+      ) : null}
     </CommentWrapper>
   );
 };
@@ -84,7 +90,7 @@ const CommentWrapper = styled.div`
       right: 0;
     }
     > input {
-      height: 2.4rem;
+      height: 2.5rem;
       width: 100%;
       padding: 0 3rem 0 0.5rem;
       border: 1px solid #bbb;
