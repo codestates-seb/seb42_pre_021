@@ -43,11 +43,13 @@ const MyProfileList = ({ userinfo, editorRef, isEdit, state, setState }) => {
               {isEdit ? (
                 <TextEditor
                   editorRef={editorRef}
-                  editorValue={userinfo.data.markdown || ' '}
+                  editorValue={userinfo.content ? userinfo.content.markdown : ' '}
+                  // editorValue={userinfo.data.markdown || ' '}
                   editorHeight={'10rem'}
                 />
               ) : (
-                <span>{userinfo.data.markdown}</span>
+                <span>{userinfo.content ? userinfo.content.markdown : ''}</span>
+                // <span>{userinfo.data.markdown}</span>
               )}
             </li>
           </ul>
