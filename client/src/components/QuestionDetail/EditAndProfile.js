@@ -88,7 +88,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
           : null}
       </EditAndDelete>
       <Profile className={isAnswer ? 'answer_profile' : null}>
-        <img src={member.profile} alt={`${member.nickname} profile`} />
+        <img src={member.profile + '/' + member.memberId} alt={`${member.nickname} profile`} />
         <div>
           <p>{member.nickname}</p>
           <p>
