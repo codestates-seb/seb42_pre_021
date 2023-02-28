@@ -7,6 +7,7 @@ import { BsXLg } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customAxios from 'api/baseURL';
+import Swal from 'sweetalert2';
 
 const stepList = [
   'Summarize your problem in a one-line title.',
@@ -88,7 +89,12 @@ const QuestionAdd = () => {
     }
 
     if (!titleValid || !contentValid || !tagsValid) {
-      return alert('제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요');
+      // return alert('제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요');
+      Swal.fire({
+        icon: 'error',
+        text: '제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요',
+      });
+      return;
     }
 
     const questionData = {
