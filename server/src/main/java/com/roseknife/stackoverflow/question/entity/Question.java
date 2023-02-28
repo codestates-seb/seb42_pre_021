@@ -34,9 +34,9 @@ public class Question extends Auditable {
     @Column(length = 1_000_000_000)
     private String markdown;
 
-    private Integer viewCount=0;    //초기화 = 0
-    private Integer answerCount=0;  //초기화 = 0
-    private Integer voteCount=0;
+    private Integer viewCount;    //초기화 = 0
+    private Integer answerCount;  //초기화 = 0
+    private Integer voteCount;
 //    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -51,7 +51,7 @@ public class Question extends Auditable {
     private List<QuestionComment> questionComments = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<QuestionTag> questionTags = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "question")

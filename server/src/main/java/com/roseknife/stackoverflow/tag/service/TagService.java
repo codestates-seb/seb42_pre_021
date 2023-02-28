@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.tag.service;
 
+import com.roseknife.stackoverflow.tag.entity.QuestionTag;
 import com.roseknife.stackoverflow.tag.entity.Tag;
 import com.roseknife.stackoverflow.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,7 +30,7 @@ public class TagService {
         return tagRepository.findAllByNameLike("%"+name.toUpperCase()+"%");
     }
 
-    @Transactional
+//    @Transactional
     public List<Tag> findTagNames(List<String> tagNames) {
         List<Tag> tags = new ArrayList<>();
         for (String tagName : tagNames) {

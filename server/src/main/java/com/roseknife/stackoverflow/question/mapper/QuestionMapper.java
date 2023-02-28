@@ -42,33 +42,57 @@ public interface QuestionMapper {
 
         Question question = new Question();
         Member member = new Member();
-//        QuestionBookmark questionBookmark = new QuestionBookmark();
         member.setMemberId(requestBody.getMemberId());
 
         question.setMember(member);
         question.setTitle( requestBody.getTitle() );
-//        question.setContent( requestBody.getContent() );
         question.setHtml(requestBody.getHtml());
         question.setMarkdown(requestBody.getMarkdown());
-//        question.setQuestionBookmark(questionBookmark);
 
-        List<QuestionTag> questionTags = tags.stream()
-                .map(requestTag -> {
-                    QuestionTag questionTag = new QuestionTag();
-                    questionTag.addTag(requestTag); // qT -> tag name //id content x
-                    questionTag.addQuestion(question);
-                    return questionTag;
-                    }
-                ).collect(Collectors.toList());
-
-        question.setQuestionTags(questionTags);
+        question.setQuestionTags(tagsToQuestionTags(question,tags));
 
         return question;
     }
 
+    default Question questionPatchToQuestion(QuestionDto.Patch requestBody,List<Tag> tags) {
+            if ( requestBody == null ) {
+                return null;
+            }
 
-    Question questionPatchToQuestion(QuestionDto.Patch requestBody);
+            Question question = new Question();
 
+//            List<QuestionTag> questionTags = tags.stream()
+//                .map(requestTag -> {
+//                            QuestionTag questionTag = new QuestionTag();
+//                            questionTag.addTag(requestTag); // qT -> tag name //id content x
+//                            questionTag.addQuestion(question);
+//                            return questionTag;
+//                        }
+//                ).collect(Collectors.toList());
+
+
+            question.setQuestionId( requestBody.getQuestionId() );
+            question.setTitle( requestBody.getTitle() );
+            question.setHtml( requestBody.getHtml() );
+            question.setMarkdown( requestBody.getMarkdown() );
+            question.setVoteCount( requestBody.getVoteCount() );
+            question.setQuestionTags(tagsToQuestionTags(question,tags));
+//            question.setQuestionTags(questionTags);
+            return question;
+    }
+
+    default List<QuestionTag> tagsToQuestionTags(Question question,List<Tag> tags) {
+        List<QuestionTag> questionTags = tags.stream()
+                .map(requestTag -> {
+                            QuestionTag questionTag = new QuestionTag();
+                            questionTag.addTag(requestTag); // qT -> tag name //id content x
+                            questionTag.addQuestion(question);
+                            return questionTag;
+                        }
+                ).collect(Collectors.toList());
+
+        return questionTags;
+    }
     //질문 전체 조회 Mapper
 //    @Named("Q2R3")
 //    @Mapping(source = "member.nickname",target = "questionMember.nickname")

@@ -1,5 +1,6 @@
 package com.roseknife.stackoverflow.utils;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Component;
@@ -20,8 +21,15 @@ public class CustomBeanUtils<T> {
 
         for (final Field property : source.getClass().getDeclaredFields()) {
             Object sourceProperty = src.getPropertyValue(property.getName());
-            if (sourceProperty != null && !(sourceProperty instanceof Collection<?>)) {
+//            System.out.println("property.getN ceProperty()2 = " + sourceProperty);
+//            if (sourceProperty != null && !(sourceProperty instanceof Collection<?>)) {
+            if (sourceProperty != null) {
+                System.out.println("src.getPropertyValue = " + src.getPropertyValue(property.getName()));
+                System.out.println("dest(o).getPropertyValue = " + dest.getPropertyValue(property.getName()));
                 dest.setPropertyValue(property.getName(), sourceProperty);
+                System.out.println("sourceProperty = " + sourceProperty);
+                System.out.println("property.getName() = " + property.getName());
+                System.out.println("dest.getPropertyValue = " + dest.getPropertyValue(property.getName()));
             }
         }
 
