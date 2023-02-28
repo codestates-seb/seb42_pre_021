@@ -3,7 +3,6 @@ import TextEditor from 'components/Editor';
 import MyProfileInput from './MyProfileInput';
 
 const MyProfileList = ({ userinfo, editorRef, isEdit, state, setState }) => {
-  console.log(userinfo);
   return (
     <>
       {userinfo.data && (
@@ -44,13 +43,13 @@ const MyProfileList = ({ userinfo, editorRef, isEdit, state, setState }) => {
               {isEdit ? (
                 <TextEditor
                   editorRef={editorRef}
-                  editorValue={userinfo.data.markdown ? userinfo.data.markdown : ' '}
-                  // editorValue={userinfo.data.markdown || ' '}
+                  // editorValue={userinfo.data.markdown ? userinfo.data.markdown : ' '}
+                  editorValue={userinfo.data.markdown || ' '}
                   editorHeight={'10rem'}
                 />
               ) : (
-                <span>{userinfo.data.markdown ? userinfo.data.markdown : ''}</span>
-                // <span>{userinfo.data.markdown}</span>
+                // <span>{userinfo.data.markdown ? userinfo.data.markdown : ''}</span>
+                <span>{userinfo.data.markdown || ' '}</span>
               )}
             </li>
           </ul>

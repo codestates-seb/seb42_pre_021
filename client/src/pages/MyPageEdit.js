@@ -5,8 +5,6 @@ import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyPage/MyProfileList';
 import { getUser } from 'features/userSlice';
-// import { patchUser } from 'features/userSlice';
-// import HeaderInputForm from 'components/HeaderInputForm';
 import customAxios from 'api/baseURL';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,12 +12,11 @@ const MyPageEdit = () => {
   const editorRef = useRef('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { userinfo, isLoading, error } = useSelector(state => state.user);
+
+  const [inputData, setInputData] = useState({});
 
   const isEdit = true;
-  const [inputData, setInputData] = useState({});
-  // const [isClick, setIsClick] = useState(false);
-
+  const { userinfo, isLoading, error } = useSelector(state => state.user);
   const { user } = useSelector(state => state.auth);
   const id = user.memberId;
 
@@ -28,37 +25,40 @@ const MyPageEdit = () => {
   }, [dispatch]);
 
   const handleSaveButtonClick = async () => {
-    let html = editorRef.current?.getInstance().getHTML();
-    let markdown = editorRef.current?.getInstance().getMarkdown();
+    let newHtml = editorRef.current?.getInstance().getHTML();
+    let newMarkdown = editorRef.current?.getInstance().getMarkdown();
 
-    userinfo.data.nickname ? (inputData.nickname = userinfo.data.nickname) : '';
-    userinfo.data.location ? (inputData.location = userinfo.data.location) : '';
-    userinfo.data.title ? (inputData.title = userinfo.data.title) : '';
-    userinfo.data.markdown ? (markdown = userinfo.data.markdown) : '';
-    userinfo.data.html ? (html = userinfo.data.html) : '';
+    inputData.nickname === undefined || userinfo.data.nickname === inputData.nickname
+      ? (inputData.nickname = userinfo.data.nickname)
+      : '';
+    inputData.location === undefined || userinfo.data.location === inputData.location
+      ? (inputData.location = userinfo.data.location)
+      : '';
+    inputData.title === undefined || userinfo.data.title === inputData.title
+      ? (inputData.title = userinfo.data.title)
+      : '';
 
-    const data = { ...inputData, html, markdown };
-
-    await customAxios.patch(`/members/${id}`, data, {
-      headers: {
-        Authorization: `Bearer ${user.authorization}`,
-        Refresh: `Bearer ${user.refresh}`,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+    await customAxios.patch(
+      `/members/${id}`,
+      {
+        nickname: inputData.nickname,
+        location: inputData.location,
+        title: inputData.title,
+        html: newHtml,
+        markdown: newMarkdown,
       },
-      withCredentials: true,
-    });
-
-    // useEffect(() => {
-    //   dispatch(patchUser(data));
-    // }, [dispatch]);
-
+      {
+        headers: {
+          Authorization: `Bearer ${user.authorization}`,
+          Refresh: `Bearer ${user.refresh}`,
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        withCredentials: true,
+      }
+    );
     navigate('/mypage');
   };
-
-  // const handleBeforeSaveClick = () => {
-  //   setIsClick(!isClick);
-  // };
 
   const handleCancelButtonClick = () => {
     window.location.replace('/mypage');
@@ -95,22 +95,6 @@ const MyPageEdit = () => {
                 setState={setInputData}
               />
             </form>
-            {/* {isClick && (
-              <Backdrop>
-                <BackdropView>
-                  <div>
-                    <HeaderInputForm placeholder={'password..'} icon={'lock'}></HeaderInputForm>
-                  </div>
-                  <div className="backdrop-button__box">
-                    <AddButton
-                      buttonText={'Save profile'}
-                      handleButtonClick={handleSaveButtonClick}
-                    ></AddButton>
-                    <CancelButton onClick={handleBeforeSaveClick}>Cancel</CancelButton>
-                  </div>
-                </BackdropView>
-              </Backdrop>
-            )} */}
           </InfoContainer>
           <ButtonBox>
             <AddButton
@@ -201,35 +185,5 @@ const CancelButton = styled.button`
     filter: brightness(0.9);
   }
 `;
-
-// const Backdrop = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   position: fixed;
-//   z-index: 999;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   right: 0;
-//   background-color: rgba(0, 0, 0, 0.4);
-// `;
-
-// const BackdropView = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   width: 50%;
-//   height: 20vh;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 1rem;
-//   background-color: #ffffff;
-//   border-radius: 0.5rem;
-//   > .backdrop-button__box {
-//     display: flex;
-//     flex-direction: row;
-//     align-items: center;
-//   }
-// `;
 
 export default MyPageEdit;
