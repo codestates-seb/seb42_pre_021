@@ -28,7 +28,7 @@ const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
             title={title}
           />
           <div className="comment_click" role="presentation" onClick={() => setIsShow(cur => !cur)}>
-            Add a comment
+            Comment
           </div>
           {isShow ? <Comments data={data} isAnswer={answerId ? true : false} /> : null}
         </MarkdownDesign>
