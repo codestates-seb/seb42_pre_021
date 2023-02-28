@@ -34,6 +34,7 @@ const QuestionList = () => {
         params,
       })
       .then(response => {
+        console.log(response.data.data);
         setQuestionList(response.data.data);
         setPageInfo(response.data.pageInfo);
         setIsLoading(false);
