@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { AiFillLock } from 'react-icons/ai';
+import { useEffect } from 'react';
 
 const HeaderInputForm = ({ placeholder, icon, state }) => {
+  useEffect(() => {
+    console.log('icon', icon);
+  });
   return (
     <SearchFrom role="search" action="/search" className="searchFrom">
       <label className="searchIconContainer" htmlFor="search">
-        {icon === 'search' ? <Search width={16} height={16} className="icon" /> : null}
-        {icon === 'lock' ? <AiFillLock width={16} height={16} className="icon" /> : null}
+        {!(icon === 'lock') ? (
+          <Search width={16} height={16} className="icon" />
+        ) : (
+          <AiFillLock width={16} height={16} className="icon" />
+        )}
       </label>
       <input
         className="searchInput"
