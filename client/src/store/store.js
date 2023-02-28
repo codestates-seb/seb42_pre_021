@@ -13,15 +13,12 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-// redux state를 storage에 저장할 때 사용하는 redux-persist
+
 const persistConfig = {
   timeout: 1000,
-  //key: 어느 지점부터 데이터를 저장할 것인가를 결정
   key: 'root',
-  // localStorage에 저장.
   storage,
   whitelist: ['auth'],
-  //whitelist : persist 지속시킬 모듈을 설정.
 };
 
 const reducer = combineReducers({

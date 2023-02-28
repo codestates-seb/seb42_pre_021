@@ -19,9 +19,7 @@ const login = async userData => {
 };
 
 //로그아웃 요청
-
 const logout = () => {
-  // customAxios.post(`/members/logout`);
   localStorage.removeItem('user');
   window.location.replace('/');
 };
