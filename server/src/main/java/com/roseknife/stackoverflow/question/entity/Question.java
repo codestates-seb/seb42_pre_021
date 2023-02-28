@@ -59,7 +59,7 @@ public class Question extends Auditable {
 
     // modified 55-63
     @JsonIgnore //1대1 무한루프로 적용 - 이쪽에서만 적용 (추후 알아볼것)
-    @OneToOne(mappedBy = "question")
+    @OneToOne(mappedBy = "question",cascade = CascadeType.REMOVE)
     private QuestionBookmark questionBookmark;
 
     public void setQuestionBookmark(QuestionBookmark questionBookmark) {

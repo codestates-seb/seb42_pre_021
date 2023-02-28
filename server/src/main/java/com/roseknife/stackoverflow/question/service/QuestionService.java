@@ -43,9 +43,6 @@ public class QuestionService {
     public Question updateQuestion(Question question) {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId(),FindStatus.NONE);
 
-        for (QuestionTag questionTag : question.getQuestionTags()) {
-            System.out.println(questionTag.getTag().getName());
-        }
 
         Optional.ofNullable(question.getQuestionTags()).ifPresent(questionTags -> {
             questionTagRepository.deleteByQuestionQuestionId(findQuestion.getQuestionId());

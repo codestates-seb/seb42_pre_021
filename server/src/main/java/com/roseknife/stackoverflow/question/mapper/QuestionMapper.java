@@ -61,23 +61,12 @@ public interface QuestionMapper {
 
             Question question = new Question();
 
-//            List<QuestionTag> questionTags = tags.stream()
-//                .map(requestTag -> {
-//                            QuestionTag questionTag = new QuestionTag();
-//                            questionTag.addTag(requestTag); // qT -> tag name //id content x
-//                            questionTag.addQuestion(question);
-//                            return questionTag;
-//                        }
-//                ).collect(Collectors.toList());
-
-
             question.setQuestionId( requestBody.getQuestionId() );
             question.setTitle( requestBody.getTitle() );
             question.setHtml( requestBody.getHtml() );
             question.setMarkdown( requestBody.getMarkdown() );
             question.setVoteCount( requestBody.getVoteCount() );
             question.setQuestionTags(tagsToQuestionTags(question,tags));
-//            question.setQuestionTags(questionTags);
             return question;
     }
 
