@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 import { ReactComponent as Search } from 'assets/search.svg';
+import { AiFillLock } from 'react-icons/ai';
 
-const HeaderInputForm = ({ placeholder }) => {
+const HeaderInputForm = ({ placeholder, icon, state }) => {
   return (
     <SearchFrom role="search" action="/search" className="searchFrom">
       <label className="searchIconContainer" htmlFor="search">
-        <Search width={16} height={16} className="searchIcon" />
+        {icon === 'search' ? <Search width={16} height={16} className="icon" /> : null}
+        {icon === 'lock' ? <AiFillLock width={16} height={16} className="icon" /> : null}
       </label>
       <input
         className="searchInput"
-        id="search"
-        type="text"
+        id={icon}
+        type={icon === 'lock' ? 'password' : 'text'}
         placeholder={placeholder}
         autoComplete="off"
+        onChange={e => {
+          state(e.target.value);
+        }}
       />
     </SearchFrom>
   );
@@ -30,7 +35,7 @@ const SearchFrom = styled.form`
   }
 
   > .searchIconContainer {
-    > .searchIcon {
+    > .icon {
       margin: 0.4rem 0.4rem 0.2rem;
       &:hover {
         cursor: text;

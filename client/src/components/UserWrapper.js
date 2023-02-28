@@ -7,7 +7,7 @@ const UserWrapper = ({ users }) => {
       <Container>
         {users &&
           users.map(el => (
-            <UserContainer key={el.id}>
+            <UserContainer key={el.memberId}>
               {el.profile ? (
                 <img src={el.profile} alt="profileImage" className="users-image" />
               ) : (
