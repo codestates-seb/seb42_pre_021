@@ -54,8 +54,11 @@ const QuestionDetail = () => {
   useEffect(() => {
     getQuestionData();
     setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 150);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 250);
   }, []);
 
   return (

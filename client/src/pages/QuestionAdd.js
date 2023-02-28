@@ -3,7 +3,6 @@ import TextEditor from 'components/Editor';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { BsXLg } from 'react-icons/bs';
-// import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customAxios from 'api/baseURL';
@@ -21,7 +20,6 @@ const QuestionAdd = () => {
   const { user } = useSelector(state => state.auth);
   const [title, setTitle] = useState('');
   const [titleValid, setTitleValid] = useState(false);
-  const [contentValid, setContentValid] = useState(false);
   const [tagsInput, setTagsInput] = useState('');
   const [tagsArr, setTagsArr] = useState([]);
   const [tagsValid, setTagsValid] = useState(false);
@@ -77,19 +75,9 @@ const QuestionAdd = () => {
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
 
-    const pureMarkUpTextLength = markdown.replace(/(<([^>]+)>)/gi, ' ').length;
     const pureHtmlTextLength = html.replace(/(<([^>]+)>)/gi, ' ').length;
-    console.log(`텍스트 글자는 :${pureHtmlTextLength}`);
-    console.log(`타이틀 글자는 : ${title.length}`);
 
-    if (pureMarkUpTextLength.length >= 10 || pureHtmlTextLength >= 10) {
-      setContentValid(true);
-    } else {
-      setContentValid(false);
-    }
-
-    if (!titleValid || !contentValid || !tagsValid) {
-      // return alert('제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요');
+    if (!titleValid || !pureHtmlTextLength >= 10 || !tagsValid) {
       Swal.fire({
         icon: 'error',
         text: '제목 5자이상, 본문 10자이상, 태그 1개이상인지 확인해주세요',
@@ -250,7 +238,6 @@ const HeaderBackground = styled.div`
 
   @media screen and (min-width: 1050px) {
     position: relative;
-
     width: 500px;
     background-position: right;
   }

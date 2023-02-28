@@ -22,7 +22,6 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
       error.message ||
       error.toStirng();
     return thunkAPI.rejectWithValue(message);
-    //에러가 발생시, 에러메세지를 action.payload에 담아줌.
   }
 });
 

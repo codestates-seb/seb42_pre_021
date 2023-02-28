@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { AiFillLock } from 'react-icons/ai';
 
-const HeaderInputForm = ({ placeholder, icon, state }) => {
+const HeaderInputForm = ({ placeholder, icon }) => {
   return (
     <SearchFrom role="search" action="/search" className="searchFrom">
       <label className="searchIconContainer" htmlFor="search">
@@ -18,9 +18,6 @@ const HeaderInputForm = ({ placeholder, icon, state }) => {
         type={icon === 'lock' ? 'password' : 'text'}
         placeholder={placeholder}
         autoComplete="off"
-        onChange={e => {
-          state(e.target.value);
-        }}
       />
     </SearchFrom>
   );

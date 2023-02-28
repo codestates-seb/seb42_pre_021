@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import EditAndProfile from './EditAndProfile';
 import { Tags } from 'components/Questions';
+import Comments from './Comments';
 
 const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
   const handleHTML = str => {
@@ -24,6 +25,7 @@ const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
             answerId={answerId}
             title={title}
           />
+          <Comments data={data} isAnswer={answerId ? true : false} />
         </MarkdownDesign>
       )}
     </>
@@ -43,6 +45,12 @@ const MarkdownDesign = styled.div`
     > img {
       width: 100%;
     }
+  }
+  .comment_click {
+    cursor: pointer;
+    color: #888;
+    font-weight: 600;
+    font-size: 0.8rem;
   }
   .content {
     width: 100%;

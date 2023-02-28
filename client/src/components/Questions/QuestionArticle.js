@@ -28,7 +28,10 @@ const QuestionArticle = ({ question }) => {
               <div>
                 {question.tag ? <Tags data={question} /> : null}
                 <MemberInfo>
-                  <img src={question.questionMember.profile} alt="profileImg" />
+                  <img
+                    src={question.questionMember.profile + '/' + question.questionMember.memberId}
+                    alt="profileImg"
+                  />
                   <p>{question.questionMember.nickname}</p>
                   <p>{getTime(question.createdAt)}</p>
                 </MemberInfo>
