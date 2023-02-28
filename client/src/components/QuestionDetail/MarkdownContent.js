@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import EditAndProfile from './EditAndProfile';
 import { Tags } from 'components/Questions';
+import Comments from './Comments';
+import { useState } from 'react';
 
 const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
+  const [isShow, setIsShow] = useState(false);
   const handleHTML = str => {
     if (str !== undefined) {
       return { __html: str };
@@ -24,6 +27,10 @@ const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
             answerId={answerId}
             title={title}
           />
+          <div className="comment_click" role="presentation" onClick={() => setIsShow(cur => !cur)}>
+            Add a comment
+          </div>
+          {isShow ? <Comments data={data} isAnswer={answerId ? true : false} /> : null}
         </MarkdownDesign>
       )}
     </>
@@ -43,6 +50,11 @@ const MarkdownDesign = styled.div`
     > img {
       width: 100%;
     }
+  }
+  .comment_click {
+    cursor: pointer;
+    color: #888;
+    font-weight: 600;
   }
   .content {
     width: 100%;
