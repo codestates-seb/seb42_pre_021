@@ -50,6 +50,7 @@ const MarkdownDesign = styled.div`
     cursor: pointer;
     color: #888;
     font-weight: 600;
+    font-size: 0.8rem;
   }
   .content {
     width: 100%;
