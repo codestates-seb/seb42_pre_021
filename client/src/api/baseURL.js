@@ -8,7 +8,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const customAxios = axios.create({
-  baseURL: 'http://ec2-3-36-97-103.ap-northeast-2.compute.amazonaws.com:8080/',
+  baseURL: 'http://ec2-3-35-14-51.ap-northeast-2.compute.amazonaws.com:8080/',
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
