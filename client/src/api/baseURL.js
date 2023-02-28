@@ -8,7 +8,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const customAxios = axios.create({
-  baseURL: 'https://ad10-1-237-37-135.jp.ngrok.io',
+  baseURL: 'http://ec2-3-39-228-100.ap-northeast-2.compute.amazonaws.com:8080',
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
