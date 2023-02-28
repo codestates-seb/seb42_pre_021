@@ -15,10 +15,10 @@ const users = async data => {
   return res.data;
 };
 
-const userInfoEdit = async (data, id) => {
-  const res = await customAxios.patch(`/members/${id}`, data);
-  return res.data;
-};
+// const userInfoEdit = async (data, id) => {
+//   const res = await customAxios.patch(`/members/${id}`, data);
+//   return res.data;
+// };
 
 const userDelete = async id => {
   await customAxios.delete(`/members/${id}`);
@@ -29,7 +29,7 @@ const userDelete = async id => {
 const userService = {
   userInfo,
   users,
-  userInfoEdit,
+  // userInfoEdit,
   userDelete,
 };
 
