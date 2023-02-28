@@ -30,7 +30,7 @@ public class TagService {
         return tagRepository.findAllByNameLike("%"+name.toUpperCase()+"%");
     }
 
-//    @Transactional
+    @Transactional
     public List<Tag> findTagNames(List<String> tagNames) {
         List<Tag> tags = new ArrayList<>();
         if(tagNames == null){
