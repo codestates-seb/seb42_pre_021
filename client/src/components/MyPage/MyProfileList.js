@@ -17,6 +17,7 @@ const MyProfileList = ({ userinfo, editorRef, isEdit, state, setState }) => {
                 id={'nickname'}
                 state={state}
                 setState={setState}
+                disabled={true}
               />
             </li>
             <li>
