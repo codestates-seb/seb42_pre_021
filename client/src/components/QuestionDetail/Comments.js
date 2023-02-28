@@ -16,8 +16,10 @@ const Comments = ({ data, isAnswer }) => {
 
   useEffect(() => {
     if (isAnswer) {
+      console.log('answer', data);
       setComments(data.answerComments);
     } else {
+      console.log('question', data);
       setComments(data.questionComments);
     }
   }, []);
@@ -30,7 +32,7 @@ const Comments = ({ data, isAnswer }) => {
   const handleSubmit = async () => {
     if (isAnswer) {
       const newData = {
-        memberId: user.memberId,
+        memberId: user.memberId + '',
         answerId: data.answerId,
         html: commentValue,
         markdown: commentValue,
@@ -38,21 +40,23 @@ const Comments = ({ data, isAnswer }) => {
       await customAxios.post(`/comments/answers`, {
         ...newData,
       });
-      setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
+      // setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
     } else {
       const newData = {
-        memberId: user.memberId,
+        memberId: user.memberId + '',
         questionId: data.questionId,
         html: commentValue,
         markdown: commentValue,
       };
       await customAxios.post(`/comments/questions`, { ...newData });
-      setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
+      // setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
     }
     setCommentValue('');
+    location.reload();
   };
 
   const handleDelete = comment => {
+    console.log(comment);
     Swal.fire({
       title: 'Are you sure?',
       text: "you won't be able to revert this!",
@@ -64,6 +68,7 @@ const Comments = ({ data, isAnswer }) => {
     }).then(result => {
       if (result.isConfirmed) {
         deleteRequest(isAnswer, comment);
+        toast.success('Your comment has been deleted!');
       } else {
         toast.info('Cancelled! Your comment is safe.');
       }
@@ -83,20 +88,22 @@ const Comments = ({ data, isAnswer }) => {
   return (
     <CommentWrapper>
       <ul>
-        {comments.map((comment, i) => (
-          <CommentDesign key={i}>
-            <div className="contents">
-              <p>{comment.html}</p>
-              <span className="name">&nbsp;- {comment.nickname}</span>
-              <span className="time">&nbsp;{getTime(comment.createdAt)}</span>
-            </div>
-            {/* {user.memberId === comment.memberId ? ( */}
-            <div className="delete">
-              <GoX role="presentation" onClick={() => handleDelete(comment)} />
-            </div>
-            {/* ) : null} */}
-          </CommentDesign>
-        ))}
+        {comments.map((comment, i) => {
+          return (
+            <CommentDesign key={i}>
+              <div className="contents">
+                <p>{comment.html}</p>
+                <span className="name">&nbsp;- {comment.nickname}</span>
+                <span className="time">&nbsp;{getTime(comment.createdAt)}</span>
+              </div>
+              {user.memberId + '' === comment.memberId ? (
+                <div className="delete">
+                  <GoX role="presentation" onClick={() => handleDelete(comment)} />
+                </div>
+              ) : null}
+            </CommentDesign>
+          );
+        })}
       </ul>
       <div className="comment_click" role="presentation" onClick={() => setIsShow(cur => !cur)}>
         Add a comment
