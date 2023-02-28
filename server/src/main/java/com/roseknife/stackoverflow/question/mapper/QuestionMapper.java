@@ -105,12 +105,8 @@ public interface QuestionMapper {
         responseAll.title( requestBody.getTitle() );
         responseAll.html( requestBody.getHtml() );
         responseAll.markdown( requestBody.getMarkdown() );
-        if ( requestBody.getCreatedAt() != null ) {
-            responseAll.createdAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( requestBody.getCreatedAt() ) );
-        }
-        if ( requestBody.getModifiedAt() != null ) {
-            responseAll.modifiedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( requestBody.getModifiedAt() ) );
-        }
+        responseAll.createdAt(requestBody.getCreatedAt());
+        responseAll.modifiedAt(requestBody.getModifiedAt());
         responseAll.viewCount( requestBody.getViewCount() );
         responseAll.answerCount( requestBody.getAnswerCount() );
         responseAll.voteCount( requestBody.getVoteCount() );
@@ -149,7 +145,8 @@ public interface QuestionMapper {
 //        AnswerBookmark answerBookmark = requestBody.getAnswerBookmark();
         AnswerBookmarkDto.Response answerBookmark = answerBookmarkToAnswerBookmarkResponseDto(requestBody.getAnswerBookmark());
         List<AnswerCommentDto.Response> answerCommentResponse = answerCommentsToAnswerCommentResponseDtos(requestBody.getAnswerComments());
-        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer(answerId, createdAt, modifiedAt, html,markdown, questionMember,answerCommentResponse,answerBookmark,voteCount);
+        QuestionDto.QuestionAnswer questionAnswer = new QuestionDto.QuestionAnswer(answerId, createdAt, modifiedAt,
+                html,markdown, questionMember,answerCommentResponse,answerBookmark,voteCount);
 
         return questionAnswer;
     }
