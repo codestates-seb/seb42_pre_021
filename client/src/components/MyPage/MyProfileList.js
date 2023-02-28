@@ -2,43 +2,40 @@ import styled from 'styled-components';
 import TextEditor from 'components/Editor';
 import MyProfileInput from './MyProfileInput';
 
-const MyProfileList = ({
-  userinfo,
-  editorRef,
-  isEdit,
-  handleOnChangeEditor,
-  handleOnChangeInput,
-}) => {
+const MyProfileList = ({ userinfo, editorRef, isEdit, state, setState }) => {
   return (
     <>
-      {userinfo && (
+      {userinfo.data && (
         <InfoMain>
           <ul>
             <li>
               <MyProfileInput
                 label={'Display name'}
-                value={userinfo.nickname}
+                value={userinfo.data.nickname}
                 isEdit={isEdit}
                 id={'nickname'}
-                handleOnChange={handleOnChangeInput}
+                state={state}
+                setState={setState}
               />
             </li>
             <li>
               <MyProfileInput
                 label={'Location'}
-                value={userinfo.location}
+                value={userinfo.data.location}
                 isEdit={isEdit}
                 id={'location'}
-                handleOnChange={handleOnChangeInput}
+                state={state}
+                setState={setState}
               />
             </li>
             <li>
               <MyProfileInput
                 label={'Title'}
-                value={userinfo.title}
+                value={userinfo.data.title}
                 isEdit={isEdit}
                 id={'title'}
-                handleOnChange={handleOnChangeInput}
+                state={state}
+                setState={setState}
               />
             </li>
             <li>
@@ -46,12 +43,11 @@ const MyProfileList = ({
               {isEdit ? (
                 <TextEditor
                   editorRef={editorRef}
-                  editorValue={userinfo.content.markdown || ' '}
+                  editorValue={userinfo.data.markdown || ' '}
                   editorHeight={'10rem'}
-                  onEditorChange={handleOnChangeEditor}
                 />
               ) : (
-                <span>{userinfo.content.markdown}</span>
+                <span>{userinfo.data.markdown}</span>
               )}
             </li>
           </ul>

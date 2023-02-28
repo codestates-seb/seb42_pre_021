@@ -34,7 +34,6 @@ const MyPage = () => {
   const handleDeleteButtonClick = () => {
     const id = user.memberId;
     dispatch(deleteUser(id));
-    navigate('/');
   };
 
   return (
@@ -43,7 +42,7 @@ const MyPage = () => {
       {error && <div>{error.message}</div>}
 
       <Navigation />
-      {userinfo && (
+      {userinfo.data && (
         <Container>
           <ButtonBox>
             <button className="mypageButton" onClick={handleClickEdit}>
@@ -62,7 +61,7 @@ const MyPage = () => {
                 <span>Profile image</span>
                 <ProfileContainer>
                   <ImageBox>
-                    <img src={userinfo.profile} alt="profileImage" className="profileImage" />
+                    <img src={userinfo.data.profile} alt="profileImage" className="profileImage" />
                   </ImageBox>
                   <ul>
                     <li>
@@ -158,7 +157,7 @@ const ProfileContainer = styled.div`
 
 const ImageBox = styled.div`
   > .profileImage {
-    width: 9rem;
+    width: 8rem;
     border-radius: 0.8rem;
     @media screen and (max-width: 640px) {
       width: 6rem;

@@ -9,3 +9,8 @@ export const Container = styled.div`
     padding-left: 0;
   }
 `;
+
+export const LoadingContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 3rem);
+`;

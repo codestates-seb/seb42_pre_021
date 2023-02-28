@@ -26,7 +26,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
         state: {
           title: data.title,
           markdown: data.markdown,
-          tags: data.tag,
+          tags: data.questionTags,
         },
       });
     }
@@ -75,7 +75,7 @@ const EditAndProfile = ({ member, date, isAnswer, data, title }) => {
       <EditAndDelete>
         <li>Share</li>
         {user
-          ? user.memberId === data.memberId && (
+          ? user.memberId === member.memberId && (
               <>
                 <li role="presentation" onClick={() => handleEditClick(isAnswer)}>
                   Edit

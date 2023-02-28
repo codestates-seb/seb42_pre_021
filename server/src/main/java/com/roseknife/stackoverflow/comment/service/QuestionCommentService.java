@@ -4,6 +4,7 @@ import com.roseknife.stackoverflow.comment.entity.QuestionComment;
 import com.roseknife.stackoverflow.comment.repository.QuestionCommentRepository;
 import com.roseknife.stackoverflow.exception.BusinessLogicException;
 import com.roseknife.stackoverflow.exception.ExceptionCode;
+import com.roseknife.stackoverflow.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QuestionCommentService {
 	private final QuestionCommentRepository questionCommentRepository;
+	private final CustomBeanUtils<QuestionComment> beanUtils;
 
 	public QuestionComment createQuestionComment(QuestionComment questionComment) {
 		return questionCommentRepository.save(questionComment);
@@ -22,10 +24,8 @@ public class QuestionCommentService {
 
 	public QuestionComment updateQuestionComment(QuestionComment questionComment) {
 		QuestionComment findQuestionComment = findVerifiedQuestionComment(questionComment.getQuestionCommentId());
-		Optional.ofNullable(questionComment.getHtml()).ifPresent(findQuestionComment::setHtml);
-		Optional.ofNullable(questionComment.getMarkdown()).ifPresent(findQuestionComment::setMarkdown);
 
-		return questionCommentRepository.save(findQuestionComment);
+		return beanUtils.copyNonNullProperties(questionComment, findQuestionComment);
 	}
 
 	public void deleteQuestionComment(Long questionCommentId) {

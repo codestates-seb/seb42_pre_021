@@ -4,19 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navigation from 'containers/Navigation';
 import AddButton from 'components/AddButton';
 import MyProfileList from 'components/MyPage/MyProfileList';
-import { ReactComponent as Search } from 'assets/search.svg';
 import { patchUser, getUser } from 'features/userSlice';
-import { useNavigate } from 'react-router-dom';
+import HeaderInputForm from 'components/HeaderInputForm';
+// import { useNavigate } from 'react-router-dom';
 
 const MyPageEdit = () => {
   const editorRef = useRef('');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userinfo, isLoading, error } = useSelector(state => state.user);
 
   const isEdit = true;
-  const [content, setContent] = useState({});
   const [inputData, setInputData] = useState({});
+  const [userPassword, setUserPassword] = useState({});
+  const [isClick, setIsClick] = useState(false);
 
   const { user } = useSelector(state => state.auth);
   const id = user.memberId;
@@ -25,25 +26,19 @@ const MyPageEdit = () => {
     dispatch(getUser(id));
   }, [dispatch]);
 
-  const handleOnChangeEditor = () => {
+  const handleSaveButtonClick = async () => {
     const html = editorRef.current?.getInstance().getHTML();
     const markdown = editorRef.current?.getInstance().getMarkdown();
-    setContent({ html, markdown });
+    const data = { ...inputData, html, markdown, userPassword };
+    const userData = { data, id };
+    console.log(userData);
+    dispatch(patchUser(userData));
+
+    // navigate('/mypage');
   };
 
-  const handleOnChangeInput = e => {
-    setInputData({ ...inputData, [e.target.id]: e.target.value });
-  };
-
-  const handleSaveButtonClick = () => {
-    let data = { ...inputData, content };
-    if (Object.keys(content).length === 0) {
-      data = { ...inputData };
-    }
-
-    const editData = { data, id };
-    dispatch(patchUser(editData));
-    navigate('/mypage');
+  const handleBeforeSaveClick = () => {
+    setIsClick(!isClick);
   };
 
   const handleCancelButtonClick = () => {
@@ -65,7 +60,11 @@ const MyPageEdit = () => {
                 <span>Profile image</span>
                 <div>
                   <ImageBox>
-                    <Search className="profileImage" />
+                    <img
+                      src={user.profile}
+                      alt={`${user.nickname} profile`}
+                      className="profileImage"
+                    />
                   </ImageBox>
                 </div>
               </InfoHeader>
@@ -73,19 +72,37 @@ const MyPageEdit = () => {
                 userinfo={userinfo}
                 editorRef={editorRef}
                 isEdit={isEdit}
-                handleOnChangeEditor={handleOnChangeEditor}
-                handleOnChangeInput={handleOnChangeInput}
+                state={inputData}
+                setState={setInputData}
               />
             </form>
+            {isClick && (
+              <Backdrop>
+                <BackdropView>
+                  <div>
+                    <HeaderInputForm
+                      placeholder={'password..'}
+                      icon={'lock'}
+                      state={setUserPassword}
+                    ></HeaderInputForm>
+                  </div>
+                  <div className="backdrop-button__box">
+                    <AddButton
+                      buttonText={'Save profile'}
+                      handleButtonClick={handleSaveButtonClick}
+                    ></AddButton>
+                    <CancelButton onClick={handleBeforeSaveClick}>Cancel</CancelButton>
+                  </div>
+                </BackdropView>
+              </Backdrop>
+            )}
           </InfoContainer>
           <ButtonBox>
             <AddButton
               buttonText={'Save profile'}
-              handleButtonClick={handleSaveButtonClick}
+              handleButtonClick={handleBeforeSaveClick}
             ></AddButton>
-            <button className="cancleButton" onClick={handleCancelButtonClick}>
-              Cancel
-            </button>
+            <CancelButton onClick={handleCancelButtonClick}>Cancel</CancelButton>
           </ButtonBox>
         </Container>
       )}
@@ -135,9 +152,8 @@ const InfoHeader = styled.header`
 
 const ImageBox = styled.div`
   > .profileImage {
-    width: 9rem;
+    width: 8rem;
     border-radius: 0.8rem;
-    background-color: gray;
     @media screen and (max-width: 640px) {
       width: 6rem;
     }
@@ -153,20 +169,51 @@ const ButtonBox = styled.aside`
   @media screen and (max-width: 640px) {
     margin-left: calc(5% + 5rem);
   }
-  > .cancleButton {
+`;
+
+const CancelButton = styled.button`
+  display: flex;
+  margin-left: 1rem;
+  border: none;
+  white-space: nowrap;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #0b95ff;
+  background-color: transparent;
+  :hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+  }
+`;
+
+const Backdrop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const BackdropView = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 20vh;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  > .backdrop-button__box {
     display: flex;
-    margin-left: 1rem;
-    border: none;
-    white-space: nowrap;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #0b95ff;
-    background-color: transparent;
-    :hover {
-      cursor: pointer;
-      filter: brightness(0.9);
-    }
+    flex-direction: row;
+    align-items: center;
   }
 `;
 

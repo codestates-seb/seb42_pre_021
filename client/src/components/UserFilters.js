@@ -1,18 +1,25 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-const UserFilters = () => {
+const UserFilters = ({ handleClickNewUsers }) => {
   const [isClicked, setIsClicked] = useState('Reputation');
 
   const handleClick = e => {
     setIsClicked(e.target.innerText);
   };
+
   return (
     <Container>
       <button className={isClicked === 'Reputation' ? 'focus' : null} onClick={handleClick}>
         Reputation
       </button>
-      <button className={isClicked === 'New Users' ? 'focus' : null} onClick={handleClick}>
+      <button
+        className={isClicked === 'New Users' ? 'focus' : null}
+        onClick={e => {
+          handleClick(e);
+          handleClickNewUsers();
+        }}
+      >
         New Users
       </button>
       <button className={isClicked === 'Voters' ? 'focus' : null} onClick={handleClick}>
