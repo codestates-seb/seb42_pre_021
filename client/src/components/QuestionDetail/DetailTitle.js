@@ -41,7 +41,17 @@ const TitleSection = styled.section`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 0.5rem;
+    > button {
+      margin-left: auto;
+    }
+    > h1 {
+      width: fit-content;
+      max-width: 100%;
+      white-space: pre-wrap;
+      overflow: hidden;
+    }
   }
   > ul {
     list-style: none;
@@ -57,10 +67,8 @@ const TitleSection = styled.section`
   }
   @media screen and (max-width: 640px) {
     > div {
-      flex-direction: column-reverse;
       button {
-        align-self: flex-end;
-        margin-bottom: 1rem;
+        margin: 1rem 0;
       }
     }
     > ul {
