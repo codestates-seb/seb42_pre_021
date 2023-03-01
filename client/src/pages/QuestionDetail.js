@@ -72,6 +72,8 @@ const QuestionDetail = () => {
                       type="questions"
                       bookmark={question.questionBookmark}
                       setIsShowModal={setIsShowModal}
+                      answerSort={answerSort}
+                      setAnswerSort={setAnswerSort}
                     />
                   )}
                   <MarkdownContent data={question} />
@@ -81,6 +83,7 @@ const QuestionDetail = () => {
                     data={question}
                     setIsShowModal={setIsShowModal}
                     setAnswerSort={setAnswerSort}
+                    answers={question.questionAnswers}
                     answerSort={answerSort}
                   />
                 ) : null}

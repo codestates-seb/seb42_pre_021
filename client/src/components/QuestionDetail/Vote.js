@@ -6,9 +6,8 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import customAxios from 'api/baseURL';
 
-const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
+const Vote = ({ count, id, type, bookmark, setIsShowModal, answerSort, setAnswerSort }) => {
   const [voteCount, setVoteCount] = useState(count);
-  const [isVoted, setIsVoted] = useState(false);
   const currentVote = useMemo(() => voteCount, []);
 
   const { user } = useSelector(state => state.auth);
@@ -20,17 +19,20 @@ const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
       setIsShowModal(true);
       return;
     }
-    if (type === 'up' && voteCount <= currentVote && !isVoted) {
+    if (type === 'up') {
+      if (voteCount > currentVote) {
+        toast.error('이미 투표한 글입니다!');
+        return;
+      }
       setVoteCount(cur => cur + 1);
-      setIsVoted(true);
       patchVote(count + 1);
-    } else if (type === 'down' && voteCount >= currentVote && !isVoted) {
+    } else if (type === 'down') {
+      if (voteCount < currentVote) {
+        toast.error('이미 투표한 글입니다!');
+        return;
+      }
       setVoteCount(cur => cur - 1);
-      setIsVoted(true);
       patchVote(count - 1);
-    }
-    if (isVoted) {
-      toast.error('이미 투표한 글입니다!');
     }
   };
 
@@ -42,14 +44,24 @@ const Vote = ({ count, id, type, bookmark, setIsShowModal }) => {
       .catch(error => {
         console.log(error);
       });
+    setAnswerSort({ ...answerSort });
   };
 
   return (
     <Wrapper>
       <IoCaretUpSharp className="updown" onClick={() => handleArrowClick('up')} />
-      <p>{voteCount}</p>
+      <p>{count}</p>
       <IoCaretDownSharp className="updown" onClick={() => handleArrowClick('down')} />
-      <Bookmark bookmark={bookmark} id={id} type={type} setIsShowModal={setIsShowModal} />
+      <Bookmark
+        bookmark={
+          type === 'questions' ? bookmark.questionBookmarkFlag : bookmark.answerBookmarkFlag
+        }
+        id={id}
+        type={type}
+        setIsShowModal={setIsShowModal}
+        answerSort={answerSort}
+        setAnswerSort={setAnswerSort}
+      />
     </Wrapper>
   );
 };

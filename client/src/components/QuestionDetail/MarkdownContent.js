@@ -25,7 +25,11 @@ const MarkdownContent = ({ data, isAnswer, answerId, title }) => {
             answerId={answerId}
             title={title}
           />
-          <Comments data={data} isAnswer={answerId ? true : false} />
+          <Comments
+            data={data}
+            comments={isAnswer ? data.answerComments : data.questionComments}
+            isAnswer={answerId ? true : false}
+          />
         </MarkdownDesign>
       )}
     </>
