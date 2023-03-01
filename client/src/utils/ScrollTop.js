@@ -11,7 +11,7 @@ export default function ScrollToTop() {
         top: 0,
         behavior: 'smooth',
       });
-    }, 100);
+    }, 200);
   }, [pathname]);
 
   return null;
