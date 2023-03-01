@@ -20,7 +20,7 @@ export const getTime = date => {
     const betweenTime = Math.floor(diff / value.milliSeconds);
 
     if (betweenTime > 0) {
-      return formatter.format(betweenTime, value.name);
+      return formatter.format(-betweenTime, value.name);
     }
   }
   return 'just now';
