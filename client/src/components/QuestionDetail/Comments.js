@@ -47,7 +47,7 @@ const Comments = ({ data, comments, isAnswer }) => {
 
     setCommentValue('');
     toast.success('댓글이 등록되었습니다!');
-    // location.reload();
+    location.reload();
   };
 
   const handleDelete = comment => {
@@ -68,6 +68,7 @@ const Comments = ({ data, comments, isAnswer }) => {
         toast.info('Cancelled! Your comment is safe.');
       }
     });
+    location.reload();
   };
 
   const deleteRequest = async (isAnswer, comment) => {
