@@ -16,10 +16,8 @@ const Comments = ({ data, isAnswer }) => {
 
   useEffect(() => {
     if (isAnswer) {
-      console.log('answer', data);
       setComments(data.answerComments);
     } else {
-      console.log('question', data);
       setComments(data.questionComments);
     }
   }, []);
@@ -30,6 +28,12 @@ const Comments = ({ data, isAnswer }) => {
   };
 
   const handleSubmit = async () => {
+    // * 내용이 없을 시 리턴
+    if (commentValue === '') {
+      toast.error('내용을 작성해 주세요');
+      return;
+    }
+
     if (isAnswer) {
       const newData = {
         memberId: user.memberId + '',
@@ -40,7 +44,6 @@ const Comments = ({ data, isAnswer }) => {
       await customAxios.post(`/comments/answers`, {
         ...newData,
       });
-      // setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
     } else {
       const newData = {
         memberId: user.memberId + '',
@@ -49,9 +52,10 @@ const Comments = ({ data, isAnswer }) => {
         markdown: commentValue,
       };
       await customAxios.post(`/comments/questions`, { ...newData });
-      // setComments(cur => [...cur, { ...newData, nickname: user.nickname }]);
     }
+
     setCommentValue('');
+    toast.success('댓글이 등록되었습니다!');
     location.reload();
   };
 
@@ -82,7 +86,7 @@ const Comments = ({ data, isAnswer }) => {
     } else {
       await customAxios.delete(`/comments/questions/${comment.questionCommentId}`);
     }
-    location.reload();
+    // location.reload();
   };
 
   return (
