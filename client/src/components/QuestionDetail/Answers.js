@@ -1,14 +1,9 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
 import Vote from './Vote';
 
-const Answers = ({ data, setIsShowModal, setAnswerSort, answerSort }) => {
-  const [answers, setAnswers] = useState(data.questionAnswers);
-  useEffect(() => {
-    setAnswers(data.questionAnswers);
-  }, [answerSort]);
+const Answers = ({ data, setIsShowModal, setAnswerSort, answers, answerSort }) => {
   return (
     <>
       {answers.length ? (
@@ -28,12 +23,16 @@ const Answers = ({ data, setIsShowModal, setAnswerSort, answerSort }) => {
                   type="answers"
                   bookmark={answer.answerBookmark}
                   setIsShowModal={setIsShowModal}
+                  answerSort={answerSort}
+                  setAnswerSort={setAnswerSort}
                 />
                 <MarkdownContent
                   data={answer}
                   isAnswer={true}
                   answerId={answer.answerId}
                   title={data.title}
+                  answerSort={answerSort}
+                  setAnswerSort={setAnswerSort}
                 />
               </div>
             ))}

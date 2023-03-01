@@ -1,6 +1,6 @@
 import customAxios from 'api/baseURL';
 import AddButton from 'components/AddButton';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getTime } from 'utils/getTime';
@@ -8,19 +8,10 @@ import { GoX } from 'react-icons/go';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 
-const Comments = ({ data, isAnswer }) => {
-  const [comments, setComments] = useState([]);
+const Comments = ({ data, comments, isAnswer }) => {
   const [commentValue, setCommentValue] = useState('');
   const [isShow, setIsShow] = useState(false);
   const { user } = useSelector(state => state.auth);
-
-  useEffect(() => {
-    if (isAnswer) {
-      setComments(data.answerComments);
-    } else {
-      setComments(data.questionComments);
-    }
-  }, []);
 
   const handleInputChange = event => {
     const { value } = event.target;
@@ -56,7 +47,7 @@ const Comments = ({ data, isAnswer }) => {
 
     setCommentValue('');
     toast.success('댓글이 등록되었습니다!');
-    location.reload();
+    // location.reload();
   };
 
   const handleDelete = comment => {
@@ -86,7 +77,7 @@ const Comments = ({ data, isAnswer }) => {
     } else {
       await customAxios.delete(`/comments/questions/${comment.questionCommentId}`);
     }
-    // location.reload();
+    location.reload();
   };
 
   return (
