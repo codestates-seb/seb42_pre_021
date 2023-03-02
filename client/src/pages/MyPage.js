@@ -61,7 +61,11 @@ const MyPage = () => {
                 <span>Profile image</span>
                 <ProfileContainer>
                   <ImageBox>
-                    <img src={userinfo.data.profile} alt="profileImage" className="profileImage" />
+                    <img
+                      src={userinfo.data.profile + '/' + userinfo.data.memberId}
+                      alt="profileImage"
+                      className="profileImage"
+                    />
                   </ImageBox>
                   <ul>
                     <li>
