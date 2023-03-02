@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from 'features/authSlice';
 import userReducer from 'features/userSlice';
 import usersReducer from 'features/usersSlice';
+import searchReducer from 'features/searchSlice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   users: usersReducer,
   user: userReducer,
   auth: authReducer,
+  search: searchReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
