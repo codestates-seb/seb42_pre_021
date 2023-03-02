@@ -9,7 +9,14 @@ const users = async data => {
   const res = await customAxios.get(
     `/members?size=${data.size}&page=${data.page}&sortBy=${data.sortBy}&sortDir=${data.sortDir}`
   );
-  return res.data;
+  return res.data.data.map(item => {
+    if (item.profile.includes('source.boringavatars.com/beam')) {
+      return Object.assign({}, item, {
+        profile: item.profile + '/' + item.memberId,
+      });
+    }
+    return item;
+  });
 };
 
 const userDelete = async id => {
