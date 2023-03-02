@@ -48,6 +48,7 @@ const QuestionList = () => {
       getQuestions();
     } else {
       setQuestionList(data.data);
+      setPageInfo(data.pageInfo);
     }
   }, [sortBy, page, size, data]);
 
