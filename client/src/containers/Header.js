@@ -1,25 +1,33 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import HeaderInputForm from 'components/HeaderInputForm';
+import { reset, logout } from 'features/authSlice';
+import { resetSearch } from 'features/searchSlice';
+
 import { ReactComponent as StackoverflowLogo } from 'assets/stackoverflowLogo.svg';
 import { ReactComponent as Search } from 'assets/search.svg';
 import { ReactComponent as Stackoverflow } from 'assets/stackoverflow.svg';
 import { useMediaQuery } from 'react-responsive';
 import { FaBars } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'react-redux';
-import { reset, logout } from 'features/authSlice';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
 
+  const [inputOpened, setInputOpened] = useState(false);
   const isDeskOrMobi = useMediaQuery({ maxWidth: 640 });
-  const [inputClicked, setInputClickd] = useState(false);
 
-  const handleInputClick = () => {
-    setInputClickd(!inputClicked);
+  const handleMobileSearch = () => {
+    setInputOpened(!inputOpened);
+  };
+
+  const handleGoHome = () => {
+    dispatch(resetSearch());
+    navigate('/');
   };
 
   const handleLogout = () => {
@@ -29,71 +37,76 @@ const Header = () => {
   };
 
   return (
-    <Container>
-      <HeaderMenus>
-        <div className="logoContainer">
-          {isDeskOrMobi === true ? (
-            <MobileLogoBox>
-              <button className="menuBar">
-                <FaBars className="menu" />
-              </button>
-              <Link to="/" className="menuBar">
-                <Stackoverflow height={30} className="smallLogo" />
+    <>
+      <Container>
+        <HeaderMenus>
+          <div className="logoContainer">
+            {isDeskOrMobi === true ? (
+              <MobileLogoContainer>
+                <button className="mobile-logo__button">
+                  <FaBars className="menu-bar" />
+                </button>
+                <Link to="/" className="mobile-logo__button" onClick={handleGoHome}>
+                  <Stackoverflow height={30} className="mobile-logo" />
+                </Link>
+              </MobileLogoContainer>
+            ) : (
+              <Link to="/" className="desktop-logo__link" onClick={handleGoHome}>
+                <StackoverflowLogo width={140} height={40} className="desktop-logo" />
               </Link>
-            </MobileLogoBox>
-          ) : (
-            <Link to="/">
-              <StackoverflowLogo width={140} height={40} className="largeLogo" />
-            </Link>
-          )}
-        </div>
-        <div className="searchContainer">
-          {isDeskOrMobi === true ? (
-            <div>
-              <button onClick={handleInputClick}>
-                <Search width={16} height={16} className="smallSearchIcon" />
-              </button>
-            </div>
-          ) : (
-            <HeaderInputForm placeholder={'Search...'} icon={'seach'} />
-          )}
-        </div>
-        <ButtonContainer>
-          {user ? (
-            <>
-              <Link to="/mypage" className="mypageLink">
-                <img src={user.profile} alt={`${user.nickname} profile`} className="profileImage" />
-              </Link>
-              <Link to="/logout" className="logoutLink" onClick={handleLogout}>
-                Log out
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="loginLink">
-                Log in
-              </Link>
-              <Link to="/signup" className="signupLink">
-                Sign up
-              </Link>
-            </>
-          )}
-        </ButtonContainer>
-      </HeaderMenus>
-      {inputClicked && isDeskOrMobi ? (
-        <InputDrop>
-          <HeaderInputForm placeholder={'Search...'} icon={'search'} />
-        </InputDrop>
-      ) : null}
-    </Container>
+            )}
+          </div>
+          <div className="searchContainer">
+            {isDeskOrMobi === true ? (
+              <div className="mobile-search-button__wrapper">
+                <button onClick={handleMobileSearch} className="mobile-search-button">
+                  <Search width={16} height={16} className="smallSearchIcon" />
+                </button>
+              </div>
+            ) : (
+              <HeaderInputForm placeholder={'Search...'} icon={'search'} />
+            )}
+          </div>
+          <div className="buttonsContainer">
+            {user ? (
+              <>
+                <Link to="/mypage" className="mypageLink">
+                  <img
+                    src={user.profile}
+                    alt={`${user.nickname} profile`}
+                    className="profileImage"
+                  />
+                </Link>
+                <Link to="/logout" className="logoutLink" onClick={handleLogout}>
+                  Log out
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="loginLink">
+                  Log in
+                </Link>
+                <Link to="/signup" className="signupLink">
+                  Sign up
+                </Link>
+              </>
+            )}
+          </div>
+        </HeaderMenus>
+        {inputOpened && isDeskOrMobi ? (
+          <InputDrop>
+            <HeaderInputForm placeholder={'Search...'} icon={'search'} />
+          </InputDrop>
+        ) : null}
+      </Container>
+    </>
   );
 };
 
 const Container = styled.header`
   display: flex;
   position: fixed;
-  top: 0;
-  left: 0;
+  justify-content: center;
   height: 3.1rem;
   width: 100%;
   border-top: 0.18rem solid rgb(244, 130, 37);
@@ -106,38 +119,44 @@ const HeaderMenus = styled.div`
   display: flex;
   align-items: center;
   width: 1280px;
-  margin: 0 auto;
   > .logoContainer {
     display: flex;
     height: 100%;
-    margin-left: 0.5rem;
-    background-color: transparent;
-    border: none;
-    flex-grow: 1;
+    flex-grow: 2;
+    justify-content: start;
+
+    > .desktop-logo__link {
+      display: flex;
+      align-items: center;
+      > .desktop-logo {
+        margin-left: 1rem;
+      }
+    }
   }
 
   > .searchContainer {
-    display: inline-flex;
-    align-items: center;
-    flex-grow: 6;
+    display: flex;
+    flex-grow: 10;
     height: 100%;
-    > div {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    > .mobile-search-button__wrapper {
       display: flex;
       width: 100%;
       height: 100%;
       justify-content: end;
-      > button {
+      > .mobile-search-button {
         display: flex;
         justify-content: center;
         align-items: center;
-        border: none;
-        width: 2.5rem;
+        width: 15%;
         height: 100%;
+        border: none;
         background-color: transparent;
         &:hover {
           cursor: pointer;
           background-color: #dddddd;
-          border-radius: 2px;
         }
       }
     }
@@ -149,15 +168,77 @@ const HeaderMenus = styled.div`
       }
     }
   }
+  > .buttonsContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-grow: 1;
+    > .loginLink {
+      padding: 0.4rem;
+      text-decoration-line: none;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      border-radius: 0.2rem;
+      border: 1px solid rgb(137, 177, 205);
+      color: rgb(61, 118, 182);
+      background-color: rgb(225, 236, 244);
+      box-shadow: inset 0px 1px white;
+      :hover {
+        filter: brightness(0.9);
+      }
+    }
+
+    > .signupLink {
+      padding: 0.4rem;
+      text-decoration-line: none;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      border-radius: 0.2rem;
+      border: 1px solid rgb(82, 179, 253);
+      color: rgb(220, 240, 255);
+      background-color: rgb(10, 149, 255);
+      box-shadow: inset 0px 1px #95d1ff;
+      :hover {
+        filter: brightness(0.9);
+      }
+    }
+
+    > .mypageLink {
+      border-radius: 50%;
+      border: none;
+      width: 30px;
+      height: 30px;
+
+      .profileImage {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    > .logoutLink {
+      padding: 0.4rem;
+      text-decoration-line: none;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      border-radius: 0.2rem;
+      border: 1px solid rgb(82, 179, 253);
+      color: rgb(220, 240, 255);
+      background-color: rgb(10, 149, 255);
+      box-shadow: inset 0px 1px #95d1ff;
+      :hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
 `;
 
-const MobileLogoBox = styled.div`
+const MobileLogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
   width: 5rem;
-  > .menuBar {
+  > .mobile-logo__button {
     height: 100%;
     width: 100%;
     border: none;
@@ -167,73 +248,13 @@ const MobileLogoBox = styled.div`
       background-color: #dddddd;
     }
 
-    > .menu {
+    > .menu-bar {
       font-size: 1rem;
       color: #525960;
     }
 
-    > .smallLogo {
+    > .mobile-logo {
       margin-top: 0.5rem;
-    }
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 9rem;
-  > .loginLink {
-    padding: 0.4rem;
-    text-decoration-line: none;
-    font-size: 0.8rem;
-    border-radius: 0.2rem;
-    border: 1px solid rgb(137, 177, 205);
-    color: rgb(61, 118, 182);
-    background-color: rgb(225, 236, 244);
-    box-shadow: inset 0px 1px white;
-    :hover {
-      filter: brightness(0.9);
-    }
-  }
-
-  > .signupLink {
-    padding: 0.4rem;
-    text-decoration-line: none;
-    font-size: 0.8rem;
-    border-radius: 0.2rem;
-    border: 1px solid rgb(82, 179, 253);
-    color: rgb(220, 240, 255);
-    background-color: rgb(10, 149, 255);
-    box-shadow: inset 0px 1px #95d1ff;
-    :hover {
-      filter: brightness(0.9);
-    }
-  }
-
-  > .mypageLink {
-    border-radius: 50%;
-    border: none;
-    width: 30px;
-    height: 30px;
-
-    .profileImage {
-      width: 30px;
-      height: 30px;
-    }
-  }
-
-  > .logoutLink {
-    padding: 0.4rem;
-    text-decoration-line: none;
-    font-size: 0.8rem;
-    border-radius: 0.2rem;
-    border: 1px solid rgb(82, 179, 253);
-    color: rgb(220, 240, 255);
-    background-color: rgb(10, 149, 255);
-    box-shadow: inset 0px 1px #95d1ff;
-    :hover {
-      filter: brightness(0.9);
     }
   }
 `;
@@ -243,7 +264,7 @@ const InputDrop = styled.div`
   width: 100%;
   top: 3.1rem;
   left: 0;
-  padding: 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
   background-color: rgb(227, 230, 232);
 `;
 

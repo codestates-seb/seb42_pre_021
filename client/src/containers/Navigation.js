@@ -1,14 +1,23 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as Earth } from 'assets/earthvector.svg';
+import { resetSearch } from 'features/searchSlice';
+import { useDispatch } from 'react-redux';
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleGoHome = () => {
+    dispatch(resetSearch());
+    navigate('/');
+  };
   return (
     <>
       <NavContainer>
         <NavUl>
           <li>
-            <Link to="/" className="homeLink">
+            <Link to="/" className="homeLink" onClick={handleGoHome}>
               <NavSpan>Home</NavSpan>
             </Link>
           </li>
@@ -17,7 +26,7 @@ const Navigation = () => {
           <NavSpan>PUBLIC</NavSpan>
           <NavUl>
             <li>
-              <StyleLink to="/">
+              <StyleLink to="/" onClick={handleGoHome}>
                 <Earth className="earth" />
                 <PublicSpan>Questions</PublicSpan>
               </StyleLink>

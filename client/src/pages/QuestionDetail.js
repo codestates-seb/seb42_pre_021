@@ -22,7 +22,7 @@ const QuestionDetail = () => {
   const [question, setQuestion] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
   const [answerSort, setAnswerSort] = useState({
-    by: 'createdAt',
+    by: 'voteCount',
     dir: 'DESC',
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +35,7 @@ const QuestionDetail = () => {
 
     const params = {
       page: 1,
-      size: 10,
+      size: 50,
       sortDir: answerSort.dir,
       sortBy: answerSort.by,
       memberId,
@@ -53,13 +53,7 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     getQuestionData();
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }, 250);
-  }, []);
+  }, [answerSort]);
 
   return (
     <>
@@ -78,6 +72,8 @@ const QuestionDetail = () => {
                       type="questions"
                       bookmark={question.questionBookmark}
                       setIsShowModal={setIsShowModal}
+                      answerSort={answerSort}
+                      setAnswerSort={setAnswerSort}
                     />
                   )}
                   <MarkdownContent data={question} />
@@ -87,6 +83,8 @@ const QuestionDetail = () => {
                     data={question}
                     setIsShowModal={setIsShowModal}
                     setAnswerSort={setAnswerSort}
+                    answers={question.questionAnswers}
+                    answerSort={answerSort}
                   />
                 ) : null}
                 <YourAnswer questionId={question.questionId} />

@@ -13,6 +13,7 @@ import Spinner from 'components/Spinner';
 const QuestionList = () => {
   const navigate = useNavigate();
   const { user } = useSelector(state => state.auth);
+  const { data } = useSelector(state => state.search);
   // const user = JSON.parse(localStorage.getItem('user'));
 
   const [questionList, setQuestionList] = useState([]);
@@ -42,10 +43,13 @@ const QuestionList = () => {
         console.log(error);
       });
   };
-
   useEffect(() => {
-    getQuestions();
-  }, [sortBy, page, size]);
+    if (!data) {
+      getQuestions();
+    } else {
+      setQuestionList(data.data);
+    }
+  }, [sortBy, page, size, data]);
 
   const handleAskButtonClick = () => {
     user ? navigate('/add') : navigate('/login');
@@ -62,7 +66,7 @@ const QuestionList = () => {
             </div>
             <div>
               <h2>
-                {questionList.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
+                {pageInfo.totalElements.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} questions
               </h2>
               <ListSort sortBy={sortBy} setSortBy={setSortBy} />
             </div>

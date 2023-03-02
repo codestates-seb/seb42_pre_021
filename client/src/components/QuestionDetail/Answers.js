@@ -3,9 +3,7 @@ import AnswerSort from './AnswerSort';
 import MarkdownContent from './MarkdownContent';
 import Vote from './Vote';
 
-const Answers = ({ data, setIsShowModal, setAnswerSort }) => {
-  const answers = data.questionAnswers;
-
+const Answers = ({ data, setIsShowModal, setAnswerSort, answers, answerSort }) => {
   return (
     <>
       {answers.length ? (
@@ -25,12 +23,16 @@ const Answers = ({ data, setIsShowModal, setAnswerSort }) => {
                   type="answers"
                   bookmark={answer.answerBookmark}
                   setIsShowModal={setIsShowModal}
+                  answerSort={answerSort}
+                  setAnswerSort={setAnswerSort}
                 />
                 <MarkdownContent
                   data={answer}
                   isAnswer={true}
                   answerId={answer.answerId}
                   title={data.title}
+                  answerSort={answerSort}
+                  setAnswerSort={setAnswerSort}
                 />
               </div>
             ))}

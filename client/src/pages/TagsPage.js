@@ -15,7 +15,7 @@ const TagsPage = () => {
   const getTagsData = async () => {
     await customAxios
       .get('/tags', {
-        params: { page, size: 30 },
+        params: { page, size: 32 },
       })
       .then(resp => {
         if (current === 'name') {
@@ -51,7 +51,7 @@ const TagsPage = () => {
 
   useEffect(() => {
     getTagsData();
-  }, [searchValue, current]);
+  }, [searchValue, current, page]);
 
   return (
     <Container>
@@ -112,7 +112,7 @@ const TagsPage = () => {
             </TagArticle>
           ))}
         </TagList>
-        <Paging size={30} page={page} setPage={setPage} total={tags.length} />
+        <Paging size={30} page={page} setPage={setPage} total={500} />
       </TagsWrapper>
     </Container>
   );

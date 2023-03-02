@@ -6,6 +6,7 @@ export const getTime = date => {
 
   const formatter = new Intl.RelativeTimeFormat('en', {
     numeric: 'auto',
+    style: 'short',
   });
 
   const times = [
@@ -20,8 +21,8 @@ export const getTime = date => {
     const betweenTime = Math.floor(diff / value.milliSeconds);
 
     if (betweenTime > 0) {
-      return formatter.format(betweenTime, value.name);
+      return formatter.format(-betweenTime, value.name);
     }
   }
-  return 'just now';
+  return formatter.format(Math.floor(-diff), 'second');
 };

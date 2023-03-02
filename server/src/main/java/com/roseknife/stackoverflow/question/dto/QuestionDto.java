@@ -60,8 +60,8 @@ public class QuestionDto {
     public static class QuestionAnswer {
         @Positive
         private Long answerId;
-        private String createdAt;
-        private String modifiedAt;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
 
         @Column(length = 1000000)
         private String html;
@@ -75,10 +75,10 @@ public class QuestionDto {
 //        private AnswerBookmark answerBookmark;
         private AnswerBookmarkDto.Response answerBookmark;
         public QuestionAnswer(Long answerId,LocalDateTime createdAt, LocalDateTime modifiedAt, String html,String markdown, QuestionMember questionMember,List<AnswerCommentDto.Response> answerComments,
-                              AnswerBookmarkDto.Response answerBookmark,int voteCount) {
+                              AnswerBookmarkDto.Response answerBookmark,Integer voteCount) {
             this.answerId = answerId;
-            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.createdAt = createdAt;
+            this.modifiedAt = modifiedAt;
             this.html = html;
             this.markdown = markdown;
             this.voteCount = voteCount;
@@ -92,8 +92,10 @@ public class QuestionDto {
     @Getter
     @AllArgsConstructor
     public static class QuestionCommentResponse {
-        private String createdAt;
-        private String modifiedAt;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
+
+        private Long questionCommentId;
 
         private String html;
 
@@ -103,14 +105,14 @@ public class QuestionDto {
         private String nickname;
         private String profile;
 
-        public QuestionCommentResponse(LocalDateTime createdAt, LocalDateTime modifiedAt, String html, String markdown, QuestionMember questionMember, String nickname, String profile) {
-            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            this.html = html;
-            this.markdown = markdown;
-            this.nickname = nickname;
-            this.profile = profile;
-        }
+//        public QuestionCommentResponse(LocalDateTime createdAt, LocalDateTime modifiedAt, String html, String markdown, QuestionMember questionMember, String nickname, String profile) {
+//            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+//            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+//            this.html = html;
+//            this.markdown = markdown;
+//            this.nickname = nickname;
+//            this.profile = profile;
+//        }
     }
 
     @AllArgsConstructor
@@ -122,8 +124,8 @@ public class QuestionDto {
         private String html;
 
         private String markdown;
-        private String createdAt;
-        private String modifiedAt;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
         private Integer viewCount;
         private Integer answerCount;
 
@@ -152,8 +154,8 @@ public class QuestionDto {
             this.title = title;
             this.html = html;
             this.markdown = markdown;
-            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            this.createdAt = createdAt;
+            this.modifiedAt = modifiedAt;
             this.viewCount = viewCount;
             this.answerCount = answerCount;
             this.questionMember = questionMember;
@@ -187,8 +189,8 @@ public class QuestionDto {
         private String title;
         private String html;
         private String markdown;
-        private String createdAt;
-        private String modifiedAt;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
         private Integer viewCount;
         private Integer answerCount;
 
@@ -197,21 +199,21 @@ public class QuestionDto {
         private List<String> questionTags;
         private QuestionDto.QuestionMember questionMember;
 
-        public ResponseAll(Long questionId, String title, String html, String markdown, LocalDateTime createdAt,
-                           LocalDateTime modifiedAt, Integer viewCount, Integer answerCount,
-                           QuestionMember questionMember,Integer voteCount, List<String> questionTags) {
-            this.questionId = questionId;
-            this.title = title;
-            this.html = html;
-            this.markdown = markdown;
-            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            this.viewCount = viewCount;
-            this.answerCount = answerCount;
-            this.questionMember = questionMember;
-            this.voteCount = voteCount;
-            this.questionTags = questionTags;
-        }
+//        public ResponseAll(Long questionId, String title, String html, String markdown, LocalDateTime createdAt,
+//                           LocalDateTime modifiedAt, Integer viewCount, Integer answerCount,
+//                           QuestionMember questionMember,Integer voteCount, List<String> questionTags) {
+//            this.questionId = questionId;
+//            this.title = title;
+//            this.html = html;
+//            this.markdown = markdown;
+//            this.createdAt = createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+//            this.modifiedAt = modifiedAt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+//            this.viewCount = viewCount;
+//            this.answerCount = answerCount;
+//            this.questionMember = questionMember;
+//            this.voteCount = voteCount;
+//            this.questionTags = questionTags;
+//        }
 
     }
 }

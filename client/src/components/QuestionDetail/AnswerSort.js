@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const AnswerSort = ({ setAnswerSort }) => {
   const handleChangeOption = event => {
     const { value } = event.target;
-    console.log(value);
     if (value === 'createdAt') {
       setAnswerSort({
         by: value,
