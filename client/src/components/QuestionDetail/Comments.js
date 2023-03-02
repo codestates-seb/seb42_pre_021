@@ -12,6 +12,7 @@ const Comments = ({ data, comments, isAnswer }) => {
   const [commentValue, setCommentValue] = useState('');
   const [isShow, setIsShow] = useState(false);
   const { user } = useSelector(state => state.auth);
+  const userMemberId = user ? user.memberId : 0;
 
   const handleInputChange = event => {
     const { value } = event.target;
@@ -92,7 +93,7 @@ const Comments = ({ data, comments, isAnswer }) => {
                 <span className="name">&nbsp;- {comment.nickname}</span>
                 <span className="time">&nbsp;{getTime(comment.createdAt)}</span>
               </div>
-              {user.memberId + '' === comment.memberId ? (
+              {userMemberId + '' === comment.memberId ? (
                 <div className="delete">
                   <GoX role="presentation" onClick={() => handleDelete(comment)} />
                 </div>
