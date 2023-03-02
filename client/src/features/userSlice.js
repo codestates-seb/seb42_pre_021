@@ -24,15 +24,6 @@ export const getUser = createAsyncThunk('user/getUser', async (id, thunkAPI) => 
   }
 });
 
-// export const patchUser = createAsyncThunk('user/editUser', async (userData, thunkAPI) => {
-//   try {
-//     return await userService.userInfoEdit(userData.data, userData.id);
-//   } catch (error) {
-//     console.log(error);
-//     return thunkAPI.rejectWithValue(error);
-//   }
-// });
-
 export const deleteUser = createAsyncThunk('user/deleteUser', async (id, thunkAPI) => {
   try {
     return await userService.userDelete(id);
@@ -59,17 +50,6 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      // .addCase(patchUser.pending, state => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(patchUser.fulfilled, (state, action) => {
-      //   state.userinfo = action.payload;
-      //   state.isLoading = false;
-      // })
-      // .addCase(patchUser.rejected, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = action.payload;
-      // })
       .addCase(deleteUser.fulfilled, state => {
         state.userinfo = null;
       });

@@ -1,8 +1,13 @@
 import Navigation from 'containers/Navigation';
 import styled from 'styled-components';
 import { SideContent, QuestionList } from 'components/Questions';
+import { useDispatch } from 'react-redux';
+import { resetSearch } from 'features/searchSlice';
 
 const Questions = () => {
+  const dispatch = useDispatch();
+  dispatch(resetSearch());
+
   return (
     <>
       <Navigation />
