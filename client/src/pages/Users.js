@@ -14,7 +14,7 @@ const Users = () => {
   const dispatch = useDispatch();
   const { users, isLoading, error } = useSelector(state => state.users);
   const [newUserClicked, setNewUserClicked] = useState(false);
-  const data = { sortBy: 'createdAt', size: '10', page: '1', sortDir: 'DESC' };
+  const data = { sortBy: 'createdAt', size: '100', page: '1', sortDir: 'DESC' };
 
   const handleClickNewUsers = () => {
     setNewUserClicked(!newUserClicked);

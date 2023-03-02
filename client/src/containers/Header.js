@@ -72,7 +72,7 @@ const Header = () => {
               <>
                 <Link to="/mypage" className="mypageLink">
                   <img
-                    src={user.profile}
+                    src={user.profile + '/' + user.memberId}
                     alt={`${user.nickname} profile`}
                     className="profileImage"
                   />
