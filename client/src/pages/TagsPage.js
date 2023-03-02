@@ -11,13 +11,15 @@ const TagsPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [page, setPage] = useState(1);
   const [current, setCurrent] = useState('name');
+  const [pageInfo, setPageInfo] = useState({});
 
   const getTagsData = async () => {
     await customAxios
       .get('/tags', {
-        params: { page, size: 32 },
+        params: { page, size: 64 },
       })
       .then(resp => {
+        setPageInfo(resp.data.pageInfo);
         if (current === 'name') {
           setTags(
             resp.data.data
@@ -112,7 +114,7 @@ const TagsPage = () => {
             </TagArticle>
           ))}
         </TagList>
-        <Paging size={30} page={page} setPage={setPage} total={500} />
+        <Paging size={30} page={page} setPage={setPage} total={pageInfo.totalElements} />
       </TagsWrapper>
     </Container>
   );
