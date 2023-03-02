@@ -1,0 +1,140 @@
+{
+  "members": [
+    {
+      "id": 1,
+      "memberId": 1,
+      "email": "kimcoding@naver.com",
+      "nickname": "coding",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "Seoul",
+      "title": "title",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    },
+    {
+      "id": 2,
+      "memberId": 2,
+      "email": "kimcoding@naver.com",
+      "nickname": "",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "",
+      "title": "",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    },
+    {
+      "id": 3,
+      "memberId": 3,
+      "email": "kimcoding@naver.com",
+      "nickname": "coding",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "Seoul",
+      "title": "title",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    },
+    {
+      "id": 4,
+      "memberId": 4,
+      "email": "kimcoding@naver.com",
+      "nickname": "",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "",
+      "title": "",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    },
+    {
+      "id": 5,
+      "memberId": 5,
+      "email": "kimcoding@naver.com",
+      "nickname": "coding",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "Seoul",
+      "title": "title",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    },
+    {
+      "id": 6,
+      "memberId": 6,
+      "email": "kimcoding@naver.com",
+      "nickname": "",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "",
+      "title": "",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    },
+    {
+      "id": 7,
+      "memberId": 7,
+      "email": "kimcoding@naver.com",
+      "nickname": "coding",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "Seoul",
+      "title": "title",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    },
+    {
+      "id": 8,
+      "memberId": 8,
+      "email": "kimcoding@naver.com",
+      "nickname": "",
+      "profile": "https://source.boringavatars.com/beam/32",
+      "createdAt": "2022-02-03",
+      "modifiedAt": "2022-03-01",
+      "lastLoginAt": "2023-01-01",
+      "location": "",
+      "title": "",
+      "content": {
+        "html": "<p>asdfasdf</p>",
+        "markdown": " asdfasdf"
+      },
+      "memberStatus": "Yes"
+    }
+  ]
+}
