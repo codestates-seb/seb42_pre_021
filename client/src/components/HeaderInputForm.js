@@ -6,9 +6,11 @@ import { AiFillLock } from 'react-icons/ai';
 import HeaderInputFocusDrop from 'components/HeaderInputFocusDrop';
 import { useDispatch } from 'react-redux';
 import { getSearchList } from 'features/searchSlice';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderInputForm = ({ placeholder, icon }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchInput = useRef();
 
   const [isInputOpened, setIsInputOpened] = useState(false);
@@ -39,6 +41,7 @@ const HeaderInputForm = ({ placeholder, icon }) => {
     }
     searchInput.current.value = null;
     setIsInputOpened(false);
+    navigate('/');
   };
   return (
     <>
